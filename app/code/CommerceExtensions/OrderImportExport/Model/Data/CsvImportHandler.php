@@ -46,11 +46,11 @@ class CsvImportHandler
      */
     protected $resourceConnection;
 
-	/**
+    /**
      * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
     protected $scopeConfig;
-	
+    
     /**
      * @var \Magento\Framework\DB\Adapter\AdapterInterface
      */
@@ -171,7 +171,7 @@ class CsvImportHandler
         \Magento\Framework\File\CsvFactory $csvProcessor,
         \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory,
         \Magento\Sales\Model\ResourceModel\OrderFactory $orderResourceFactory,
-		\Magento\Sales\Model\Order\Shipment\TrackFactory $shipmentTrackFactory,
+        \Magento\Sales\Model\Order\Shipment\TrackFactory $shipmentTrackFactory,
         \Magento\Quote\Api\Data\CartInterfaceFactory $cartInterfaceFactory,
         \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
         \Magento\Store\Model\StoreManagerInterfaceFactory $storeManagerInterfaceFactory,
@@ -184,14 +184,14 @@ class CsvImportHandler
         \Magento\Customer\Api\Data\AddressInterfaceFactory $addressFactory,
         \Magento\Directory\Model\CountryFactory $countryFactory,
         \Magento\Directory\Model\RegionFactory $regionFactory,
-		\Magento\Directory\Model\ResourceModel\Region\Collection $regionCollection,
+        \Magento\Directory\Model\ResourceModel\Region\Collection $regionCollection,
 
         \Magento\Catalog\Model\ProductRepository $productRepository,
         \Magento\Framework\ObjectManagerInterface $objectManager
     )
     {
         $this->resourceConnection               = $resourceConnection;
-        $this->scopeConfig 						= $scopeConfig;
+        $this->scopeConfig                      = $scopeConfig;
         $this->adapter                          = $resourceConnection->getConnection();
         $this->csvProcessor                     = $csvProcessor->create();
         $this->orderCollectionFactory           = $orderCollectionFactory;
@@ -258,21 +258,21 @@ class CsvImportHandler
         $data    = $this->csvProcessor->getData($this->file->getTmpName());
         $columns = $data[0];
         unset($data[0]);
-		$rowCounter=1;
+        $rowCounter=1;
 
         #foreach($data as &$row) {
         foreach($data as $key => &$row) {
             //TODO create model/interface for rows instead of using \Magento\Framework\DataObject
-			try {
-            	$row = array_combine($columns, $row);
-            	$this->importOrder(new \Magento\Framework\DataObject($row));
-			} catch (\Magento\Framework\Exception\LocalizedException $e) {
+            try {
+                $row = array_combine($columns, $row);
+                $this->importOrder(new \Magento\Framework\DataObject($row));
+            } catch (\Magento\Framework\Exception\LocalizedException $e) {
                 throw new \Magento\Framework\Exception\LocalizedException(__('ROW: ' . $rowCounter . ' ERROR: ' . $e->getMessage()), $e);
             }
             catch (\Exception $e){
                 throw new \Magento\Framework\Exception\LocalizedException(__('ROW: ' . $rowCounter . ' ERROR: ' . $e->getMessage()), $e);
             }
-			$rowCounter++;
+            $rowCounter++;
         }
     }
 
@@ -287,7 +287,7 @@ class CsvImportHandler
 
         $scope   = 'default';
         $scopeId = 0;
-		
+        
         //'core/config_data_collection'
         $collection = $this->objectManager->create("Magento\Config\Model\ResourceModel\Config\Data\Collection");
         $collection->addFieldToFilter('scope', $scope);
@@ -319,8 +319,8 @@ class CsvImportHandler
             $finalId = (int)$row->getOrderId();
              
             $customnumber = $this->_getNotCachedConfig('customnumber', $row->getStoreId());
-			$customnumber->setValue($finalId);
-			$customnumber->save();
+            $customnumber->setValue($finalId);
+            $customnumber->save();
             #$table   = $this->orderResource->getTable('sequence_order_' . $row->getStoreId());
             #$this->adapter->query("ALTER TABLE {$table} AUTO_INCREMENT={$finalId}");
         }
@@ -342,7 +342,7 @@ class CsvImportHandler
         }
         return $this;
     }
-	
+    
     protected function setShipmentSequenceId(\Magento\Framework\DataObject $row)
     {
         //TODO test
@@ -453,13 +453,13 @@ class CsvImportHandler
         $id = $row->getData("{$type}_country");
 
         /** @var \Magento\Directory\Model\Country $country */
-		if($id!=""){
-			$country = $this->countryFactory->create();
-			$country->loadByCode($id);
-			if($country->getId()) {
-				$id = $country->getId();
-			}
-		}
+        if($id!=""){
+            $country = $this->countryFactory->create();
+            $country->loadByCode($id);
+            if($country->getId()) {
+                $id = $country->getId();
+            }
+        }
         return $id;
     }
 
@@ -572,23 +572,23 @@ class CsvImportHandler
 
             $row->setGroupId($this->getCustomerGroupId($row));
 
-			$isNewCustomer = false;
-			
+            $isNewCustomer = false;
+            
             try {
                 if($id = $row->getCustomerId()) {
                     $customer = $this->customerRegistry->retrieve($id);
                 } else {
-					$storeManager = $this->storeManagerInterfaceFactory->create();
-					$websiteId    = $storeManager->getStore($row->getStoreId())->getWebsiteId();
-					if($websiteId > 0) {
-                    	$customer = $this->customerRegistry->retrieveByEmail($row->getEmail(), $websiteId);
-					} else {
-                    	$customer = $this->customerRegistry->retrieveByEmail($row->getEmail());
-					}
+                    $storeManager = $this->storeManagerInterfaceFactory->create();
+                    $websiteId    = $storeManager->getStore($row->getStoreId())->getWebsiteId();
+                    if($websiteId > 0) {
+                        $customer = $this->customerRegistry->retrieveByEmail($row->getEmail(), $websiteId);
+                    } else {
+                        $customer = $this->customerRegistry->retrieveByEmail($row->getEmail());
+                    }
                 }
             } catch(\Exception $e) {
                 $customer = $this->createCustomer($row);
-				$isNewCustomer = true;
+                $isNewCustomer = true;
             }
 
             if($this->params->getUpdateCustomerAddress() == 'true' || $isNewCustomer) {
@@ -613,28 +613,28 @@ class CsvImportHandler
                 $billingAddress   = $this->getMappedAddress($row, 'billing');
                 $shippingAddress  = $this->getMappedAddress($row, 'shipping');
                 $addressesAreSame = $this->compareAddresses($billingAddress, $shippingAddress);
-				//these are commented out but i had one site only that oddly $address->isDefaultBilling() is always false
-				#$defaultBilling = false;
-				#$defaultShipping = false;
-				
+                //these are commented out but i had one site only that oddly $address->isDefaultBilling() is always false
+                #$defaultBilling = false;
+                #$defaultShipping = false;
+                
                 if($addressesAreSame) {
                     $addressBilingData = $this->createAddress($billingAddress, $customer, true, true);
                     $customer->setDefaultBilling($addressBilingData->getId());
-					#$defaultBilling = true;
+                    #$defaultBilling = true;
                 } else {
                     $addressBilingData = $this->createAddress($billingAddress, $customer, true, false);
                     $customer->setDefaultBilling($addressBilingData->getId());
-					#$defaultBilling = true;
+                    #$defaultBilling = true;
                     #$this->createAddress($shippingAddress, $customer, false, true);
-					if($row->getShippingCountryId()!="") {
-						$addressShippingData = $this->createAddress($shippingAddress, $customer, false, true);
-                   		$customer->setDefaultShipping($addressShippingData->getId());
-						#$defaultShipping = true;
-					}
+                    if($row->getShippingCountryId()!="") {
+                        $addressShippingData = $this->createAddress($shippingAddress, $customer, false, true);
+                        $customer->setDefaultShipping($addressShippingData->getId());
+                        #$defaultShipping = true;
+                    }
                 }
                 /** update customer model with ids of default billing and shipping */
                 $customer = $this->customerRepository->getById($customer->getId());
-				//took the below out i think above is ok to do instead
+                //took the below out i think above is ok to do instead
                 #foreach($customer->getAddresses() as $address) {
                     #if($address->isDefaultBilling()) {
                     #if($defaultBilling) {
@@ -654,13 +654,13 @@ class CsvImportHandler
         }
         return false;
     }
-	
-	protected function setOrderProductData(\Magento\Framework\DataObject $row)
+    
+    protected function setOrderProductData(\Magento\Framework\DataObject $row)
     {
-       	if(!$row->getProductsOrdered()) {
+        if(!$row->getProductsOrdered()) {
            throw new \Exception(__('products_ordered field is required.'));
-		}
-		
+        }
+        
         $add_products_array = array();
         $productcounter   = 1;
         foreach(explode('|', $row->getProductsOrdered()) as $data) {
@@ -668,33 +668,32 @@ class CsvImportHandler
             $parts = explode(':', $data);
             //splitting options into string (e.g. Single-Eva:1:simple:8x10:Black:None:None)
             $fullSKU = $parts[0];
-			if(isset($parts[1])) {
-				$part_qty = $parts[1];
-			} else {
-				$part_qty = "1";
-			}
+            if(isset($parts[1])) {
+                $part_qty = $parts[1];
+            } else {
+                $part_qty = "1";
+            }
             $i       = 3;
             while(isset($parts[$i])) {
                 $fullSKU .= "-" . $parts[$i];
                 $i++;
             }
-			
-			$keyforinsert = "I-oe_productstandin";
-			$product_id = $parts[0];
-			
-			try {
-				if($this->params->getSkipProductLookup() == 'true') {
-					( $productcounter > 1 ) ? $keyforinsert .= $productcounter : $keyforinsert;
-					$product = $this->productRepository->get($keyforinsert);
-				} else {
-					$product = $this->productRepository->get($product_id);
-				}
-				
+            
+            $keyforinsert = "I-oe_productstandin";
+            $product_id = $parts[0];
+            
+            try {
+                if($this->params->getSkipProductLookup() == 'true') {
+                    $product = $this->productRepository->get($product_id);
+                } else {
+                    $product = $this->productRepository->get($product_id);
+                }
+                
             } catch(\Exception $e) {
                 $product = $this->createProduct($row->getStoreId(), $keyforinsert);
             }
-			
-			
+            
+            
             try {
                 $this->handleProduct($data, $add_products_array, $row->getData(), $product, $productcounter, $fullSKU);
             } catch(\Exception $e) {
@@ -708,152 +707,153 @@ class CsvImportHandler
                 //There was a problem during handleProduct and our product wasn't made. A filler/import product was created instead
                 unset($add_products_array[$fullSKU]);
             }
+            
             $productcounter++;
         }
         return $add_products_array;
-	}
+    }
 
     protected function importOrder(\Magento\Framework\DataObject $row)
     {
-		//added this little check here because we would get duplicate key sql error because orderID already exists and was trying to reimport again
-		$orders = $this->objectManager->get('Magento\Sales\Model\Order')->getCollection();
+        //added this little check here because we would get duplicate key sql error because orderID already exists and was trying to reimport again
+        $orders = $this->objectManager->get('Magento\Sales\Model\Order')->getCollection();
         $orderId = $row->getOrderId();
         $orders->addFilter("increment_id", $orderId);
-		
-		//if order_id already exists skip to next row
+        
+        //if order_id already exists skip to next row
         if ($orderId) {
             $ord = $orders->getFirstItem();
             if ($ord && $ord->getId()) {
-				return; 
+                return; 
             }
         }
-		//TODO: make sure we only do this on US based orders
-		//ZIPCODE LOOK UP FOR BILLING REGION
-		/*
-		if($row->getBillingRegion() == "" && $row->getBillingPostcode()!="") {
-			
-			$pos = strpos($row->getBillingPostcode(), "-");
-			if ($pos !== false) {
-				$billingPostcodeArray = explode("-", $row->getBillingPostcode());
-				$billing_postcode = $billingPostcodeArray[0];
-			} else {
-				$billing_postcode = $row->getBillingPostcode();
-			}
-			try {
-				$billing_data = file_get_contents("http://api.zippopotam.us/us/".$billing_postcode);
-            } catch(\Exception $e) {
-				$billing_data = file_get_contents("http://api.zippopotam.us/us/10001");
+        //TODO: make sure we only do this on US based orders
+        //ZIPCODE LOOK UP FOR BILLING REGION
+        /*
+        if($row->getBillingRegion() == "" && $row->getBillingPostcode()!="") {
+            
+            $pos = strpos($row->getBillingPostcode(), "-");
+            if ($pos !== false) {
+                $billingPostcodeArray = explode("-", $row->getBillingPostcode());
+                $billing_postcode = $billingPostcodeArray[0];
+            } else {
+                $billing_postcode = $row->getBillingPostcode();
             }
-			$billing_data_array = $this->objectManager->get(\Magento\Framework\Json\Helper\Data::class)->jsonDecode($billing_data);
-			$row->setData("billing_region", $billing_data_array["places"][0]["state"]);
-		
-		}
-		*/
-		//ZIPCODE LOOK UP FOR BILLING REGION
-		//ZIPCODE LOOK UP FOR SHIPPING REGION
-		/*
-		if($row->getShippingRegion() == "" && $row->getShippingPostcode()!="") {
-		
-			$pos = strpos($row->getShippingPostcode(), "-");
-			if ($pos !== false) {
-				$shippingPostcodeArray = explode("-", $row->getShippingPostcode());
-				$shipping_postcode = $shippingPostcodeArray[0];
-			} else {
-				$shipping_postcode = $row->getShippingPostcode();
-			}
-			try {
-				$shipping_data = file_get_contents("http://api.zippopotam.us/us/".$shipping_postcode);
+            try {
+                $billing_data = file_get_contents("http://api.zippopotam.us/us/".$billing_postcode);
             } catch(\Exception $e) {
-				$shipping_data = file_get_contents("http://api.zippopotam.us/us/10001");
+                $billing_data = file_get_contents("http://api.zippopotam.us/us/10001");
             }
-			$shipping_data_array = $this->objectManager->get(\Magento\Framework\Json\Helper\Data::class)->jsonDecode($shipping_data);
-			$row->setData("shipping_region", $shipping_data_array["places"][0]["state"]);
-		
-		}
-		*/
-		//ZIPCODE LOOK UP FOR SHIPPING REGION
-		
-		//LOOKING FOR BLANK SPACE
-		/*
-		if(strlen($row->getBillingTelephone())<=1) {
-			$row->setBillingTelephone("000-000-0000");
-		}
-		if(strlen($row->getShippingTelephone())<=1 ) {
-			$row->setShippingTelephone("000-000-0000");
-		}
-		*/
-		//LOOKING FOR BLANK SPACE
-		/*
-		if(strlen($row->getBillingCompany())<=1) {
-			$row->setBillingCompany("N/A");
-		}
-		if(strlen($row->getShippingCompany())<=1 ) {
-			$row->setShippingCompany("N/A");
-		}
-		
-		if($row->getOrderStatus() == "completed") {
-			$row->setOrderStatus("complete");
-		}
-		*/
-		//FULL CHECK HERE FOR BLANKS AND USE DUMBY DATA
-		/*
-		if($row->getBillingStreetFull() == "") {
-			$row->setBillingStreetFull("26 Broadway");
-		}
-		if($row->getShippingStreetFull() == "") {
-			$row->setShippingStreetFull("26 Broadway");
-		}
-		if($row->getBillingCity() == "") {
-			$row->setBillingCity("New York");
-		}
-		if($row->getShippingCity() == "") {
-			$row->setShippingCity("New York");
-		}
-		if($row->getBillingRegion() == "") {
-			$row->setBillingRegion("New York");
-		}
-		if($row->getShippingRegion() == "") {
-			$row->setShippingRegion("New York");
-		}
-		if($row->getBillingPostcode() == "") {
-			$row->setBillingPostcode("10004");
-		}
-		if($row->getShippingPostcode() == "") {
-			$row->setShippingPostcode("10004");
-		}
-		if($row->getFirstname() == "") {
-			if($row->getBillingFirstname()!="") {
-				$row->setFirstname($row->getBillingFirstname());
-			}
-		}
-		if($row->getLastname() == "") {
-			if($row->getBillingLastname()!="") {
-				$row->setLastname($row->getBillingLastname());
-			}
-		}
-		if($row->getShippingFirstname() == "") {
-			if($row->getBillingFirstname()!="") {
-				$row->setShippingFirstname($row->getBillingFirstname());
-			}
-		}
-		if($row->getShippingLastname() == "") {
-			if($row->getBillingLastname()!="") {
-				$row->setShippingLastname($row->getBillingLastname());
-			}
-		}
-		if( strpos($row->getEmail(), ".con") !== false ) {
-			$finalEmail = str_replace(".con",".com",$row->getEmail());
-			$row->setEmail($finalEmail);
-		}
-		if( strpos($row->getEmail(), ".netishtar") !== false ) {
-			$finalEmail = str_replace(".netishtar",".net",$row->getEmail());
-			$row->setEmail($finalEmail);
-		}
-		*/
-		//FULL CHECK HERE FOR BLANKS AND USE DUMBY DATA
-		
+            $billing_data_array = $this->objectManager->get(\Magento\Framework\Json\Helper\Data::class)->jsonDecode($billing_data);
+            $row->setData("billing_region", $billing_data_array["places"][0]["state"]);
+        
+        }
+        */
+        //ZIPCODE LOOK UP FOR BILLING REGION
+        //ZIPCODE LOOK UP FOR SHIPPING REGION
+        /*
+        if($row->getShippingRegion() == "" && $row->getShippingPostcode()!="") {
+        
+            $pos = strpos($row->getShippingPostcode(), "-");
+            if ($pos !== false) {
+                $shippingPostcodeArray = explode("-", $row->getShippingPostcode());
+                $shipping_postcode = $shippingPostcodeArray[0];
+            } else {
+                $shipping_postcode = $row->getShippingPostcode();
+            }
+            try {
+                $shipping_data = file_get_contents("http://api.zippopotam.us/us/".$shipping_postcode);
+            } catch(\Exception $e) {
+                $shipping_data = file_get_contents("http://api.zippopotam.us/us/10001");
+            }
+            $shipping_data_array = $this->objectManager->get(\Magento\Framework\Json\Helper\Data::class)->jsonDecode($shipping_data);
+            $row->setData("shipping_region", $shipping_data_array["places"][0]["state"]);
+        
+        }
+        */
+        //ZIPCODE LOOK UP FOR SHIPPING REGION
+        
+        //LOOKING FOR BLANK SPACE
+        /*
+        if(strlen($row->getBillingTelephone())<=1) {
+            $row->setBillingTelephone("000-000-0000");
+        }
+        if(strlen($row->getShippingTelephone())<=1 ) {
+            $row->setShippingTelephone("000-000-0000");
+        }
+        */
+        //LOOKING FOR BLANK SPACE
+        /*
+        if(strlen($row->getBillingCompany())<=1) {
+            $row->setBillingCompany("N/A");
+        }
+        if(strlen($row->getShippingCompany())<=1 ) {
+            $row->setShippingCompany("N/A");
+        }
+        
+        if($row->getOrderStatus() == "completed") {
+            $row->setOrderStatus("complete");
+        }
+        */
+        //FULL CHECK HERE FOR BLANKS AND USE DUMBY DATA
+        /*
+        if($row->getBillingStreetFull() == "") {
+            $row->setBillingStreetFull("26 Broadway");
+        }
+        if($row->getShippingStreetFull() == "") {
+            $row->setShippingStreetFull("26 Broadway");
+        }
+        if($row->getBillingCity() == "") {
+            $row->setBillingCity("New York");
+        }
+        if($row->getShippingCity() == "") {
+            $row->setShippingCity("New York");
+        }
+        if($row->getBillingRegion() == "") {
+            $row->setBillingRegion("New York");
+        }
+        if($row->getShippingRegion() == "") {
+            $row->setShippingRegion("New York");
+        }
+        if($row->getBillingPostcode() == "") {
+            $row->setBillingPostcode("10004");
+        }
+        if($row->getShippingPostcode() == "") {
+            $row->setShippingPostcode("10004");
+        }
+        if($row->getFirstname() == "") {
+            if($row->getBillingFirstname()!="") {
+                $row->setFirstname($row->getBillingFirstname());
+            }
+        }
+        if($row->getLastname() == "") {
+            if($row->getBillingLastname()!="") {
+                $row->setLastname($row->getBillingLastname());
+            }
+        }
+        if($row->getShippingFirstname() == "") {
+            if($row->getBillingFirstname()!="") {
+                $row->setShippingFirstname($row->getBillingFirstname());
+            }
+        }
+        if($row->getShippingLastname() == "") {
+            if($row->getBillingLastname()!="") {
+                $row->setShippingLastname($row->getBillingLastname());
+            }
+        }
+        if( strpos($row->getEmail(), ".con") !== false ) {
+            $finalEmail = str_replace(".con",".com",$row->getEmail());
+            $row->setEmail($finalEmail);
+        }
+        if( strpos($row->getEmail(), ".netishtar") !== false ) {
+            $finalEmail = str_replace(".netishtar",".net",$row->getEmail());
+            $row->setEmail($finalEmail);
+        }
+        */
+        //FULL CHECK HERE FOR BLANKS AND USE DUMBY DATA
+        
         if(strpos($row->getOrderId(), '-') !== false) {
-       		$this->currentQuote = $this->cartInterfaceFactory->create();
+            $this->currentQuote = $this->cartInterfaceFactory->create();
             $parts = explode("-", $row->getOrderId());
             //TODO test the linking of the old orders
             /** @var \Magento\Sales\Model\ResourceModel\Order\Collection $collection */
@@ -861,16 +861,16 @@ class CsvImportHandler
             $collection->addFilter(OrderInterface::INCREMENT_ID, $parts[0]);
             $order = $collection->getFirstItem();
             if($order->getId()) {
-   				$order->setReordered(true);
+                $order->setReordered(true);
                 $this->currentQuote->setOrigOrderId($order->getId());
                 $this->currentQuote->setOrderId($order->getId());
-            	$this->objectManager->get('\Magento\Backend\Model\Session\Quote')->setOrderId($order->getId());
+                $this->objectManager->get('\Magento\Backend\Model\Session\Quote')->setOrderId($order->getId());
             }
         }
 
         $this->setOrderSequenceId($row); // this possible needs to be in a if else from above cause dont set if order # has -
         #$this->setInvoiceSequenceId($row); //dont need this now its set in createInvoice
-		#$this->setShipmentSequenceId($row); //dont need this now its set in createShipments
+        #$this->setShipmentSequenceId($row); //dont need this now its set in createShipments
 
         $customer           = "";
         $customerId         = "";
@@ -879,15 +879,15 @@ class CsvImportHandler
         }
 
         $add_products_array = $this->setOrderProductData($row);
-		
-		//remove tracking data if empty
-		if(strlen($row->getTrackingDate())<=1) { $row->unsTrackingDate(); }
-		if(strlen($row->getTrackingShipMethod())<=1) { $row->unsTrackingShipMethod(); }
-		if(strlen($row->getTrackingCodes())<=1) { $row->unsTrackingCodes(); }
-			
+    
+        //remove tracking data if empty
+        if(strlen($row->getTrackingDate())<=1) { $row->unsTrackingDate(); }
+        if(strlen($row->getTrackingShipMethod())<=1) { $row->unsTrackingShipMethod(); }
+        if(strlen($row->getTrackingCodes())<=1) { $row->unsTrackingCodes(); }
+            
         //shipping
         $final_shipping = $this->createShipping($customer, $row);
-		
+        
 
         //assemble data structure
         $orderData = $this->assembleOrderData($customerId,
@@ -1036,36 +1036,36 @@ class CsvImportHandler
 
     public function createProduct($store_id, $sku_key)
     {
-		try {
-		
-			$productTypes = $this->_getProductTypes();
-			$product = $this->productRepository->get($sku_key);
-			
-		} catch(\Exception $e) {
-			$product = $this->objectManager->create('Magento\Catalog\Model\Product')
-										   ->setSku($sku_key)//'sku', $product_id); //'I-oe_productstandin';
-										   ->setStoreId($store_id)
-										   ->setName("Imported product")
-										   ->setTypeId($productTypes['simple'])//use to be virtual needs to be simple or shipments are ignored
-										   ->setAttributeSetId(4)
-										   ->setStatus(1)
-										   ->setTaxClassId(2)//makes products taxable as they all are
-										   ->setVisibility(\Magento\Catalog\Model\Product\Visibility::VISIBILITY_NOT_VISIBLE)
-										   ->setPrice(0)
-										   ->setStockData(array(
-																'use_config_manage_stock' => 0, //'Use config settings' checkbox
-																'manage_stock' => 0, //manage stock
-																'min_sale_qty' => 1, //Minimum Qty Allowed in Shopping Cart
-																'max_sale_qty' => 2, //Maximum Qty Allowed in Shopping Cart
-																'is_in_stock' => 1, //Stock Availability
-																)
-															);
-			try {
-				$product->save();
-			} catch(\Exception $e) {
-				throw new \Magento\Framework\Exception\LocalizedException(__("Can't save standin product: " . $e->getMessage()), $e);
-			}
-		}
+        try {
+        
+            $productTypes = $this->_getProductTypes();
+            $product = $this->productRepository->get($sku_key);
+            
+        } catch(\Exception $e) {
+            /*$product = $this->objectManager->create('Magento\Catalog\Model\Product')
+                                           ->setSku($sku_key)//'sku', $product_id); //'I-oe_productstandin';
+                                           ->setStoreId($store_id)
+                                           ->setName("Imported product")
+                                           ->setTypeId($productTypes['simple'])//use to be virtual needs to be simple or shipments are ignored
+                                           ->setAttributeSetId(4)
+                                           ->setStatus(1)
+                                           ->setTaxClassId(2)//makes products taxable as they all are
+                                           ->setVisibility(\Magento\Catalog\Model\Product\Visibility::VISIBILITY_NOT_VISIBLE)
+                                           ->setPrice(0)
+                                           ->setStockData(array(
+                                                                'use_config_manage_stock' => 0, //'Use config settings' checkbox
+                                                                'manage_stock' => 0, //manage stock
+                                                                'min_sale_qty' => 1, //Minimum Qty Allowed in Shopping Cart
+                                                                'max_sale_qty' => 2, //Maximum Qty Allowed in Shopping Cart
+                                                                'is_in_stock' => 1, //Stock Availability
+                                                                )
+                                                            );
+            try {
+                $product->save();
+            } catch(\Exception $e) {
+                throw new \Magento\Framework\Exception\LocalizedException(__("Can't save standin product: " . $e->getMessage()), $e);
+            }*/
+        }
 
         return $product;
     }
@@ -1087,15 +1087,15 @@ class CsvImportHandler
     {
 
         try {
-			
-			$resource   = $this->objectManager->get('Magento\Framework\App\ResourceConnection');
-			$connection = $resource->getConnection();
-			
-			$products_ordered = explode('|', $importData['products_ordered']);
+            
+            $resource   = $this->objectManager->get('Magento\Framework\App\ResourceConnection');
+            $connection = $resource->getConnection();
+            
+            $products_ordered = explode('|', $importData['products_ordered']);
             //payment
             #$this->_processQuote($orderData);
             $this->_processQuote($orderData, $products_ordered, $importData, $params);
-			
+            
             if(!empty($orderData['payment'])) {
                 $this->createPayment($orderData);
             }
@@ -1111,16 +1111,15 @@ class CsvImportHandler
             #Mage::getSingleton('adminhtml/session_quote')->clear();
             $this->objectManager->get('\Magento\Backend\Model\Session\Quote')->clearStorage();
 
-			if(isset($importData['created_at'])) {
-			 	$dateTime  = strtotime($importData['created_at']);
-				$orderDate = date("Y-m-d H:i:s", $dateTime);
-				$order1->setCreatedAt($orderDate);
-				$order1->setUpdatedAt($orderDate);
-				$order1->setOrderCreatedAt($orderDate);
-				$order1->save();  
-			}
+            if(isset($importData['created_at'])) {
+                $dateTime  = strtotime($importData['created_at']);
+                $orderDate = date("Y-m-d H:i:s", $dateTime);
+                $order1->setCreatedAt($orderDate);
+                $order1->setUpdatedAt($orderDate);
+                $order1->setOrderCreatedAt($orderDate);
+            }
             //Adding invoice/shipment creation
-			/*
+            /*
             if(method_exists($order1, 'getId')) {
                 $this->updateOrderCreationTime($importData, $connection, $resource, $order1);
             } else {
@@ -1128,23 +1127,23 @@ class CsvImportHandler
                     __('Order #' . $importData['order_id'] . ' ERROR SAVING ORDER SKIPPING ROW')
                 );
             }
-			*/
+            */
             //invoice
             if($params['create_invoice'] == "true") {
                 if($importData['order_status'] == "processing" || $importData['order_status'] == "Processing" || $importData['order_status'] == "complete" || $importData['order_status'] == "Complete" || $importData['order_status'] == "closed") {
-					if(!$order1->hasInvoices()) {
-						$invoice_id = "";
-						if(isset($importData['invoice_id'])) {
-							$invoice_id = $importData['invoice_id'];
-						}
-                    	$this->createInvoice($order1, $invoice_id, $products_ordered, $importData, $params);
-					} else {
-						if(isset($importData['invoice_id'])) {
-							foreach ($order1->getInvoiceCollection() as $invoice) {
-								$invoice->setIncrementId($importData['invoice_id']);
-							}
-						}
-					}
+                    if(!$order1->hasInvoices()) {
+                        $invoice_id = "";
+                        if(isset($importData['invoice_id'])) {
+                            $invoice_id = $importData['invoice_id'];
+                        }
+                        $this->createInvoice($order1, $invoice_id, $products_ordered, $importData, $params);
+                    } else {
+                        if(isset($importData['invoice_id'])) {
+                            foreach ($order1->getInvoiceCollection() as $invoice) {
+                                $invoice->setIncrementId($importData['invoice_id']);
+                            }
+                        }
+                    }
                 }
             }
             //shipment
@@ -1167,21 +1166,21 @@ class CsvImportHandler
             #if(isset($importData['created_at']) && $params['create_shipment'] == "true") {
                 #$this->updateShippingDates($importData, $connection, $resource, $order1);
             #}
-			if(isset($importData['order_status'])) {
-				$orderStatuses = array(
-								  'new' => \Magento\Sales\Model\Order::STATE_NEW,
-								  'processing' => \Magento\Sales\Model\Order::STATE_PROCESSING,
-								  'complete' => \Magento\Sales\Model\Order::STATE_COMPLETE,
-								  'closed' => \Magento\Sales\Model\Order::STATE_CLOSED,
-								  'holded' => \Magento\Sales\Model\Order::STATE_HOLDED
-								);
-            	if(isset($orderStatuses[$importData['order_status']])){
-					$order1->setStatus($orderStatuses[strtolower($importData['order_status'])]);
-				}
-				if(strtolower($importData['order_status']) == "canceled") {
-					 $order1->cancel()->save();   
-				}
-			}
+            if(isset($importData['order_status'])) {
+                $orderStatuses = array(
+                                  'new' => \Magento\Sales\Model\Order::STATE_NEW,
+                                  'processing' => \Magento\Sales\Model\Order::STATE_PROCESSING,
+                                  'complete' => \Magento\Sales\Model\Order::STATE_COMPLETE,
+                                  'closed' => \Magento\Sales\Model\Order::STATE_CLOSED,
+                                  'holded' => \Magento\Sales\Model\Order::STATE_HOLDED
+                                );
+                if(isset($orderStatuses[$importData['order_status']])){
+                    $order1->setStatus($orderStatuses[strtolower($importData['order_status'])]);
+                }
+                if(strtolower($importData['order_status']) == "canceled") {
+                     $order1->cancel()->save();   
+                }
+            }
             //set as complete
             #if($importData['order_status'] == "complete" || $importData['order_status'] == "Complete") {
                 #$this->setOrderAsComplete($connection, $resource, $order1, $importData);
@@ -1194,7 +1193,7 @@ class CsvImportHandler
             $additionalOptions       = array();
             $qouteproductcounter     = 1;
             $orderItemproductcounter = 0;
-			
+            
             foreach($order1->getAllItems() as $orderItem) {
                 unset($options);
                 if($qouteproductcounter == 1) {
@@ -1205,81 +1204,80 @@ class CsvImportHandler
 
                 if($orderItem->getProduct()->getSku() == $final_key) {
 
-					if(isset($products_ordered[$orderItemproductcounter])) {
-                   		$origSku = array_shift($skusForOrder);
-						$partsforconfigurable = explode('^', $products_ordered[$orderItemproductcounter]);
-						if(isset($partsforconfigurable[2]) && $partsforconfigurable[2] != "") {
-							$configurable_parts = explode(':', $partsforconfigurable[0]);
-							$productPriceUpdate = $partsforconfigurable[1];
-						} else {
-							$configurable_parts = explode(':', $products_ordered[$orderItemproductcounter]);
-							$productPriceUpdate = isset($configurable_parts[2]) ? $configurable_parts[2] : '0.00';
-						}
-						if(isset($configurable_parts[2])) { $imported_product_type = $configurable_parts[2]; } else { $imported_product_type = ""; }
-	
-						if($imported_product_type == "simple" || $imported_product_type == "configurable") {
-	
-							$options = $orderItem->getProductOptions();
-							$i       = 3;
-							while(isset($configurable_parts[$i])) {
-								$optionnum                       = $i - 2;
-								$options['additional_options'][] = array(
-									'label' => "Option " . $optionnum,
-									'value' => $configurable_parts[$i]
-								);
-								$i++;
-							}
-						} else if($imported_product_type == "bundle") {
-							//MC120SA:1.0000:bundle:MC120SACPE~1^299^COUPE^MC120SA-12~1^0^12"
-							//SE-KP-1:1.0000:bundle:DPPH170D~1^2.75^Manuscript kroontjespen houder zonder nib(s) - Gemarmerd zilver^MC302~1^10^Kalligrafie oefenpapier^29 740~1^5.85^Rohrer & Klingner kalligrafie inkt Violett
-							$products_ordered_bundle = explode('^', $products_ordered[$orderItemproductcounter]);
-							$productPriceUpdate 	 = $products_ordered_bundle[1];
-							$options                 = $orderItem->getProductOptions();
-							$iBundle                 = 0;
-							$arrayCount              = 0;
-							while(isset($products_ordered_bundle[$iBundle])) {
-	
-								$bundleData_parts = explode(':', $products_ordered_bundle[$iBundle]);
-								if($iBundle >= 3) {
-									$i = 0; //grabs second or 3rd
-								} else {
-									$i = 3;
-								}
-								while(isset($bundleData_parts[$i])) {
-									$optionnum                                  = $arrayCount + 1;
-									$finalQty                                   = explode('~', $bundleData_parts[$i]);
-									$options['additional_options'][$arrayCount] = array(
-										'label' => "Bundle " . $optionnum,
-										'value' => $finalQty[1] . " X " . $finalQty[0]
-									);
-									$i++;
-									$arrayCount++;
-								}
-								$iBundle = $iBundle + 3;
-							}
-						} else {
-							$options = $orderItem->getProductOptions();
-							if($origSku != "") {
-								$options['additional_options'] = array();
-								/*
-								$options['additional_options'] = array(array(
-									'label' => "Sku",
-									'value' => $origSku
-								));
-								*/
-							}
-						}
-						$orderItem->setPrice($productPriceUpdate);
-						$orderItem->setProductOptions($options);
-						$orderItemproductcounter++;
-					}
+                    if(isset($products_ordered[$orderItemproductcounter])) {
+                        $origSku = array_shift($skusForOrder);
+                        $partsforconfigurable = explode('^', $products_ordered[$orderItemproductcounter]);
+                        if(isset($partsforconfigurable[2]) && $partsforconfigurable[2] != "") {
+                            $configurable_parts = explode(':', $partsforconfigurable[0]);
+                            $productPriceUpdate = $partsforconfigurable[1];
+                        } else {
+                            $configurable_parts = explode(':', $products_ordered[$orderItemproductcounter]);
+                            $productPriceUpdate = $configurable_parts[2];
+                        }
+                        if(isset($configurable_parts[2])) { $imported_product_type = $configurable_parts[2]; } else { $imported_product_type = ""; }
+    
+                        if($imported_product_type == "simple" || $imported_product_type == "configurable") {
+    
+                            $options = $orderItem->getProductOptions();
+                            $i       = 3;
+                            while(isset($configurable_parts[$i])) {
+                                $optionnum                       = $i - 2;
+                                $options['additional_options'][] = array(
+                                    'label' => "Option " . $optionnum,
+                                    'value' => $configurable_parts[$i]
+                                );
+                                $i++;
+                            }
+                        } else if($imported_product_type == "bundle") {
+                            //MC120SA:1.0000:bundle:MC120SACPE~1^299^COUPE^MC120SA-12~1^0^12"
+                            $products_ordered_bundle = explode('^', $products_ordered[$orderItemproductcounter]);
+                            $productPriceUpdate      = $products_ordered_bundle[1];
+                            $options                 = $orderItem->getProductOptions();
+                            $iBundle                 = 0;
+                            $arrayCount              = 0;
+                            while(isset($products_ordered_bundle[$iBundle])) {
+    
+                                $bundleData_parts = explode(':', $products_ordered_bundle[$iBundle]);
+                                if($iBundle >= 3) {
+                                    $i = 0; //grabs second or 3rd
+                                } else {
+                                    $i = 3;
+                                }
+                                while(isset($bundleData_parts[$i])) {
+                                    $optionnum                                  = $arrayCount + 1;
+                                    $finalQty                                   = explode('~', $bundleData_parts[$i]);
+                                    $options['additional_options'][$arrayCount] = array(
+                                        'label' => "Bundle " . $optionnum,
+                                        'value' => $finalQty[1] . " X " . $finalQty[0]
+                                    );
+                                    $i++;
+                                    $arrayCount++;
+                                }
+                                $iBundle = $iBundle + 3;
+                            }
+                        } else {
+                            $options = $orderItem->getProductOptions();
+                            if($origSku != "") {
+                                $options['additional_options'] = array();
+                                /*
+                                $options['additional_options'] = array(array(
+                                    'label' => "Sku",
+                                    'value' => $origSku
+                                ));
+                                */
+                            }
+                        }
+                        $orderItem->setPrice($productPriceUpdate);
+                        $orderItem->setProductOptions($options);
+                        $orderItemproductcounter++;
+                    }
                 }
-				
-				//support for applied_rule_ids
-            	if(isset($importData['applied_rule_ids'])) {
-					$orderItem->setAppliedRuleIds($importData['applied_rule_ids']);
-				}
-				//support for applied_rule_ids
+                
+                //support for applied_rule_ids
+                if(isset($importData['applied_rule_ids'])) {
+                    $orderItem->setAppliedRuleIds($importData['applied_rule_ids']);
+                }
+                //support for applied_rule_ids
                 $orderItem->save();
 
                 //$option = $quoteItem->getOptionByCode('additional_options');
@@ -1290,7 +1288,7 @@ class CsvImportHandler
             $productcounters = 1;
 
             //sync product names/prices, and update shipping
-			/*
+            /*
             foreach($products_ordered as $data) {
 
                 $parts = explode(':', $data);
@@ -1299,17 +1297,17 @@ class CsvImportHandler
                 $this->updateShippingTotal($importData, $order1, $connection, $resource, $parts, $e, $select_qry, $newrowItemId, $item_id, $params);
                 $productcounters++;
             }
-			*/
-			//Adding invoice/shipment creation
-			$productItemscounter = 1;
-			foreach($products_ordered as $data) {
-				$importData = $this->processProductOrdered($data, $importData, $connection, $resource, $order1, $productItemscounter, $params);
-				$productItemscounter++;
-			}
+            */
+            //Adding invoice/shipment creation
+            $productItemscounter = 1;
+            foreach($products_ordered as $data) {
+                $importData = $this->processProductOrdered($data, $importData, $connection, $resource, $order1, $productItemscounter, $params);
+                $productItemscounter++;
+            }
             $this->updateOrderCommentsHistory($importData, $order1, $connection, $resource);
             $this->_getSession()->clearStorage();
             $this->objectManager->get(\Magento\Framework\Registry::class)->unregister('rule_data'); //Mage::unregister('rule_data');
-			
+            
             #Mage::log('Order Successfull', null, 'ce_order_import_errors.log');
 
         } catch(\Exception $e) {
@@ -1317,7 +1315,7 @@ class CsvImportHandler
             #Mage::log(sprintf('Order #' . $importData['order_id'] . ' saving error: %s', $e->getMessage()), null, 'ce_order_import_errors.log');
 
         }
-		#exit;
+        #exit;
     }
 
     public function handleProduct(&$partsdata, &$add_products_array, $importData, &$product, $productcounter, $fullSKU)
@@ -1325,7 +1323,7 @@ class CsvImportHandler
         $parts = explode(':', $partsdata);
 
         if(method_exists($product, 'getTypeId')) {
-			
+            
             $stockItem = $this->objectManager->get('Magento\CatalogInventory\Model\StockRegistry')->getStockItem($product->getId());
 
             $super_attribute_order_values = array();
@@ -1336,7 +1334,7 @@ class CsvImportHandler
             } else {
                 $part_qty = "1";
             }
-			
+            
             if(isset($parts[2])) {
                 $part_type = $parts[2];
             } else {
@@ -1348,7 +1346,7 @@ class CsvImportHandler
             } else {
                 $bundle_opt = "";
             }
-			if($stockItem->getIsInStock() || $stockItem->getManageStock() == 0) {
+            if($stockItem->getIsInStock() || $stockItem->getManageStock() == 0) {
             #if($stockItem->getIsInStock() && $stockItem->getManageStock() == 1 && $stockItem->getQty() != "0.0000" || $stockItem->getManageStock() == 0) {
 
                 //if ($productstockItem->getStockItem()->getIsInStock() && $productstockItem->getStockItem()->getManageStock() == 1 && $stockItem->getQty() != "0.0000" || $productstockItem->getStockItem()->getManageStock() == 0 || ($part_type == "bundle" && $productstockItem->getStockItem()->getIsInStock()) || ($part_type == "configurable" && $productstockItem->getStockItem()->getIsInStock())) {
@@ -1410,20 +1408,16 @@ class CsvImportHandler
                     //fixed for missing QTY
                     $add_products_array[$fullSKU]['super_attribute'] = $super_attribute_order_values;
                     $add_products_array[$fullSKU]['productID']       = $product->getId();
-                } else if($product->getTypeId() == "bundle" && $part_type == "bundle") {
-				
-                    $this->handleBundle($product, $bundle_opt, $bundle_option_order_values, $bundle_option_qty_values, $add_products_array);
-				
-				} else {
+                } else {
 
-                    if($stockItem->getQty() > 0) {
+                    if($stockItem->getQty() > 0 || $product->getTypeId() == "bundle") {
 
-                        #if($product->getTypeId() == "bundle" && $part_type == "bundle") {
+                        if($product->getTypeId() == "bundle" && $part_type == "bundle") {
 
-                            #$this->handleBundle($product, $bundle_opt, $bundle_option_order_values, $bundle_option_qty_values, $add_products_array);
-                        #}
-						
-                        if($part_type == "configurable" || $part_type == "bundle") {
+                            $this->handleBundle($product, $bundle_opt, $bundle_option_order_values, $bundle_option_qty_values, $add_products_array);
+                        }
+
+                        if($part_type == "configurable") {
 
                             if($productcounter == 1) {
 
@@ -1616,126 +1610,123 @@ class CsvImportHandler
     public function assembleOrderData($customerId, $row, $add_products_array, $customer, $final_shipping)
     {
 
-		if(strtolower($row->getEmailConfirmation()) == "yes") { $csv_send_email = 1; } else { $csv_send_email = 0; }
-		if($row->getOrderComments() != "") { $order_comments = $row->getOrderComments();  } else {  $order_comments = "API ORDER"; }
+        if(strtolower($row->getEmailConfirmation()) == "yes") { $csv_send_email = 1; } else { $csv_send_email = 0; }
+        if($row->getOrderComments() != "") { $order_comments = $row->getOrderComments();  } else {  $order_comments = "API ORDER"; }
         if($row->getOrderPoNumber()) {  $orderDataId = $row->getOrderPoNumber();  } else { $orderDataId = "";  }
         if($row->getIsGuest()) {  $is_guest = $row->getIsGuest(); } else {  $is_guest = 0; }
-		
-		if($row->getIsGuest() == 1) {
-			$customer_group_id = \Magento\Customer\Model\GroupManagement::NOT_LOGGED_IN_ID;
-			//if billing address is incomplete lets use shipping
-			if($row->getBillingFirstname() !="" && $row->getBillingLastname() !="" && $row->getBillingCity() !="" && $row->getBillingCountry() !="" && $row->getBillingPostcode() !="") {
-				
-				$street_b = array("0" => ($row->getBillingStreetFull()) ? $row->getBillingStreetFull() : $row->getBillingStreet(),
-								  "1" => ($row->getBillingStreet2()) ? $row->getBillingStreet2() : "",
-								  "2" => ($row->getBillingStreet3()) ? $row->getBillingStreet3() : "",
-								  "3" => ($row->getBillingStreet4()) ? $row->getBillingStreet4() : "");
-				/*
-				$billing_region = $row->getBillingRegion();
-				if($billing_region !="") {
-					#$regions = $this->objectManager->get('\Magento\Directory\Model\ResourceModel\Region\Collection')->addRegionNameFilter($billing_region)->load();
-					$regions = $this->regionCollection->addRegionNameFilter($billing_region)->load();
-					if($regions) {
-						foreach($regions as $region) {
-							$billing_region = $region->getId();
-						}
-					}
-				}
-				*/
-				$billing_address_final = array(
-					'prefix'     => $row->getBillingPrefix(),
-					'firstname'  => $row->getBillingFirstname(),
-					'middlename' => $row->getBillingMiddlename(),
-					'lastname'   => $row->getBillingLastname(),
-					'suffix'     => $row->getBillingSuffix(),
-					'street'     => $street_b,
-					'city'       => $row->getBillingCity(),
-					//'region'     => $billing_region,
-					'region_id'  => $this->getRegionId($row, 'billing'),
-					'country_id' => $row->getBillingCountry(),
-					'postcode'   => $row->getBillingPostcode(),
-					'telephone'  => $row->getBillingTelephone(),
-					'company'    => $row->getBillingCompany(),
-					'fax'        => $row->getBillingFax()
-				);
-			} else {
-			
-				$street_s = array("0" => ($row->getShippingStreetFull()) ? $row->getShippingStreetFull() : $row->getShippingStreet(),
-								  "1" => ($row->getShippingStreet2()) ? $row->getShippingStreet2() : "",
-								  "2" => ($row->getShippingStreet3()) ? $row->getShippingStreet3() : "",
-								  "3" => ($row->getShippingStreet4()) ? $row->getShippingStreet4() : "");
-				/*				  
-				$shipping_region = $row->getShippingRegion();
-				if($shipping_region !="") {
-					#$regions = $this->objectManager->get('\Magento\Directory\Model\ResourceModel\Region\Collection')->addRegionNameFilter($shipping_region)->load();
-					$regions = $this->regionCollection->addRegionNameFilter($shipping_region)->load();
-					if($regions) {
-						foreach($regions as $region_s) {
-							$shipping_region = $region_s->getId();
-						}
-					}	
-				}		  
-				*/
-				$billing_address_final = array(
-					'prefix'     => $row->getShippingPrefix(),
-					'firstname'  => $row->getShippingFirstname(),
-					'middlename' => $row->getShippingMiddlename(),
-					'lastname'   => $row->getShippingLastname(),
-					'suffix'     => $row->getShippingSuffix(),
-					'street'     => $street_s,
-					'city'       => $row->getShippingCity(),
-					//'region'     => $shipping_region,
-					'region_id'  => $this->getRegionId($row, 'shipping'),
-					'country_id' => $row->getShippingCountry(),
-					'postcode'   => $row->getShippingPostcode(),
-					'telephone'  => $row->getShippingTelephone(),
-					'company'    => $row->getShippingCompany(),
-					'fax'        => $row->getShippingFax()
-				);
+        
+        if($row->getIsGuest() == 1) {
+            $customer_group_id = \Magento\Customer\Model\GroupManagement::NOT_LOGGED_IN_ID;
+            //if billing address is incomplete lets use shipping
+            if($row->getBillingFirstname() !="" && $row->getBillingLastname() !="" && $row->getBillingCity() !="" && $row->getBillingCountry() !="" && $row->getBillingPostcode() !="") {
+                
+                $street_b = array("0" => ($row->getBillingStreetFull()) ? $row->getBillingStreetFull() : $row->getBillingStreet(),
+                                  "1" => ($row->getBillingStreet2()) ? $row->getBillingStreet2() : "",
+                                  "2" => ($row->getBillingStreet3()) ? $row->getBillingStreet3() : "",
+                                  "3" => ($row->getBillingStreet4()) ? $row->getBillingStreet4() : "");
+                
+                $billing_region = $row->getBillingRegion();
+                if($billing_region !="") {
+                    #$regions = $this->objectManager->get('\Magento\Directory\Model\ResourceModel\Region\Collection')->addRegionNameFilter($billing_region)->load();
+                    $regions = $this->regionCollection->addRegionNameFilter($billing_region)->load();
+                    if($regions) {
+                        foreach($regions as $region) {
+                            $billing_region = $region->getId();
+                        }
+                    }
+                }
+                $billing_address_final = array(
+                    'prefix'     => $row->getBillingPrefix(),
+                    'firstname'  => $row->getBillingFirstname(),
+                    'middlename' => $row->getBillingMiddlename(),
+                    'lastname'   => $row->getBillingLastname(),
+                    'suffix'     => $row->getBillingSuffix(),
+                    'street'     => $street_b,
+                    'city'       => $row->getBillingCity(),
+                    'region'     => $billing_region,
+                    'country_id' => $row->getBillingCountry(),
+                    'postcode'   => $row->getBillingPostcode(),
+                    'telephone'  => $row->getBillingTelephone(),
+                    'company'    => $row->getBillingCompany(),
+                    'fax'        => $row->getBillingFax()
+                );
+            } else {
+            
+                $street_s = array("0" => ($row->getShippingStreetFull()) ? $row->getShippingStreetFull() : $row->getShippingStreet(),
+                                  "1" => ($row->getShippingStreet2()) ? $row->getShippingStreet2() : "",
+                                  "2" => ($row->getShippingStreet3()) ? $row->getShippingStreet3() : "",
+                                  "3" => ($row->getShippingStreet4()) ? $row->getShippingStreet4() : "");
+                                  
+                $shipping_region = $row->getShippingRegion();
+                if($shipping_region !="") {
+                    #$regions = $this->objectManager->get('\Magento\Directory\Model\ResourceModel\Region\Collection')->addRegionNameFilter($shipping_region)->load();
+                    $regions = $this->regionCollection->addRegionNameFilter($shipping_region)->load();
+                    if($regions) {
+                        foreach($regions as $region_s) {
+                            $shipping_region = $region_s->getId();
+                        }
+                    }   
+                }         
 
-			}
-		} else {
-			$customer_group_id = $customer->getGroupId();
-			if(!empty($customer->getDefaultBillingAddress())) {
-				$billing_address_final = array(
-					'customer_address_id' => $customer->getDefaultBillingAddress()->getEntityId(),
-					'prefix'              => $customer->getDefaultBillingAddress()->getPrefix(),
-					'firstname'           => $customer->getDefaultBillingAddress()->getFirstname(),
-					'middlename'          => $customer->getDefaultBillingAddress()->getMiddlename(),
-					'lastname'            => $customer->getDefaultBillingAddress()->getLastname(),
-					'suffix'              => $customer->getDefaultBillingAddress()->getSuffix(),
-					'company'             => $customer->getDefaultBillingAddress()->getCompany(),
-					'street'              => $customer->getDefaultBillingAddress()->getStreet(),
-					'city'                => $customer->getDefaultBillingAddress()->getCity(),
-					'country_id'          => $customer->getDefaultBillingAddress()->getCountryId(),
-					'region'              => $customer->getDefaultBillingAddress()->getRegion(),
-					'region_id'           => $customer->getDefaultBillingAddress()->getRegionId(),
-					'postcode'            => $customer->getDefaultBillingAddress()->getPostcode(),
-					'telephone'           => $customer->getDefaultBillingAddress()->getTelephone(),
-					'fax'                 => $customer->getDefaultBillingAddress()->getFax(),
-				);
-			} else {
-				$customerAddress = $this->objectManager->get('Magento\Customer\Model\Address');
-				$customerAddress->load($customer->getDefaultBilling());
-				$billing_address_final = array(
-					'customer_address_id' => $customerAddress->getEntityId(),
-					'prefix'              => $customerAddress->getPrefix(),
-					'firstname'           => $customerAddress->getFirstname(),
-					'middlename'          => $customerAddress->getMiddlename(),
-					'lastname'            => $customerAddress->getLastname(),
-					'suffix'              => $customerAddress->getSuffix(),
-					'company'             => $customerAddress->getCompany(),
-					'street'              => $customerAddress->getStreet(),
-					'city'                => $customerAddress->getCity(),
-					'country_id'          => $customerAddress->getCountryId(),
-					'region'              => $customerAddress->getRegion(),
-					'region_id'           => $customerAddress->getRegionId(),
-					'postcode'            => $customerAddress->getPostcode(),
-					'telephone'           => $customerAddress->getTelephone(),
-					'fax'                 => $customerAddress->getFax(),
-				);
-			}
-		}
+                $billing_address_final = array(
+                    'prefix'     => $row->getShippingPrefix(),
+                    'firstname'  => $row->getShippingFirstname(),
+                    'middlename' => $row->getShippingMiddlename(),
+                    'lastname'   => $row->getShippingLastname(),
+                    'suffix'     => $row->getShippingSuffix(),
+                    'street'     => $street_s,
+                    'city'       => $row->getShippingCity(),
+                    'region'     => $shipping_region,
+                    'country_id' => $row->getShippingCountry(),
+                    'postcode'   => $row->getShippingPostcode(),
+                    'telephone'  => $row->getShippingTelephone(),
+                    'company'    => $row->getShippingCompany(),
+                    'fax'        => $row->getShippingFax()
+                );
+
+            }
+        } else {
+            $customer_group_id = $customer->getGroupId();
+            if(!empty($customer->getDefaultBillingAddress())) {
+                $billing_address_final = array(
+                    'customer_address_id' => $customer->getDefaultBillingAddress()->getEntityId(),
+                    'prefix'              => $customer->getDefaultBillingAddress()->getPrefix(),
+                    'firstname'           => $customer->getDefaultBillingAddress()->getFirstname(),
+                    'middlename'          => $customer->getDefaultBillingAddress()->getMiddlename(),
+                    'lastname'            => $customer->getDefaultBillingAddress()->getLastname(),
+                    'suffix'              => $customer->getDefaultBillingAddress()->getSuffix(),
+                    'company'             => $customer->getDefaultBillingAddress()->getCompany(),
+                    'street'              => $customer->getDefaultBillingAddress()->getStreet(),
+                    'city'                => $customer->getDefaultBillingAddress()->getCity(),
+                    'country_id'          => $customer->getDefaultBillingAddress()->getCountryId(),
+                    'region'              => $customer->getDefaultBillingAddress()->getRegion(),
+                    'region_id'           => $customer->getDefaultBillingAddress()->getRegionId(),
+                    'postcode'            => $customer->getDefaultBillingAddress()->getPostcode(),
+                    'telephone'           => $customer->getDefaultBillingAddress()->getTelephone(),
+                    'fax'                 => $customer->getDefaultBillingAddress()->getFax(),
+                );
+            } else {
+                $customerAddress = $this->objectManager->get('Magento\Customer\Model\Address');
+                $customerAddress->load($customer->getDefaultBilling());
+                $billing_address_final = array(
+                    'customer_address_id' => $customerAddress->getEntityId(),
+                    'prefix'              => $customerAddress->getPrefix(),
+                    'firstname'           => $customerAddress->getFirstname(),
+                    'middlename'          => $customerAddress->getMiddlename(),
+                    'lastname'            => $customerAddress->getLastname(),
+                    'suffix'              => $customerAddress->getSuffix(),
+                    'company'             => $customerAddress->getCompany(),
+                    'street'              => $customerAddress->getStreet(),
+                    'city'                => $customerAddress->getCity(),
+                    'country_id'          => $customerAddress->getCountryId(),
+                    'region'              => $customerAddress->getRegion(),
+                    'region_id'           => $customerAddress->getRegionId(),
+                    'postcode'            => $customerAddress->getPostcode(),
+                    'telephone'           => $customerAddress->getTelephone(),
+                    'fax'                 => $customerAddress->getFax(),
+                );
+            }
+        }
     
         $orderData = array(
             'session' => array(
@@ -1789,130 +1780,129 @@ class CsvImportHandler
 
     public function createShipping($customer, $row)
     {
-		
+        
       if($row->getIsGuest() == 1) {
-			//if billing address is incomplete lets use shipping
-			if($row->getShippingFirstname() !="" && $row->getShippingLastname() !="" && $row->getShippingCity() !="" && $row->getShippingRegion() !="" && $row->getShippingCountry() !="" && $row->getShippingPostcode() !="") {
-			
-				$street_s = array("0" => ($row->getShippingStreetFull()) ? $row->getShippingStreetFull() : $row->getShippingStreet(),
-								  "1" => ($row->getShippingStreet2()) ? $row->getShippingStreet2() : "",
-								  "2" => ($row->getShippingStreet3()) ? $row->getShippingStreet3() : "",
-								  "3" => ($row->getShippingStreet4()) ? $row->getShippingStreet4() : "");
-				$regionShip = $row->getShippingRegion();
-				/*
-				if($regionShip != "") {
-					#$shippingRegions = $this->objectManager->get('\Magento\Directory\Model\ResourceModel\Region\Collection')->addRegionNameFilter($regionShip)->load();
-					$shippingRegions = $this->regionCollection->addRegionNameFilter($regionShip)->load();
-					if($shippingRegions) {
-						foreach($shippingRegions as $regions) { $regionShip = $regions->getId(); }
-					}
-				}
-				*/
-				
-				$final_shipping = array(
-					'entity_id'  => '',
-					'prefix'     => $row->getShippingPrefix(),
-					'firstname'  => $row->getShippingFirstname(),
-					'middlename' => $row->getShippingMiddlename(),
-					'lastname'   => $row->getShippingLastname(),
-					'suffix'     => $row->getShippingSuffix(),
-					'street'     => $street_s,
-					'city'       => $row->getShippingCity(),
-					'region'     => $regionShip,
-					'regionid'   => $this->getRegionId($row, 'shipping'),
-					'countryid'  => $row->getShippingCountry(),
-					'postcode'   => $row->getShippingPostcode(),
-					'telephone'  => $row->getShippingTelephone(),
-					'company'    => $row->getShippingCompany(),
-					'fax'        => $row->getShippingFax(),
-				);
-			
-			} else {
-			
-				$street_b = array("0" => ($row->getBillingStreetFull()) ? $row->getBillingStreetFull() : $row->getBillingStreet(),
-								  "1" => ($row->getBillingStreet2()) ? $row->getBillingStreet2() : "",
-								  "2" => ($row->getBillingStreet3()) ? $row->getBillingStreet3() : "",
-								  "3" => ($row->getBillingStreet4()) ? $row->getBillingStreet4() : "");
-				$region         = $row->getBillingRegion();
-				/*
-				if($region != "") {
-					#$regions = $this->objectManager->get('\Magento\Directory\Model\ResourceModel\Region\Collection')->addRegionNameFilter($region)->load();
-					$regions = $this->regionCollection->addRegionNameFilter($region)->load();
-					if($regions) {
-						foreach($regions as $regionModel) { $region = $regionModel->getId(); }
-					}
-				}
-				*/		  
-				$final_shipping = array(
-					'entity_id'  => '',
-					'prefix'     => $row->getBillingPrefix(),
-					'firstname'  => $row->getBillingFirstname(),
-					'middlename' => $row->getBillingMiddlename(),
-					'lastname'   => $row->getBillingLastname(),
-					'suffix'     => $row->getBillingSuffix(),
-					'street'     => $street_b,
-					'city'       => $row->getBillingCity(),
-					'region'     => $region,
-					'regionid'   => $this->getRegionId($row, 'billing'),
-					'countryid'  => $row->getBillingCountry(),
-					'postcode'   => $row->getBillingPostcode(),
-					'telephone'  => $row->getBillingTelephone(),
-					'company'    => $row->getBillingCompany(),
-					'fax'        => $row->getBillingFax()
-				);
-			}
-			
+            //if billing address is incomplete lets use shipping
+            if($row->getShippingFirstname() !="" && $row->getShippingLastname() !="" && $row->getShippingCity() !="" && $row->getShippingRegion() !="" && $row->getShippingCountry() !="" && $row->getShippingPostcode() !="") {
+            
+                $street_s = array("0" => ($row->getShippingStreetFull()) ? $row->getShippingStreetFull() : $row->getShippingStreet(),
+                                  "1" => ($row->getShippingStreet2()) ? $row->getShippingStreet2() : "",
+                                  "2" => ($row->getShippingStreet3()) ? $row->getShippingStreet3() : "",
+                                  "3" => ($row->getShippingStreet4()) ? $row->getShippingStreet4() : "");
+    
+                $regionShip = $row->getShippingRegion();
+                if($regionShip != "") {
+                    #$shippingRegions = $this->objectManager->get('\Magento\Directory\Model\ResourceModel\Region\Collection')->addRegionNameFilter($regionShip)->load();
+                    $shippingRegions = $this->regionCollection->addRegionNameFilter($regionShip)->load();
+                    if($shippingRegions) {
+                        foreach($shippingRegions as $regions) { $regionShip = $regions->getId(); }
+                    }
+                }
+    
+                $final_shipping = array(
+                    'entity_id'  => '',
+                    'prefix'     => $row->getShippingPrefix(),
+                    'firstname'  => $row->getShippingFirstname(),
+                    'middlename' => $row->getShippingMiddlename(),
+                    'lastname'   => $row->getShippingLastname(),
+                    'suffix'     => $row->getShippingSuffix(),
+                    'street'     => $street_s,
+                    'city'       => $row->getShippingCity(),
+                    'region'     => $regionShip,
+                    'regionid'   => $regionShip,
+                    'countryid'  => $row->getShippingCountry(),
+                    'postcode'   => $row->getShippingPostcode(),
+                    'telephone'  => $row->getShippingTelephone(),
+                    'company'    => $row->getShippingCompany(),
+                    'fax'        => $row->getShippingFax(),
+                );
+            
+            } else {
+            
+                $street_b = array("0" => ($row->getBillingStreetFull()) ? $row->getBillingStreetFull() : $row->getBillingStreet(),
+                                  "1" => ($row->getBillingStreet2()) ? $row->getBillingStreet2() : "",
+                                  "2" => ($row->getBillingStreet3()) ? $row->getBillingStreet3() : "",
+                                  "3" => ($row->getBillingStreet4()) ? $row->getBillingStreet4() : "");
+                
+                $region         = $row->getBillingRegion();
+                if($region != "") {
+                    #$regions = $this->objectManager->get('\Magento\Directory\Model\ResourceModel\Region\Collection')->addRegionNameFilter($region)->load();
+                    $regions = $this->regionCollection->addRegionNameFilter($region)->load();
+                    if($regions) {
+                        foreach($regions as $regionModel) { $region = $regionModel->getId(); }
+                    }
+                }
+                              
+                $final_shipping = array(
+                    'entity_id'  => '',
+                    'prefix'     => $row->getBillingPrefix(),
+                    'firstname'  => $row->getBillingFirstname(),
+                    'middlename' => $row->getBillingMiddlename(),
+                    'lastname'   => $row->getBillingLastname(),
+                    'suffix'     => $row->getBillingSuffix(),
+                    'street'     => $street_b,
+                    'city'       => $row->getBillingCity(),
+                    'region'     => $region,
+                    'regionid'   => $region,
+                    'countryid'  => $row->getBillingCountry(),
+                    'postcode'   => $row->getBillingPostcode(),
+                    'telephone'  => $row->getBillingTelephone(),
+                    'company'    => $row->getBillingCompany(),
+                    'fax'        => $row->getBillingFax()
+                );
+            }
+            
             return $final_shipping;
-				
-		} else {
-			$customerAddress = $this->objectManager->get('Magento\Customer\Model\Address');
-			if(!empty($customer->getDefaultShipping())) {
-				$customerAddress->load($customer->getDefaultShipping());
-				$final_shipping = array(
-					'entity_id' => $customerAddress->getEntityId(),
-					'prefix' => $customerAddress->getPrefix(),
-					'firstname' => $customerAddress->getFirstname(),
-					'middlename' => $customerAddress->getMiddlename(),
-					'lastname' => $customerAddress->getLastname(),
-					'suffix' => $customerAddress->getSuffix(),
-					'company' => $customerAddress->getCompany(),
-					'street' => $customerAddress->getStreet(),
-					'city' => $customerAddress->getCity(),
-					'countryid' => $customerAddress->getCountryId(),
-					'region' => $customerAddress->getRegion(),
-					'regionid' => $customerAddress->getRegionId(),
-					'postcode' => $customerAddress->getPostcode(),
-					'telephone' => $customerAddress->getTelephone(),
-					'fax' => $customerAddress->getFax()
-				);
-				return $final_shipping;
-			} else if(!empty($customer->getDefaultBilling())) {
-	
-				$customerAddress->load($customer->getDefaultBilling());
-				$final_shipping = array(
-					'entity_id' => $customerAddress->getEntityId(),
-					'prefix' => $customerAddress->getPrefix(),
-					'firstname' => $customerAddress->getFirstname(),
-					'middlename' => $customerAddress->getMiddlename(),
-					'lastname' => $customerAddress->getLastname(),
-					'suffix' => $customerAddress->getSuffix(),
-					'company' => $customerAddress->getCompany(),
-					'street' => $customerAddress->getStreet(),
-					'city' => $customerAddress->getCity(),
-					'countryid' => $customerAddress->getCountryId(),
-					'region' => $customerAddress->getRegion(),
-					'regionid' => $customerAddress->getRegionId(),
-					'postcode' => $customerAddress->getPostcode(),
-					'telephone' => $customerAddress->getTelephone(),
-					'fax' => $customerAddress->getFax()
-				);
-				return $final_shipping;
-			} else {
-				throw new \Magento\Framework\Exception\LocalizedException(
-					__("ERROR: CUSTOMERID[ " . $customer->getId() . " ] - PLEASE UPDATE CUSTOMER TO HAVE A DEFAULT BILLING OR SHIPPING ADDRESS")
-				);
-			}
-		}
+                
+        } else {
+            $customerAddress = $this->objectManager->get('Magento\Customer\Model\Address');
+            if(!empty($customer->getDefaultShipping())) {
+                $customerAddress->load($customer->getDefaultShipping());
+                $final_shipping = array(
+                    'entity_id' => $customerAddress->getEntityId(),
+                    'prefix' => $customerAddress->getPrefix(),
+                    'firstname' => $customerAddress->getFirstname(),
+                    'middlename' => $customerAddress->getMiddlename(),
+                    'lastname' => $customerAddress->getLastname(),
+                    'suffix' => $customerAddress->getSuffix(),
+                    'company' => $customerAddress->getCompany(),
+                    'street' => $customerAddress->getStreet(),
+                    'city' => $customerAddress->getCity(),
+                    'countryid' => $customerAddress->getCountryId(),
+                    'region' => $customerAddress->getRegion(),
+                    'regionid' => $customerAddress->getRegionId(),
+                    'postcode' => $customerAddress->getPostcode(),
+                    'telephone' => $customerAddress->getTelephone(),
+                    'fax' => $customerAddress->getFax()
+                );
+                return $final_shipping;
+            } else if(!empty($customer->getDefaultBilling())) {
+    
+                $customerAddress->load($customer->getDefaultBilling());
+                $final_shipping = array(
+                    'entity_id' => $customerAddress->getEntityId(),
+                    'prefix' => $customerAddress->getPrefix(),
+                    'firstname' => $customerAddress->getFirstname(),
+                    'middlename' => $customerAddress->getMiddlename(),
+                    'lastname' => $customerAddress->getLastname(),
+                    'suffix' => $customerAddress->getSuffix(),
+                    'company' => $customerAddress->getCompany(),
+                    'street' => $customerAddress->getStreet(),
+                    'city' => $customerAddress->getCity(),
+                    'countryid' => $customerAddress->getCountryId(),
+                    'region' => $customerAddress->getRegion(),
+                    'regionid' => $customerAddress->getRegionId(),
+                    'postcode' => $customerAddress->getPostcode(),
+                    'telephone' => $customerAddress->getTelephone(),
+                    'fax' => $customerAddress->getFax()
+                );
+                return $final_shipping;
+            } else {
+                throw new \Magento\Framework\Exception\LocalizedException(
+                    __("ERROR: CUSTOMERID[ " . $customer->getId() . " ] - PLEASE UPDATE CUSTOMER TO HAVE A DEFAULT BILLING OR SHIPPING ADDRESS")
+                );
+            }
+        }
     }
 
     public function createOrder($orderData, $order_id)
@@ -1943,18 +1933,18 @@ class CsvImportHandler
     {
         try {
 
-			$itemCounter = 0;
+            $itemCounter = 0;
             $convertOrder = $this->objectManager->get('Magento\Sales\Model\Convert\Order');
             $invoice      = $convertOrder->toInvoice($order1);
-			
-			if(isset($importData['created_at'])) {
-				$dateTime = strtotime($importData['created_at']);
-				$invoiceCreatedAt = date("Y-m-d H:i:s", $dateTime);
-				$invoice->setCreatedAt($invoiceCreatedAt);
-				$invoice->setUpdatedAt($invoiceCreatedAt);
-				$invoice->setOrderCreatedAt($invoiceCreatedAt);
-			}
-			
+            
+            if(isset($importData['created_at'])) {
+                $dateTime = strtotime($importData['created_at']);
+                $invoiceCreatedAt = date("Y-m-d H:i:s", $dateTime);
+                $invoice->setCreatedAt($invoiceCreatedAt);
+                $invoice->setUpdatedAt($invoiceCreatedAt);
+                $invoice->setOrderCreatedAt($invoiceCreatedAt);
+            }
+            
             // Loop through order items
             foreach($order1->getAllItems() AS $orderItem) {
                 // Check if order item has qty to order or is virtual
@@ -1965,45 +1955,45 @@ class CsvImportHandler
 
                 // Create invoice item with qty
                 $invoiceItem = $convertOrder->itemToInvoiceItem($orderItem)->setQty($qtyOrdered);
-				
-				if($params['skip_product_lookup'] == "true") {
-					if(isset($products_ordered[$itemCounter])) {
-						$parts = explode(':', $products_ordered[$itemCounter]);
-						if(isset($parts[2]) && $parts[2] == "configurable" || isset($parts[2]) && $parts[2] == "simple" || isset($parts[2]) && $parts[2] == "bundle") {
-							 $partsfornamepricing = explode('^', $products_ordered[$itemCounter]);
-							 if(isset($partsfornamepricing[1])) {
-								$rowTotal = $partsfornamepricing[1] * $qtyOrdered;
-								$rowProductPrice = $partsfornamepricing[1];
-							 }
-						} else {
-							$rowProductPrice = isset($parts[2]) ? $parts[2] : '0.00';
-							$rowTotal = $qtyOrdered * $rowProductPrice;
-						}
-						if($params['use_historic_tax'] == "true") {
-							if(isset($importData['tax_percent'])) {
-								$tax_percent = $importData['tax_percent'];
-								$decimalfortaxpercent = $tax_percent / 100;
-							} elseif(isset($importData['tax_amount']) && isset($importData['grand_total'])) {
-								$decimalfortaxpercent = $importData['tax_amount'] / $importData['grand_total'];
-								$tax_percent = round((float)$decimalfortaxpercent * 100 ) . '%';
-							}
-							$tax_amount_for_row_total = $rowTotal * $decimalfortaxpercent;
-							$invoiceItem->setTaxPercent($tax_percent);
-							$invoiceItem->setTaxAmount($tax_amount_for_row_total);
-						}
-						#$orderItem->setPrice($rowProductPrice);
-						$invoiceItem->setPrice($rowProductPrice);
-						$invoiceItem->setRowTotal($rowTotal);
-						$invoiceItem->setBaseRowInvoiced($rowTotal);
-						$itemCounter++;
-					}
-				}
+                
+                if($params['skip_product_lookup'] == "true") {
+                    if(isset($products_ordered[$itemCounter])) {
+                        $parts = explode(':', $products_ordered[$itemCounter]);
+                        if(isset($parts[2]) && $parts[2] == "configurable" || isset($parts[2]) && $parts[2] == "simple" || isset($parts[2]) && $parts[2] == "bundle") {
+                             $partsfornamepricing = explode('^', $products_ordered[$itemCounter]);
+                             if(isset($partsfornamepricing[1])) {
+                                $rowTotal = $partsfornamepricing[1] * $qtyOrdered;
+                                $rowProductPrice = $partsfornamepricing[1];
+                             }
+                        } else {
+                            $rowProductPrice = $parts[2];
+                            $rowTotal = $qtyOrdered * $rowProductPrice;
+                        }
+                        if($params['use_historic_tax'] == "true") {
+                            if(isset($importData['tax_percent'])) {
+                                $tax_percent = $importData['tax_percent'];
+                                $decimalfortaxpercent = $tax_percent / 100;
+                            } elseif(isset($importData['tax_amount']) && isset($importData['grand_total'])) {
+                                $decimalfortaxpercent = $importData['tax_amount'] / $importData['grand_total'];
+                                $tax_percent = round((float)$decimalfortaxpercent * 100 ) . '%';
+                            }
+                            $tax_amount_for_row_total = $rowTotal * $decimalfortaxpercent;
+                            $invoiceItem->setTaxPercent($tax_percent);
+                            $invoiceItem->setTaxAmount($tax_amount_for_row_total);
+                        }
+                        #$orderItem->setPrice($rowProductPrice);
+                        $invoiceItem->setPrice($rowProductPrice);
+                        $invoiceItem->setRowTotal($rowTotal);
+                        $invoiceItem->setBaseRowInvoiced($rowTotal);
+                        $itemCounter++;
+                    }
+                }
 
                 // Add invoice item to invoice
                 $invoice->addItem($invoiceItem);
             }
             $invoice->getOrder()->setIsInProcess(true);
-			if($invoice_id !="") { $invoice->setIncrementId($invoice_id); }
+            if($invoice_id !="") { $invoice->setIncrementId($invoice_id); }
             $invoice->register();
 
             $transactionSave = $this->objectManager->get('Magento\Framework\DB\Transaction')
@@ -2204,28 +2194,28 @@ class CsvImportHandler
 
         $parts = explode(':', $partsdata);
 
-		if(isset($parts[1])) {
-			$part_qty = $parts[1];
-		} else {
-			$part_qty = "1";
-		}
-		//had to add this to set prices back from 0.00 oddly on import of products in stock on 1 instance always 0.00
-		if(!isset($parts[2])) {
-				/*	
-				if($params['skip_product_lookup'] == "true") {
+        if(isset($parts[1])) {
+            $part_qty = $parts[1];
+        } else {
+            $part_qty = "1";
+        }
+        //had to add this to set prices back from 0.00 oddly on import of products in stock on 1 instance always 0.00
+        if(!isset($parts[2])) {
+                /*  
+                if($params['skip_product_lookup'] == "true") {
                     if($productcounters == 1) {
                         $key = 'I-oe_productstandin';
                     } else {
                         $key = 'I-oe_productstandin' . $productcounters;
                     }
                     $product2 = $this->objectManager->get('Magento\Catalog\Model\Product')->loadByAttribute('sku', $key);
-					$productskutocheck = $key;
+                    $productskutocheck = $key;
                 } else {
                     $product2 = $this->objectManager->get('Magento\Catalog\Model\Product')->loadByAttribute('sku', $parts[0]);
-					$productskutocheck = $parts[0];
+                    $productskutocheck = $parts[0];
                 }
-				
-				$select_qry = $connection->query("SELECT quote_item_id,tax_amount,tax_percent FROM `" . $_sales_order_item . "` WHERE order_id = '" . $order1->getId() . "' AND sku = '" . $productskutocheck . "'");
+                
+                $select_qry = $connection->query("SELECT quote_item_id,tax_amount,tax_percent FROM `" . $_sales_order_item . "` WHERE order_id = '" . $order1->getId() . "' AND sku = '" . $productskutocheck . "'");
 
                 $newrowItemId = $select_qry->fetch();
                 $item_id      = $newrowItemId['quote_item_id'];
@@ -2236,30 +2226,30 @@ class CsvImportHandler
                 } else {
                     $tax_percent = $newrowItemId['tax_percent'];
                 }
-				
+                
                 
                 if(method_exists($product2, 'getTypeId')) {
-					$productprice = $product2->getPrice();
-					$custom_row_total = $productprice * $parts[1];
-					$decimalfortaxpercent        = $tax_percent / 100;
-					$tax_percent_for_row_total   = $custom_row_total * $decimalfortaxpercent;
-					$order_total_without_tax     = $custom_row_total - $tax_percent_for_row_total;
-					$per_item_tax_amount         = $tax_amount / $parts[1];
-					$final_item_price_before_tax = $productprice - $per_item_tax_amount;
-					
+                    $productprice = $product2->getPrice();
+                    $custom_row_total = $productprice * $parts[1];
+                    $decimalfortaxpercent        = $tax_percent / 100;
+                    $tax_percent_for_row_total   = $custom_row_total * $decimalfortaxpercent;
+                    $order_total_without_tax     = $custom_row_total - $tax_percent_for_row_total;
+                    $per_item_tax_amount         = $tax_amount / $parts[1];
+                    $final_item_price_before_tax = $productprice - $per_item_tax_amount;
+                    
                     $connection->query("UPDATE `" . $_sales_order_item . "` SET price_incl_tax = '" . $productprice . "', base_price_incl_tax = '" . $productprice . "', base_row_total_incl_tax = '" . $custom_row_total . "', row_total_incl_tax = '" . $custom_row_total . "', row_total = '" . $order_total_without_tax . "', base_row_total = '" . $order_total_without_tax . "', tax_percent = '" . $tax_percent . "', tax_amount = '" . $tax_percent_for_row_total . "', base_tax_amount = '" . $tax_percent_for_row_total . "', original_price = '" . $productprice . "', base_original_price = '" . $productprice . "', price = '" . $productprice . "', base_price = '" . $productprice . "' WHERE order_id = '" . $order1->getId() . "' AND sku = '" . $productskutocheck . "'");
-					
-					 if($params['create_invoice'] == "true") {
-							$select_qry        = $connection->query("SELECT entity_id FROM `" . $_sales_invoice . "` WHERE order_id = '" . $order1->getId() . "'");
-							$newrowItemId      = $select_qry->fetch();
-							$invoice_entity_id = $newrowItemId['entity_id'];
-	
-							$connection->query("UPDATE `" . $_sales_invoice_item . "` SET price_incl_tax = '" . $productprice . "', base_price_incl_tax = '" . $productprice . "', base_row_total_incl_tax = '" . $custom_row_total . "', row_total_incl_tax = '" . $custom_row_total . "', row_total = '" . $order_total_without_tax . "', base_row_total = '" . $order_total_without_tax . "', tax_amount = '" . $tax_percent_for_row_total . "', base_tax_amount = '" . $tax_percent_for_row_total . "', price = '" . $productprice . "', base_price = '" . $productprice . "' WHERE parent_id = '" . $invoice_entity_id . "' AND sku = '" . $productskutocheck . "'");
-					}
-				}
-				*/
+                    
+                     if($params['create_invoice'] == "true") {
+                            $select_qry        = $connection->query("SELECT entity_id FROM `" . $_sales_invoice . "` WHERE order_id = '" . $order1->getId() . "'");
+                            $newrowItemId      = $select_qry->fetch();
+                            $invoice_entity_id = $newrowItemId['entity_id'];
+    
+                            $connection->query("UPDATE `" . $_sales_invoice_item . "` SET price_incl_tax = '" . $productprice . "', base_price_incl_tax = '" . $productprice . "', base_row_total_incl_tax = '" . $custom_row_total . "', row_total_incl_tax = '" . $custom_row_total . "', row_total = '" . $order_total_without_tax . "', base_row_total = '" . $order_total_without_tax . "', tax_amount = '" . $tax_percent_for_row_total . "', base_tax_amount = '" . $tax_percent_for_row_total . "', price = '" . $productprice . "', base_price = '" . $productprice . "' WHERE parent_id = '" . $invoice_entity_id . "' AND sku = '" . $productskutocheck . "'");
+                    }
+                }
+                */
         }
-				
+                
         if(isset($parts[2]) && $parts[2] != "configurable" && $parts[2] != "bundle" && $parts[2] != "simple") {
 
             $custom_row_total                = $parts[2] * $part_qty;
@@ -2267,12 +2257,7 @@ class CsvImportHandler
 
             try {
                 if($params['skip_product_lookup'] == "true") {
-                    if($productcounters == 1) {
-                        $key = 'I-oe_productstandin';
-                    } else {
-                        $key = 'I-oe_productstandin' . $productcounters;
-                    }
-                    $product2 = $this->objectManager->get('Magento\Catalog\Model\Product')->loadByAttribute('sku', $key);
+                   $product2 = $this->objectManager->get('Magento\Catalog\Model\Product')->loadByAttribute('sku', $parts[0]);
                 } else {
                     $product2 = $this->objectManager->get('Magento\Catalog\Model\Product')->loadByAttribute('sku', $parts[0]);
                 }
@@ -2287,8 +2272,8 @@ class CsvImportHandler
 
                             if(method_exists($product2, 'getTypeId')) {
                                 if($params['skip_product_lookup'] == "true") {
-                                    $productskutocheck               = $key;
-                                    $productexistsletsnotupdateprice = false;
+                                    $productskutocheck               = $parts[0];
+                                    $productexistsletsnotupdateprice = true;
                                 } else {
                                     $productskutocheck               = $parts[0];
                                     $productexistsletsnotupdateprice = true;
@@ -2385,7 +2370,7 @@ class CsvImportHandler
             //this is for bundle product setups that are not in stock or are not available in the store at all.
             if($params['skip_product_lookup'] == "true") {
                 if($productcounters == 1) {
-                    $key = 'I-oe_productstandin';
+                    $key = 'I-oe_productstandin' . $productcounters;
                 } else {
                     $key = 'I-oe_productstandin' . $productcounters;
                 }
@@ -2503,7 +2488,7 @@ class CsvImportHandler
             //this is for configurable product setups that are not in stock or are not available in the store at all.
             if($params['skip_product_lookup'] == "true") {
                 if($productcounters == 1) {
-                    $key = 'I-oe_productstandin';
+                    $key = 'I-oe_productstandin' . $productcounters;
                 } else {
                     $key = 'I-oe_productstandin' . $productcounters;
                 }
@@ -2523,23 +2508,26 @@ class CsvImportHandler
                         if(method_exists($product2, 'getTypeId') && $product2->getTypeId() == "configurable") {
 
                             if($params['skip_product_lookup'] == "true") {
-                                $productskutocheck            = $key;
-                                $configurableskusomatchonlike = false;
+                                $productskutocheck            = $parts[0];
+                                $configurableskusomatchonlike = true;
                             } else {
                                 $productskutocheck            = $parts[0];
                                 $configurableskusomatchonlike = true;
                             }
                         } else if(method_exists($product2, 'getTypeId') && $product2->getTypeId() == "simple" && $parts[2] != "configurable") {
 
-							if($params['skip_product_lookup'] == "true") {
-                                $productskutocheck            = $key;
-                                $configurableskusomatchonlike = false;
+                            if($params['skip_product_lookup'] == "true") {
+                                $productskutocheck            = $parts[0];
+                                $partsfornamepricing = explode('^', $partsdata);
+                                if(isset($partsfornamepricing[1])) {
+                                    $configurableskusomatchonlike = true;
+                                }
                             } else {
                                 $productskutocheck            = $parts[0];
-                           	    $partsfornamepricing = explode('^', $partsdata);
-								if(isset($partsfornamepricing[1])) {
-									$configurableskusomatchonlike = true;
-								}
+                                $partsfornamepricing = explode('^', $partsdata);
+                                if(isset($partsfornamepricing[1])) {
+                                    $configurableskusomatchonlike = true;
+                                }
                             }
                         } else if($productcounters > 1) {
                             $productskutocheck = 'I-oe_productstandin' . $productcounters;
@@ -2572,7 +2560,7 @@ class CsvImportHandler
             }
 
             $partsfornamepricing = explode('^', $partsdata);
-			if(isset($partsfornamepricing[1])) {
+            if(isset($partsfornamepricing[1])) {
             $custom_row_total    = $partsfornamepricing[1] * $part_qty;
             $custom_unit_price   = $partsfornamepricing[1];
 
@@ -2648,7 +2636,7 @@ class CsvImportHandler
                 throw new \Magento\Framework\Exception\LocalizedException(__("Order #" . $importData['order_id'] . " ERROR UPDATING PRODUCT PRICE: " . $e->getMessage()), $e);
                 #Mage::log(sprintf('Order #' . $importData['order_id'] . ' ERROR UPDATING PRODUCT PRICE: %s', $e->getMessage()), null, 'ce_order_import_errors.log');
             }
-			}//make sure we have pricing to update the item row
+            }//make sure we have pricing to update the item row
         }
     }
 
@@ -2664,12 +2652,7 @@ class CsvImportHandler
         if(isset($parts[3]) && $parts[2] != "configurable" && $parts[2] != "bundle" && $parts[2] != "simple") {
 
             if($params['skip_product_lookup'] == "true") {
-                if($productcounters == 1) {
-                    $key = 'I-oe_productstandin';
-                } else {
-                    $key = 'I-oe_productstandin' . $productcounters;
-                }
-                $product2 = $this->objectManager->get('Magento\Catalog\Model\Product')->loadByAttribute('sku', $key);
+               $product2 = $this->objectManager->get('Magento\Catalog\Model\Product')->loadByAttribute('sku', $parts[0]);
             } else {
                 $product2 = $this->objectManager->get('Magento\Catalog\Model\Product')->loadByAttribute('sku', $parts[0]);
             }
@@ -2682,7 +2665,7 @@ class CsvImportHandler
 
                     if($stockItem->getIsInStock() && $stockItem->getManageStock() == 1 && $stockItem->getQty() != "0.0000" || $stockItem->getManageStock() == 0) {
                         if($params['skip_product_lookup'] == "true") {
-                            $productskutocheck = $key;
+                             $productskutocheck = $parts[0];
                         } else {
                             $productskutocheck = $parts[0];
                         }
@@ -2724,12 +2707,7 @@ class CsvImportHandler
         } else if(isset($parts[2]) && $parts[2] == "bundle") {
 
             if($params['skip_product_lookup'] == "true") {
-                if($productcounters == 1) {
-                    $key = 'I-oe_productstandin';
-                } else {
-                    $key = 'I-oe_productstandin' . $productcounters;
-                }
-                $product2 = $this->objectManager->get('Magento\Catalog\Model\Product')->loadByAttribute('sku', $key);
+                $product2 = $this->objectManager->get('Magento\Catalog\Model\Product')->loadByAttribute('sku', $parts[0]);
             } else {
                 $product2 = $this->objectManager->get('Magento\Catalog\Model\Product')->loadByAttribute('sku', $parts[0]);
             }
@@ -2808,12 +2786,7 @@ class CsvImportHandler
         } else if(isset($parts[2]) && $parts[2] == "configurable" || isset($parts[2]) && $parts[2] == "simple") {
 
             if($params['skip_product_lookup'] == "true") {
-                if($productcounters == 1) {
-                    $key = 'I-oe_productstandin';
-                } else {
-                    $key = 'I-oe_productstandin' . $productcounters;
-                }
-                $product2 = $this->objectManager->get('Magento\Catalog\Model\Product')->loadByAttribute('sku', $key);
+                $product2 = $this->objectManager->get('Magento\Catalog\Model\Product')->loadByAttribute('sku', $parts[0]);
             } else {
                 $product2 = $this->objectManager->get('Magento\Catalog\Model\Product')->loadByAttribute('sku', $parts[0]);
             }
@@ -2829,7 +2802,7 @@ class CsvImportHandler
 
                             if(method_exists($product2, 'getTypeId')) {
                                 if($this->getBatchParams('skip_product_lookup') == "true") {
-                                    $productskutocheck = $key;
+                                    $productskutocheck = $parts[0];
                                 } else {
                                     $productskutocheck = $parts[0];
                                 }
@@ -2906,14 +2879,14 @@ class CsvImportHandler
 
             $convertOrder = $this->objectManager->get('Magento\Sales\Model\Convert\Order');
             $shipment     = $convertOrder->toShipment($order1);
-			
-			if(isset($importData['created_at'])) {
-				$dateTime = strtotime($importData['created_at']);
-				$shipmentCreatedAt = date("Y-m-d H:i:s", $dateTime);
-				$shipment->setCreatedAt($shipmentCreatedAt);
-				$shipment->setUpdatedAt($shipmentCreatedAt);
-				$shipment->setOrderCreatedAt($shipmentCreatedAt);
-			}
+            
+            if(isset($importData['created_at'])) {
+                $dateTime = strtotime($importData['created_at']);
+                $shipmentCreatedAt = date("Y-m-d H:i:s", $dateTime);
+                $shipment->setCreatedAt($shipmentCreatedAt);
+                $shipment->setUpdatedAt($shipmentCreatedAt);
+                $shipment->setOrderCreatedAt($shipmentCreatedAt);
+            }
             // Loop through order items
             foreach($order1->getAllItems() AS $orderItem) {
                 // Check if order item has qty to ship or is virtual
@@ -2943,7 +2916,7 @@ class CsvImportHandler
                     $shipmentCarrierTitle = $importData['tracking_ship_method'];
 
                     $tracking_codes_collection = explode(",", $tracking_codes);
-					#$logger = $this->objectManager->get('\Psr\Log\LoggerInterface');
+                    #$logger = $this->objectManager->get('\Psr\Log\LoggerInterface');
                     foreach($tracking_codes_collection as $shipmentTrackingNumber) {
 
                         $arrTracking = array(
@@ -2952,17 +2925,17 @@ class CsvImportHandler
                             'number'       => $shipmentTrackingNumber,
                             'order_id'     => $order1->getId(),
                         );
-						#$logger->log(100,print_r("ID: " .$order1->getId(),true));
-						#$logger->log(100,print_r($arrTracking,true));
+                        #$logger->log(100,print_r("ID: " .$order1->getId(),true));
+                        #$logger->log(100,print_r($arrTracking,true));
                         #$track = $shipmentTrack->addData($arrTracking);
-						$track = $this->shipmentTrackFactory->create()->addData($arrTracking);
+                        $track = $this->shipmentTrackFactory->create()->addData($arrTracking);
                         $shipment->addTrack($track);
                     }
                 }
             }
-			if(isset($importData['shipment_id'])) {
-				if($importData['shipment_id'] !="") { $shipment->setIncrementId($importData['shipment_id']); }
-			}
+            if(isset($importData['shipment_id'])) {
+                if($importData['shipment_id'] !="") { $shipment->setIncrementId($importData['shipment_id']); }
+            }
             $shipment->register();
 
             $transactionSave = $this->objectManager->get('Magento\Framework\DB\Transaction')
@@ -2986,12 +2959,12 @@ class CsvImportHandler
 
         $parts = explode(':', $data);
 
-		if(isset($parts[1])) {
-			$part_qty = $parts[1];
-		} else {
-			$part_qty = "1";
-		}
-		
+        if(isset($parts[1])) {
+            $part_qty = $parts[1];
+        } else {
+            $part_qty = "1";
+        }
+        
         $_quote              = $resource->getTableName('quote');
         $_quote_item         = $resource->getTableName('quote_item');
         $_sales_order        = $resource->getTableName('sales_order');
@@ -3002,7 +2975,7 @@ class CsvImportHandler
         $_sales_order_item   = $resource->getTableName('sales_order_item');
         $_sales_invoice_item = $resource->getTableName('sales_invoice_item');
 
-		/*
+        /*
         if(isset($parts[3]) && $parts[2] != "configurable" && $parts[2] != "bundle" && $parts[2] != "simple") {
             if($params['skip_product_lookup'] == "true") {
                 if($productcounters == 1) {
@@ -3051,15 +3024,15 @@ class CsvImportHandler
                 throw new \Magento\Framework\Exception\LocalizedException(__("Order #" . $importData['order_id'] . " ERROR UPDATING PRODUCT NAME: " . $e->getMessage()), $e);
                 #Mage::log(sprintf('Order #' . $importData['order_id'] . $message), null, 'ce_order_import_errors.log');
             }
-			
+            
         }
-		*/
+        */
         //JUST PRICE UPDATE
-		/*
+        /*
         if(isset($parts[2]) && $parts[2] != "configurable" && $parts[2] != "bundle" && $parts[2] != "simple") {
 
             $custom_row_total = $parts[2] * $part_qty;
-			
+            
             try {
 
                 $select_qry = $connection->query("SELECT quote_item_id,tax_amount,tax_percent FROM `" . $_sales_order_item . "` WHERE order_id = '" . $order1->getId() ."' AND sku = '" . $parts[0] . "'");
@@ -3077,7 +3050,7 @@ class CsvImportHandler
                 $tax_amount_for_row_total = $custom_row_total * $decimalfortaxpercent;
                 $order_total_without_tax  = $custom_row_total;
                 $order_total_with_tax     = $tax_amount_for_row_total + $custom_row_total;
-				
+                
                 $connection->query(
                     "UPDATE `" . $_sales_order_item . "` "
                     . "SET price_incl_tax = '" . $parts[2]
@@ -3111,7 +3084,7 @@ class CsvImportHandler
                     . "', tax_amount = '" . $tax_amount_for_row_total
                     . "', base_tax_amount = '" . $tax_amount_for_row_total
                     . "' WHERE item_id = '" . $item_id . "'");
-				
+                
                 if($params['create_invoice'] == "true") {
                     $connection->query(
                         "UPDATE `" . $_sales_invoice_item . "` "
@@ -3133,7 +3106,7 @@ class CsvImportHandler
                 #Mage::log(sprintf('Order #' . $importData['order_id'] . $message), null, 'ce_order_import_errors.log');
             }
         }
-		*/
+        */
         //JUST UPDATE SHIPPING TOTAL
         if(isset($importData['subtotal']) && isset($importData['shipping_amount'])) {
 
@@ -3364,7 +3337,7 @@ class CsvImportHandler
 
         $dateTime = strtotime($importData['created_at']);
         try {
-			/*
+            /*
             $connection->query(
                 "UPDATE `" . $_sales_invoice . "` "
                 . "SET created_at = '" . date("Y-m-d H:i:s", $dateTime)
@@ -3377,7 +3350,7 @@ class CsvImportHandler
                 . "', order_created_at = '" . date("Y-m-d H:i:s", $dateTime)
                 . "' WHERE order_id = '" . $order1->getId()
                 . "' AND store_id = '" . $importData['store_id'] . "'");
-			*/
+            */
             $connection->query(
                 "UPDATE `" . $_sales_invoice_grid . "` "
                 . "SET order_created_at = '" . date("Y-m-d H:i:s", $dateTime)
@@ -3524,92 +3497,92 @@ class CsvImportHandler
 
         if(!empty($data['add_products'])) {
             $this->_getOrderCreateModel()->addProducts($data['add_products']);
-			$this->_getOrderCreateModel()->getQuote()->setTotalsCollectedFlag(false)->collectTotals();
+            $this->_getOrderCreateModel()->getQuote()->setTotalsCollectedFlag(false)->collectTotals();
         }
-		//sync product names/prices, and update shipping
-		$itemCounter = 0;
-		$baseSubTotal = 0;
-		$subTotal = 0;
-		$forceDataUpdate = false;
-		
+        //sync product names/prices, and update shipping
+        $itemCounter = 0;
+        $baseSubTotal = 0;
+        $subTotal = 0;
+        $forceDataUpdate = false;
+        
         foreach ($this->_getOrderCreateModel()->getQuote()->getAllItems() as $item) {
-			#echo "SKU: " .$item->getSku();
-			if (strpos($item->getSku(), 'I-oe_productstandin') !== false) {
-				if(isset($products_ordered[$itemCounter])) {
-					$parts = explode(':', $products_ordered[$itemCounter]);
-					if(isset($parts[1])) { $part_qty = $parts[1]; } else { $part_qty = "1"; }
-					if(isset($parts[2]) && $parts[2] == "configurable" || isset($parts[2]) && $parts[2] == "simple" || isset($parts[2]) && $parts[2] == "bundle") {
-						 $partsfornamepricing = explode('^', $products_ordered[$itemCounter]);
-						 if(isset($partsfornamepricing[1])) {
-							$rowTotal    	   = $partsfornamepricing[1] * $part_qty;
-							$rowProductPrice   = $partsfornamepricing[1];
-						 } else {
-							throw new \Magento\Framework\Exception\LocalizedException(__("Order #" . $importData['order_id'] . " ERROR [products_ordered] DOES NOT CONTAIN PRICE: " . $products_ordered[$itemCounter]));
-						 }
-						 if(isset($partsfornamepricing[2]) && $partsfornamepricing[2] != "") {
-							$rowProductName = $partsfornamepricing[2];
-						 } else {
-							$rowProductName = $parts[3];
-						 }
-						 $rowProductSku = $parts[0];
-						 //This is For Bundle Format w/ Pricing
-						 if(isset($parts[6]) && $parts[6] != "") {
-							#$rowProductName = htmlspecialchars($parts[6], ENT_NOQUOTES, "UTF-8");
-							$rowProductSku  = $parts[3];
-							$rowProductName = $parts[6];
-						 }
-					} else {
-						$rowProductSku     = $parts[0];
-						$rowProductPrice   = isset($parts[2]) ? $parts[2] : '0.00';
-						$rowProductName    = isset($parts[3]) ? $parts[3] : '';
-						$rowTotal 		   = $part_qty * $rowProductPrice;
-					}
-					$item->setSku($rowProductSku);
-					$item->setName($rowProductName);
-					$item->setPrice($rowProductPrice);
-					$item->setBasePrice($rowProductPrice);
-					$item->setOriginalPrice($rowProductPrice);
-					$item->setBaseOriginalPrice($rowProductPrice);
-					$item->setBaseRowTotal($rowTotal);
-					$item->setRowTotal($rowTotal);
-					$item->setBaseRowInvoiced($rowTotal);
-					
-					if($params['use_historic_tax'] == "true") {
-						if(isset($importData['tax_percent'])) {
-							$tax_percent = $importData['tax_percent'];
-							$decimalfortaxpercent = $tax_percent / 100;
-							#$tax_percent = "8";
-						} elseif(isset($importData['tax_amount']) && isset($importData['grand_total'])) {
-							$decimalfortaxpercent = $importData['tax_amount'] / $importData['grand_total'];
-							$tax_percent = round((float)$decimalfortaxpercent * 100 ) . '%';
-						}
-						$tax_amount_for_row_total = $rowTotal * $decimalfortaxpercent;
-						$item->setTaxPercent($tax_percent);
-						$item->setTaxAmount($tax_amount_for_row_total);
-						$rowTotalInclTax = $rowTotal + $tax_amount_for_row_total;
-					} else {
-						$rowTotalInclTax = $rowTotal;
-					}
-					
-					$item->setBasePriceInclTax($rowProductPrice);
-					$item->setPriceInclTax($rowProductPrice);
-					$item->setRowTotalInclTax($rowTotalInclTax); 
-					$item->setBaseRowTotalInclTax($rowTotalInclTax); 
-					$item->setRowInvoiced($rowTotalInclTax);
-					
-					//$importData['subtotal'] could set from csv but will auto calc instead
-					#$baseSubTotal = $baseSubTotal + $rowTotal;
-					#$subTotal = $subTotal + $rowTotalInclTax;
-					#$forceDataUpdate = true;
-					$itemCounter++;
-				}
-			}
-		}
-		#if($forceDataUpdate) {
-			#$this->_getOrderCreateModel()->getQuote()->setSubtotal($subTotal)->setBaseSubtotal($baseSubTotal);
+            #echo "SKU: " .$item->getSku();
+            if (strpos($item->getSku(), 'I-oe_productstandin') !== false) {
+                if(isset($products_ordered[$itemCounter])) {
+                    $parts = explode(':', $products_ordered[$itemCounter]);
+                    if(isset($parts[1])) { $part_qty = $parts[1]; } else { $part_qty = "1"; }
+                    if(isset($parts[2]) && $parts[2] == "configurable" || isset($parts[2]) && $parts[2] == "simple" || isset($parts[2]) && $parts[2] == "bundle") {
+                         $partsfornamepricing = explode('^', $products_ordered[$itemCounter]);
+                         if(isset($partsfornamepricing[1])) {
+                            $rowTotal          = $partsfornamepricing[1] * $part_qty;
+                            $rowProductPrice   = $partsfornamepricing[1];
+                         } else {
+                            throw new \Magento\Framework\Exception\LocalizedException(__("Order #" . $importData['order_id'] . " ERROR [products_ordered] DOES NOT CONTAIN PRICE: " . $products_ordered[$itemCounter]));
+                         }
+                         if(isset($partsfornamepricing[2]) && $partsfornamepricing[2] != "") {
+                            $rowProductName = $partsfornamepricing[2];
+                         } else {
+                            $rowProductName = $parts[3];
+                         }
+                         $rowProductSku = $parts[0];
+                         //This is For Bundle Format w/ Pricing
+                         if(isset($parts[6]) && $parts[6] != "") {
+                            #$rowProductName = htmlspecialchars($parts[6], ENT_NOQUOTES, "UTF-8");
+                            $rowProductSku  = $parts[3];
+                            $rowProductName = $parts[6];
+                         }
+                    } else {
+                        $rowProductSku     = $parts[0];
+                        $rowProductPrice   = $parts[2];
+                        $rowProductName    = $parts[3];
+                        $rowTotal          = $part_qty * $parts[2];
+                    }
+                    $item->setSku($rowProductSku);
+                    $item->setName($rowProductName);
+                    $item->setPrice($rowProductPrice);
+                    $item->setBasePrice($rowProductPrice);
+                    $item->setOriginalPrice($rowProductPrice);
+                    $item->setBaseOriginalPrice($rowProductPrice);
+                    $item->setBaseRowTotal($rowTotal);
+                    $item->setRowTotal($rowTotal);
+                    $item->setBaseRowInvoiced($rowTotal);
+                    
+                    if($params['use_historic_tax'] == "true") {
+                        if(isset($importData['tax_percent'])) {
+                            $tax_percent = $importData['tax_percent'];
+                            $decimalfortaxpercent = $tax_percent / 100;
+                            #$tax_percent = "8";
+                        } elseif(isset($importData['tax_amount']) && isset($importData['grand_total'])) {
+                            $decimalfortaxpercent = $importData['tax_amount'] / $importData['grand_total'];
+                            $tax_percent = round((float)$decimalfortaxpercent * 100 ) . '%';
+                        }
+                        $tax_amount_for_row_total = $rowTotal * $decimalfortaxpercent;
+                        $item->setTaxPercent($tax_percent);
+                        $item->setTaxAmount($tax_amount_for_row_total);
+                        $rowTotalInclTax = $rowTotal + $tax_amount_for_row_total;
+                    } else {
+                        $rowTotalInclTax = $rowTotal;
+                    }
+                    
+                    $item->setBasePriceInclTax($rowProductPrice);
+                    $item->setPriceInclTax($rowProductPrice);
+                    $item->setRowTotalInclTax($rowTotalInclTax); 
+                    $item->setBaseRowTotalInclTax($rowTotalInclTax); 
+                    $item->setRowInvoiced($rowTotalInclTax);
+                    
+                    //$importData['subtotal'] could set from csv but will auto calc instead
+                    #$baseSubTotal = $baseSubTotal + $rowTotal;
+                    #$subTotal = $subTotal + $rowTotalInclTax;
+                    #$forceDataUpdate = true;
+                    $itemCounter++;
+                }
+            }
+        }
+        #if($forceDataUpdate) {
+            #$this->_getOrderCreateModel()->getQuote()->setSubtotal($subTotal)->setBaseSubtotal($baseSubTotal);
             #$this->_getOrderCreateModel()->getQuote()->collectTotals()->save();
-			#$this->_getOrderCreateModel()->getQuote()->setTotalsCollectedFlag(false)->collectTotals();
-		#}
+            #$this->_getOrderCreateModel()->getQuote()->setTotalsCollectedFlag(false)->collectTotals();
+        #}
 
         // you may need to use this if your having issues with tax rates not applying on shipping address only
         #$this->_getOrderCreateModel()->setShippingAddress($data['order']['shipping_address']);
@@ -3633,7 +3606,7 @@ class CsvImportHandler
             $this->_getOrderCreateModel()->getQuote()->getCustomer()->setFirstname($data['order']['account']['firstname']);
             $this->_getOrderCreateModel()->getQuote()->getCustomer()->setLastname($data['order']['account']['lastname']);
         }
-		
+        
         $this->_getOrderCreateModel()->initRuleData()->saveQuote();
     }
 
