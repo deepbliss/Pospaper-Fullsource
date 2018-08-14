@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+  Copyright © 2015 Wyomind. All rights reserved.
+  See LICENSE.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Wyomind_Core" setup_version="3.5.4.1">
+        <sequence>
+            <sequence>
+                <module name="Magento_AdminNotification"/>
+            </sequence>
+        </sequence>
+    </module>
+</config> 

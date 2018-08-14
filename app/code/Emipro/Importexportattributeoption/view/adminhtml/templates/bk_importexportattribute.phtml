@@ -1,0 +1,163 @@
+<script type="text/javascript">
+    function btnshow()
+    {
+        var btn = document.getElementById('importbtn');
+        var x1 = document.getElementById('select_attribute').value;
+        if (x1 == "")
+            btn.style.visibility = "hidden";
+        else
+            btn.style.visibility = "visible";
+    }
+    function importdd()
+    {
+        var eID = document.getElementById("select_attribute");
+        var dayVal = eID.options[eID.selectedIndex].value;
+        var daytxt = eID.options[eID.selectedIndex].text;
+        var url = '<?php echo $block->getExporturl(); ?>' + 'attribute' + '/' + dayVal + '/' + 'attributename' + '/' + daytxt;
+
+        window.location.assign(url);
+    }
+require(['jquery', 'jquery/ui'], function($){
+
+    $(document).ready(function(){
+        $('#btn_import').toggle(false);
+        $('#btn_check').attr('disabled',true);
+    });
+
+    $("#btn_check").click(function(){
+        $('#btn_check').html("Processing... <div style='float: right;'' id='spiner' ></div>");
+        $('#fileToUpload').attr('disabled', true);
+        var data =  new FormData($(this)[0]);
+        $("#spiner").addClass("loader");
+        var test;
+        jQuery.each(jQuery('#fileToUpload')[0].files, function(i, file) {
+            data.append('fileToUpload', file);
+        });
+
+        jQuery.ajax({
+            url: '<?php echo __($block->getCheckvalidationurl()); ?>',
+            data: data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST'}).
+            done(function(data){
+                if (data=="valid") {
+                    $("#spiner").removeClass("loader");
+                    $('#btn_import').toggle(true);
+                    $('#btn_check').attr('disabled',true);
+                    $('#fileToUpload').attr('disabled', false);
+                    $('#messages_check').show();
+                    $('#btn_check').html("Check Data");
+                    $('#messages_check').html("<div id='messages'><div class='messages'><div class='message message-success success'><div data-ui-id='messages-message-success'>CSV File Is Ready For Import..! Click On Import Attribute Option Button...!!!</div></div></div></div>");
+                }
+                else {
+                    $('#btn_check').html("Check Data");
+                    $("#spiner").removeClass("loader");
+                    $('#messages_check').show();
+                     $('#fileToUpload').attr('disabled', false);
+                     $('#messages_check').html("<div id='messages'><div class='messages'><div class='message message-error error'><div data-ui-id='messages-message-error'>CSV File Is Not Valid ! Error On Row Number "+(parseInt(data))+" .</div></div></div></div>");
+                }
+        });
+    });
+    $('input[type="file"]').change(function(e){
+        try {
+            var fileName = e.target.files[0].name;
+            $('#messages_check').hide();
+            $('#btn_check').attr('disabled',false);
+            $('#btn_import').toggle(false);
+        }
+        catch(err) {
+            $('#messages_check').hide();
+            $("#spiner").removeClass("loader");
+            $('#btn_import').toggle(false);
+            $('#btn_check').attr('disabled',true);
+        }
+
+    });
+
+});
+
+</script>
+<form id="edit_form" name="edit_form" method="POST" action="<?php echo __($block->getImporturl()); ?>" enctype="multipart/form-data" data-mage-init='{"validation": {"errorClass": "mage-error"}}' novalidate="novalidate">
+    <input name="form_key" type="hidden" value="<?php echo __($block->getFormKey()); ?>" />
+
+    <div class="page-main-actions">
+        <div class="page-actions" >
+            <div class="page-actions-inner" data-title="Magento Admin">
+                <div class="page-actions-buttons">
+                    <button class="action tocart primary" type="submit" id="btn_import" name="btn_import">
+                        <span class="ui-button-text"><span>Import Attribute Options</span></span>
+                    </button>
+                </div>
+                <!-- Check Data -->
+                <div class="page-actions-buttons">
+                    <button class="action tocart primary" id="btn_check" type="button">
+                        <span class="ui-button-text"><span>Check Data
+                          </span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="page:main-container" class="page-columns">
+        <div class="admin__old">
+            <div id="container" class="main-col">
+            <div>
+                <div data-bind="scope: 'employee_form.employee_form'" class="entry-edit form-inline">
+                    <div class="fieldset-wrapper">
+                        <div class="admin__fieldset-wrapper-content _hide" >
+                            <div id="messages_check">
+                            </div>
+                            <fieldset class="admin__fieldset" >
+                                <div class="admin__field _required" >
+                                    <label class="admin__field-label" >
+                                        <span>Select Attribute</span>
+                                    </label>
+
+                                    <div class="admin__field-control" style="position: relative;">
+
+                                        <?php $options = $block->getSelectAttributes(); ?>
+                                        <select class="admin__control-select required-entry" name="attribute" id="select_attribute" onchange="btnshow()">
+                                            <option value="">-- Select Attribute --</option>
+                                            <?php foreach ($options as $item): ?>
+                                                <option value="<?php echo $item["code"] ?>"><?php echo __($item["label"]); ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <button id="importbtn" title="Export Attribute options" type="button" class="form-button" onclick="importdd()" style="visibility:hidden; position: absolute; right: 0px; top: 0px;">
+                                            <span>Export Attribute options</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="admin__field _required">
+                                    <label class="admin__field-label" >
+                                        <span>Select CSV File</span>
+                                    </label>
+                                    <div class="admin__field-control" >
+                                        <div class="file-uploader" >
+                                            <input type="file"  name="fileToUpload" class="required-entry" id="fileToUpload" accept=".csv">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="admin__field _required">
+                                    <label class="admin__field-label">
+                                        <span>Select Delimiter</span>
+                                    </label>
+                                    <div class="admin__field-control">
+                                        <select class="admin__control-select" name="delimiter">
+                                            <option data-title="Comma(,)" value="comma">Comma(,)</option>
+                                            <option data-title="Semicolon(;)" value="semicolon">Semicolon(;)</option>
+                                            <option data-title="Colon(:)" value="colon">Colon(:)</option>
+                                            <option data-title="Pipe(|)" value="pipe">Pipe(|)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</form>

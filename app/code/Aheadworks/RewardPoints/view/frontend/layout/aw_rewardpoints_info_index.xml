@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <head>
+        <css src="Aheadworks_RewardPoints::css/account.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Aheadworks\RewardPoints\Block\Customer\RewardPointsBalance\Account" name="customer_aw_rewardpoints" template="customer/account/reward_points.phtml" cacheable="false">
+                <block class="Aheadworks\RewardPoints\Block\Customer\RewardPointsBalance\Account\Transaction" name="customer_aw_rewardpoints_transaction" as="aw_rp_transaction" template="customer/account/transaction.phtml" cacheable="false"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,10 @@
+<?php if ($block->getEnableTrackOrder()) { ?>
+    <div class="mcs-track">
+        <?php if ($block->getData('trackorder')) : ?>
+            <h2 class='trackorder'>
+                <?php /* @noEscape */ echo $block->getData('trackorder'); ?>
+            </h2>
+            <a href="<?php /* @noEscape */ echo $block->getUrl('trackorder/') ?>">Track Order</a>
+        <?php endif; ?>
+    </div>
+<?php } ?>

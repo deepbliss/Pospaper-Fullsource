@@ -1,0 +1,99 @@
+<?php
+// @codingStandardsIgnoreFile
+
+/* @var $block \Shreeji\RestrictShippingPayment\Block\Adminhtml\Manage\Payment */
+
+$exportUrl = $block->getExportUrl();
+?>
+<form name="si-import-reviews" id="si-import-reviews" action="<?php echo $block->getPostUrl(); ?>" method="post" enctype="multipart/form-data" >
+    <?php echo $block->getBlockHtml('formkey'); ?>
+    <div id="page:main-container" class="si-main-container page-columns">
+        <div class="admin__old">
+            <div id="container" class="main-col">                                
+                <div id="si-review-container" class="si-review-container">
+                    <table cellspacing="0" class="form-list">
+                        <tbody>                                                            
+                            <tr>
+                                <td class="label sitdpadding silabelleft"><label for="importreviews" class="si-label"> <?php echo __('Import Reviews:') ?></label> <input type="file" name="importreviews" id="importreviews" class="input-text required-entry" data-validate="{required:true, 'validate-custom-file':true}" /> </td>
+                                <td class="value sitdpadding silabelright">
+                                    <div class="si-page-actions" data-ui-id="page-actions-toolbar-content-header">                                        
+                                        <div class="page-actions-inner" data-title="<?php echo __('Import Reviews'); ?>">
+                                            <div class="page-actions-buttons">
+                                                <button id="filter_form_submit" title="<?php echo __('Import Reviews'); ?>" type="submit" class="action-default scalable primary" data-ui-id="product-report-grid-container-filter-form-submit-button">
+                                                    <span><?php echo __('Import Reviews'); ?></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>                                                                                                               
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label"><label for="exportreviews" class="si-label"> <?php echo __('Export Reviews:') ?></label>
+                                    <button id="si-export-reviews" title="<?php echo __('Export CSV'); ?>" type="button" class="action-default scalable" onclick="setLocation('<?php echo $exportUrl; ?>')" data-ui-id="widget-button-0">
+                                        <span><?php echo __('Export CSV'); ?></span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<style type="text/css">
+    #si-import-reviews {
+        border:3px;
+        border-style:groove;
+    }
+    .si-review-container{
+        padding-left:14%;
+        padding-top:4%;
+        padding-bottom:9%;
+    }   
+    .si-label{
+        font-weight: bold;
+        font-size: 14px;
+        padding-right: 4%;
+    }
+    .sitdpadding{
+        padding-bottom: 3%;
+    }
+    .silabelleft{
+        width: 45%;
+    }
+    .silabelright{
+        float: left;
+        width: 26%;
+    }
+    #si-review-container table{
+        width: 100%;
+    }
+</style>
+<script type="text/javascript">
+    var allowdFileType=['csv'];
+    var allowdFileTypeString='<?php echo __('only in CSV format.'); ?>';
+    require([
+        'jquery', 
+        'jquery/ui', 
+        'jquery/validate',
+        'mage/translate' 
+        ], function($){ 
+            $.validator.addMethod(
+                'validate-custom-file', function (image) {
+                    var imageArr=image.split('.');
+                    if($.isArray(imageArr) && $.type(imageArr[imageArr.length-1] !='undefined')){
+                        if($.inArray(imageArr[imageArr.length-1],allowdFileType)=='-1') {
+                            return false;
+                        }else{
+                            return true;
+                        } 
+                    }
+                    return false;
+                }, $.mage.__('File shuold be '+allowdFileTypeString));
+            var customerImportForm = $('#si-import-reviews');
+            customerImportForm.mage('validation', {});
+
+    });
+</script>
+

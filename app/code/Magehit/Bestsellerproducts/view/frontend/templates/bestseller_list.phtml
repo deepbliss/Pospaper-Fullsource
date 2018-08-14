@@ -1,0 +1,92 @@
+<?php
+
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+use Magento\Framework\App\Action\Action;
+
+?>
+<?php
+/**
+ * Product list template
+ *
+ */
+?>
+<h2>Top Selling</h2>
+<div class="best-seller-container">
+<?php
+$_productCollection = $block->getLoadedProductCollection();
+
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$cat_id = $_productCollection;
+$cateinstance = $objectManager->create('Magento\Catalog\Model\CategoryFactory');
+$allcategoryproduct = $cateinstance->create()->load($cat_id)->getProductCollection()->addAttributeToSelect('*');
+$array_cat_products = array();
+foreach ($allcategoryproduct as $categoryproduct) 
+{
+    array_push($array_cat_products, $categoryproduct->getId());
+}
+$productCollection = $objectManager->create('Magento\Reports\Model\ResourceModel\Report\Collection\Factory'); 
+$collection = $productCollection->create('Magento\Sales\Model\ResourceModel\Report\Bestsellers\Collection'); 
+//$collection->setPeriod('year');
+
+
+
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+$imageBlock = $block->getLayout()->createBlock('Magento\Catalog\Block\Product\Image');
+?>
+<?php if (!$collection->count()): ?>
+    <div class="message info empty"><div><?php echo __('We can\'t find products matching the selection.') ?></div></div>
+<?php else: ?>
+   
+    
+        <?php $iterator = 1; ?>
+        
+            <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
+            <?php foreach ($collection as $_product): ?>
+     <?php           if(in_array($_product->getData('product_id'),$array_cat_products))
+    { 
+$product = $objectManager->create('Magento\Catalog\Model\Product')->load($_product->getData('product_id'));
+        ?>
+<div class="best-row">
+            	<div class="prod-item-img">
+                    <?php // Product Image   ?>
+                    <a href="<?php echo $product->getProductUrl() ?>" class="product photo product-item-photo" tabindex="-1">
+                            <?php
+$store = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->getStore();
+
+
+if($product->getThumbnail() != NULL)
+{
+$product_image = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product' . $product->getThumbnail();
+}
+else
+{
+ $product_image = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product/No_Image_Available.jpg';       
+}
+?>
+
+                                  
+                                    <img src="<?php echo $product_image; ?>" />
+
+                        </a>
+                        </div>
+
+ <div class="product name product-item-name">
+                                <a class="product-item-link" href="<?php echo $product->getProductUrl() ?>">
+                                       <?php 
+
+        echo $product->getName();
+                                       ?>
+                                </a>
+</div>
+
+</div>
+
+               <?php } ?>
+            <?php endforeach; ?>
+    <?php endif; ?>
+
+</div>

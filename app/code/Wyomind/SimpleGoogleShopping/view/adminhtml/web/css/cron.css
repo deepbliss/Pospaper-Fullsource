@@ -1,0 +1,51 @@
+/* ======== Cron task ======= */
+label.selected {
+    color: green;
+    font-weight: bold;
+}
+
+div#cron-setting table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+div#cron-setting > table th {
+    background: #524d49 none repeat scroll 0 0 !important;
+    color: white;
+    padding: 5px;
+}
+
+div#cron-setting > table {
+    border-right: 1px solid #f7f3eb;
+}
+
+div#cron-setting table tr > td {
+    border-left: 1px solid #f7f3eb;
+    border-right: none !important;
+}
+
+div#cron-setting table tr > td > label {
+    text-align: left;
+}
+
+div#cron-setting table td {
+    border-right: 1px solid #f7f3eb;
+    border-bottom: 1px solid #f7f3eb;
+}
+
+div#cron-setting table td.hours {
+    padding: 0px;
+    border: none !important;
+}
+
+div#cron-setting table table {
+    border: none !important;
+}
+
+div#cron-setting table table td {
+    width: 25%;
+    border-right: 1px solid #f7f3eb;
+    border-bottom: 1px solid #f7f3eb;
+}
+
+

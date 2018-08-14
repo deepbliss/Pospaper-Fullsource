@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Sales:etc/pdf_file.xsd">
+    <renderers>
+        <page type="invoice">
+            <renderer product_type="default">Magento\Sales\Model\Order\Pdf\Items\Invoice\DefaultInvoice</renderer>
+        </page>
+    </renderers>
+    <totals>
+        <total name="aw_reward_points">
+            <title translate="true">Reward Points</title>
+            <source_field>aw_reward_points_amount</source_field>
+            <title_source_field>aw_reward_points_description</title_source_field>
+            <font_size>7</font_size>
+            <display_zero>false</display_zero>
+            <sort_order>150</sort_order>
+        </total>
+        <total name="aw_reward_points_refund">
+            <title translate="true">Returned to Reward Points</title>
+            <source_field>aw_reward_points_refund</source_field>
+            <title_source_field>aw_reward_points_blnce_refund</title_source_field>
+            <font_size>7</font_size>
+            <display_zero>false</display_zero>
+            <sort_order>160</sort_order>
+        </total>
+        <total name="aw_reward_points_reimbursed">
+            <title translate="true">Reimbursed spent Reward Points</title>
+            <source_field>aw_reward_points_reimbursed</source_field>
+            <title_source_field>aw_reward_points_blnce_reimbursed</title_source_field>
+            <font_size>7</font_size>
+            <display_zero>false</display_zero>
+            <sort_order>170</sort_order>
+        </total>
+    </totals>
+</config>

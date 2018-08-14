@@ -1,0 +1,46 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+// @codingStandardsIgnoreFile
+
+/* @var $block \Aheadworks\RewardPoints\Block\Adminhtml\Sales\Order\Creditmemo\RewardPoints */
+?>
+<?php if ($block->canRefund()): ?>
+    <div class="admin__field admin__field-option field-refund-to-reward-points">
+        <input type="checkbox" class="admin__control-checkbox"
+               id="creditmemo_refund_to_aw_reward_points_enable"
+               name="creditmemo[refund_to_aw_reward_points_enable]"
+               value="1"
+               <?php /* @noEscape */  echo $block->isRewardPointsRefundAutomatically() ? 'checked="checked"' : '' ?>/>
+        <label for="creditmemo_refund_to_aw_reward_points_enable" class="admin__field-label">
+            <span><?php echo $block->escapeHtml(__('Refund to Reward Points')) ?></span>
+        </label>
+        <input type="text" class="input-text admin__control-text not-negative-amount"
+               id="creditmemo_refund_to_aw_reward_points"
+               name="creditmemo[refund_to_aw_reward_points]"
+               value="<?php /* @noEscape */ echo $block->getRefundToRewardPoints() ?>"/>
+        <script>
+            require(['jquery'], function($) {
+                //<![CDATA[
+                toggleRefundedToRewardPoints = function() {
+                    if ($('#creditmemo_refund_to_aw_reward_points_enable').is(":checked")) {
+                        $('#creditmemo_refund_to_aw_reward_points').prop('disabled', false);
+                    } else {
+                        $('#creditmemo_refund_to_aw_reward_points').prop('disabled', true);
+                    }
+                }
+                $('#creditmemo_refund_to_aw_reward_points_enable').bind("change", toggleRefundedToRewardPoints);
+                $('#creditmemo_refund_to_aw_reward_points').bind("change keyup input click", function() {
+                    if (this.value.match(/[^0-9]/g)) {
+                        this.value = this.value.replace(/[^0-9]/g, '');
+                    }
+                });
+                toggleRefundedToRewardPoints();
+                //]]>
+            });
+        </script>
+    </div>
+<?php endif; ?>

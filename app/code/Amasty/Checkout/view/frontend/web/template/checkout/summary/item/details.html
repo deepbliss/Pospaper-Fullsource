@@ -1,0 +1,46 @@
+<!-- ko if: canShowDeleteButton() -->
+<div class="delete" data-bind="click: deleteItem.bind($data, $parent)"/>
+<!-- /ko -->
+
+<!-- ko foreach: getRegion('before_details') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!-- /ko -->
+<div class="product-item-details">
+    <form action="" method="post" data-role="product-attributes" data-bind="attr: {'data-item-id': $parent.item_id}">
+    <div class="product-item-inner">
+        <div class="product-item-name-block">
+            <strong class="product-item-name" data-bind="text: $parent.name"></strong>
+            <div class="details-qty">
+                <span class="label"><!-- ko i18n: 'Qty' --><!-- /ko --></span>
+                <input class="qty" type="number" name="qty" data-bind="value: $parent.qty" min="1" autocomplete="off">
+            </div>
+            <!-- ko if: getStockStatusHtml($parent) -->
+                <div style="background: #fdf0d5 none repeat scroll 0 0; padding: 12px; margin-top: 10px" data-bind="html: getStockStatusHtml($parent)"/>
+            <!-- /ko -->
+        </div>
+        <!-- ko foreach: getRegion('after_details') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    </div>
+
+    <!-- ko if: (JSON.parse($parent.options).length > 0)-->
+    <div class="product options" data-bind="mageInit: {'collapsible':{'openedState': 'active'}}">
+        <span data-role="title" class="toggle"><!-- ko i18n: 'View Details' --><!-- /ko --></span>
+        <div data-role="content" class="content">
+            <strong class="subtitle"><!-- ko i18n: 'Options Details' --><!-- /ko --></strong>
+            <div class="item-options" data-bind="html: getConfigurableOptions($parent)" />
+            <div class="item-options" data-bind="html: getCustomOptions($parent)" />
+        </div>
+    </div>
+    <!-- /ko -->
+    <!--ko text: initOptions($parent) -->
+    <!-- /ko -->
+
+    <button class="action primary checkout" type="submit" data-bind="
+                        click: updateItem.bind($data, $parent),
+                        attr: {title: $t('Update')},
+                        visible: $parent.isUpdated">
+        <span data-bind="i18n: 'Update'"></span>
+    </button>
+    </form>
+</div>

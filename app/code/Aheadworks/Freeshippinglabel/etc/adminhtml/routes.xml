@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="admin">
+        <route id="aw_fslabel_admin" frontName="aw_fsabel_admin">
+            <module name="Aheadworks_Freeshippinglabel" before="Magento_Backend"/>
+        </route>
+    </router>
+</config>

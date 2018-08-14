@@ -1,0 +1,10 @@
+<script type="text/javascript">
+	jQuery(document).load(jQuery(window).bind("load", listenWidth));
+
+    function listenWidth( e ) {
+        if(jQuery(window).width() < 1024)
+        {   
+          jQuery(".product-info-main").insertBefore(jQuery(".detailed"));
+        }
+}
+</script>

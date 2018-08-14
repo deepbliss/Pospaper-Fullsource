@@ -1,0 +1,289 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="amasty_checkout" translate="label" type="text" sortOrder="151419" showInDefault="1" showInWebsite="1" showInStore="1">
+            <resource>Amasty_Checkout::config_checkout</resource>
+            <class>separator-top</class>
+            <label>One Step Checkout</label>
+            <tab>amasty</tab>
+            <group id="amasty_information" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Information</label>
+                <frontend_model>Amasty\Checkout\Block\Adminhtml\System\Config\Information</frontend_model>
+                <field id="css_include" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Include CSS</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <frontend_model>Amasty\Checkout\Block\Adminhtml\System\Config\CssInclude</frontend_model>
+                    <comment>To include CSS style please select 'Yes' only in case of the default Magento LESS functionality is missing</comment>
+                </field>
+            </group>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable One Step Checkout</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Checkout Page Title</label>
+                </field>
+                <field id="description" translate="label comment" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Checkout Page Description</label>
+                    <comment><![CDATA[Provide customers with important info about taxes (e.g. VAT) or any other payment specifics.<br/>HTML is allowed]]></comment>
+                </field>
+                <field id="allow_edit_options" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allow to edit products in the Order Summary</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="reload_shipping" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Reload Shipping methods when coupon code is applied]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="reload_payments" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Refresh payment methods & total upon the shipping address change]]></label>
+                    <comment><![CDATA[Useful when the payment methods & taxes depend on the shipping address]]></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <!-- hidden in OSC-128 !-->
+                <!--<field id="subscribe_authorization" translate="label comment" type="select" sortOrder="75" showInDefault="1" showInWebsite="1" showInStore="1">-->
+                    <!--<label>subscribe authorization</label>-->
+                    <!--<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+                    <!--<depends>-->
+                        <!--<field id="authorization">1</field>-->
+                    <!--</depends>-->
+                <!--</field>-->
+
+            </group>
+            <group id="geolocation" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Geolocation</label>
+                <field id="ip_detection" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Geo IP Location</label>
+                    <comment>Detect user country based on the IP address and automatically fills it in at checkout</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="google_address_suggestion" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Google Address Suggestion</label>
+                    <comment>Address auto complete while user is typing, using geolocation Google technology</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="google_api_key" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Google API Key</label>
+                    <comment><![CDATA[Click <a href="https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform" target="_blank">here</a> to get API key]]></comment>
+                    <depends>
+                        <field id="google_address_suggestion">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="default_values" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Default Values</label>
+                <field id="shipping_method" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Shipping Method</label>
+                    <source_model>\Amasty\Checkout\Model\Config\Source\Shipping</source_model>
+                </field>
+                <field id="payment_method" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Payment Method</label>
+                    <source_model>\Amasty\Checkout\Model\Config\Source\Payment</source_model>
+                </field>
+                <field id="address_country_id" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Country</label>
+                    <frontend_class>countries</frontend_class>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                </field>
+                <field id="address_region_id" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Region/State</label>
+                </field>
+                <field id="address_postcode" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Zip/Postal Code</label>
+                </field>
+                <field id="address_city" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default City</label>
+                </field>
+            </group>
+            <group id="block_names" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Block Names</label>
+                <field id="block_shipping_address" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Shipping Address</label>
+                </field>
+                <field id="block_shipping_method" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Shipping Method</label>
+                </field>
+                <field id="block_delivery" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Delivery</label>
+                </field>
+                <field id="block_payment_method" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Payment Method</label>
+                </field>
+                <field id="block_order_summary" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Order Summary</label>
+                </field>
+            </group>
+            <group id="design" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Design Settings</label>
+                <field id="header_footer" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display header and footer</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="layout" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Checkout Page Layout</label>
+                    <comment><![CDATA[Please keep in mind that, for 3 Columns layout, third column will be displayed only if Customer's Order may require shipping (contains non-Virtual products, in most cases).]]></comment>
+                    <source_model>\Amasty\Checkout\Model\Config\Source\Layout</source_model>
+                </field>
+                <field id="font" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Checkout text font</label>
+                    <comment><![CDATA[Specify the <a href="https://fonts.google.com/" target="_blank">Google font</a> name. For example <strong>Roboto</strong>, <strong>Open Sans</strong> or <strong>Indie Flower</strong>
+                    <br/>Some fonts use extra parameters e.g. <strong>Molle:400i</strong> where 400 = regular, i = Italic (100 = thin, 700 = bold)]]></comment>
+                </field>
+                <field id="heading_color" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Heading Text Color</label>
+                    <frontend_model>Amasty\Checkout\Block\Adminhtml\System\Config\Field\Color</frontend_model>
+                </field>
+                <field id="summary_color" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Order Summary Background</label>
+                    <frontend_model>Amasty\Checkout\Block\Adminhtml\System\Config\Field\Color</frontend_model>
+                </field>
+                <field id="button_color" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Place Order Button Color</label>
+                    <frontend_model>Amasty\Checkout\Block\Adminhtml\System\Config\Field\Color</frontend_model>
+                </field>
+                <field id="bg_color" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Checkout Background Color</label>
+                    <frontend_model>Amasty\Checkout\Block\Adminhtml\System\Config\Field\Color</frontend_model>
+                </field>
+            </group>
+            <group id="additional_options" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Additional Options</label>
+                <field id="comment" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Order Comment</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="discount" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Discount Field</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="newsletter" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Newsletter Checkbox</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="newsletter_checked" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Newsletter is Checked by Default</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="newsletter">1</field>
+                    </depends>
+                </field>
+                <field id="create_account" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display 'Create an account' checkbox on checkout</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="create_account_checked" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>'Create an account' checkbox is Checked by Default</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="create_account">1</field>
+                    </depends>
+                </field>
+                <field id="display_agreements" translate="label comment" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Terms and Conditions checkbox</label>
+                    <source_model>\Amasty\Checkout\Model\Config\Source\DisplayAgreements</source_model>
+                </field>
+            </group>
+            <group id="gifts" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Gifts</label>
+                <field id="allow_order" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Allow Gift Messages on Order Level</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>sales/gift_options/allow_order</config_path>
+                </field>
+                <field id="allow_items" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Allow Gift Messages for Order Items</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>sales/gift_options/allow_items</config_path>
+                </field>
+                <field id="gift_wrap" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Gift Wrap</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="gift_wrap_fee" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Gift Wrap Fee</label>
+                    <validate>validate-number validate-number-range number-range-0.01-1000000000</validate>
+                    <depends>
+                        <field id="gift_wrap">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="delivery_date" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Delivery Date</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="date_required" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Delivery Date field is mandatory</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="available_days" translate="label comment" type="multiselect" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Available Days</label>
+                    <source_model>\Magento\Config\Model\Config\Source\Locale\Weekdays</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="available_hours" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Available Hours</label>
+                    <comment><![CDATA[Please specify the timeframe available for delivery. Example: 8-12, 14-18, 20-24<br/>
+                    Use <a target="_blank" href="https://amasty.com/delivery-date-for-magento-2.html">Amasty Delivery Date</a> to limit or restrict delivery for the same or next day the order was placed.]]></comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="delivery_comment_enable" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Delivery Comment</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="delivery_comment_default" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Delivery Comment Default Text</label>
+                    <comment>Specify default text example for delivery comment.</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="success_page" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Success Page</label>
+                <comment>Specify the ID of custom CMS block to be displayed on the checkout success page</comment>
+                <field id="block_id" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Custom Block</label>
+                    <comment>Specify the ID of custom CMS block to be displayed on the checkout success page</comment>
+                </field>
+            </group>
+            <group id="custom_blocks" translate="label comment" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Top and Bottom Custom Blocks</label>
+                <comment><![CDATA[To configure Top and Bottom custom blocks go <i>Content -> Blocks</i>]]></comment>
+                <field id="top_block_id" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Top Block</label>
+                    <comment>Select custom CMS block name to be displayed above the checkout</comment>
+                    <source_model>\Amasty\Checkout\Model\Config\Source\CmsBlock</source_model>
+                </field>
+                <field id="bottom_block_id" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Bottom Block</label>
+                    <comment>Select custom CMS block name to be displayed below the checkout</comment>
+                    <source_model>\Amasty\Checkout\Model\Config\Source\CmsBlock</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

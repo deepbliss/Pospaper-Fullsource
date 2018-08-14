@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">    
+    <body>
+        <referenceBlock name="goto.product" remove="true"/>
+        <move element="product.info" destination="product.info.main" after="product.info.price"/>
+        <referenceBlock name="product.info.options.wrapper.bottom">
+            <block ifconfig="weltpixel_quickview/general/enable_goto_product_button" class="Magento\Catalog\Block\Product\View" after="product.info.addtocart" name="goto.product.downloadable" as="goto.product.downloadable" template="WeltPixel_Quickview::gotoproduct.phtml"/>
+        </referenceBlock>
+        
+        <referenceBlock name="pro.slider.section" remove="true"/>
+        <referenceBlock name="shipping.section" remove="true"/>
+    </body>
+</page>

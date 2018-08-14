@@ -1,0 +1,1 @@
+/chroot/home/pospaper/pospaper.com/html/app/code/Amasty/Checkout/view/frontend/web/js/action/get-payment-information-mixin.js

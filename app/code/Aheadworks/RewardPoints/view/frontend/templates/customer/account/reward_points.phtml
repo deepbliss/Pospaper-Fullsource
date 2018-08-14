@@ -1,0 +1,67 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+// @codingStandardsIgnoreFile
+
+/** @var Aheadworks\RewardPoints\Block\Customer\RewardPointsBalance\Account $block */
+?>
+<div class="block rewardpoints">
+    <div class="block-content">
+        <span class="base">
+            <?php /* @noEscape */ echo __('Your current balance is <strong>%1 points</strong>', $block->getCustomerRewardPointsBalance()) ?>
+        </span>
+        <br/>
+        <?php if (!$block->isCustomerRewardPointsSpendRate()): ?>
+            <?php $customerWillEarnPoints = $block->getCustomerWillEarnPoints(); ?>
+            <span class="base">
+                <?php if ($customerWillEarnPoints > 0): ?>
+                    <?php /* @noEscape */ echo __(
+                        'Spend <strong>%1</strong> to earn <strong>%2 points</strong>, and get a bonus discount of <strong>%3</strong>',
+                        $block->getFormattedSpendCustomerIsNeeded(),
+                        $customerWillEarnPoints,
+                        $block->getFormattedCustomerBonusDiscount()
+                    ) ?>
+                <?php else: ?>
+                    <?php /* @noEscape */ echo __(
+                        'Spend <strong>%1</strong> to earn more and spend them!',
+                        $block->getFormattedSpendCustomerIsNeeded()
+                    ) ?>
+                <?php endif; ?>
+            </span>
+        <?php else: ?>
+            <span class="base">
+                <?php /* @noEscape */ echo __('It can be redeemed for <strong>%1</strong> at checkout', $block->getFormattedCustomerBalanceCurrency()) ?>
+            </span>
+        <?php endif; ?>
+        <?php if ($block->getOnceMinBalance()): ?>
+            <br/>
+            <span class="base">
+                <?php /* @noEscape */ echo __('Earn <strong>%1</strong> or more points to spend them on checkout', $block->getOnceMinBalance()) ?>
+            </span>
+        <?php endif; ?>
+    </div>
+    <br/>
+    <div class="block-content">
+        <span class="base">
+            <?php /* @noEscape */ echo __('Click <a href="%1" >here</a> to learn more about Reward Points program.', $block->getFrontendExplainerPageLink()) ?>
+        </span>
+    </div>
+</div>
+
+<?php echo $block->getTransactionHtml() ?>
+
+<div class="secondary">
+    <a class="action edit-email-preferences" href="<?php echo $block->escapeUrl($block->getUrl('newsletter/manage')) ?>">
+        <span><?php echo $block->escapeHtml(__('Edit Email Preferences')) ?></span>
+    </a>
+</div>
+<div class="actions-toolbar">
+    <div class="secondary">
+        <a class="action back" href="<?php echo $block->escapeUrl($block->getBackUrl()) ?>">
+            <span><?php /* @noEscape */ echo __('Back') ?></span>
+        </a>
+    </div>
+</div>

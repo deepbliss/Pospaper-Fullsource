@@ -1,0 +1,1 @@
+/chroot/home/pospaper/pospaper.com/html/app/code/Magestore/Megamenu/view/frontend/web/js/menu.js

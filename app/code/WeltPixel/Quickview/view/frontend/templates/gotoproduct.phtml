@@ -1,0 +1,10 @@
+<?php $buttonTitle = __('Go To Product');?>
+<div class="box-gotoproduct">
+    <div class="fieldset">
+        <div class="actions">
+            <a target="_parent" href="<?php /* @escapeNotVerified */ echo $this->getProduct()->getProductUrl() ?>" title="<?php /* @escapeNotVerified */ echo $buttonTitle ?>" class="action primary" id="product-gotoproduct-button">
+                <span><?php /* @escapeNotVerified */ echo $buttonTitle ?></span>
+            </a>
+        </div>
+    </div>
+</div>

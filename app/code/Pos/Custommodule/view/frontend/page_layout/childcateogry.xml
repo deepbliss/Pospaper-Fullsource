@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+    <update handle="1column"/>
+    <referenceContainer name="page.wrapper">
+        <container name="header.container" as="header_container" label="Page Header Container" htmlTag="header" htmlClass="page-header" before="main.content"/>
+        <container name="page.top" as="page_top" label="After Page Header" after="header.container"/>
+        <container name="footer-container" as="footer" before="before.body.end" label="Page Footer Container" htmlTag="footer" htmlClass="page-footer"/>
+    </referenceContainer>  
+    <referenceContainer name="columns">
+        <container name="div.sidebar.main" htmlTag="div" htmlClass="sidebar sidebar-main" after="main">
+            <block class="Pos\Custommodule\Block\Childcat" name="child_cat_file" template="Pos_Custommodule::child_left_cat.phtml"/>    
+        </container>       
+    </referenceContainer>
+    <referenceBlock name="catalog.leftnav" remove="true" />
+    <move element="category.view.container" destination="content" after="-" />
+</layout>

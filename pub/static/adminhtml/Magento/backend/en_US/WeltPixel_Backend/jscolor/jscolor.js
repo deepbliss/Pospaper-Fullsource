@@ -1,0 +1,1 @@
+/chroot/home/pospaper/pospaper.com/html/app/code/WeltPixel/Backend/view/adminhtml/web/jscolor/jscolor.js

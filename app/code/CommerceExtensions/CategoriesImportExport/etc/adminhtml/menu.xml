@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 CommerceExtensions. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="CommerceExtensions_CategoriesImportExport::system_convert_categories" title="Import/Export Categories" sortOrder="30" module="CommerceExtensions_CategoriesImportExport" parent="Magento_Backend::system_convert" action="categories/data/importExport" resource="CommerceExtensions_CategoriesImportExport::import_export"/>
+    </menu>
+</config>
+

@@ -1,0 +1,130 @@
+/**
+ * @copyright Copyright (c) 2016 www.magebuzz.com
+ * CSS: style.css
+ */
+.top{
+    margin: 10px;
+    padding: 20px 10px;
+}
+#col-left{
+    float: left;
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: bolder;
+}
+#col-right{
+    float: right;
+}
+
+#logo img{
+    width: 150px;
+    height: auto;
+    border-radius: 100%;
+}
+
+#logo {
+    float: left;
+    width: 15%;
+}
+
+#logo a {
+    display: inline-block;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+#logo a:hover {
+
+}
+
+#logo img {
+    border-radius: 50%;
+}
+
+#right{
+    width: 75%;
+    float: right;
+}
+
+#right .content {
+    text-align: justify;
+    font-style: italic;
+}
+
+#right .footer {
+    text-align: right;
+    margin-top: 10px;
+}
+
+#right .content .author {
+    color: #0d2453;
+    font-size: 18px;
+    font-weight: bold;
+    font-style: normal;
+}
+
+#right .content .date {
+    color: #0d0945;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-style: normal;
+}
+
+#footer{
+    text-align: right;
+    margin-right: 20px;
+}
+
+#footer .name{
+    color: #0D3349;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#footer .createdtime{
+    color: #000000;
+    font-size: 14px;
+}
+
+.pagination {
+    text-align: center;
+    height: 60px;
+    margin-bottom: 20px;
+}
+
+#toper #pagination #page {
+    text-align: center;
+}
+
+#toper .title {
+    text-transform: uppercase;
+    font-size: 28px;
+    font-weight: bolder;
+}
+
+#toper .submit {
+    float: right;
+}
+
+#row {
+    width: 120%;
+    margin: 10px;
+    padding: 30px 20px;
+    background-color: #F0F0F0;
+    border: 1px solid #f0f0f0;
+}
+
+#row:hover{
+    border: 1px solid yellow;
+}
+
+
+.clr {
+    clear: both;
+}
+
+.magebuzz-testimonial-new-button-container {
+    margin-top: 30px;
+}

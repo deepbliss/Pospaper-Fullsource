@@ -1,0 +1,29 @@
+<div class="left-category-div">
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $category = $objectManager->get('Magento\Framework\Registry')->registry('current_category');//get current category
+    
+    $child_categories = $this->getChildCategories($category->getId());
+    $_count = is_array($child_categories) ? count($child_categories) : $child_categories->count();
+?>
+
+<h2><?php echo $category->getName() ?></h2>
+
+<ul>
+<?php
+foreach($child_categories as $category):
+     if (!$category->getIsActive()) {
+        continue;
+     }
+?>
+ 
+<li id="cat-id-<?php echo $category->getId() ?>" class="items"> 
+<a class="cat-id" href="<?php echo $category->getUrl(); ?>" id="<?php echo $category->getId() ?>"><?php echo $category->getName() ?> <span class="count"> (<?= /* @escapeNotVerified */ $category->getProductCount() ?>)</span></a>
+</li>
+
+<?php
+endforeach;
+?>
+</ul>
+
+</div>

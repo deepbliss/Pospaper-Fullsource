@@ -1,0 +1,93 @@
+<?php $testimonialForm = $block->getFormData(); ?>
+<div style="clear: both"></div>
+<form class="mb_form contact"
+      action="<?php /* @escapeNotVerified */ echo $block->getFormAction(); ?>"
+      id="mb_contact-form"
+      method="post"
+      enctype="multipart/form-data"
+      data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>"
+      data-mage-init='{"validation":{}}'>
+    <fieldset class="fieldset">
+        <!--<legend class="legend"><span><?php /* @escapeNotVerified */ echo __('Write Us') ?></span></legend><br />-->
+
+        <div class="field name required">
+            <label class="label" for="name"><span><?php /* @escapeNotVerified */ echo __('Name') ?></span></label>
+            <div class="control">
+                <input name="name" id="name" title="<?php /* @escapeNotVerified */ echo __('Name') ?>" value="<?php echo $testimonialForm['name']; ?>" class="input-text" type="text" data-validate="{required:true}"/>
+            </div>
+        </div>
+        <div class="field email required">
+            <label class="label" for="email"><span><?php /* @escapeNotVerified */ echo __('Email') ?></span></label>
+            <div class="control">
+                <input name="email" id="email" title="<?php /* @escapeNotVerified */ echo __('Email') ?>" value="<?php echo $testimonialForm['email']; ?>" class="input-text" type="email" data-validate="{required:true, 'validate-email':true}"/>
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="website" class="label">
+                <span><?php /* @escapeNotVerified */ echo __('Your Website') ?></span>
+            </label>
+
+            <div class="control">
+                <input type="text" id="website"
+                       name="website"
+                       class="input-text"
+                       value="<?php echo $testimonialForm['website']; ?>">
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="company" class="label">
+                <span><?php /* @escapeNotVerified */ echo __('Your Company') ?></span>
+            </label>
+
+            <div class="control">
+                <input type="text" id="company"
+                       name="company"
+                       class="input-text"
+                       value="<?php echo $testimonialForm['company']; ?>">
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="address" class="label">
+                <span><?php /* @escapeNotVerified */ echo __('Your Address') ?></span>
+            </label>
+
+            <div class="control">
+                <input type="text" id="address"
+                       name="address"
+                       class="input-text"
+                       value="<?php echo $testimonialForm['address']; ?>">
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="avatar" class="label">
+                <span><?php /* @escapeNotVerified */ echo __('Your Image') ?></span>
+            </label>
+
+            <div class="control">
+                <input type="file" id="avatar"
+                       name="avatar"
+                       class="input-file">
+            </div>
+        </div>
+
+        <div class="field required">
+            <label for="testimonial" class="label"><span><?php echo __('Testimonial') ?></span></label>
+            <div class="control">
+                <textarea name="testimonial" id="testimonial" title="<?php echo __('Testimonial') ?>" class="input-text required-entry validate-length maximum-length-<?php echo $block->getAmountWord(); ?>"></textarea>
+            </div>
+        </div>
+        <?php echo $block->getChildHtml('form.additional.info'); ?>
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <input type="hidden" name="hideit" id="hideit" value="" />
+            <button type="submit" title="<?php /* @escapeNotVerified */ echo __('Submit') ?>" class="action submit primary">
+                <span><?php /* @escapeNotVerified */ echo __('Submit') ?></span>
+            </button>
+        </div>
+    </div>
+</form>

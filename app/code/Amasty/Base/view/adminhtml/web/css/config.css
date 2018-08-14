@@ -1,0 +1,55 @@
+
+/* additional tab in config section*/
+
+.module-version {
+    color: #ea7601;
+}
+
+.amasty-info-block .module-version.last-version {
+    color: green;
+}
+
+.upgrade-error {
+    display: inline-block;
+}
+
+.amasty-conflicts-title, .version-title, .module-version {
+    font-size: 1.7rem;
+    font-weight: 600;
+    letter-spacing: .025em;
+}
+
+.amasty-conflicts-title {
+    margin: 25px 0 10px;
+}
+
+.amasty-module-version div:first-child {
+    margin-bottom: 10px;
+}
+
+.amasty-info-block span.message {
+    display: inline-block;
+}
+
+.amasty-info-block .message.success {
+    background-color: #e9fbdb;
+}
+
+a[id*="amasty_information"] {
+    display: none !important;
+}
+
+.amasty-module-version .amasty-logo {
+    display: inline-block;
+    position: relative;
+    max-height: 26px;
+    bottom: -5px;
+}
+
+tr[id*="amasty_not_instaled"] .value{
+    color: #f70606;
+}
+
+tr[id*="amasty_is_instaled"] .value{
+    color: #00f702;
+}

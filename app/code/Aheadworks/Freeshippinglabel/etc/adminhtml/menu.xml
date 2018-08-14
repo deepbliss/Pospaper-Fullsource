@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Aheadworks_Freeshippinglabel::main" title="Free Shipping Bar by Aheadworks" module="Aheadworks_Freeshippinglabel" sortOrder="999" dependsOnModule="Aheadworks_Freeshippinglabel" parent="Magento_Backend::content" resource="Aheadworks_Freeshippinglabel::main"/>
+        <add id="Aheadworks_Freeshippinglabel::settings" title="Settings" module="Aheadworks_Freeshippinglabel" sortOrder="1" parent="Aheadworks_Freeshippinglabel::main" action="aw_fslabel_admin/settings/index" resource="Aheadworks_Freeshippinglabel::settings"/>
+    </menu>
+</config>

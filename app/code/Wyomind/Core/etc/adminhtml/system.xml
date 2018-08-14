@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+ Copyright © 2017 Wyomind. All rights reserved.
+ See LICENSE.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="wyomind" translate="label" sortOrder="1000000">
+            <label><![CDATA[<span class='wyomind-logo'>Wyomind</span>]]></label>
+        </tab>
+        <section id="core" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Core</label>
+            <tab>wyomind</tab>
+            <resource>Wyomind_MassStockUpdate::core_config</resource>
+            <group id="settings" translate="label" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General Settings</label>
+                <field id="extension_version" translate="label" type="link" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Extension version</label>
+                </field>
+                <field id="log" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable licensing process log</label>
+                    <comment>Log filename var/log/Wyomind_Core.log</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="notification" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable notifications</label> 
+                    <comment>Receive notifications from Wyomind about new modules, important updates, security alerts (1 notification/month maximum) </comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="wyomind_modules" translate="label" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Wyomind Modules</label>
+            </group>
+        </section>
+    </system>
+</config>

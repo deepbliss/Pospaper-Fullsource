@@ -1,0 +1,29 @@
+<?php
+// @codingStandardsIgnoreFile
+
+/** @var $block \WeltPixel\Quickview\Block\Initialize */
+?>
+
+<script>
+    requirejs(['jquery', 'weltpixel_quickview' ],
+        function   ($, quickview) {
+            $(document).ready(function() {
+                $('#maincontent').on('click', '.weltpixel-quickview', function() {
+                    var prodUrl = $(this).attr('data-quickview-url');
+                    if (prodUrl.length) {
+                        quickview.displayContent(prodUrl);
+                    }
+                });
+
+                $('.home-tabing-div').on('click', '.weltpixel-quickview', function() {
+                    var prodUrl = $(this).attr('data-quickview-url');
+                    if (prodUrl.length) {
+                        quickview.displayContent(prodUrl);
+                    }
+                });
+
+            });
+        });
+
+    window.weltpixel_quickview = <?php /* @escapeNotVerified */ echo \Zend_Json::encode($block->getConfig()); ?>;
+</script>

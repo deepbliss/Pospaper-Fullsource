@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <aw_rewardpoints>
+            <calculation>
+                <points_earning_calculation>1</points_earning_calculation>
+                <is_applying_points_to_shipping>1</is_applying_points_to_shipping>
+                <is_refund_automatically>1</is_refund_automatically>
+                <is_spend_on_shipping>1</is_spend_on_shipping>
+                <is_cancel_refund_points>1</is_cancel_refund_points>
+                <is_reimburse_refund_points>1</is_reimburse_refund_points>
+                <share_covered>0</share_covered>
+            </calculation>
+            <awarded>
+                <is_product_review_owner>1</is_product_review_owner>
+            </awarded>
+            <frontend>
+                <is_points_balance_top_link>0</is_points_balance_top_link>
+                <is_hide_if_rewardpoints_balance_empty>0</is_hide_if_rewardpoints_balance_empty>
+                <is_apply_automatically>0</is_apply_automatically>
+                <rewardpoints_program_page>aw-reward-points</rewardpoints_program_page>
+                <is_display_discount_info>1</is_display_discount_info>
+                <is_display_social_button>1</is_display_social_button>
+                <social_button_style></social_button_style>
+                <is_display_invitation_to_newsletter>1</is_display_invitation_to_newsletter>
+                <is_display_invitation_to_register>1</is_display_invitation_to_register>
+            </frontend>
+            <notifications>
+                <is_subscribe_customers_to_notifications_by_default>1</is_subscribe_customers_to_notifications_by_default>
+                <email_sender>general</email_sender>
+                <balance_update_template>aw_rewardpoints_notifications_balance_update_template</balance_update_template>
+                <balance_update_actions>1,2,3,4,5,6,7,8,9,10,11,12</balance_update_actions>
+                <sent_when></sent_when>
+                <expiration_reminder_template>aw_rewardpoints_email_notifications_expiration_reminder_template</expiration_reminder_template>
+                <expiration_reminder_days>30</expiration_reminder_days>
+            </notifications>
+        </aw_rewardpoints>
+        <sales>
+            <totals_sort>
+                <aw_reward_points>25</aw_reward_points>
+            </totals_sort>
+        </sales>
+    </default>
+</config>

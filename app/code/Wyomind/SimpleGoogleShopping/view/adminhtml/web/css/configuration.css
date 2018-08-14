@@ -1,0 +1,23 @@
+/**
+ * Copyright © 2015 Wyomind. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+/* =========== Global ================= */
+.loading-mask {
+    z-index: 1001;
+}
+
+/* =========== Configurations ========= */
+
+div.field-simplegoogleshopping_xmlitempattern div.CodeMirror {
+    border: 1px solid #ADA89E;
+    border-radius: 2px;
+    height: auto;
+    width: 660px;
+}
+
+/* delete button */
+button#delete span {
+    color: red !important;
+}

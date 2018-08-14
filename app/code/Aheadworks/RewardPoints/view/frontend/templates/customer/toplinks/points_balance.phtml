@@ -1,0 +1,27 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+// @codingStandardsIgnoreFile
+
+/** @var Aheadworks\RewardPoints\Block\Customer\RewardPointsBalance\Toplink $block */
+
+$class = $block->customerLoggedIn() ? 'customer-welcome' : '';
+$canShow = true;
+if (!$block->isAjax()): ?>
+    <?php $canShow = false ?>
+    <li class="nav item <?php /* @noEscape */ echo $class ?>" data-aw-reward-points-block-name="<?php /* @noEscape */ echo $block->getNameInLayout() ?>"></li>
+<?php endif; ?>
+
+<?php if ($canShow && $block->canShow()): ?>
+    <li class="nav item <?php /* @noEscape */ echo $class ?>">
+        <a href="<?php echo $block->escapeUrl($this->getUrl('aw_rewardpoints/info')) ?>">
+            <span>
+                <?php echo $block->escapeHtml(__('You have %1 Reward Points (%2)', $block->getCustomerRewardPointsBalance(), $block->getFormattedCustomerBalanceCurrency())) ?>
+            </span>
+        </a>
+    </li>
+<?php endif; ?>
+

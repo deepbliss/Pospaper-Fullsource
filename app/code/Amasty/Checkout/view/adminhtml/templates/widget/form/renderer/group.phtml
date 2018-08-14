@@ -1,0 +1,34 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+?>
+<?php /** @var \Amasty\Checkout\Block\Adminhtml\Field\Edit\Group\Renderer $block */ ?>
+<?php $isStoreSelected = $block->isStoreSelected() ?>
+
+<div class="admin__page-section-title">
+    <span class="title"><?= $block->getElement()->getData('title') ?></span>
+</div>
+
+<table class="data-table" data-role="fields-table">
+<thead>
+    <tr>
+        <td></td>
+        <td><?=__('Field')?></td>
+        <td><?=__('Label')?></td>
+        <?php if ($isStoreSelected): ?>
+        <td class="center default-value"><?=__('Default Value')?></td>
+        <?php endif ?>
+        <td class="center"><?=__('Width')?></td>
+        <td class="required"><?=__('Required')?></td>
+    </tr>
+</thead>
+    <tbody data-role="field-set" data-enabled="<?= (int)$block->getElement()->getData('enabled') ?>">
+<?= $block->getElement()->getChildrenHtml() ?>
+    <tr class="placeholder">
+        <td colspan="<?= $isStoreSelected ? 6 : 5 ?>"><?= __('Drop fields here') ?></td>
+    </tr>
+    </tbody>
+</table>

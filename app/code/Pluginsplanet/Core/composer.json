@@ -1,0 +1,22 @@
+{
+  "name": "Pluginsplanet/module-core",
+  "description": "Pluginsplanet Core for Magento 2",
+  "type": "magento2-module",
+  "version": "1.3.1",
+  "authors": [
+    {
+      "name": "Pluginsplanet",
+      "email": "hi@pluginsplanet.com",
+      "homepage": "https://www.pluginsplanet.com",
+      "role": "Leader"
+    }
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Pluginsplanet\\Core\\": ""
+    }
+  }
+}

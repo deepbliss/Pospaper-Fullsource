@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_Megamenu
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <megamenu>
+            <general>
+                <enable>1</enable>
+                <menu_effect>1</menu_effect>
+                <jquery>1</jquery>
+                <cache>1</cache>
+            </general>
+            <top_menu>
+                <topmenu_align>0</topmenu_align>
+                <responsive>1</responsive>
+                <menu_width_main>768</menu_width_main>
+                <menu_item_height>52</menu_item_height>
+                <menu_background>F0F0F0</menu_background>
+                <menu_item_size>15</menu_item_size>
+                <menu_item_transform>uppercase</menu_item_transform>
+                <menu_item_color>3B3E43</menu_item_color>
+                <menu_item_active_color>BCA480</menu_item_active_color>
+                <menu_item_active_background>FFFFFF</menu_item_active_background>
+                <submenu_background>F0F0F0</submenu_background>
+                <submenu_boxtitle_color>636363</submenu_boxtitle_color>
+                <submenu_main_color>636363</submenu_main_color>
+                <submenu_link_color>636363</submenu_link_color>
+            </top_menu>
+            <left_menu>
+                <responsive>1</responsive>
+                <menu_background>F0F0F0</menu_background>
+                <menu_width_main>768</menu_width_main>
+                <menu_item_size>15</menu_item_size>
+                <menu_item_transform>none</menu_item_transform>
+                <menu_item_color>2F2F2F</menu_item_color>
+                <menu_item_active_color>2F2F2F</menu_item_active_color>
+                <menu_item_active_background>DEDEDE</menu_item_active_background>
+                <submenu_background>FFFFFF</submenu_background>
+                <submenu_boxtitle_color>636363</submenu_boxtitle_color>
+                <submenu_main_color>636363</submenu_main_color>
+                <submenu_link_color>636363</submenu_link_color>
+            </left_menu>
+            <mobile_menu>
+                <mobile_effect>1</mobile_effect>
+                <anchor_background>074666</anchor_background>
+                <anchor_color>FFFFFF</anchor_color>
+                <mobile_item_size>15</mobile_item_size>
+                <mobile_item_transform>none</mobile_item_transform>
+                <mobile_item_background>FFFFFF</mobile_item_background>
+                <mobile_item_color>2F2F2F</mobile_item_color>
+                <mobile_item_active_background>EBEDED</mobile_item_active_background>
+                <mobile_submenu_background>FFFFFF</mobile_submenu_background>
+                <submenu_boxtitle_color>636363</submenu_boxtitle_color>
+                <mobile_submenu_main_color>636363</mobile_submenu_main_color>
+                <mobile_submenu_link_color>636363</mobile_submenu_link_color>
+            </mobile_menu>
+        </megamenu>
+    </default>
+</config>

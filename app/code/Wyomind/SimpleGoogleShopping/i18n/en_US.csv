@@ -1,0 +1,346 @@
+q"./Block/Adminhtml/Simplegoogleshopping/Edit.php",""
+
+"Delete","Delete"
+"Duplicate","Duplicate"
+"Generate","Generate"
+"Save","Save"
+
+
+"./Block/Adminhtml/Simplegoogleshopping/Edit/Tab/Categories.php",""
+
+"Categories","Categories"
+
+
+"./Block/Adminhtml/Simplegoogleshopping/Edit/Tab/Configuration.php",""
+
+"Attributes filters","Attributes filters"
+"Categories","Categories"
+"Categories url","Categories url"
+"Category filter","Category filter"
+"Category type","Category type"
+"Configuration","Configuration"
+"Description","Description"
+"Filename","Filename"
+"Library sample url","Library sample url"
+"Library url","Library url"
+"Path","Path"
+"Sample report url","Sample report url"
+"Sample url","Sample url"
+"Store View","Store View"
+"Title","Title"
+"Website url","Website url"
+"Xml pattern","Xml pattern"
+"Need help? Did you read our Tutorial?","Need help? Did you read our Tutorial?"
+"Refresh Preview","Refresh Preview"
+
+
+"./Block/Adminhtml/Simplegoogleshopping/Edit/Tab/Cron.php",""
+
+"Cron schedule","Cron schedule"
+
+
+"./Block/Adminhtml/Simplegoogleshopping/Edit/Tab/Filters.php",""
+
+"Filters","Filters"
+
+
+"./Block/Adminhtml/Simplegoogleshopping/Edit/Tabs.php",""
+
+"Simple Google Shopping","Simple Google Shopping"
+
+
+"./Block/Adminhtml/Simplegoogleshopping/Grid.php",""
+
+"Action","Action"
+"Are you sure you want to delete this feed ?","Are you sure you want to delete this feed ?"
+"Delete","Delete"
+"Edit","Edit"
+"Filename","Filename"
+"Generate","Generate"
+"Generate a data feed can take a while. Are you sure you want to generate it now ?","Generate a data feed can take a while. Are you sure you want to generate it now ?"
+"Id","Id"
+"Link","Link"
+"Path","Path"
+"Show Report","Show Report"
+"Status","Status"
+"Store","Store"
+"Update","Update"
+"Preview (%1 items)","Preview (%1 items)"
+
+
+"./Block/Adminhtml/Simplegoogleshopping.php",""
+
+"Create New Data Feed","Create New Data Feed"
+"Manage Data feeds","Manage Data feeds"
+
+
+"./Block/Adminhtml/Simplegoogleshopping/Preview.php",""
+
+"Invalid license","Invalid license"
+"Unable to generate the data feed :","Unable to generate the data feed :"
+
+
+"./Block/Adminhtml/Simplegoogleshopping/Renderer/Status.php",""
+
+"ERROR","ERROR"
+"PROCESSING","PROCESSING"
+"PENDING","PENDING"
+"HOLD","HOLD"
+"FAILED","FAILED"
+"SUCCEED","SUCCEED"
+
+
+"./Block/Adminhtml/Simplegoogleshopping/Sample.php",""
+
+"Invalid license","Invalid license"
+
+
+"./Controller/Adminhtml/Simplegoogleshopping/Delete.php",""
+
+"The data feed has been deleted.","The data feed has been deleted."
+"We can't find a data feed to delete.","We can't find a data feed to delete."
+
+
+"./Controller/Adminhtml/Simplegoogleshopping/Edit.php",""
+
+"Manage Data Feeds","Manage Data Feeds"
+"Modify data feed : ","Modify data feed : "
+"New data feed","New data feed"
+"Simple Google Shopping","Simple Google Shopping"
+"This data feed no longer exists.","This data feed no longer exists."
+
+
+"./Controller/Adminhtml/Simplegoogleshopping/Generate.php",""
+
+"Invalid license.","Invalid license."
+"The data feed ","The data feed "
+" has been generated."," has been generated."
+"Unable to find a data feed to generate.","Unable to find a data feed to generate."
+"Unable to generate the data feed.","Unable to generate the data feed."
+
+
+"./Controller/Adminhtml/Simplegoogleshopping/Index.php",""
+
+"Google Shopping Data Feeds","Google Shopping Data Feeds"
+"Manage Data Feeds","Manage Data Feeds"
+"Simple Google Shopping","Simple Google Shopping"
+
+
+"./Controller/Adminhtml/Simplegoogleshopping/Save.php",""
+
+"The data feed has been saved.","The data feed has been saved."
+"Unable to save the data feed.","Unable to save the data feed."
+
+
+"./Controller/Simplegoogleshopping/Generate.php",""
+
+"The data feed ","The data feed "
+" has been generated."," has been generated."
+"Unable to find a data feed to generate.","Unable to find a data feed to generate."
+
+
+"./Helper/Data.php",""
+
+"Examples:","Examples:"
+"items","items"
+"no error detected","no error detected"
+"no error detected.","no error detected."
+"no report available","no report available"
+"The data feed must be generated prior to any report.","The data feed must be generated prior to any report."
+"This report does not replace the error report from Google and is by no means a guarantee that your data feed will be approved by the Google team.","This report does not replace the error report from Google and is by no means a guarantee that your data feed will be approved by the Google team."
+" product"," product"
+" exported in "," exported in "
+"error","error"
+"warning","warning"
+
+"./Model/Config/Urlrewrite.php",""
+
+"Individual product urls","Individual product urls"
+"Longest category urls","Longest category urls"
+"Shortest category urls","Shortest category urls"
+
+
+"./Model/Simplegoogleshopping.php",""
+
+"Attribute value too long","Attribute value too long"
+"expected","expected"
+"File \"%1\" cannot be saved.<br/>Please, make sure the directory \"%2\" is writeable by web server.","File \"%1\" cannot be saved.<br/>Please, make sure the directory \"%2\" is writeable by web server."
+"File \"%s\" is already processing. Please wait the end of the process.","File \"%s\" is already processing. Please wait the end of the process."
+"Invalid attribute value","Invalid attribute value"
+"Missing recommended attribute","Missing recommended attribute"
+"Missing required attribute","Missing required attribute"
+"Please check the template syntax.","Please check the template syntax."
+"symbols maximum","symbols maximum"
+"Too many attributes","Too many attributes"
+
+
+"./view/adminhtml/templates/edit/categories.phtml",""
+
+"<b>Exclude</b> all products from the selected categories.","<b>Exclude</b> all products from the selected categories."
+"<b>Include</b> all products from the selected categories.","<b>Include</b> all products from the selected categories."
+"Category filter type","Category filter type"
+"Category selection and mapping","Category selection and mapping"
+"Google Taxonomy source : ","Google Taxonomy source : "
+"* If you do not select any category, all products will be exported","* If you do not select any category, all products will be exported"
+"mapped as","mapped as"
+"your google product category","your google product category"
+"Based on ","Based on "
+"<b>Product</b> categories only","<b>Product</b> categories only"
+"<b>Product and parent</b> categories","<b>Product and parent</b> categories"
+"<b>Parent</b> categories only","<b>Parent</b> categories only"
+
+
+"./view/adminhtml/templates/edit/cron.phtml",""
+
+"00:00 AM","00:00 AM"
+"00:30 AM","00:30 AM"
+"01:00 AM","01:00 AM"
+"01:00 PM","01:00 PM"
+"01:30 AM","01:30 AM"
+"01:30 PM","01:30 PM"
+"02:00 AM","02:00 AM"
+"02:00 PM","02:00 PM"
+"02:30 AM","02:30 AM"
+"02:30 PM","02:30 PM"
+"03:00 AM","03:00 AM"
+"03:00 PM","03:00 PM"
+"03:30 AM","03:30 AM"
+"03:30 PM","03:30 PM"
+"04:00 AM","04:00 AM"
+"04:00 PM","04:00 PM"
+"04:30 AM","04:30 AM"
+"04:30 PM","04:30 PM"
+"05:00 AM","05:00 AM"
+"05:00 PM","05:00 PM"
+"05:30 AM","05:30 AM"
+"05:30 PM","05:30 PM"
+"06:00 AM","06:00 AM"
+"06:00 PM","06:00 PM"
+"06:30 AM","06:30 AM"
+"06:30 PM","06:30 PM"
+"07:00 AM","07:00 AM"
+"07:00 PM","07:00 PM"
+"07:30 AM","07:30 AM"
+"07:30 PM","07:30 PM"
+"08:00 AM","08:00 AM"
+"08:00 PM","08:00 PM"
+"08:30 AM","08:30 AM"
+"08:30 PM","08:30 PM"
+"09:00 AM","09:00 AM"
+"09:00 PM","09:00 PM"
+"09:30 AM","09:30 AM"
+"09:30 PM","09:30 PM"
+"10:00 AM","10:00 AM"
+"10:00 PM","10:00 PM"
+"10:30 AM","10:30 AM"
+"10:30 PM","10:30 PM"
+"11:00 AM","11:00 AM"
+"11:00 PM","11:00 PM"
+"11:30 AM","11:30 AM"
+"11:30 PM","11:30 PM"
+"12:00 AM","12:00 AM"
+"12:30 AM","12:30 AM"
+"Days of the week","Days of the week"
+"Friday","Friday"
+"Hours of the day","Hours of the day"
+"Monday","Monday"
+"Saturday","Saturday"
+"Settings","Settings"
+"Sunday","Sunday"
+"Thursday","Thursday"
+"Tuesday","Tuesday"
+"Wednesday","Wednesday"
+
+
+"./view/adminhtml/templates/edit/filters.phtml",""
+
+"<","<"
+"=","="
+">",">"
+"Advanced filters","Advanced filters"
+"Attribute Set","Attribute Set"
+"Bundle","Bundle"
+"Catalog","Catalog"
+"Catalog, Search","Catalog, Search"
+"Configurable","Configurable"
+"Downloadable","Downloadable"
+"&ge;","&ge;"
+"Grouped","Grouped"
+"in","in"
+"is not null","is not null"
+"is null","is null"
+"&le;","&le;"
+"like","like"
+"&ne;","&ne;"
+"not in","not in"
+"not like","not like"
+"Not Visible Individually","Not Visible Individually"
+"Product Type","Product Type"
+"Product Visibility","Product Visibility"
+"Search","Search"
+"Select all","Select all"
+"Simple","Simple"
+"Unselect all","Unselect all"
+"Virtual","Virtual"
+
+
+"Manage Google Shopping data feeds","Manage Google Shopping data feeds"
+
+
+"./view/adminhtml/templates/edit/translate.phtml",""
+
+"No product found.","No product found."
+"mapped as :","mapped as :"
+"your google product category","your google product category"
+"Press `End.` on your keyboard in order to apply this value to all the sub-categories","Press `End.` on your keyboard in order to apply this value to all the sub-categories"
+"Generate data feed","Generate data feed"
+"Generate a data feed can take a while. Are you sure you want to generate it now ?","Generate a data feed can take a while. Are you sure you want to generate it now ?"
+"Delete data feed","Delete data feed"
+"Are you sure you want to delete this feed ?","Are you sure you want to delete this feed ?"
+
+
+"./Block/Adminhtml/Simplegoogleshopping/Library.php",""
+
+"Online documentation : ","Online documentation : "
+"Special Attributes","Special Attributes"
+"Attribute options","Attribute options"
+"Tutorial","Tutorial"
+"More documentation","More documentation"
+"Attribute label","Attribute label"
+"Attribute code","Attribute code"
+"Load sample","Load sample"
+
+
+"System / Config / Simple Google Shopping",""
+
+"License activation","License activation"
+"Extension version","Extension version"
+"Activation key","Activation key"
+"1- Fill this field with your activation key.","1- Fill this field with your activation key."
+"Remote activation","Remote activation"
+"2- Choose your activation method.\n[yes = automatic activation]\n[no = manual activation]","2- Choose your activation method.<br/>[yes = automatic activation]<br/>[no = manual activation]"
+"Activation code","Activation code"
+"3 - Follow the instructions in the notification.\nThen fill this field with the license code you get.","3 - Follow the instructions in the notification.<br>Then fill this field with the license code you get."
+"Cron job reporting","Cron job reporting"
+"Enable cron job reporting","Enable cron job reporting"
+"Send the reports to","Send the reports to"
+"Emails must be separated with a comma (,).","Emails must be separated with a comma (,)."
+"Report title","Report title"
+"Core settings // Advanced users //","Core settings <b>// Advanced users //</b>"
+"Items in preview","Items in preview"
+"Default value : 10","Default value -> 10"
+"Items in buffer","Items in buffer"
+"Default value : 10","Default value -> 10"
+"Items in SQL request","Items in SQL request"
+"Default value : 1500","Default value -> 1500"
+"Number of advanced filters","Number of advanced filters"
+"Default value : 10","Default value -> 10"
+"Use of OR/AND statements in advanced filters","Use of OR/AND statements in advanced filters"
+"Default value : No","Default value -> No"
+"Include not in menu categories","Include not in menu categories"
+"Default value : No","Default value -> No"
+"Memory limit size (M)","Memory limit size (M)"
+"Default value : 1024","Default value -> 1024"
+"Use canonical urls","Use canonical urls"
+"Enable log reporting","Enable log reporting"
+"Default value : No","Default value -> No"

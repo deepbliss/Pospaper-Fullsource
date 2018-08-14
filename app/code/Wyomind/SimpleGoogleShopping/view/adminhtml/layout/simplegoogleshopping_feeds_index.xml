@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+ Copyright © 2015 Wyomind. All rights reserved.
+ See LICENSE.txt for license details.
+-->
+<!-- Layout of the list of all google shopping data feeds -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Wyomind\SimpleGoogleShopping\Block\Adminhtml\Feeds"
+                   name="simplegoogleshopping_feeds"/>
+            <block class="Magento\Framework\View\Element\Template"
+                   name="simplegoogleshopping_feeds_index"
+                   template="Wyomind_SimpleGoogleShopping::index.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

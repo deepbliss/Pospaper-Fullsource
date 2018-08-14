@@ -1,0 +1,117 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<div class="import-export-categories">
+    <?php if (!$block->getIsReadonly()): ?>
+    <div class="import-categories">
+        <?php if ($block->getUseContainer()): ?>
+        <form id="import-form" action="<?php echo $block->getUrl('categories/data/importPost') ?>" method="post" enctype="multipart/form-data">
+        <?php endif; ?>
+            <?php echo $block->getBlockHtml('formkey')?>
+            <fieldset class="fieldset">
+			<div class="admin__field field field-categories">
+                <legend class="legend"><span><?php echo __('Import Categories') ?></span></legend>
+				<label class="label admin__field-label" for="import_delimiter"><span>Import CSV Delimiter Value</span></label>
+				<div class="control">
+					<input id="basic_behavior_import_delimiter" name="import_delimiter" value="," title="Import Delimiter" class="basic_behavior input-text admin__control-text" type="text" size="1">
+				</div>
+				<label class="label admin__field-label" for="import_enclose"><span>Import CSV Enclose Value</span></label>
+				<div class="control">
+					<input id="basic_behavior_import_enclose" name="import_enclose" value='"' title="Import Enclose" class="basic_behavior input-text admin__control-text" type="text" size="1">
+				</div>
+				<label class="label admin__field-label" for="categorydelimiter"><span>Category Delimiter</span></label>
+				<div class="control">
+					<input id="basic_behavior_categorydelimiter" name="categorydelimiter" value='/' title="Category Delimiter" class="basic_behavior input-text admin__control-text" type="text" size="1">
+				</div>
+				<label class="label admin__field-label" for="import_images_by_url"><span>Import Images By URL</span></label>
+				<div class="admin__field-control control">
+					<select id="import_images_by_url" name="import_images_by_url" title="Import Images By URL" class="select admin__control-select">
+						<option value="false">No</option>
+						<option value="true">Yes</option>
+					</select>
+				</div>
+            	<div class="admin__field-control control">
+               	 	<input type="file" name="import_rates_file" class="input-file required-entry"/>
+				</div>
+            	<div class="admin__field-control control">
+                	<?php echo $block->getButtonHtml('Import Categories', '', 'import-submit') ?>
+				</div>
+			</div>
+            </fieldset>
+        <?php if ($block->getUseContainer()): ?>
+        </form>
+        <?php endif; ?>
+        <script>
+require(['jquery', "mage/mage", "loadingPopup"], function(jQuery){
+
+    jQuery('#import-form').mage('form').mage('validation');
+    (function ($) {
+        $('.import-submit').click(function(){
+            if($(':input[name="import_rates_file"]').val()) {
+                $('body').loadingPopup({
+                    timeout: false
+                });
+
+                $(this.form).submit();
+            }
+        });
+    })(jQuery);
+
+});
+</script>
+    </div>
+    <?php endif; ?>
+    <div class="export-categories <?php if ($block->getIsReadonly()): ?>box-left<?php else: ?>box-right<?php endif; ?>">
+        <?php if ($block->getUseContainer()): ?>
+        <form id="export_form" action="<?php echo $block->getUrl('categories/data/exportPost') ?>" method="post" enctype="multipart/form-data">
+        <?php endif; ?>
+            <?php echo $block->getBlockHtml('formkey')?>
+            <fieldset class="fieldset">
+                <legend class="legend"><span><?php echo __('Export Categories') ?></span></legend>
+				<div class="admin__field field field-categories">
+                    <label class="label admin__field-label" for="export_delimiter"><span>Export CSV Delimiter Value</span></label>
+					<div class="control">
+						<input id="basic_behavior_export_delimiter" name="export_delimiter" value="," title="Export Delimiter" class="basic_behavior input-text admin__control-text" type="text" size="1">
+					</div>
+                    <label class="label admin__field-label" for="export_delimiter"><span>Export CSV Enclose Value</span></label>
+					<div class="control">
+						<input id="basic_behavior_export_enclose" name="export_enclose" value='"' title="Export Enaclose" class="basic_behavior input-text admin__control-text" type="text" size="1">
+					</div>
+                    <label class="label admin__field-label" for="export_products_for_categories"><span>Export Products For Categories</span></label>
+            		<div class="admin__field-control control">
+               			<select id="export_products_for_categories" name="export_products_for_categories" title="Export Products For Categories" class="select admin__control-select">
+							<option value="false">No</option>
+							<option value="true">Yes</option>
+						</select>
+                    </div>
+                    <label class="label admin__field-label" for="export_product_position"><span>Export With Product Position</span></label>
+            		<div class="admin__field-control control">
+               			<select id="export_product_position" name="export_product_position" title="Export With  Product Position" class="select admin__control-select">
+							<option value="false">No</option>
+							<option value="true">Yes</option>
+						</select>
+                    </div>
+                    <label class="label admin__field-label" for="export_full_image_paths"><span>Export With Image URLs</span></label>
+            		<div class="admin__field-control control">
+               			<select id="export_full_image_paths" name="export_full_image_paths" title="Export With Image URLs" class="select admin__control-select">
+							<option value="false">No</option>
+							<option value="true">Yes</option>
+						</select>
+                    </div>
+                </div>
+				<br/>
+				<div class="admin__field-control control">
+					<?php echo $block->getButtonHtml('Export Categories', "this.form.submit()") ?>
+                </div>
+            </fieldset>
+        <?php if ($block->getUseContainer()): ?>
+        </form>
+        <?php endif; ?>
+    </div>
+</div>

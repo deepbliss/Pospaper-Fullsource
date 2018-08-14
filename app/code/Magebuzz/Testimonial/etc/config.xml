@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright Copyright (c) 2016 www.magebuzz.com
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <testimonial_config>
+            <group_testimonial_general>
+                <config_toplink>1</config_toplink>
+                <config_sidabar>0</config_sidabar>
+                <config_paging>1</config_paging>
+                <config_per_page>5, 10, 15, 'all'</config_per_page>
+                <config_amount_word>350</config_amount_word>
+            </group_testimonial_general>
+            <group_testimonial_configuration>
+                <config_allow_customer_submit>1</config_allow_customer_submit>
+                <config_thank_you_message>Thanks you for submit</config_thank_you_message>
+                <config_approve>1</config_approve>
+            </group_testimonial_configuration>
+            <group_testimonial_email_configuration>
+                <config_send_email_after_post>1</config_send_email_after_post>
+                <config_send_email_after_approved>1</config_send_email_after_approved>
+            </group_testimonial_email_configuration>
+        </testimonial_config>
+        <customer>
+            <captcha>
+                <shown_to_logged_in_user>
+                    <custom_form>1</custom_form>
+                </shown_to_logged_in_user>
+                <always_for>
+                    <custom_form>1</custom_form>
+                </always_for>
+            </captcha>
+        </customer>
+        <captcha translate="label">
+            <frontend>
+                <areas>
+                    <custom_form>
+                        <label>Custom Form</label>
+                    </custom_form>
+                </areas>
+            </frontend>
+        </captcha>
+    </default>
+</config>

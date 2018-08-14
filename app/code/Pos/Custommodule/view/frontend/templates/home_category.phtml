@@ -1,0 +1,40 @@
+<?php
+ $categories = $this->getStoreCategories(false,false,true);
+ $categoryHelper = $this->getCategoryHelper();
+?>
+
+<ul>
+<?php
+foreach($categories as $category):
+     if (!$category->getIsActive()) {
+        continue;
+     }
+?>
+<li id="cat-id-<?php echo $category->getId() ?>">
+<a href="<?php echo  $this->getcustomcatUrl($category->getId());?>">    
+<div class="cat-img">
+<?php
+     $catId = $category->getId();
+    $categoryAgain = $this->getCategoryView()->load($catId);
+
+    $_outputhelper = $this->helper('Magento\Catalog\Helper\Output');
+    $_imgHtml   = '';
+    if ($_imgUrl = $categoryAgain->getImageUrl()) {
+        $_imgHtml = '<img src="' . $_imgUrl . '" />';
+        $_imgHtml = $_outputhelper->categoryAttribute($categoryAgain, $_imgHtml, 'image');
+        /* @escapeNotVerified */ 
+        echo $_imgHtml;
+    }
+?>
+</div>
+<div class="cat-info">
+<span class="cat-id" id="<?php echo $category->getId() ?>"><?php echo $category->getName() ?></span>
+<div class="shop-btn">Shop Now </div>
+</div>
+</a>
+</li>
+
+<?php
+endforeach;
+?>
+</ul>

@@ -1,0 +1,114 @@
+<?php
+
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_Megamenu
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+?>
+<?php
+$categories = $block->getListingcategories();
+$columnNumber = $block->getColumnNumber();
+if($columnNumber <=1) $columnNumber = 2;
+$col_index = round(12/$columnNumber,0);
+$column = $columnNumber-1;
+$enable_image = $block->getItem()->getCategoryImage();
+?>
+<?php if ($categories->getSize()): ?>
+    <div class="row ms-category-dynamic">
+        <div class="col-category col-xs-12">
+            <div class="row">
+
+                <div class="col-level col-xs-<?php echo $col_index;?>">
+                    <?php $i=1;foreach($categories as $category): ?>
+                        <?php $childrens = $block->getProductbycategory($category);?>
+                        <div class="col-xs-12 form-group parent<?php if($i==1):?> active<?php endif;?><?php if($i == $categories->getSize()):?> last<?php endif;?>">
+                            <i class="information" style="display: none" title="dynamic-<?php echo $category->getId();?>" ></i>
+                            <a title="<?php echo $category->getName() ?>" href="<?php echo $category->getUrl() ?>"><?php echo $category->getName() ?><?php if($childrens->getSize()) :?><small class="glyphicon glyphicon-chevron-right small">&nbsp;</small><?php endif;?></a>
+                        </div>
+                        <?php $i++; endforeach;?>
+                </div>
+
+                <div class="col-xs-<?php echo 12-$col_index;?> dynamic-content">
+                    <?php $i=1;foreach($categories as $category): ?>
+                        <?php $childrens = $block->getProductbycategory($category);?>
+                        <?php $numbers = count($childrens);
+                        $col_index2 = floor(12/$column);
+                        switch ($column) {
+                            case 5:$col_index2 = 24;
+                                break;
+                            case 7:$col_index2 = 14;
+                                break;
+                            case 8:$col_index2 = 125;
+                                break;
+                            case 9:$col_index2 = 111;
+                                break;
+                            case 10:$col_index2 = 100;
+                                break;
+                            case 11:$col_index2 = 909;
+                                break;
+                            default:
+                                break;
+                        }
+                        ?>
+                        <?php if($childrens->getSize()) :?>
+                            <div class="form-group col-dynamic<?php if($i==1): ?> active<?php endif;?>" id="dynamic-<?php echo $category->getId();?>">
+                                <?php $j=0;$k=0; foreach($childrens as $children):?>
+                                    <?php if($j%$column == 0): ?>
+                                        <div class="form-group">
+                                        <?php  endif;?>
+                                    <div class="col-xs-<?php echo $col_index2 ?><?php if($enable_image): ?> text-center<?php else: ?> text-left<?php endif;?>">
+                                        <?php $_imgHtml   = '';
+                                        if ($children->getSmallImage()) {
+                                            $_imgHtml = $block->getProductImage($children);
+                                        }else{
+                                            $_imgHtml = '<img src="'.$block->getViewFileUrl("Magestore_Megamenu::images/small_image.jpg").'" alt="'.$block->stripTags($children->getName(), null, true).'" title="'.$block->stripTags($children->getName(), null, true).'"/>';
+                                        }
+                                        ?>
+                                        <a href="<?php echo $children->getProductUrl() ?>" title="<?php echo $children->getName();?>">
+                                            <?php if($enable_image): ?>
+                                                <span class="form-group col-category-image"><?php echo $_imgHtml;?></span>
+                                            <?php endif;?>
+                                            <span class="form-group col-category-name"><?php echo $children->getName();?></span>
+                                        </a>
+                                        <div class="form-group">
+                                            <?php
+                                            $price = $block->getPriceHtml($children);
+                                            $price = str_replace('product-price-'.$children->getId(),'menu-item-'.$block->getItem()->getId().'-filter-product-price-'.$children->getId(),$price);
+                                            echo $price;
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <?php if($j%$column == ($column-1) || $j== count($childrens)-1): ?>
+                                        </div>
+                                    <?php endif;?>
+                                    <?php   $j++; endforeach;?>
+
+                            </div>
+                        <?php endif; ?>
+                        <?php $i++; endforeach;?>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <style>
+        #submenu-<?php echo $block->getItem()->getId(); ?>{padding-top:0;padding-bottom:0;}
+        #submenu-<?php echo $block->getItem()->getId(); ?> .ms-header{margin-bottom:0;}
+        #submenu-<?php echo $block->getItem()->getId(); ?> .ms-footer{margin-top:0;}
+    </style>
+<?php endif; ?>

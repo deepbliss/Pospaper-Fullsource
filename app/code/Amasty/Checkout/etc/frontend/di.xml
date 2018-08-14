@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="Magento\Checkout\Block\Onepage">
+        <arguments>
+            <argument name="layoutProcessors" xsi:type="array">
+                <item name="amastyCheckout" xsi:type="object">Amasty\Checkout\Block\Onepage\LayoutProcessor</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Checkout\Block\Checkout\AttributeMerger">
+        <plugin name="Amasty_Checkout::AttributeMerger" type="Amasty\Checkout\Plugin\AttributeMerger" />
+    </type>
+    <type name="\Magento\Checkout\Block\Checkout\LayoutProcessor">
+        <plugin name="Amasty_Checkout::LayoutProcessor" type="Amasty\Checkout\Plugin\LayoutProcessor" />
+    </type>
+
+    <type name="Magento\Checkout\Model\DefaultConfigProvider">
+        <plugin name="Amasty_Checkout::DefaultConfigProvider" type="Amasty\Checkout\Plugin\DefaultConfigProvider" />
+    </type>
+
+    <type name="Magento\Checkout\Helper\Data">
+        <plugin name="Amasty_Checkout::Helper" type="Amasty\Checkout\Plugin\CheckoutHelperPlugin" />
+    </type>
+
+    <type name="Magento\Checkout\Controller\Onepage\Success">
+        <plugin name="Amasty_Checkout::SuccessPlugin" type="Amasty\Checkout\Plugin\Controller\Onepage\SuccessPlugin" />
+    </type>
+</config>

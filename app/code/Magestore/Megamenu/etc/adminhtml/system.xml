@@ -1,0 +1,335 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_Megamenu
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../Backend/etc/system_file.xsd">
+    <system>
+        <tab id="magestore" translate="label" sortOrder="1">
+            <label>Magestore Extension</label>
+        </tab>
+        <section id="megamenu" translate="label" sortOrder="1" showInDefault="1"
+                 showInWebsite="1" showInStore="1">
+            <label>Mega Menu</label>
+            <tab>magestore</tab>
+            <resource>Magestore_Megamenu::config_megamenu</resource>
+
+            <!-- Create General Configuration-->
+
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>General Configuration</label>
+                <field id="enable" translate="label" type="select" sortOrder="1"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Mega Menu</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="menu_effect" translate="label" type="select" sortOrder="2"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Menu Effect</label>
+                    <source_model>Magestore\Megamenu\Model\System\Config\Effecttype</source_model>
+                    <comment>This is how Content of Menu will be shown.</comment>
+                </field>
+                <!--<field id="jquery" translate="label" type="select" sortOrder="3"-->
+                       <!--showInDefault="1" showInWebsite="1" showInStore="1">-->
+                    <!--<label>Use jQuery</label>-->
+                    <!--<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+                    <!--<comment>If your site has already had jQuery library, you should choose "No" to prevent conflict with other libraries.</comment>-->
+                <!--</field>-->
+
+            </group>
+            <!-- End General Configuration-->
+
+            <!-- Create Top Menu Configuration-->
+
+            <group id="top_menu" translate="label" type="text" sortOrder="2" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>Top Menu Configuration</label>
+
+                <field id="responsive" translate="label" type="select" sortOrder="1"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Responsive Menu</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="topmenu_align" translate="label" type="select" sortOrder="2"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Top Menu alignment</label>
+                    <source_model>Magestore\Megamenu\Model\System\Config\TopmenuAlign</source_model>
+                    <comment></comment>
+                </field>
+                <field id="menu_width_main" translate="label" type="text" sortOrder="3"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size to change menu to Mobile version</label>
+                    <comment>If the device size is lower than this number, the menu will be changed to Mobile version. Default is 768.</comment>
+                </field>
+                <field id="menu_item_height" translate="label" type="text" sortOrder="3"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Menu Item height</label>
+                    <comment>Default is 52.</comment>
+                </field>
+                <field id="menu_background" translate="label" type="text" sortOrder="4"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Top Menu background color</label>
+                    <frontend_class>jscolor</frontend_class>
+                    <comment>Default is FFFFFF</comment>
+                </field>
+                <field id="menu_item_size" translate="label" type="text" sortOrder="5"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Menu item font size</label>
+                    <comment>Default is 15</comment>
+                </field>
+                <field id="menu_item_transform" translate="label" type="select" sortOrder="5"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Text label</label>
+                    <source_model>Magestore\Megamenu\Model\System\Config\TopmenuTransform</source_model>
+                    <comment></comment>
+                </field>
+                <field id="menu_item_color" translate="label" type="text" sortOrder="5"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Menu item color</label>
+                    <frontend_class>jscolor</frontend_class>
+                    <comment>Default is 3B3E43</comment>
+                </field>
+                <field id="menu_item_active_color" translate="label" type="text" sortOrder="5"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Active Menu text color</label>
+                    <frontend_class>jscolor</frontend_class>
+                    <comment>mega-color when customers hover or click. Default is BCA480</comment>
+                </field>
+                <field id="menu_item_active_background" translate="label" type="text" sortOrder="5"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Active Menu item background color</label>
+                    <frontend_class>jscolor</frontend_class>
+                    <comment>Background color when customers hover or click. Default is FFFFFF</comment>
+                </field>
+                <field id="submenu_background" translate="label" type="text" sortOrder="5"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Submenu background color</label>
+                    <frontend_class>jscolor</frontend_class>
+                    <comment>Default is FFFFFF</comment>
+                </field>
+                <field id="submenu_boxtitle_color" translate="label" type="text" sortOrder="5"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Submenu Box title color</label>
+                    <frontend_class>jscolor</frontend_class>
+                    <comment>Default is 636363</comment>
+                </field>
+                <field id="submenu_main_color" translate="label" type="text" sortOrder="5"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Submenu main text color</label>
+                    <frontend_class>jscolor</frontend_class>
+                    <comment>Default is 636363</comment>
+                </field>
+                <field id="submenu_link_color" translate="label" type="text" sortOrder="5"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Submenu main link color</label>
+                    <frontend_class>jscolor</frontend_class>
+                    <comment>Default is 636363</comment>
+                </field>
+            </group>
+
+            <!-- End Top Menu Configuration-->
+
+            <!-- Create Left Menu Configuration-->
+
+            <group id="left_menu" translate="label" type="text" sortOrder="3" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>Left Menu Configuration</label>
+
+                <field id="menu_background" translate="label" type="text" sortOrder="1"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Left Menu background color</label>
+                    <frontend_class>jscolor</frontend_class>
+                    <comment>Default is FFFFFF</comment>
+                </field>
+                <field id="responsive" translate="label" type="select" sortOrder="2"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Responsive Menu</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment></comment>
+                </field>
+                <field id="menu_width_main" translate="label" type="text" sortOrder="4"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size to change menu to Mobile version</label>
+                    <comment>If the device size is lower than this number, the menu will be changed to Mobile version. Default is 768</comment>
+                </field>
+                <field id="menu_item_size" translate="label" type="text" sortOrder="5"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Left Menu item font size</label>
+                    <comment>Default is 15</comment>
+                </field>
+                <field id="menu_item_transform" translate="label" type="select" sortOrder="6"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Text label</label>
+                    <source_model>Magestore\Megamenu\Model\System\Config\TopmenuTransform</source_model>
+                    <comment></comment>
+                </field>
+                <field id="menu_item_color" translate="label" type="text" sortOrder="6"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Left Menu item color</label>
+                    <frontend_class>jscolor</frontend_class>
+                    <comment>Default is 2F2F2F</comment>
+                </field>
+                <field id="menu_item_active_color" translate="label" type="text" sortOrder="6"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Active Left Menu text color</label>
+                    <frontend_class>jscolor</frontend_class>
+                    <comment>mega-color when customers hover or click. Default is 2F2F2F</comment>
+                </field>
+                <field id="menu_item_active_background" translate="label" type="text" sortOrder="6"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Active Left Menu Item background color</label>
+                    <frontend_class>jscolor</frontend_class>
+                    <comment>Background color when customers hover or click. Default is DEDEDE</comment>
+                </field>
+                <field id="submenu_background" translate="label" type="text" sortOrder="6"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Submenu background color</label>
+                    <frontend_class>jscolor</frontend_class>
+                    <comment>Default is FFFFFF</comment>
+                </field>
+                <field id="submenu_boxtitle_color" translate="label" type="text" sortOrder="6"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Submenu Box title color</label>
+                    <frontend_class>jscolor</frontend_class>
+                    <comment>Default is 636363</comment>
+                </field>
+                <field id="submenu_main_color" translate="label" type="text" sortOrder="6"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Submenu main text color</label>
+                    <frontend_class>jscolor</frontend_class>
+                    <comment>Default is 636363</comment>
+                </field>
+                <field id="submenu_link_color" translate="label" type="text" sortOrder="6"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Submenu main link color</label>
+                    <frontend_class>jscolor</frontend_class>
+                    <comment>Default is 636363</comment>
+                </field>
+            </group>
+            <!-- End Left Menu Configuration-->
+            <!-- Create Mobile Menu Configuration-->
+            <group id="mobile_menu" translate="label" type="text" sortOrder="3" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>Mobile Version Configuration</label>
+
+                <field id="mobile_effect" translate="label" type="select" sortOrder="1"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Mobile Effect</label>
+                    <source_model>Magestore\Megamenu\Model\System\Config\MobileEffect</source_model>
+                    <comment>This is how Content of Mobile Menu will be shown</comment>
+                </field>
+                <field id="anchor_background" translate="label" type="text" sortOrder="2"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Anchor background color</label>
+                    <frontend_class>jscolor</frontend_class>
+                    <comment>Default is 074666</comment>
+                </field>
+                <!--<field id="anchor_color" translate="label" type="text" sortOrder="4"-->
+                       <!--showInDefault="1" showInWebsite="1" showInStore="1">-->
+                    <!--<label>Size to change menu to Mobile version</label>-->
+                    <!--<frontend_class>jscolor</frontend_class>-->
+                    <!--<comment>Default is FFFFFF</comment>-->
+                <!--</field>-->
+                <field id="mobile_item_size" translate="label" type="text" sortOrder="5"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Mobile item font size</label>
+                    <comment>Default is 15</comment>
+                </field>
+                <field id="mobile_item_transform" translate="label" type="select" sortOrder="6"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Text label</label>
+                    <source_model>Magestore\Megamenu\Model\System\Config\TopmenuTransform</source_model>
+                    <comment></comment>
+                </field>
+                <field id="mobile_item_color" translate="label" type="text" sortOrder="6"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Mobile Item text color</label>
+                    <frontend_class>jscolor</frontend_class>
+                    <comment>Default is 2F2F2F</comment>
+                </field>
+                <field id="mobile_item_background" translate="label" type="text" sortOrder="6"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Mobile item background color</label>
+                    <frontend_class>jscolor</frontend_class>
+                    <comment>Default is FFFFFF</comment>
+                </field>
+                <field id="mobile_item_active_background" translate="label" type="text" sortOrder="6"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Active Mobile item background color</label>
+                    <frontend_class>jscolor</frontend_class>
+                    <comment>Background color when customers click. Default is EBEDED</comment>
+                </field>
+                <field id="mobile_submenu_background" translate="label" type="text" sortOrder="6"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Mobile submenu background color</label>
+                    <frontend_class>jscolor</frontend_class>
+                    <comment>Default is FFFFFF</comment>
+                </field>
+                <field id="mobile_submenu_boxtitle_color" translate="label" type="text" sortOrder="6"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Mobile Submenu Box title color</label>
+                    <frontend_class>jscolor</frontend_class>
+                    <comment>Default is 636363</comment>
+                </field>
+                <field id="mobile_submenu_main_color" translate="label" type="text" sortOrder="6"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Mobile submenu main text color</label>
+                    <frontend_class>jscolor</frontend_class>
+                    <comment>Default is 636363</comment>
+                </field>
+                <field id="mobile_submenu_link_color" translate="label" type="text" sortOrder="6"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Mobile submenu main link color</label>
+                    <frontend_class>jscolor</frontend_class>
+                    <comment>Default is 636363</comment>
+                </field>
+            </group>
+
+            <!-- End Mobile Menu Configuration-->
+            <!-- Create Customize Configuration-->
+
+            <group id="customize" translate="label" type="text" sortOrder="10" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>Customize Styles</label>
+
+                <field id="style" translate="label" type="textarea" sortOrder="1"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Add CSS code to customize</label>
+                </field>
+
+                <field id="color_js" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Magestore\Megamenu\Block\Adminhtml\System\AddJs</frontend_model>
+                </field>
+            </group>
+
+            <!-- End Customize Configuration-->
+            <!-- Create Implement Configuration-->
+
+            <!--<group id="implement" translate="label" type="text" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">-->
+            <!--<label>Implement Code</label>-->
+            <!--<frontend_model>Magestore\Sociallogin\Block\Adminhtml\System\Config\Implementcode</frontend_model>-->
+            <!--</group>-->
+
+            <!-- End Implement Configuration-->
+        </section>
+    </system>
+</config>

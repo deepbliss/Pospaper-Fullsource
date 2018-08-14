@@ -1,0 +1,107 @@
+<?php
+/*
+ * Copyright © 2015 Wyomind. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+?>
+<!--
+  Cron schedule selector template
+-->
+
+<div class='entry-edit form-inline'>
+    <fieldset id="cron_fieldset" class="fieldset ">
+        <legend class="legend">
+            <span><?php echo __('Settings'); ?></span>
+        </legend>
+        <br>
+        <div class="fieldset" id='cron-setting'>
+            <input id="cron_expr" name="cron_expr" value='<?php echo $block->getSGSCronExpr(); ?>' class=" input-text"
+                   type="hidden" class="debug">
+            <table>
+                <thead>
+                <tr>
+                    <th><?php echo __('Days of the week'); ?></th>
+                    <th colspan='4'><?php echo __('Hours of the day'); ?></th>
+                </tr>
+                </thead>
+                <tr>
+                    <td width='300'>
+                        <label class="data-grid-checkbox-cell-inner">
+                            <input class='admin__control-checkbox cron-box day' value='Monday' id="d-Monday"
+                                   type='checkbox'/>
+                            <label for="d-Monday">&nbsp;<?php echo __('Monday'); ?></label>
+                        </label>
+                    </td>
+                    <td rowspan="7" class="hours">
+                        <table>
+                            <?php for ($h = 0; $h < 12; $h++) : ?>
+                                <?php $am = str_pad($h, 2, "0", STR_PAD_LEFT); ?>
+                                <?php $pm = $h + 12; ?>
+                                <tr>
+                                    <td width='150'>
+                                        <label class="data-grid-checkbox-cell-inner">
+                                            <input class='cron-box hour admin__control-checkbox'
+                                                   value='<?php echo $am; ?>:00' id='h-<?php echo $am; ?>00'
+                                                   type='checkbox'/>
+                                            <label for="h-<?php echo $am; ?>00">&nbsp;<?php echo __($am . ":00 AM"); ?></label>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label class="data-grid-checkbox-cell-inner">
+                                            <input class='cron-box hour admin__control-checkbox'
+                                                   value='<?php echo $am; ?>:30' id='h-<?php echo $am; ?>30'
+                                                   type='checkbox'/>
+                                            <label for="h-<?php echo $am; ?>30">&nbsp;<?php echo __($am . ":30 AM"); ?></label>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label class="data-grid-checkbox-cell-inner">
+                                            <input class='cron-box hour admin__control-checkbox'
+                                                   value='<?php echo $pm; ?>:00' id='h-<?php echo $pm; ?>00'
+                                                   type='checkbox'/>
+                                            <label for="h-<?php echo $pm; ?>00">&nbsp;<?php echo __($am . ":00 PM"); ?></label>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label class="data-grid-checkbox-cell-inner">
+                                            <input class='cron-box hour admin__control-checkbox'
+                                                   value='<?php echo $pm; ?>:30' id='h-<?php echo $pm; ?>30'
+                                                   type='checkbox'/>
+                                            <label for="h-<?php echo $pm; ?>30">&nbsp;<?php echo __($am . ":30 PM"); ?></label>
+                                        </label>
+                                    </td>
+                                </tr>
+                            <?php endfor; ?>
+                        </table>
+                    </td>
+                    <?php $days = ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+                    foreach ($days
+
+                    as $day) :
+                    ?>
+                <tr>
+                    <td width='300'>
+                        <label class="data-grid-checkbox-cell-inner">
+                            <input class='admin__control-checkbox cron-box day' value='<?php echo $day; ?>'
+                                   id="d-<?php echo $day; ?>" type='checkbox'/>
+                            <label for="d-<?php echo $day; ?>">&nbsp;<?php echo __($day); ?></label>
+                        </label>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    </fieldset>
+</div>
+
+
+<script>
+    require(["jquery", "sgs_cron"], function ($, cron) {
+        'use strict';
+        $(document).on('change', '.cron-box', function () {
+            $(this).parent().toggleClass('selected');
+            cron.updateExpr();
+        });
+        cron.loadExpr();
+    });
+</script>

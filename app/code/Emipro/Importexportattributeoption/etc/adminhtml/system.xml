@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Config/etc/system_file.xsd">
+    <system>
+		<tab id="emipro" translate="label" sortOrder="100">
+			<label>Emipro</label>
+		</tab>
+		<section id="importexportattributeoption" translate="label" type="text" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+			<label>Import Export Attribute Options</label>
+            <tab>emipro</tab>
+            <resource>Emipro_Importexportattributeoption::importexportattributeoption</resource>
+             <group id="licence" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Licence</label>
+                <field id="licence" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Licence Key</label>
+                </field>
+            </group>
+		</section>
+	</system>
+</config>

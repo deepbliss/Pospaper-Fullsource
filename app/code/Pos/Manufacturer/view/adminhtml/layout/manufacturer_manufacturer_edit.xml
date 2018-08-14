@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+     <update handle="editor"/>
+    <body>
+	   <referenceContainer name="content">
+            <block class="Pos\Manufacturer\Block\Adminhtml\Manufacturer\Edit" name="manufacturer_manufacturer_edit"/>
+        </referenceContainer>
+		 <referenceContainer name="left">
+            <block class="Pos\Manufacturer\Block\Adminhtml\Manufacturer\Edit\Tabs" name="manufacturer_manufacturer_edit_tabs">
+				<block class="Pos\Manufacturer\Block\Adminhtml\Manufacturer\Edit\Tab\ProductCompability" name="manufacturer_manufacturer_edit_tab_productcompability"/>
+				 <action method="addTab">
+                    <argument name="name" xsi:type="string">productcompability_section</argument>
+                    <argument name="block" xsi:type="string">manufacturer_manufacturer_edit_tab_productcompability</argument>
+                </action>
+				<!--CedAddTab-->
+			</block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,16 @@
+<!-- ko if: isDisplayed() -->
+<tr class="totals reward-points">
+    <th class="mark" scope="row">
+        <a href="#"
+           class="action-delete"
+           data-bind="attr: {'title': $t('Remove')}, click: remove"
+        >
+            <span class="delete-icon"></span>
+        </a>
+        <span class="title" data-bind="text: getTitle()"></span>
+    </th>
+    <td class="amount">
+        <span class="price" data-bind="text: getValue(), attr: {'data-th': name}"></span>
+    </td>
+</tr>
+<!-- /ko -->

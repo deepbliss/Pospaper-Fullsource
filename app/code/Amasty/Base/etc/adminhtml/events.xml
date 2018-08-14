@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_Base
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="amasty_base_add_information_content">
+        <observer name="amasty_base_add_information_content" instance="Amasty\Base\Observer\GenerateInformationTab"/>
+    </event>
+
+    <event name="controller_action_predispatch">
+        <observer name="amasty_base_admin_notification"
+                  instance="Amasty\Base\Observer\PreDispatchAdminActionController" />
+    </event>
+</config>

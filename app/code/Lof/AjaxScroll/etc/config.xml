@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_AjaxScroll
+ * @copyright  Copyright (c) 2016 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+		<lofajaxscroll>
+            <general>
+                <enabled>1</enabled>  
+            </general>
+            <instances>
+                <enabled_grid>1</enabled_grid>
+                <enabled_layer>1</enabled_layer>
+                <enabled_search>1</enabled_search>
+                <enabled_advanced>1</enabled_advanced>
+                <enabled_brand>1</enabled_brand>
+            </instances>
+            <selectors>
+                <content>.main</content>
+                <pagination>.toolbar .pages</pagination>
+                <toolbar>.toolbar</toolbar> 
+                <next>.next</next>
+                <grid_mode>.products-grid</grid_mode>
+                <list_mode>.products-list</list_mode> 
+            </selectors>
+            <design>
+                <loading_image></loading_image>
+                <loading_text><![CDATA[<em>Loading - please wait...</em>]]></loading_text>
+                <done_text><![CDATA[<em>Congratulations, you've reached the end of the internet.</em>]]></done_text>
+                <hide_toolbar>1</hide_toolbar> 
+                <buffer>150</buffer>
+                <load_more>5</load_more>
+                <load_more_text>Load more items</load_more_text>
+                <local_mode>0</local_mode> 
+            </design> 
+        </lofajaxscroll>
+    </default>
+</config>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/system_file.xsd">
+    <system>
+        <tab id="magesales" translate="label" sortOrder="200">
+            <label>Magesales.com</label>
+        </tab>
+        <section id="redirect" showInDefault="1">
+			<tab>magesales</tab>
+            <label>301 Redirect</label>
+           	<resource>Magesales_Recaptcha::redirect</resource>
+            <group id="general" showInDefault="1">
+                <label>Configuration</label>
+                <field id="enable" type="select" showInDefault="1" sortOrder="0" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+               </field>
+			</group>
+        </section>
+    </system>
+</config>

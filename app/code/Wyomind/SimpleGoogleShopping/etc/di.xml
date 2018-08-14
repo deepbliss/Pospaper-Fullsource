@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- generation process -->
+    <type name="Wyomind\SimpleGoogleShopping\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Wyomind\SimpleGoogleShopping\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">SGS</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="notice" xsi:type="object">Wyomind\SimpleGoogleShopping\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- cron process -->
+    <type name="Wyomind\SimpleGoogleShopping\Logger\HandlerCron">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+
+    <type name="Wyomind\SimpleGoogleShopping\Logger\LoggerCron">
+        <arguments>
+            <argument name="name" xsi:type="string">SGS-CRON</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="simplegoogleshoppingcron" xsi:type="object">
+                    Wyomind\SimpleGoogleShopping\Logger\HandlerCron
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- COMMAND LINE -->
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="sgs_generate" xsi:type="object">Wyomind\SimpleGoogleShopping\Console\Command\Generate</item>
+                <item name="sgs_list" xsi:type="object">Wyomind\SimpleGoogleShopping\Console\Command\Listing</item>
+            </argument>
+        </arguments>
+    </type>
+
+
+</config>

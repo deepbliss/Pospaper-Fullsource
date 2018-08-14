@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::marketing">
+                    <resource id="Aheadworks_RewardPoints::aw_reward_points" title="Reward Points by Aheadworks">
+                        <resource id="Aheadworks_RewardPoints::aw_reward_points_transaction" title="Transactions" translate="title" sortOrder="10" >
+                            <resource id="Aheadworks_RewardPoints::aw_reward_points_transaction_save" title="Save Transactions" translate="title" sortOrder="10" />
+                        </resource>
+                        <resource id="Aheadworks_RewardPoints::aw_reward_points_customers" title="Customers" translate="title" sortOrder="20" />
+                    </resource>
+                </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Aheadworks_RewardPoints::config_aw_rewardpoints" title="Reward Points by Aheadworks" />
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

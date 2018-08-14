@@ -1,0 +1,60 @@
+@media screen and (max-width: 900px) {
+.mfp-iframe-holder .mfp-content{width:100%; max-width: inherit;}
+}
+@media screen and (max-width: 835px) {
+.weltpixel-quickview-catalog-product-view .amazon-button-container {right: -72px;width: 180px;bottom: 9px;}
+.weltpixel-quickview-catalog-product-view  .amazon-button-container__cell {	min-width: 35px;}
+.weltpixel-quickview-catalog-product-view .product-shop .product-info-main .box-tocart .actions .paypal-logo {margin-left: 0;width: 130px;}
+}
+@media screen and (max-width: 700px) {     
+
+.page-layout-1column .columns .product.media {	width: 100%;-webkit-flex-grow: 1;flex-grow: 1;-webkit-flex-basis: 100%; flex-basis: 100%;-ms-flex-order: 0; -webkit-order: 0; order: 0; margin-bottom: 0;}
+
+.page-layout-1column .columns .product-info-main {width: 100%;-webkit-flex-basis: 100%;flex-basis: 100%;-webkit-flex-grow: 1;flex-grow: 1;-ms-flex-order: 1;-webkit-order: 1;	order: 1;	width: 100%;	margin-top: 25px;}
+
+body .columns .product-shop {	display: -webkit-flex; display: -ms-flexbox;	display: flex;	-webkit-flex-wrap: wrap; flex-wrap: wrap;box-sizing: border-box;}
+
+.weltpixel-quickview-catalog-product-view .reviews-actions .add{display: block !important;}
+
+.weltpixel-quickview-catalog-product-view .product-shop .product-info-main .box-tocart .actions .paypal-logo  input{width:100%;}
+.weltpixel-quickview-catalog-product-view.page-layout-1column .columns .product-info-main{width:100%; clear: both;}
+.weltpixel-quickview-catalog-product-view.page-layout-1column .columns .product.media{width:100%;}
+}
+
+
+@media screen and (max-width: 600px) {    
+.weltpixel-quickview-catalog-product-view.catalog-product-view .page-title-wrapper h1 {font-size: 18px !important; color: red;}
+.product-shop .product-reviews-summary .rating-summary{margin-right: 8px;}
+.product-reviews-summary .reviews-actions a {margin-right: 3px;}
+.weltpixel-quickview-catalog-product-view .page-wrapper .page-main{max-width:100%; padding-left:10px; padding-right: 10px;}
+}
+@media screen and (max-width: 567px) {  
+.weltpixel-quickview-catalog-product-view .amazon-button-container {
+	right: 20px;
+	width: 180px;
+	bottom: -3px;
+}
+.product-shop .product-info-main .box-tocart .actions .paypal-logo {
+	position: relative;
+	left: -60px;
+	top: auto;
+	margin-bottom: 0;
+}
+}
+@media screen and (max-width: 480px) {   
+.product-shop .product-info-main .box-tocart .actions, .product-shop .product-options-bottom .box-tocart .actions {width: 100%;}
+.product-shop .product-info-main .box-tocart .action.tocart{padding: 5px 0 9px 0; width:100%;}
+}
+@media screen and (max-width: 413px) {  
+.weltpixel-quickview-catalog-product-view .amazon-button-container {
+	right: -30px;
+	width: 157px;
+	bottom: 0px;
+}
+.product-shop .product-info-main .box-tocart .actions .paypal-logo {
+	position: relative;
+	left: 0;
+	top: auto;
+	margin-bottom: 0;
+}
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright Copyright (c) 2016 www.magebuzz.com
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column"
+      xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Magebuzz_Testimonial::css/style.css"/>
+        <title>Customer Testimonials</title>
+    </head>
+    <body>
+        <referenceBlock name="breadcrumbs">
+            <action method="addCrumb">
+                <argument name="crumbName" xsi:type="string">home</argument>
+                <argument name="crumbInfo" xsi:type="array">
+                    <item name="title" xsi:type="string">Home</item>
+                    <item name="label" xsi:type="string">Home</item>
+                    <item name="link" xsi:type="string">/</item>
+                </argument>
+            </action>
+            <action method="addCrumb">
+                <argument name="crumbName" xsi:type="string">testimonial</argument>
+                <argument name="crumbInfo" xsi:type="array">
+                    <item name="title" xsi:type="string">Customer Testimonials</item>
+                    <item name="label" xsi:type="string">Customer Testimonials</item>
+                </argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Magebuzz\Testimonial\Block\Main" name="magebuzz.testimonial.block.main"/>
+            <referenceBlock name="magebuzz.testimonial.sidebar" remove="true" />
+        </referenceContainer>
+    </body>
+</page>

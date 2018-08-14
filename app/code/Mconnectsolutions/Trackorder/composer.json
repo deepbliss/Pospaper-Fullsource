@@ -1,0 +1,29 @@
+{
+    "name": "mconnectsolutions/trackorder",
+    "description": "N/A",
+    "require": {
+        "php": "~5.6.5|7.0.2|7.0.4|~7.0.6",
+        "mconnectsolutions/general": "1.0.2"
+    },
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": [
+        "OSL-3.0"
+    ],
+    "authors": [
+        {
+            "name": "Darshit",
+            "email": "darshit@mconnectsolutions.com",
+            "homepage": "https://www.mconnectmedia.com/",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Mconnectsolutions\\Trackorder\\": ""
+        }
+    }
+}

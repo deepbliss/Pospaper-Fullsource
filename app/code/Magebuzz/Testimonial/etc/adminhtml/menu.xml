@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright Copyright (c) 2016 www.magebuzz.com
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Magebuzz_Testimonial::content" title="Testimonial" module="Magebuzz_Testimonial" sortOrder="50" parent="Magento_Backend::content" resource="Magebuzz_Testimonial::content" />
+        <add id="Magebuzz_Testimonial::testimonial" title="Memo" module="Magebuzz_Testimonial" sortOrder="0" parent="Magebuzz_Testimonial::content" action="testimonial/memo" resource="Magebuzz_Testimonial::testimonial"/>
+    </menu>
+</config>

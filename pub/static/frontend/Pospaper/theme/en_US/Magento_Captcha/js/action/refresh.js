@@ -1,0 +1,1 @@
+/chroot/home/pospaper/pospaper.com/html/vendor/magento/module-captcha/view/frontend/web/js/action/refresh.js

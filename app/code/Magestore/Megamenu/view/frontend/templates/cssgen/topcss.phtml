@@ -1,0 +1,208 @@
+<?php
+
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_Megamenu
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+?>
+<?php
+$store = $block->getStoreId();
+$data = $block->getConfig('megamenu',$store);
+$top = $data['top_menu'];
+$mobile = $data['mobile_menu'];
+if(isset($data['customize']))
+$customize = $data['customize'];
+$change =  intval($block->getConfig('megamenu/top_menu/menu_width_main', $store));
+if(!$top['menu_item_height']){
+    $top['menu_item_height'] = 52;
+}
+if(!$top['menu_item_size']){
+    $top['menu_item_size'] = 15;
+}
+?>
+<style>
+    /* ------ Top menu -----------*/
+    <?php if($top['topmenu_align']==1):?>
+    .ms-topmenu .ms-level0{
+        float:right;
+    }
+    .ms-topmenu .ms-label{
+        float:right;
+    }
+    .ms-topmenu{
+        text-align:right;
+    }
+    .ms-topmenu .col-sub{right:150px;left:auto;}
+    .ms-megamenu .ms-topmenu .ms-category-level .parent .small{float:left;}
+    .ms-megamenu .ms-topmenu .ms-category-level .parent .small.glyphicon-chevron-right:before{content: "\e079";}
+    .ms-topmenu .ms-category-dynamic .col-level .col-xs-12.form-group{padding-right: 10px;}
+    .ms-topmenu small.glyphicon.glyphicon-th-large{display:none;}
+    <?php elseif($top['topmenu_align']==2):?>
+    .ms-megamenu .ms-topmenu {
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        flex-direction: row;
+        -ms-flex-pack: justify;
+        -webkit-justify-content: space-between;
+        justify-content: space-between;
+        text-align:left;
+    }
+    .ms-topmenu .ms-level0{
+        -webkit-box-flex: 1;
+        -moz-box-flex: 1;
+        -ms-box-flex: 1;
+    }
+    <?php else: ?>
+    .ms-megamenu .ms-topmenu{text-align:left;}
+    .ms-topmenu .ms-label{
+        float:left;
+    }
+    .ms-topmenu .ms-level0{float: left;}
+    <?php endif; ?>
+    .ms-megamenu .ms-topmenu{
+        background: #<?php echo $top['menu_background'] ?>;
+    }
+    .ms-topmenu .ms-label{
+        font-size:<?php echo $top['menu_item_size'] ?>px;
+        text-transform:<?php echo $top['menu_item_transform'] ?>;
+        color:#<?php echo $top['menu_item_color'] ?>;
+        padding:<?php echo ($top['menu_item_height'] - $top['menu_item_size']*1.5)/2 ?>px 15px;
+    }
+    .ms-topmenu .ms-label:after{
+        background:#<?php echo $top['menu_item_active_color'] ?>;
+    }
+    .ms-topmenu .ms-label .ms-iconmega{
+        height:<?php echo $top['menu_item_size'] ?>px;
+        top:<?php echo $top['menu_item_size']/4 ?>px;
+    }
+    .ms-topmenu .ms-level0.active .ms-label,
+    .ms-topmenu .ms-level0:hover .ms-label,
+    .ms-topmenu .ms-level0:active .ms-label,
+    .ms-topmenu .ms-level0:focus .ms-label{
+        color:#<?php echo $top['menu_item_active_color'] ?>;
+    }
+    .ms-megamenu .ms-submenu{
+        border-top-color:#<?php echo $top['menu_item_active_color'] ?>;
+    }
+    .ms-topmenu .ms-level0.active .ms-label,
+    .ms-topmenu .ms-level0:hover .ms-label,
+    .ms-topmenu .ms-level0:active .ms-label,
+    .ms-topmenu .ms-level0:focus .ms-label{
+        background-color:#<?php echo $top['menu_item_active_background'] ?>;
+    }
+    .ms-topmenu .ms-submenu,.ms-topmenu .col-sub{
+        background-color:#<?php echo $top['submenu_background'] ?>;
+        color:#<?php echo $top['submenu_main_color'] ?>;
+    }
+    .ms-topmenu .ms-submenu a{
+        color:#<?php echo $top['submenu_link_color'] ?>;
+    }
+    .ms-topmenu .ms-boxtitle{
+        color:#<?php echo $top['submenu_boxtitle_color'] ?>;
+    }
+
+
+
+    <?php if($top['responsive']):?>
+    /* ---- Mobile version ---------*/
+    @media (min-width: <?php echo ($change+1).'px';?>){
+        .ms-topmenu .mb-submenu{display: none !important;}
+
+    }
+    @media (max-width: <?php echo $change.'px';?>){
+        .ms-megamenu .ms-topmenu{background-color:transparent;display:block; }
+        .ms-topmenu .ms-label::after{display:none;}
+        .ms-megamenu .anchor_mbmenu,.ms-megamenu .mb-label{
+            display: block !important;
+        }
+        .ms-topmenu .ms-level0{
+            float:left;
+            width: 100%;
+            position: relative;
+        }
+        .ms-topmenu .ms-level0.first{
+            border-top: 1px solid #ddd;
+        }
+        .ms-topmenu.active .ms-level0{
+            display: block;
+        }
+        .ms-topmenu .ms-label{
+            padding: 12px 15px 8px !important;
+            background: #FFFFFF;
+            border: 1px solid #ddd;
+            border-top: 0;
+            color: #2f2f2f;
+            text-decoration: none;
+            outline: none;
+            width: 100%;
+            float:left;
+            min-height:43px;
+        }
+        .ms-topmenu .ms-submenu{display: none !important;}
+        .ms-topmenu .mbactive .mb-submenu.slide{
+            z-index: 201;
+            display: inline;
+        }
+        .ms-level0 .ms-label,
+
+        .ms-megamenu .mb-label{
+            font-size:<?php echo $mobile['mobile_item_size'] ?>px;
+            text-transform:<?php echo $mobile['mobile_item_transform'] ?>;
+            background-color:#<?php echo $mobile['mobile_item_background'] ?>;
+            color:#<?php echo $mobile['mobile_item_color'] ?>;
+        }
+        .ms-topmenu .ms-level0.active .ms-label,
+        .ms-topmenu .ms-level0:hover .ms-label,
+        .ms-topmenu .ms-level0:active .ms-label,
+        .ms-topmenu .ms-level0:focus .ms-label,
+        .ms-topmenu .ms-level0:hover .mb-label,
+        .ms-topmenu .ms-level0:active .mb-label,
+        .ms-topmenu .ms-level0:focus .mb-label,
+
+        .ms-megamenu .mbactive .ms-label,
+        .ms-megamenu .mbactive .mb-return,
+        .ms-megamenu .mbactive .mb-label{
+            background-color:#<?php echo $mobile['mobile_item_active_background'] ?>;
+            color:#<?php echo $mobile['mobile_item_color'] ?>;
+        }
+        .ms-megamenu .anchor_mbmenu{
+            background-color:#<?php echo $mobile['anchor_background'] ?>;
+        }
+        .ms-megamenu .anchor_mbmenu .anchor_mbmenu_text{
+            color:#<?php echo $mobile['anchor_color'] ?>;
+        }
+
+        .ms-megamenu .mb-submenu{
+            background-color:#<?php echo $mobile['mobile_submenu_background'] ?>;
+            color:#<?php echo $mobile['mobile_submenu_main_color'] ?>;
+        }
+        .ms-megamenu .ms-boxtitle{
+            color:#<?php echo $mobile['submenu_boxtitle_color'] ?>;
+        }
+        .ms-megamenu .mb-submenu a{
+            color:#<?php echo $mobile['mobile_submenu_link_color'] ?>;
+        }
+    }
+    <?php endif;?>
+    <?php
+        if(isset($customize['style']))
+        echo $customize['style'];
+    ?>
+</style>

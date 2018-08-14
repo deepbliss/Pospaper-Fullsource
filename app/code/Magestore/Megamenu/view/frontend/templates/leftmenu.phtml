@@ -1,0 +1,66 @@
+<?php
+
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_Megamenu
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+?>
+<?php
+/**
+ * template
+ */
+$items = $block->getLeftMenuCollection();
+$width = $block->getSubMenuWidth($items);
+$effect = $block->getEffect();
+$mobile_effect =  $block->getMobileEffect();
+$responsive = $block->getConfig('megamenu/left_menu/responsive', $block->getStoreId());
+$className = $block->getClassMenuType('leftmenu');
+$change =  $block->getConfig('megamenu/left_menu/menu_width_main', $block->getStoreId());
+?>
+<?php if($items->getSize()):?>
+<?php echo $block->getChildHtml('leftcss_gen');?>
+<div class="megamenu-pc ms-megamenu">
+    <ul id="ms-leftmenu" class="ms-leftmenu <?php echo $className;?>">
+        <?php foreach($items as $item):?>
+            <li class="msl-level0 nav-<?php echo $item->getId(); ?><?php if($item->getLeftsubmenuAlign()):?> item_relative<?php endif; ?>" id="leftnav-<?php echo $item->getId(); ?>">
+                <a class="msl-label <?php if($item->getMenuType() == \Magestore\Megamenu\Model\Megamenu::ANCHOR_TEXT): ?>anchor_text<?php endif;?>" <?php if($item->getLink()):?> href="<?php echo $item->getLink();?>"<?php endif; ?>>
+                    <?php if($item->getItemIcon()):?><img draggable="false" alt="<?php echo $item->getNameMenu() ?>" class="ms-iconmega" src="<?php echo $block->getImageIcon($item); ?>"/>&nbsp;<?php endif; ?>
+                    <?php echo $item->getNameMenu() ?>
+                    <span class="glyphicon small glyphicon-chevron-right">&nbsp;</span>
+                </a>
+                <?php if($item->getMenuType() != \Magestore\Megamenu\Model\Megamenu::ANCHOR_TEXT):?><span class="mb-label glyphicon <?php if($mobile_effect == \Magestore\Megamenu\Model\Megamenu::MOBILE_BLIND): ?>glyphicon-plus<?php else:?>glyphicon-chevron-right<?php endif; ?>">&nbsp;</span><?php endif; ?>
+                <?php echo $block->getContent($item); ?>
+            </li>
+        <?php endforeach;?>
+    </ul>
+</div>
+<script type="text/javascript">
+    require(['jquery', 'megamenu'], function ($) {
+        var arr = <?php echo $width;?>;
+        var options = {
+            effect:'<?php echo $effect; ?>',
+            mobile_effect: '<?php echo $mobile_effect; ?>',
+            arr: arr,
+            main_div: '.columns',
+            change: '<?php echo $change;?>',
+            responsive: '<?php echo $responsive;?>'
+        }
+        $('#ms-leftmenu').leftmenu(options);
+    });
+</script>
+<?php endif;?>

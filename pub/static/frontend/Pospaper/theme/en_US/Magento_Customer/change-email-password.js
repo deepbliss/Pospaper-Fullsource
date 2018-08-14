@@ -1,0 +1,1 @@
+/chroot/home/pospaper/pospaper.com/html/vendor/magento/module-customer/view/frontend/web/change-email-password.js

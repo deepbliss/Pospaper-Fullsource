@@ -1,0 +1,82 @@
+<div class="blackbox draggable">
+    <div class="resizable">
+        <div class="header">
+            <span class="button preview"><?php echo __('Preview'); ?></span>
+            <span class="button library active"><?php echo __('Library'); ?></span>
+            <span class="button report"><?php echo __('Report'); ?></span>
+            <span class="button fullscreen" title="<?php echo __("Maximize"); ?>"></span>
+            <span class="button collapse" title="<?php echo __("Collapse"); ?>"></span>
+        </div>
+        <div class="content">
+            <div class="area preview xml"><textarea id="cm-preview"></textarea></div>
+            <div class="area library"></div>
+            <div class="area report"></div>
+            <div class="area error message message-error error">
+                <div class="msg">Error</div>
+            </div>
+            <div class="area loader"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    require(["jquery", "jquery/ui", "sgs_blackbox"], function ($, ui, blackbox) {
+        'use strict';
+        $(".blackbox.draggable").draggable({
+            handle: ".header",
+            stop: function (et, ui) {
+                blackbox.savePosition(ui.position);
+            }
+        });
+        $(".blackbox .resizable").resizable({
+            stop: function (evt, ui) {
+                blackbox.saveSize(ui.size);
+            }
+        });
+
+        blackbox.setPositionAndSize();
+
+        blackbox.previewArea = CodeMirror.fromTextArea(document.getElementById('cm-preview'), {
+            matchBrackets: true,
+            mode: "application/x-httpd-php",
+            indentUnit: 2,
+            indentWithTabs: false,
+            lineWrapping: true,
+            lineNumbers: true,
+            styleActiveLine: true
+        });
+
+        $(".blackbox .button.preview").on('click', function () {
+            blackbox.refreshPreview();
+        });
+        $(".blackbox .button.library").on('click', function () {
+            blackbox.refreshLibrary();
+        });
+        $(".blackbox .button.report").on('click', function () {
+            blackbox.refreshReport();
+        });
+
+        $(document).on('click', ".blackbox .button.fullscreen", function () {
+            blackbox.maximize();
+        });
+        $(document).on('click', ".blackbox .button.window", function () {
+            blackbox.minimize();
+        });
+
+        $(document).on('click', ".blackbox .button.collapse", function () {
+            blackbox.collapse();
+        });
+        $(document).on('click', ".blackbox .button.expand", function () {
+            blackbox.expand();
+        });
+
+
+        /* click on an attribute load sample */
+        $(document).on('click', '.load-attr-sample', function () {
+            blackbox.loadLibrarySamples($(this));
+        });
+
+        blackbox.refreshLibrary();
+
+    });
+</script>

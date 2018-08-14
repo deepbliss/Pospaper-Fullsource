@@ -1,0 +1,1 @@
+/chroot/home/pospaper/pospaper.com/html/vendor/magento/module-wishlist/view/frontend/web/js/view/wishlist.js

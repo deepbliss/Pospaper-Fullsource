@@ -1,0 +1,51 @@
+<?php
+$gridRecords = $block->getCollection();
+?>
+<div class="magebuzz-testimonial-content">
+    <!--<?php if ($block->getPagerHtml()): ?>
+        <div class="magebuzz-testimonial-toolbar toolbar bottom">
+            <?php echo $block->getPagerHtml(); ?>
+        </div>
+    <?php endif ?>-->
+    <div class="testi-row-cnt">
+    
+    <?php if ($gridRecords && count($gridRecords)): ?>
+        <?php foreach ($gridRecords as $record): ?>
+            <div class="testi-row" id="<?php echo $record['company']; ?>">
+                <!--<div id="logo">
+                    <a href="">
+                        <?php echo $block->getImage($record['avatar']); ?>
+                    </a>
+                </div>-->
+                <div id="right">
+                    <div class="content">                        
+                        <!--<div class="date">
+                            <?php echo $record['created_time'] ?>
+                        </div>-->
+                        <div class="testi-desc">
+                            <?php echo $record['testimonial'] ?>
+                        </div>
+                        <div class="author">
+                            <?php echo $record['name']; ?>                            
+                        </div>
+                    </div>
+                    <div class="footer">
+                    </div>
+                </div>
+                <div class="clr"></div>
+            </div>
+        <?php endforeach; ?>
+    <?php else : ?>
+        <div class="message info empty">
+        <span>
+            <?php echo __('Testimonial records not available.'); ?>
+        </span>
+        </div>
+    <?php endif ?>
+</div>
+    <div class="magebuzz-testimonial-new-button-container">
+        <a href="<?php echo $block->getNewUrl(); ?>" title="<?php echo __('Submit Your Testimonial'); ?>">
+            <?php echo __('Submit Your Testimonial'); ?> <img src="<?php echo $block->getViewFileUrl('images/testo-arrow.png');?>" />
+        </a>
+    </div>
+</div>

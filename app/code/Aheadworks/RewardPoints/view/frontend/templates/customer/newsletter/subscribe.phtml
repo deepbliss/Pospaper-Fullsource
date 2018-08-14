@@ -1,0 +1,39 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+// @codingStandardsIgnoreFile
+/** @var Aheadworks\RewardPoints\Block\Customer\Subscribe $block */
+?>
+<?php if ($block->canShow()): ?>
+    <legend class="legend">
+        <span><?php /* @noEscape */ echo __('Reward Points') ?></span>
+    </legend>
+    <br>
+    <div class="field choice">
+        <input type="checkbox"
+               name="aw_rewardpoints_is_balance_update_subscribed"
+               id="aw_rewardpoints_balance_update_subscription"
+               value="1"
+               title="<?php echo $block->escapeHtml(__('Subscribe to balance update notifications')) ?>"
+               <?php if ($block->isBalanceUpdateSubscribed()): ?> checked="checked"<?php endif; ?>
+               class="checkbox">
+        <label for="aw_rewardpoints_balance_update_subscription" class="label">
+            <span><?php echo $block->escapeHtml(__('Subscribe to balance update notifications')) ?></span>
+        </label>
+    </div>
+    <div class="field choice">
+        <input type="checkbox"
+               name="aw_rewardpoints_is_expiration_subscribed"
+               id="aw_rewardpoints_is_expiration_subscribed"
+               value="1"
+               title="<?php echo $block->escapeHtml(__('Subscribe to points expiration reminders')) ?>"
+               <?php if ($block->isExpirationSubscribed()): ?> checked="checked"<?php endif; ?>
+               class="checkbox">
+        <label for="aw_rewardpoints_is_expiration_subscribed" class="label">
+            <span><?php echo $block->escapeHtml(__('Subscribe to points expiration reminders')) ?></span>
+        </label>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="checkout" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <block class="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable" template="Amasty_Checkout::product/view/type/options/configurable.phtml" name="amcheckout.super.prototype" cacheable="false" />
+        <block class="Magento\Downloadable\Block\Checkout\Cart\Item\Renderer" template="Amasty_Checkout::product/view/type/options/downloadable.phtml" name="amcheckout.downloadable.prototype" cacheable="false" />
+        <block class="Magento\Framework\View\Element\Html\Calendar" name="html_calendar" as="html_calendar" template="Magento_Theme::js/calendar.phtml" after="-"/>
+        <block class="Magento\Catalog\Block\Product\View\Options" name="amcheckout.options.prototype" as="options_prototype" template="Amasty_Checkout::product/view/options.phtml">
+            <block class="Magento\Catalog\Block\Product\View\Options\Type\DefaultType" as="default" template="product/view/options/type/default.phtml"/>
+            <block class="Magento\Catalog\Block\Product\View\Options\Type\Text" as="text" template="product/view/options/type/text.phtml"/>
+            <block class="Magento\Catalog\Block\Product\View\Options\Type\File" as="file" template="product/view/options/type/file.phtml"/>
+            <block class="Magento\Catalog\Block\Product\View\Options\Type\Select" as="select" template="product/view/options/type/select.phtml"/>
+            <block class="Magento\Catalog\Block\Product\View\Options\Type\Date" as="date" template="product/view/options/type/date.phtml"/>
+        </block>
+    </body>
+</page>

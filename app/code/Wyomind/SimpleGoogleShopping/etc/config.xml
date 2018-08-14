@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+ Copyright © 2015 Wyomind. All rights reserved.
+ See LICENSE.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Magento/Store/etc/config.xsd">
+    <default>
+        <simplegoogleshopping>
+            <license>
+                <!-- required for License Manager -->
+                <extension_label>Simple Google Shopping</extension_label>
+                <extension_version>13.4.3</extension_version>
+                <extension_code>sgs</extension_code>
+                <get_online_license>1</get_online_license>
+            <activation_key>BT4OE3W4WNPF4UTQU</activation_key></license>
+            <settings>
+                <report_title>Simple Google Shopping - report</report_title>
+            </settings>
+            <system>
+                <preview>10</preview>
+                <buffer>10</buffer>
+                <sqlsize>1500</sqlsize>
+                <filters>10</filters>
+                <filters_sql>0</filters_sql>
+                <include_in_menu>0</include_in_menu>
+                <memorylimit>1024</memorylimit>
+                <url_rewrite>0</url_rewrite>
+                <log>0</log>
+            </system>
+        </simplegoogleshopping>
+    </default>
+</config>

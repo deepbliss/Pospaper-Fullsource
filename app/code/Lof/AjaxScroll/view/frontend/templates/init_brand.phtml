@@ -1,0 +1,153 @@
+<?php  
+$helper = $this->helper('Lof\AjaxScroll\Helper\Data'); 
+$productListMode = $block->getProductListMode(); 
+$enable = false; 
+$used_in_brand = $helper->getConfig('lofajaxscroll/instances/enabled_brand');
+if($used_in_brand){
+	$fullAction       = $this->getRequest()->getFullActionName();
+	if ($fullAction == 'vesbrand_brand_view') {
+		$enable = true;
+	}
+}
+$item_selector = ".products-grid";
+$items_container = ".main";
+if($helper->isEnabled() && $enable) { ?>
+<script>
+	require(['jquery',
+		'Lof_AjaxScroll/js/script'	
+		], function ($) {
+
+			$('<?php echo $helper->getConfig('lofajaxscroll/selectors/toolbar') ?>').<?php echo $helper->getConfig('lofajaxscroll/design/hide_toolbar') ? 'hide' : 'show' ?>();
+			windowLoadedFlag = false;
+			window.onload = function () {
+				windowLoadedFlag = true;
+			};   
+			var jQueryWaiter = function () {
+				var functions = [];
+				var timer = function() {
+					if( typeof window.jQuery != 'undefined') {
+						while (functions.length) {
+							functions.shift()(window.jQuery);
+						}
+					} else {
+						window.setTimeout(timer, 100);
+					}
+				};
+				timer();
+				return {
+					execute: function(onJQueryReady) {
+						if (window.jQuery) {
+							onJQueryReady(window.jQuery);
+						} else {
+							functions.push(onJQueryReady);
+						}
+					}
+				};
+			}();
+
+			window.SgyIAS = {
+				debug: true,
+				_log: function(object) { 
+					console.log(object); 
+				},
+				init: function(){ 
+					jQuery(function($) {
+						var config = {
+							item: '<?php echo $item_selector; ?>',
+							container : '<?php echo $items_container; ?>',
+							next: '<?php echo $helper->getConfig('lofajaxscroll/selectors/next') ?>',
+							pagination: '<?php echo $helper->getConfig('lofajaxscroll/selectors/pagination') ?>',
+							delay: 600,
+							negativeMargin: <?php echo (int) $helper->getConfig('lofajaxscroll/design/buffer') ?>,
+							history: {
+								prev: '.prev'
+							},
+							noneleft: {
+								text: '<?php echo $helper->jsQuoteEscape(__($helper->getConfigData('lofajaxscroll/design/done_text'))) ?>',
+								html: '<div class="ias-noneleft" style="text-align: center;">{text}</div>'
+							},
+							spinner: {
+								<?php if($block->getLoaderImage() !== false): ?>
+								src: '<?php echo $block->getLoaderImage(); ?>',
+							<?php endif; ?>
+							html: '<div class="ias-spinner" style="text-align: center;"><img style="display:inline" src="{src}"/> <?php echo $helper->jsQuoteEscape(__($helper->getConfigData('lofajaxscroll/design/loading_text'))); ?></div>'
+						},  
+						trigger: {
+							text: '<?php echo $helper->jsQuoteEscape(__($helper->getConfigData('lofajaxscroll/design/load_more_text'))) ?>',
+							html: '<div class="ias-trigger ias-trigger-next" style="text-align: center; cursor: pointer;"><a>{text}</a></div>',
+							textPrev: '<?php echo $helper->jsQuoteEscape(__($helper->getConfigData('lofajaxscroll/design/load_more_text'))) ?>',
+							htmlPrev: '<div class="ias-trigger ias-trigger-prev" style="text-align: center; cursor: pointer;"><a>{text}</a></div>',
+							offset: <?php echo (int) $helper->getConfigData('lofajaxscroll/design/load_more') ?>
+						}
+
+					};
+
+
+					if (window.ias_config){
+						$.extend(config, window.ias_config);
+					}
+
+
+					SgyIAS._log({extension: 'ias', config: config});
+					window.ias = $.ias(config);
+
+					SgyIAS._log({extension: 'paging'});
+					window.ias.extension(new IASPagingExtension());
+
+					SgyIAS._log({extension: 'spinner'});
+					window.ias.extension(new IASSpinnerExtension(config.spinner));
+
+					SgyIAS._log({extension: 'noneleft'});
+					window.ias.extension(new IASNoneLeftExtension(config.noneleft));
+
+					SgyIAS._log({extension: 'trigger'});
+					window.ias.extension(new IASTriggerExtension(config.trigger)); 	
+
+						// debug events
+						window.ias.on('scroll', function(scrollOffset, scrollThreshold){
+							SgyIAS._log({eventName: 'scroll', scrollOffset: scrollOffset, scrollThreshold: scrollThreshold});
+						});
+						window.ias.on('load', function(event){
+							SgyIAS._log({eventName:'load', event: event});
+						});
+						window.ias.on('loaded', function(data, items){
+							SgyIAS._log({eventName: 'loaded', data: data, items: items});
+						});
+						window.ias.on('render', function(items){
+							SgyIAS._log({eventName: 'render', items: items});
+							if (typeof($(items).find('.lof-lazy').lazy) === 'function') {
+								$(items).find('.lof-lazy').lazy({
+									bind: "event",
+									delay: 0
+								});
+							}
+						}); 
+						window.ias.on('noneLeft', function(){
+							SgyIAS._log({eventName: 'noneLeft'});
+						});
+						window.ias.on('next', function(url){
+							SgyIAS._log({eventName: 'next', url: url});
+						});
+						window.ias.on('ready', function(){
+							SgyIAS._log({eventName: 'ready'});
+						});
+						if(windowLoadedFlag){
+							$(window).load();
+						}
+
+						SgyIAS._log('Done loading IAS.');
+
+					});
+
+				}
+			};
+			jQueryWaiter.execute(function(){
+				SgyIAS.init();
+
+			});
+		});
+
+
+//]]>
+</script>
+<?php } ?>

@@ -1,0 +1,33 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+?>
+<?php
+/** @var $block \Magento\ConfigurableProduct\Block\Product\View\Type\Configurable*/
+$_product    = $block->getProduct();
+$_attributes = $block->decorateArray($block->getAllowAttributes());
+$_itemId     = $block->getData('quote_item')->getId();
+?>
+<?php if ($_product->isSaleable() && count($_attributes)):?>
+    <input type="hidden" name="selected_configurable_option" value="" />
+    <?php foreach ($_attributes as $_attribute): ?>
+        <div class="field configurable required">
+            <label class="label" for="attribute<?=$_itemId?>-<?= $_attribute->getAttributeId() ?>">
+                <span><?= $block->escapeHtml($_attribute->getProductAttribute()->getStoreLabel()) ?></span>
+            </label>
+            <div class="control">
+                <select name="super_attribute[<?= $_attribute->getAttributeId() ?>]"
+                        data-selector="super_attribute[<?=$_itemId?>][<?= $_attribute->getAttributeId() ?>]"
+                        data-validate="{required:true}"
+                        id="attribute<?=$_itemId?>-<?= $_attribute->getAttributeId() ?>"
+                        class="super-attribute-select"
+                        data-attribute-id="<?= $_attribute->getAttributeId() ?>">
+                    <option value=""><?= __('Choose an Option...') ?></option>
+                </select>
+            </div>
+        </div>
+    <?php endforeach; ?>
+<?php endif;?>

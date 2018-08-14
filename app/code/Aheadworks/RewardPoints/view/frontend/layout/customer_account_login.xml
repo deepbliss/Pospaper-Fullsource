@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Aheadworks\RewardPoints\Block\Information\Bar" name="aw_reward_points_information_bar" as="aw_reward_points_information_bar" before="-">
+                <arguments>
+                    <argument name="information_messages" xsi:type="array">
+                        <item name="register" xsi:type="string">Aheadworks\RewardPoints\Block\Information\Messages\Register</item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

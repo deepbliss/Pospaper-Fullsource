@@ -1,0 +1,59 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+// @codingStandardsIgnoreFile
+
+/** @var Aheadworks\RewardPoints\Block\Customer\RewardPointsBalance\Account\Transaction $block */
+?>
+<?php if ($block->getTransactions() && count($block->getTransactions()->getItems())): ?>
+    <div class="table-wrapper transactions">
+        <table class="data table table-transactions" id="my-transactions-table">
+            <caption class="table-caption"><?php echo $block->escapeHtml(__('Transactions History')) ?></caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="col id"><?php echo $block->escapeHtml(__('Transaction ID')) ?></th>
+                    <th scope="col" class="col points"><?php echo $block->escapeHtml(__('Points')) ?></th>
+                    <th scope="col" class="col points"><?php echo $block->escapeHtml(__('Balance')) ?></th>
+                    <th scope="col" class="col comment"><?php echo $block->escapeHtml(__('Comment')) ?></th>
+                    <th scope="col" class="col date"><?php echo $block->escapeHtml(__('Transaction Date')) ?></th>
+                    <th scope="col" class="col expire"><?php echo $block->escapeHtml(__('Expiration Date')) ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($block->getTransactions()->getItems() as $transaction): ?>
+                <tr>
+                    <td data-th="<?php echo $block->escapeHtml(__('Transaction ID')) ?>" class="col id">
+                        <?php echo $block->escapeHtml($transaction->getTransactionId()); ?>
+                    </td>
+                    <?php $balanceClass = $transaction->getBalance() >= 0 ? 'aw_reward_points__balance-green' :  'aw_reward_points__balance-red' ?>
+                    <td data-th="<?php echo $block->escapeHtml(__('Points')) ?>"
+                        class="col points <?php /* @noEscape */ echo $balanceClass ?>">
+                        <?php  /* @noEscape */ echo ($transaction->getBalance() > 0 ? '+' : '') . $block->escapeHtml($transaction->getBalance()); ?>
+                    </td>
+                    <td data-th="<?php echo $block->escapeHtml(__('Balance')) ?>"
+                        class="col current-balance">
+                        <?php echo $block->escapeHtml($transaction->getCurrentBalance()); ?>
+                    </td>
+                    <td data-th="<?php echo $block->escapeHtml(__('Comment')) ?>" class="col comment">
+                        <?php /* @noEscape */  echo $block->renderComment($transaction); ?>
+                    </td>
+                    <td data-th="<?php echo $block->escapeHtml(__('Transaction Date')) ?>" class="col date">
+                        <?php echo $block->escapeHtml($block->dateFormat($transaction->getTransactionDate())); ?>
+                    </td>
+                    <td data-th="<?php echo $block->escapeHtml(__('Expiration Date')) ?>" class="col date">
+                        <?php echo $block->escapeHtml($transaction->getExpirationDate() ? $block->dateFormat($transaction->getExpirationDate()) : " - "); ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+     <?php if ($block->getPagerHtml()): ?>
+        <div class="toolbar transactions-toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+    <?php endif ?>
+<?php else: ?>
+    <div class="message info empty"><span><?php echo $block->escapeHtml(__('You have no transactions.')) ?></span></div>
+<?php endif; ?>

@@ -1,0 +1,9 @@
+.item-importexportreviews-operation strong.submenu-group-title{
+    color: #a79d95;
+    display: block;
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: .7rem;
+    padding: 1.25rem 1.5rem;
+    pointer-events: none;
+}

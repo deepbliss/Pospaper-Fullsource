@@ -1,0 +1,38 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/** @var $block \Aheadworks\Freeshippinglabel\Block\Adminhtml\Settings\Index\Tab\Preview */
+?>
+<div
+    id="label_preview"
+    class="aw_fslabel_preview"
+    data-mage-init='{"awFslabelPreview":<?= /* @noEscape */ $block->getScriptOptions(); ?>}'
+    >
+</div>
+<script data-role="label-template" type="text/x-magento-template">
+    <div class="aw_fslabel_label"><%- data.message %></div>
+</script>
+<script data-role="styles-template" type="text/x-magento-template">
+    <style>
+        div.aw_fslabel_label {
+            font-family: <%- data.font_name %>;
+            font-size: <%- data.font_size %>px;
+            font-weight: <%- data.font_weight %>;
+            text-align: <%- data.text_align %>;
+            color: <%- data.font_color %>;
+            background: <%- data.background_color %>;
+            padding: <%- data.padding %>;
+            <%- data.custom_css %>
+        }
+
+        div.aw_fslabel_label span.goal {
+            color: <%- data.goal_font_color %>
+        }
+    </style>
+</script>
+<script>
+    require('mage/apply/main').apply();
+</script>

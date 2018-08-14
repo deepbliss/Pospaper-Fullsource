@@ -1,0 +1,90 @@
+<?php 
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $category = $objectManager->get('Magento\Framework\Registry')->registry('current_category');//get current category
+    if(isset($category)):
+    
+   $showfilter = $category->getData('custom_attribute1');
+
+   if($showfilter == 1):
+
+?>
+<div class="manufacturer-name">
+<div class="container">
+<div class="search-sec">
+<div class="tool-text">
+    <h2><img src="<?php echo $block->getViewFileUrl('images/tool-search-icn.png'); ?>">Paper Roll Search Tool</h2>
+</div>
+
+<form action="<?php echo $block->GetBaseUrl()?>custommodule/brand/showbrand" method="GET" id="submit-form">
+<select id="manufacturer" name="manufacturer">
+<option selected>Select a Manufacturer</option>
+    <?php $getOptionValue = $this->getAllBrand();?>
+<?php 
+$man = [];
+foreach($getOptionValue as $value){
+  $man[$value->getData('manufacturer')] = $value->getData('manufacturer');
+}
+ ?>
+<?php ksort($man); ?>
+      <?php foreach($man as $value){ ?>
+           <option value="<?php echo  $value;?>"><?php echo  $value;?></option>
+      <?php } ?>
+</select>      
+
+<select id="brand" class="brand" name="brand">
+<option selected>Select a Model</option>
+    
+</select> 
+<!-- <input type="submit" name="submit" value="submit"> -->
+</form>
+
+</div>
+</div>
+</div>
+
+<?php
+  endif;
+  endif;
+?>
+
+<script type="text/javascript">
+  jQuery(document).ready(function(){ /* PREPARE THE SCRIPT */
+  jQuery('.brand').attr("disabled","disabled");
+  jQuery('.brand').addClass('disable');
+    jQuery("#manufacturer").on("change", function() {
+
+      var body = jQuery('body').loader();
+      body.loader('show');      
+    	var manufacturer = jQuery(this).val();
+      jQuery.ajax({ 
+        type: "POST",
+        url: "<?php  echo $block->getBaseUrl() ?>custommodule/brand/getbrand", 
+        data: {manufacturer : manufacturer},
+        success: function(result){
+          var body = jQuery('body').loader();
+          body.loader('hide');
+         jQuery('.brand').removeClass('disable');
+         jQuery('.brand').removeAttr('disabled');
+         jQuery('.brand').html(result);
+         
+        }
+      });
+
+    });
+});
+    </script>
+
+
+<script type="text/javascript">
+  jQuery(function() {
+  jQuery('.brand').on('change', function(e) {
+    jQuery(this).closest('form')
+           .trigger('submit')
+  })
+})
+</script>
+
+<script type="text/javascript">
+	jQuery("#brand").val(jQuery("#brand option:first").val());
+  jQuery("#manufacturer").val(jQuery("#manufacturer option:first").val());
+</script>

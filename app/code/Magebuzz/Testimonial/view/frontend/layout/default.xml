@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright Copyright (c) 2016 www.magebuzz.com
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Magebuzz_Testimonial::css/owl.carousel.css"></css>
+        <css src="Magebuzz_Testimonial::css/owl.theme.css"></css>
+        <css src="Magebuzz_Testimonial::css/owl.transitions.css"></css>
+    </head>
+    <body>
+        <referenceBlock name="header.links">
+            <block class="Magento\Framework\View\Element\Html\Link" name="testimonialus.link" after="register-link">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Testimonials</argument>
+                    <argument name="path" xsi:type="string" translate="false">testimonial</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+
+        <referenceContainer name="sidebar.additional">
+            <block class="Magebuzz\Testimonial\Block\Sidebar" name="magebuzz.testimonial.sidebar"/>
+        </referenceContainer>
+    </body>
+</page>

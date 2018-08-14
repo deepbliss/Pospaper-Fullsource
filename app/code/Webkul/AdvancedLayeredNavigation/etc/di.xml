@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!-->
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_AdvancedLayeredNavigation
+ * @author    Webkul
+ * @copyright Copyright (c) 2010-2018 Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\LayeredNavigation\Block\Navigation\FilterRenderer" type="Webkul\AdvancedLayeredNavigation\Block\FilterRenderer" />
+    <type name="Webkul\AdvancedLayeredNavigation\Block\FilterRenderer">
+        <plugin name="swatches_layered_renderer" type="Magento\Swatches\Model\Plugin\FilterRenderer" sortOrder="1" />
+    </type>
+    <virtualType name="categoryFilterList" type="Magento\Catalog\Model\Layer\FilterList">
+        <arguments>
+            <argument name="filters" xsi:type="array">
+                <item name="attribute" xsi:type="string">Webkul\AdvancedLayeredNavigation\Model\Layer\Filter\Attribute</item>
+                <item name="price" xsi:type="string">Webkul\AdvancedLayeredNavigation\Model\Layer\Price</item>
+                <item name="category" xsi:type="string">Webkul\AdvancedLayeredNavigation\Model\Layer\Filter\Category</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="searchFilterList" type="Magento\Catalog\Model\Layer\FilterList">
+        <arguments>
+            <argument name="filters" xsi:type="array">
+                <item name="attribute" xsi:type="string">Webkul\AdvancedLayeredNavigation\Model\Layer\Filter\Attribute</item>
+                <item name="price" xsi:type="string">Webkul\AdvancedLayeredNavigation\Model\Layer\Price</item>
+                <item name="category" xsi:type="string">Webkul\AdvancedLayeredNavigation\Model\Layer\Filter\Category</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Magento\CatalogSearch\Model\ResourceModel\Fulltext\CollectionFactory" type="Magento\Catalog\Model\ResourceModel\Product\CollectionFactory">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">Webkul\AdvancedLayeredNavigation\Model\ResourceModel\Fulltext\Collection</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Catalog\Model\Layer\Resolver">
+        <arguments>
+            <argument name="layersPool" xsi:type="array">
+                <item name="category" xsi:type="string">Webkul\AdvancedLayeredNavigation\Model\Layer\Category</item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Magento\Swatches\Block\LayeredNavigation\RenderLayered" type="Webkul\AdvancedLayeredNavigation\Block\RenderLayered" />
+    <preference for="Magento\CatalogSearch\Model\Layer\Filter\Price" type="Webkul\AdvancedLayeredNavigation\Model\Layer\Price" />
+    <type name="Magento\Swatches\Block\LayeredNavigation\RenderLayered">
+        <plugin name="Webkul_AdvancedLayeredNavigation::afterGetSwatchData"
+                type="Webkul\AdvancedLayeredNavigation\Plugin\RenderLayered"
+                sortOrder="10" />
+    </type>
+</config>

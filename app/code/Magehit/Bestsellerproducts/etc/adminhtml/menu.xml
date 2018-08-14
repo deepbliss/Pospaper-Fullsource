@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Magehit_Bestsellerproducts::bestsellerproducts_settings" title="Bestsellerproducts" module="Magehit_Bestsellerproducts" sortOrder="20" parent="Magehit_Core::view" action="adminhtml/system_config/edit/section/bestsellerproducts_settings" resource="Magehit_Bestsellerproducts::bestsellerproducts"/>
+	</menu>
+</config>

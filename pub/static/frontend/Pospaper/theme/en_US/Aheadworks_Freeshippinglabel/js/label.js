@@ -1,0 +1,1 @@
+/chroot/home/pospaper/pospaper.com/html/app/code/Aheadworks/Freeshippinglabel/view/frontend/web/js/label.js

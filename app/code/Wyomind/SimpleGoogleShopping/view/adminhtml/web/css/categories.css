@@ -1,0 +1,144 @@
+/* =========== Categories ============= */
+
+input.category_filter,
+input.category_type {
+    margin-left: 50px;
+}
+
+div.category-selector ul {
+    list-style: none;
+    padding-left: 20px;
+}
+
+div.category-selector > ul.tv-mapping {
+    border-left: none;
+}
+
+div.category-selector > ul.tv-mapping ul.tv-mapping li {
+    border-left: 1px dotted #CCC;
+    /*border-bottom: 1px dotted #888;*/
+}
+
+div.category-selector > ul.tv-mapping ul.tv-mapping.opened {
+    display: block;
+}
+
+div.category-selector > ul.tv-mapping li {
+    padding-top: 15px;
+    margin-bottom: 1px;
+    padding-left: 10px;
+}
+
+input.mapping {
+    color: #676056;
+    height: 20px;
+    margin-left: 2px;
+    font-size: 11px;
+    background-color: #FFF;
+    border: 1px solid #ADA89E;
+    border-radius: 2px;
+    right: 0px;
+    display: inline;
+    left: 0px;
+    margin-right: 2px;
+    width: 600px;
+}
+
+input.category {
+    margin-right: 10px !important;
+}
+
+span.small {
+    margin-left: 5px;
+    font-size: 0.7em;
+}
+
+span.closed {
+    background-position: 0px 3px;
+    background-color: transparent;
+    background-image: url("../images/d.png");
+    background-repeat: no-repeat;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+span.opened {
+    background-position: -18px 4px;
+    background-color: transparent;
+    background-image: url("../images/d.png");
+    background-repeat: no-repeat;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+span.empty {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+}
+
+div.selector.selected {
+    color: green;
+    font-weight: bold;
+}
+
+#category-selector #note {
+    font-size: 11px;
+    margin-top: 10px;
+    color: orangered;
+}
+
+#category-selector .mapped {
+    font-size: 11px;
+}
+
+#category-selector .mapped SPAN {
+    padding-left: 35px;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAABvSURBVHjajM+7CUJBEAXQM7pgYiDagbEl2IaJPdiFWIHY3RNLsIMx2QWRt7gXJjvzi8w0kgVExGMIjqREhDq1izJzduIGZ+z/rX7jics3LrXg+NPwqviOqWDZgWuscMDUu3+HG07tmblscW2owc8AlPEVxCwN+CkAAAAASUVORK5CYII=") no-repeat scroll 23px 1px transparent;
+}
+
+/* ======== Mapping Dropdown ======= */
+.ui-autocomplete {
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.ui-helper-hidden-accessible {
+    display: none;
+}
+
+.ui-autocomplete.ui-menu.ui-widget.ui-widget-content.ui-corner-all {
+    background: white none repeat scroll 0 0;
+    border: 1px solid #bbb;
+    border-radius: 0 0 5px 5px;
+    margin-top: -1px;
+    width: 800px !important;
+}
+
+.ui-autocomplete.ui-menu.ui-widget.ui-widget-content.ui-corner-all li {
+    padding: 0px;
+}
+
+.ui-autocomplete.ui-menu.ui-widget.ui-widget-content.ui-corner-all li a {
+    width: 798px !important;
+    display: inline-block;
+    padding: 3px;
+}
+
+.ui-autocomplete.ui-menu.ui-widget.ui-widget-content.ui-corner-all a.ui-state-focus,
+.ui-autocomplete.ui-menu.ui-widget.ui-widget-content.ui-corner-all li:hover a,
+.ui-autocomplete.ui-menu.ui-widget.ui-widget-content.ui-corner-all li:hover {
+    background: #007BDB;
+    color: white !important;
+}
+
+.ui-autocomplete.ui-menu.ui-widget.ui-widget-content.ui-corner-all a:hover {
+    color: white !important;
+    text-decoration: none;
+}
+

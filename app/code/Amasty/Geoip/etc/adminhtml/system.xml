@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_Geoip
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/system_file.xsd">
+    <system>
+        <section id="amgeoip" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Geo Ip Data</label>
+            <tab>amasty</tab>
+            <resource>Amasty_Geoip::amasty_geoip</resource>
+            <group id="download_import" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Download and Import</label>
+                <field id="download_import_button" translate="label comment" type="button" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <frontend_model>Amasty\Geoip\Block\Adminhtml\Settings\DownloadNImport</frontend_model>
+                </field>
+            </group>
+            <group id="import" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Import</label>
+                <field id="import_button" translate="label comment" type="button" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <frontend_model>Amasty\Geoip\Block\Adminhtml\Settings\Import</frontend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

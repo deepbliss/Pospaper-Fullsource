@@ -1,0 +1,252 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+
+<?php $_product = $block->getProduct(); ?>
+<?php $buttonTitle = __('Add to Cart'); ?>
+<?php if ($_product->isSaleable()): ?>
+<div class="box-tocart">
+    <div class="fieldset">
+        <?php if ($block->shouldRenderQuantity()): ?>
+        <div class="field qty">
+            <label class="label" for="qty"><span><?= /* @escapeNotVerified */ __('Qty') ?></span></label>
+            <div class="control">
+                <input type="number"
+                       name="qty"
+                       id="qty"
+                       value="<?= /* @escapeNotVerified */ $block->getProductDefaultQty() * 1 ?>"
+                       title="<?= /* @escapeNotVerified */ __('Qty') ?>"
+                       class="input-text qty pdqtyinput"
+                       data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+                       />
+
+                       <input type='button' value='+' class='qtyplus pdqtyplus' field='qty' data-field="quantity"/>
+                       <input type='button' value='-' class='qtyminus pdqtyminus' field='qty' data-field="quantity"/>
+                       
+            </div>
+        </div>
+        <?php endif; ?>
+        <div class="actions">
+            <button type="submit"
+                    title="<?= /* @escapeNotVerified */ $buttonTitle ?>"
+                    class="action primary tocart"
+                    id="product-addtocart-button">
+                <span><?= /* @escapeNotVerified */ $buttonTitle ?></span>
+            </button>
+            <?= $block->getChildHtml('', true) ?>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+<?php if ($block->isRedirectToCartEnabled()) : ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/product/view/validation": {
+                "radioCheckboxClosest": ".nested"
+            }
+        }
+    }
+</script>
+<?php else : ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/js/validate-product": {}
+        }
+    }
+</script>
+<?php endif; ?>
+
+<!-- <script type="text/javascript">
+    
+    jQuery(document).ready(function(){
+    // This button will increment the value
+    jQuery('.qtyplus').click(function(e){
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        fieldName = jQuery(this).attr('field');
+        // Get its current value
+        var currentVal = parseInt(jQuery('#'+fieldName).val());
+        // If is not undefined
+        if (!isNaN(currentVal)) {
+            // Increment
+            jQuery('#'+fieldName).val(currentVal + 1);
+        } else {
+            // Otherwise put a 0 there
+           jQuery('#'+fieldName).val(0);
+        }
+    });
+    // This button will decrement the value till 0
+    jQuery(".qtyminus").click(function(e) {
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        fieldName = jQuery(this).attr('field');
+        // Get its current value
+        var currentVal = parseInt(jQuery('#'+fieldName).val());
+        // If it isn't undefined or its greater than 0
+        if (!isNaN(currentVal) && currentVal > 0) {
+            // Decrement one
+            jQuery('#'+fieldName).val(currentVal - 1);
+        } else {
+            // Otherwise put a 0 there
+            jQuery('#'+fieldName).val(0);
+        }
+    });
+});
+
+
+</script> -->
+<div class="product-social-links">
+<div class="product-addto-links">
+<!-- <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5b3f1828c5ed960011521b1f&product=inline-share-buttons' async='async'></script>
+
+<div class="sharethis-inline-share-buttons"></div> -->
+
+
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5b3f1828c5ed960011521b1f&product=custom-share-buttons"></script>
+<div id="st-1">
+<div data-network="sharethis" class="st-btn st-custom-button" title="Sharethis" style="display: inline-block;">sharethis</div>
+<div data-network="facebook" class="st-btn st-custom-button" title="Facebook" style="display: inline-block;">Facebook</div>
+<div data-network="twitter" class="st-btn st-custom-button" title="Twitter" style="display: inline-block;">Twitter</div>
+<div data-network="email" class="st-btn st-custom-button" title="Email" style="display: inline-block;">Email</div>
+
+</div>
+
+
+
+</div>
+</div>
+
+
+<style type="text/css">
+    
+    .box-tocart .bar{display: none;}
+</style>
+
+
+<?php 
+$has_tier_price = $_product->getTierPrices();
+
+            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+             $product = $objectManager->create('Magento\Catalog\Model\Product')->load($_product->getId());
+             $unitofme = $product->getData('unit_of_measure'); 
+
+if(!$has_tier_price): ?>
+
+<script type="text/javascript">
+//********************************************************
+//******** BEGIN QTY / PRICE DYNAMIC DISPLAY *************
+//********************************************************
+var pdQtyHasPriceBreak = false;
+var pfreeship = jQuery(".free-ship-icon").attr("id");
+function formatCurrency(num, includeDollarSign) {
+    num = num.toString().replace(/\$|\,/g,'');
+    if(isNaN(num))
+    num = "0";
+    sign = (num == (num = Math.abs(num)));
+    num = Math.floor(num*100+0.50000000001);
+    cents = num%100;
+    num = Math.floor(num/100).toString();
+    if(cents<10)
+    cents = "0" + cents;
+    for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+    num = num.substring(0,num.length-(4*i+3))+','+
+    num.substring(num.length-(4*i+3));
+    
+    var returnValue = (((sign)?'':'-') + num + '.' + cents);
+    if(includeDollarSign == true) returnValue = "$" + returnValue;  
+    return returnValue;
+}
+function pdUpdateQty(mod,setQty){
+    var qtyVal = parseInt(jQuery(".pdqtyinput").val());
+    var newQtyVal = qtyVal + mod;
+    if(newQtyVal >= 0){
+        if(newQtyVal == 0){
+            jQuery(".pdqtyinput").val(1);
+            jQuery(".pdqtyinput").attr("value",1);
+        }else{
+            jQuery(".pdqtyinput").val(newQtyVal);
+            jQuery(".pdqtyinput").attr("value",newQtyVal);
+        }
+    }
+    if(setQty > 0){
+        pdUpdatePriceDisplay(setQty);
+    }else{
+        if(newQtyVal >= 1){pdUpdatePriceDisplay(newQtyVal);}
+    }
+}
+function pdUpdatePriceDisplay(qty){
+
+    var pdprice = jQuery(".price-wrapper").attr("data-price-amount");
+    
+    if(pdQtyHasPriceBreak){
+    //*** IF QTY PRICE BREAKS EXISTS CALCULATION***
+        if(qty >= pdQtyPriceBreakUnit[(pdQtyPriceBreakUnit.length - 1)]){
+            pdprice = pdQtyPriceBreakCost[(pdQtyPriceBreakUnit.length - 1)];
+        }else{
+            for (i = 0; i < pdQtyPriceBreakUnit.length; i++) { 
+                var compareVal;
+                if((i + 1) == pdQtyPriceBreakUnit.length){compareVal = 0;}else{compareVal = 1;}
+                
+                if(qty < pdQtyPriceBreakUnit[i + compareVal]){
+                    pdprice = pdQtyPriceBreakCost[i];
+                    break;
+                }else{
+                    continue;   
+                }
+            }   
+        }
+    }
+    var uom = '<?php echo $unitofme; ?>';
+    var totalnq = (pdprice - 0);
+    var total = (pdprice - 0) * qty;
+    //var final_total = total / qty;
+    total = formatCurrency(total,true);
+    totalnq = formatCurrency(totalnq,true);
+     /* if (qty == 1) {
+jQuery(".price-final_price .price .case-font").css("display", "block");
+ jQuery(".price-wrapper.pdPriceDisplay").html('<span class="price">'+totalnq+'</span>');
+} 
+else
+{
+        
+    jQuery(".price-final_price .price .case-font").css("display", "none");
+    jQuery(".price-wrapper.pdPriceDisplay").html('<span class="price">'+total+'</span><div class="incdec">('+totalnq+'/'+uom+')</div>');
+}*/
+
+ jQuery(".price-wrapper.pdPriceDisplay").html('<span class="price">'+totalnq+'</span>');
+        
+}
+//**** SET QTY ELEMENT EVENT TRIGGERS *****
+function pdSetQtyEventTriggers(){
+//alert('pdSetQtyEventTriggers');
+ jQuery(".pdqtyminus").click(function(e) {
+   pdUpdateQty(-1);
+    e.preventDefault();
+ });
+ jQuery(".pdqtyplus").click(function(e) {
+   pdUpdateQty(1);
+    e.preventDefault();
+ });
+ jQuery(".pdqtyinput").keyup(function(e) {
+   pdUpdateQty(0,jQuery(this).val());
+    e.preventDefault();
+ });
+}
+//********************************************************
+//********* END QTY / PRICE DYNAMIC DISPLAY **************
+//********************************************************
+pdSetQtyEventTriggers();
+</script>
+
+<?php endif;?>

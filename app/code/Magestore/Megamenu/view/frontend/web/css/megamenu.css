@@ -1,0 +1,484 @@
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_Megamenu
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+
+/* ---   Create By Billy Trinh at 13/05/2015 ----*/
+/* ---- Style for Top Menu version PC ---*/
+.ms-megamenu{box-sizing: border-box;text-align: left;}
+.nav-sections nav.ms-megamenu{padding-left:20px;padding-right: 20px;}
+.ms-featured{padding-left:20px;}
+.ms-megamenu img{display: inline;vertical-align: middle;max-width: 100%;}
+.ms-megamenu .ms-topmenu{
+    position: relative;
+    background: #175271;
+    float: left;
+    width: 100%;
+    z-index: 199;
+    margin: 0;
+    padding:0;
+    /*z-index: -1;*/
+}
+.ms-megamenu .ms-topmenu.no-responsive .mb-submenu{display: none !important;}
+.ms-megamenu .ms-level0{
+    float:left;
+    margin:0;
+}
+.ms-level0.item_relative{position: relative;}
+.ms-megamenu .ms-level0.active .ms-label{
+    background: #206B91;
+}
+.ms-topmenu .ms-submenu a{
+    outline: none;
+    font-weight: 500;
+}
+.ms-topmenu .ms-submenu a.form-group{
+    margin:5px 0;
+    font-size: 13px;
+    text-decoration: none;
+}
+.ms-topmenu .ms-submenu a.form-group:hover{
+    color: #8A1F1F;
+}
+.ms-topmenu .ms-label{
+    float:left;
+    padding:15px;
+    color:#fff;
+    font-size: 15px;
+    opacity: 0.9;
+    filter:alpha(opacity=90);
+    outline: none !important;
+    text-decoration: none !important;
+    cursor: pointer;
+    line-height: 1.5;
+    position: relative;
+}
+.ms-topmenu .ms-label:after {
+    content: '';
+    position: absolute;
+    left: 15%;
+    bottom: 1px;
+    width: 70%;
+    height: 2px;
+    background: #bca480;
+    opacity: 0;
+    -webkit-transform: translateY(5px);
+    -moz-transform: translateY(5px);
+    transform: translateY(5px);
+    -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+    -moz-transition: -moz-transform 0.3s, opacity 0.3s;
+    transition: transform 0.3s, opacity 0.3s;
+}
+.ms-topmenu .ms-level0.active .ms-label:after,
+.ms-topmenu .ms-level0:hover .ms-label:after,
+.ms-topmenu .ms-level0:active .ms-label:after,
+.ms-topmenu .ms-level0:focus .ms-label:after{
+    opacity: 1;
+    -webkit-transform: translateY(0px);
+    -moz-transform: translateY(0px);
+    transform: translateY(0px);
+}
+.ms-megamenu .ms-iconmega{
+    vertical-align: top;
+    position: relative;
+}
+.ms-megamenu .ms-submenu{
+    display: none;
+    position: absolute;
+    top:49px;
+    z-index: 200;
+    padding:15px;
+    background:#fff;
+    border:1px solid #ddd;
+    border-top: 2px solid #bca480;
+    max-width: 100%;
+    min-width: 160px;
+}
+.ms-topmenu .mb-submenu{display: none;}
+.ms-header,.mb-header{
+    float: left;
+    width: 100%;
+    padding:10px 0;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+}
+.ms-footer,.mb-footer{
+    float: left;
+    width: 100%;
+    padding:10px 0;
+    border-top: 1px solid #ddd;
+    margin-top: 15px;
+}
+.ms-megamenu .col-category .level1{
+    font-weight: 700;
+    font-size: 14px;
+}
+.col-category .level2{
+    font-weight: 400;
+    font-size: 13px;
+}
+.col-sub{
+    display: none;
+    -moz-transition: all ease-in-out 100ms;
+    -webkit-transition: all ease-in-out 100ms;
+    -o-transition: all ease-in-out 100ms;
+    transition: all ease-in-out 100ms;
+}
+.ms-category-level .col-sub{
+    display: none;
+    position: absolute;
+    left: 150px;
+    width: 16em;
+    background-color: #fff;
+    z-index: 201;
+    padding: 12px;
+    min-width: 12em;
+    -webkit-box-shadow: 0px 1px 10px rgb(153, 153, 153);
+    box-shadow: 0px 2px 12px rgb(153, 153, 153);
+}
+.ms-category-level  a.form-group{
+    text-indent: 5px;
+    font-weight: 600;
+}
+.ms-category-level .parent.active > a.form-group{
+    color: #8A1F1F;
+}
+.ms-megamenu .parent .small{
+    float:right;
+    top:4px;
+}
+.active > .col-sub{
+    display: block;
+}
+.level2  small{
+    font-size: 50%;
+    top: -2px;
+}
+.level2.active .level2{
+    text-indent: 5px;
+    -moz-transition: all ease-in-out 100ms;
+    -webkit-transition: all ease-in-out 100ms;
+    -o-transition: all ease-in-out 100ms;
+    transition: all ease-in-out 100ms;
+}
+.mb-version .col-category .sub-level3{
+    width: 100%;
+    float: left;
+    z-index: 201;
+    padding:0 10px;
+}
+.mb-submenu .parent .col-sub,.lmb-submenu .parent .col-sub{
+    padding:0 0 0 10px;
+    position: static;
+    width: 100%;
+    box-shadow: none;
+    background-color: transparent;
+}
+.mb-submenu .parent .form-group a{
+    float:left;
+}
+.mb-submenu .ms-category-level .col-category a.form-group{
+    border-bottom: 1px solid #ddd;
+    padding: 5px 0;
+}
+.ms-category-dynamic .col-level{
+    padding: 0px;
+}
+.ms-category-dynamic .col-level .col-xs-12.form-group{
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    margin: 0;
+    text-indent: 10px;
+    -moz-transition: all ease-in-out 100ms;
+    -webkit-transition: all ease-in-out 100ms;
+    -o-transition: all ease-in-out 100ms;
+    transition: all ease-in-out 100ms;
+    background-color: #fff;
+}
+.ms-category-dynamic .col-level .col-xs-12.form-group.active{
+    border-right-color:rgba(0,0,0,0);
+    background-color: transparent;
+}
+.ms-category-dynamic .col-level .col-xs-12.form-group a{
+    font-weight: 600;
+    float:left;
+    width:100%;
+    padding:10px 0;
+    font-size: 13px;
+}
+.ms-category-dynamic .col-level .col-xs-12.form-group.active a {
+    color: #8A1F1F;
+}
+.ms-category-dynamic .col-level .col-xs-12.form-group a:hover {
+    color: #8A1F1F;
+    text-decoration: none;
+}
+.ms-category-dynamic .col-level .col-xs-12.form-group.active a .small{
+    opacity:0;
+    filter: alpha(opacity=0);
+}
+.ms-category-dynamic .col-dynamic{
+    display: none;
+    padding-top: 10px;
+}
+.ms-category-dynamic .active.col-dynamic{
+    display: block;
+}
+.ms-category-dynamic .col-dynamic .col-category-image img{
+    outline: 0;
+    transition: all 200ms ease-in-out;
+    -ms-transform: all 200ms ease-in-out;
+    -o-transition: all 200ms ease-in-out;
+    -webkit-transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+}
+small.glyphicon.glyphicon-th-large{
+    font-size: 50%;
+    margin-left: -6px;
+    padding-right: 5px;
+    top: -2px;
+}
+.ms-category-dynamic .col-dynamic a span{
+    font-weight: 600;
+    font-size: 12px;
+}
+.ms-category-dynamic .col-dynamic a:hover span{
+    color:#8A1F1F;
+    font-weight: 600;
+}
+.ms-category-dynamic .col-dynamic a:hover img{
+    transform: translateY(-10px);
+    -moz-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    -o-tranform:translateY(-10px);
+    -webkit-transform: translateY(-10px);
+}
+.ms-category-dynamic .col-category{
+    padding: 0 5px;
+}
+.ms-category-dynamic .dynamic-viewall{
+    text-align:center;
+    text-transform:uppercase;
+    color:#175271 !important;
+    font-weight: 600;
+    font-size: 13px;
+    -ms-transform: all 200ms ease-in-out;
+    -o-transition: all 200ms ease-in-out;
+    -webkit-transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+}
+.ms-category-dynamic .dynamic-viewall small{
+    padding-left: 6px;
+}
+.ms-category-dynamic .dynamic-viewall:hover{
+    text-decoration: none;
+    color: #860F0F !important;
+    border-color: #860F0F;
+}
+/*------- Product -------------------*/
+.ms-productgrid .item .product-image,
+.ms-megamenu .f-product .product-image,
+.ms-megamenu .f-category .product-image{
+    border: none;
+}
+.ms-productgrid .item .product-image:hover,
+.ms-megamenu .f-category .product-image:hover,
+.ms-megamenu .f-product .product-image:hover{
+    transform: translateY(-10px);
+    -moz-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    -o-tranform: translateY(-10px);
+    -webkit-transform: translateY(-10px);
+    transition: all 200ms ease-in-out;
+    -ms-transform: all 200ms ease-in-out;
+    -o-transition: all 200ms ease-in-out;
+    -webkit-transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+}
+.ms-megamenu .f-product .product-image img{max-width:100%;}
+.mb-content .item,
+.mb-content .col-productlist,
+.mb-content .col-category,
+.mb-featured .f-product,
+.mb-featured .f-category{padding-top: 10px;padding-bottom: 10px;}
+/*---------------------Mobile version-------------------------*/
+.ms-megamenu .anchor_mbmenu{
+    background: rgb(7, 70, 102);
+    padding: 8px 0;
+    display: none;
+}
+.ms-megamenu .anchor_mbmenu .anchor_mbmenu_text{
+    outline: 0;
+    text-decoration: none;
+    font-size: 20px;
+    color: #fff;
+}
+.megamenu-mobile .mb-topmenu{
+    display:none;
+    position: relative;
+    float:left;
+    width:100%;
+}
+.ms-megamenu .mb-submenu{
+    position: absolute;
+    left: 100%;
+    top:0;
+    z-index: -1;
+    background: #fff;
+    display:none;
+    float:left;
+    width: 100%;
+}
+.ms-megamenu .mb-submenu.blind{
+    position: static;
+}
+.ms-megamenu .mb-submenu.blind .mb-return,.ms-megamenu .lmb-submenu.blind .mb-return{
+    display: none;
+}
+.ms-megamenu .mb-submenu .mb-return span,.ms-megamenu .lmb-submenu .mb-return span{
+    float: left;
+}
+.ms-megamenu .mb-label{
+    padding: 10px 5px 10px 20px;
+    border-top: 0;
+    color: #2f2f2f;
+    text-decoration: none;
+    outline: none;
+    display: none !important;
+    position: absolute;
+    right: 1px;
+    top:0;
+    height: 42px;
+    line-height: 21px;
+}
+.ms-megamenu .mb-return{
+    border: 0;
+    z-index: 200;
+}
+.ms-megamenu .mb-submain{
+    padding:15px;
+    border: 1px solid #ddd;
+    border-top: 0;
+}
+/*---- Fix for magento 1.9---*/
+#header-nav{display: block;}
+.skip-nav{display: none;}
+
+/* ----- Left Menu ---------*/
+.page-layout-2columns-right .ms-leftmenu{display: none;}
+.item_relative{position: relative;}
+.ms-leftmenu{
+    position: relative;
+    z-index: 200;
+    text-align: left;
+    float:left;
+    width: 100%;
+    border-top: 1px solid #ddd;
+    margin: 10px 0;
+    padding: 0;
+    list-style: none;
+}
+.ms-leftmenu .msl-level0{
+    float:left;
+    width:100%;
+    margin: 0;
+}
+.ms-leftmenu .msl-submenu{
+    display: none;
+    position: absolute;
+    top: 0px;
+    left:239px;
+    z-index: 200;
+    padding: 15px;
+    background: #fff;
+    border: 1px solid #ddd;
+    min-width: 160px;
+}
+.ms-leftmenu .msl-label{
+    padding: 12px 25px 8px;
+    background: #FFFFFF;
+    border: 1px solid #ddd;
+    border-top: 0;
+    color: #2f2f2f;
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+    line-height: 1.5;
+    float:left;
+    width:100%;
+}
+.ms-leftmenu .msl-label.first{
+    border-top: 1px solid #ddd;
+}
+.ms-leftmenu .msl-label.flag{
+    background: #EBEDED;
+}
+.ms-leftmenu .msl-label span.small{float: right;  margin-right: -15px;}
+/*---------------------Mobile version for Left menu -------------------------*/
+.lmegamenu-mobile{display: none;}
+.ms-megamenu .anchor_lmbmenu{
+    background: rgb(7, 70, 102);
+    padding: 8px 0;
+}
+.ms-megamenu .anchor_lmbmenu .anchor_lmbmenu_text{
+    outline: 0;
+    text-decoration: none;
+    font-size: 20px;
+    color: #fff;
+}
+.lmegamenu-mobile .lmb-leftmenu{
+    display:none;
+    position: relative;
+    text-align:left;
+    float:left;
+    width:100%;
+}
+.ms-megamenu .lmb-submenu{
+    position: absolute;
+    left: 100%;
+    top:0;
+    z-index: -1;
+    background: #fff;
+    display:none;
+    float:left;
+    width: 100%;
+}
+.ms-megamenu .lmb-submenu.blind{
+    position: static;
+}
+.ms-megamenu .lmb-label{
+    padding:12px 25px 8px;
+    background: #FFFFFF;
+    border: 1px solid #ddd;
+    border-top: 0;
+    color: #2f2f2f;
+    text-decoration: none;
+    outline: none;
+}
+.ms-megamenu .lmb-label.flag{
+    background: #EBEDED;
+}
+.ms-megamenu .lmb-label.lmb-return{border: 0;}
+.ms-megamenu .lmb-label span{float:left;}
+.ms-megamenu .lmb-click span{float: right;  margin-right: -15px;}
+
+.ms-megamenu .mb-submain{
+    padding:15px;
+    border: 1px solid #ddd;
+    border-top: 0;
+}

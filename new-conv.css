@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i|Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+
+
+/* font-family: 'Poppins', sans-serif; */
+.convert-div .bluetext{width: 130px; padding-right: 10px; text-align: right; display: inline-block; font-family: 'Poppins', sans-serif; font-size: 14px; }
+.convert-div .box{margin-bottom: 7px; }
+.convert-div{text-align: center;}
+.convert-div table{width: 100%;}
+.convert-div table tbody{width: 100%}
+.convert-div table tbody td{width: 100%; padding:0; text-align: center;}
+.convert-div input{width: 100px; height: 32px; border: 1px solid #d1d1cf; background: #fdfdfa; color: #000; font-family: 'Poppins', sans-serif; font-size: 14px; padding: 0 10px}
+.hint-text{font-family:'Poppins', sans-serif; font-size: 14px;  }
+
+@media screen and (max-width:320px) { 
+.custom-matric-popup .modal-inner-wrap { width: 100% !important;}
+.convert-div .bluetext{width: 100%; text-align: left; margin-bottom: 2px; padding-right: 0}
+.convert-div input { width: 100%; clear: both;  display: block;}
+}

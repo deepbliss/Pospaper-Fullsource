@@ -1,0 +1,27 @@
+<div class="billing-address-details" data-bind="if: isAddressDetailsVisible() && currentBillingAddress()">
+    <!-- ko if: (currentBillingAddress().prefix) --><!-- ko text: currentBillingAddress().prefix --><!-- /ko --><!-- /ko --> <!-- ko if: (currentBillingAddress().firstname) --><!-- ko text: currentBillingAddress().firstname --><!-- /ko --><!-- /ko --> <!-- ko if: (currentBillingAddress().middlename) --><!-- ko text: currentBillingAddress().middlename --><!-- /ko --><!-- /ko -->
+    <!-- ko if: (currentBillingAddress().lastname) --><!-- ko text: currentBillingAddress().lastname --><!-- /ko --><!-- /ko --> <!-- ko if: (currentBillingAddress().suffix) --><!-- ko text: currentBillingAddress().suffix --><!-- /ko --><br/><!-- /ko -->
+    <!-- ko if: (currentBillingAddress().street) --><!-- ko text: _.values(currentBillingAddress().street).join(", ") --><!-- /ko --><br/><!-- /ko -->
+    <!-- ko if: (currentBillingAddress().city) --><!-- ko text: currentBillingAddress().city --><!-- /ko -->,<!-- /ko --> <!-- ko if: (currentBillingAddress().postcode) --><span data-bind="html: currentBillingAddress().region"></span> <!-- ko text: currentBillingAddress().postcode --><!-- /ko --><br/><!-- /ko -->
+    <!-- ko if: (currentBillingAddress().countryId) --><!-- ko text: getCountryName(currentBillingAddress().countryId) --><!-- /ko --><br/><!-- /ko -->
+    <!-- ko if: (currentBillingAddress().telephone) -->
+    <a data-bind="text: currentBillingAddress().telephone, attr: {'href': 'tel:' + currentBillingAddress().telephone}"></a>
+    <br/>
+    <!-- /ko -->
+    <!-- ko foreach: { data: currentBillingAddress().customAttributes, as: 'element' } -->
+    <!-- ko foreach: { data: Object.keys(element), as: 'attribute' } -->
+    <!-- ko if: (typeof element[attribute] === "object") -->
+    <!-- ko text: element[attribute].value --><!-- /ko -->
+    <!-- /ko -->
+    <!-- ko if: (typeof element[attribute] === "string") -->
+    <!-- ko text: element[attribute] --><!-- /ko -->
+    <br/>
+    <!-- /ko -->
+    <!-- /ko -->
+    <!-- /ko -->
+    <button type="button"
+            class="action action-edit-address"
+            data-bind="visible: !isAddressSameAsShipping(), click: editAddress">
+        <span data-bind="i18n: 'Edit'"></span>
+    </button>
+</div>

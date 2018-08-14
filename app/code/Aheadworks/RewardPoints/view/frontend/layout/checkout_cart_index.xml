@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Aheadworks\RewardPoints\Block\Information\Bar" name="aw_reward_points_information_bar" as="aw_reward_points_information_bar" before="-">
+                <arguments>
+                    <argument name="information_messages" xsi:type="array">
+                        <item name="cart" xsi:type="string">Aheadworks\RewardPoints\Block\Information\Messages\Cart</item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="checkout.cart.totals">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="block-totals" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="before_grandtotal" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="aw-reward-points" xsi:type="array">
+                                            <item name="component" xsi:type="string">Aheadworks_RewardPoints/js/view/cart/totals/reward-points</item>
+                                            <item name="config" xsi:type="array">
+                                                <item name="title" xsi:type="string" translate="true">Reward Points</item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

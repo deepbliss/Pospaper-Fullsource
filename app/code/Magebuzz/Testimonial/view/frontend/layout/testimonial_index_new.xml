@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright Copyright (c) 2016 www.magebuzz.com
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column"
+      xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <referenceContainer name="content">
+        <referenceBlock name="magebuzz.testimonial.sidebar" remove="true" />
+        <block class="Magebuzz\Testimonial\Block\CaptchaForm" name="contactForm"
+               template="Magebuzz_Testimonial::captchaform.phtml">
+            <container name="form.additional.info" label="Form Additional Info">
+                <block class="Magento\Captcha\Block\Captcha" name="captcha" after="-" cacheable="false">
+                    <action method="setFormId">
+                        <argument name="formId" xsi:type="string">custom_form</argument>
+                    </action>
+                    <action method="setImgWidth">
+                        <argument name="width" xsi:type="string">230</argument>
+                    </action>
+                    <action method="setImgHeight">
+                        <argument name="width" xsi:type="string">50</argument>
+                    </action>
+                </block>
+            </container>
+        </block>
+    </referenceContainer>
+    <referenceBlock name="head.components">
+        <block class="Magento\Framework\View\Element\Js\Components" name="captcha_page_head_components"
+               template="Magento_Captcha::js/components.phtml"/>
+    </referenceBlock>
+</page>

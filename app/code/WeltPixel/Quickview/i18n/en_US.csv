@@ -1,0 +1,32 @@
+Hover,Hover
+Click,Click
+True,True
+False,False
+Quickview,Quickview
+"Continue Shopping","Continue Shopping"
+"Go To Checkout","Go To Checkout"
+"Go To Product","Go To Product"
+"Add to Cart","Add to Cart"
+Qty,Qty
+"Quick View and Ajax Cart","Quick View and Ajax Cart"
+General,General
+"Enable on product listing","Enable on product listing"
+"Remove product image","Remove product image"
+"Remove product image thumb","Remove product image thumb"
+"Remove short description","Remove short description"
+"Remove qty selector","Remove qty selector"
+"Enable go to product button","Enable go to product button"
+"Remove availability","Remove availability"
+"Remove sku","Remove sku"
+"Button Style","Button Style"
+"After adding product to cart close quickview in X seconds","After adding product to cart close quickview in X seconds"
+"Auto scroll to top and open quick ","Auto scroll to top and open quick "
+"Enable continue shopping/go to checkout buttons","Enable continue shopping/go to checkout buttons"
+"Custom CSS","Custom CSS"
+"Enable zoom","Enable zoom"
+"Zoom of fullscreen","Zoom of fullscreen"
+"Top position of magnifier","Top position of magnifier"
+"Left position of magnifier","Left position of magnifier"
+"Width of magnifier block","Width of magnifier block"
+"Height of magnifier block","Height of magnifier block"
+"Action that activates zoom","Action that activates zoom"

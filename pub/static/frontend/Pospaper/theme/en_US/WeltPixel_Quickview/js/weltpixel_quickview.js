@@ -1,0 +1,1 @@
+/chroot/home/pospaper/pospaper.com/html/app/code/WeltPixel/Quickview/view/frontend/web/js/weltpixel_quickview.js

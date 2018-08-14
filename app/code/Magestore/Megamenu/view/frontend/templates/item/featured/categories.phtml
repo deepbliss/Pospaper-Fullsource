@@ -1,0 +1,71 @@
+<?php
+
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_Megamenu
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+?>
+<?php
+$columnNumber = intval($block->getItem()->getFeaturedColumn());
+if(!isset($columnNumber) || $columnNumber == 0) $columnNumber = 2;
+$featuredCategories = $block->getFeaturedCategories();
+if($featuredCategories->getSize() && intval($featuredCategories->getSize()) < $columnNumber){
+    $columnNumber = intval($featuredCategories->getSize());
+}elseif($columnNumber>12){
+    $columnNumber = 12;
+}
+$col_index = floor(12/$columnNumber);
+switch ($columnNumber) {
+    case 5:$col_index = 24;
+        break;
+    case 7:$col_index = 14;
+        break;
+    case 8:$col_index = 125;
+        break;
+    case 9:$col_index = 111;
+        break;
+    case 10:$col_index = 100;
+        break;
+    case 11:$col_index = 909;
+        break;
+    default:
+        break;
+}
+?>
+<?php if($block->getItem()->getFeaturedTitle()): ?>
+    <div class="col-sm-12 form-group">
+        <strong class="ms-boxtitle"><?php echo $block->getItem()->getFeaturedTitle(); ?></strong>
+    </div>
+<?php endif; ?>
+<?php $i=1; foreach ($featuredCategories as $featuredCategory): ?>
+    <div class="f-category col-sm-<?php echo $col_index ?> col-xs-<?php if($columnNumber != 1){ if($col_index>4) echo '6';else echo '4';}else{echo '12';}?> col-tn-<?php if($columnNumber != 1) echo '6';else echo '12';?>">
+        <a class="product-image text-center form-group" href="<?php echo $featuredCategory->getUrl(); ?>">
+            <?php if($featuredCategory->getImageUrl()):?>
+                <img title="<?php echo $block->escapeHtml($featuredCategory->getName()); ?>" alt="<?php echo $block->escapeHtml($featuredCategory->getName()); ?>" src="<?php echo $featuredCategory->getImageUrl(); ?>" width="110"/>
+            <?php else:?>
+                <img title="<?php echo $block->escapeHtml($featuredCategory->getName()); ?>" alt="<?php echo $block->escapeHtml($featuredCategory->getName()); ?>" src="<?php echo $block->getViewFileUrl("Magestore_Megamenu::images/small_image.jpg"); ?>" width="110"/>
+            <?php endif;?>
+        </a>
+        <a class="product-name form-group" href="<?php echo $featuredCategory->getUrl(); ?>"><strong><?php echo $featuredCategory->getName(); ?></strong></a>
+        <p><?php echo $block->limitString($featuredCategory->getDescription(), 200); ?></p>
+
+    </div>
+    <?php if($i%2==0): ?><div class="hidden-lg hidden-md hidden-sm hidden-xs col-tn-12"></div><?php endif;?>
+    <?php if(($i%2==0&&$col_index>4)||($i%3==0&&$col_index<=4)): ?><div class="hidden-lg hidden-md hidden-sm col-xs-12 hidden-tn"></div><?php endif;?>
+    <?php if($i%$columnNumber == 0): ?><div class="col-sm-12 form-group hidden-xs hidden-tn"></div><?php endif; ?>
+<?php $i++; endforeach;?>

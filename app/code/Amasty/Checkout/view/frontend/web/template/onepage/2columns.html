@@ -1,0 +1,89 @@
+<!-- ko foreach: getRegion('authentication') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->
+
+<!-- ko foreach: getRegion('estimation') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->
+
+<!-- ko foreach: getRegion('messages') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->
+
+<div class="opc-wrapper layout-2-columns am-opc-wrapper">
+    <div class="checkout-column opc">
+        <div class="checkout-block">
+            <!-- ko with: getChild('steps').getChild('shipping-step').getChild('step-config') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+
+            <!-- ko with: getChild('steps').getChild('shipping-step').getChild('shippingAddress') -->
+            <!-- ko template: 'Amasty_Checkout/onepage/shipping/address' --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        <div class="checkout-block">
+            <!-- ko with: getChild('steps').getChild('shipping-step').getChild('shippingAddress') -->
+            <!-- ko template: 'Amasty_Checkout/onepage/shipping/methods' --><!-- /ko -->
+            <!--/ko-->
+
+            <!-- ko with: requestComponent('checkout.steps.shipping-step.amcheckout-delivery-date') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+    </div>
+    <div class="checkout-column opc">
+        <div class="checkout-block">
+            <!-- ko with: getChild('steps').getChild('billing-step') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+
+        <div class="checkout-block">
+            <!-- ko with: requestComponent('checkout.sidebar.summary') -->
+            <!-- ko template: 'Amasty_Checkout/onepage/order/summary' --><!-- /ko -->
+            <!--/ko-->
+
+            <div class="additional-options">
+                <!-- ko with: requestComponent('checkout.additional') -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+                <!--/ko-->
+            </div>
+
+            <!-- ko with: requestComponent('checkout.steps.billing-step.payment.afterMethods.discount') -->
+            <div class="checkout-payment-method">
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            </div>
+            <!--/ko-->
+
+            <!-- ko with: requestComponent('checkout.steps.billing-step.payment.afterMethods.rewards') -->
+            <div class="checkout-payment-method">
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            </div>
+            <!--/ko-->
+
+            <!-- ko with: requestComponent('checkout.steps.billing-step.payment.afterMethods.gift-card') -->
+            <div class="checkout-payment-method">
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            </div>
+            <!--/ko-->
+
+            <div class="checkout-payment-method submit">
+                <div class="payment-methods">
+                    <div class="actions-toolbar">
+                        <button class="action primary checkout amasty"
+                                type="submit"
+                                data-bind="
+                        click: placeOrder,
+                        attr: {title: $t('Place Order')},
+                        enable: isPlaceOrderActionAllowed,
+                        css: {disabled: !isPlaceOrderActionAllowed}
+                        "
+                                data-role="review-save">
+                            <span data-bind="i18n: 'Place Order'"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

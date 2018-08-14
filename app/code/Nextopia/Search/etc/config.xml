@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <nextopia_search>
+            <general>
+                <selected_layout>2columns-left</selected_layout>
+                <default_content>&lt;img src="/skin/frontend/base/default/images/ajax-loader-c.gif" /&gt;</default_content>
+                <ajax_version>nxt-app</ajax_version>
+                <content_div_id>nxt-content</content_div_id>
+                <refinement_div_id>nxt-refine</refinement_div_id>
+                <label_search_result_page>Search results for</label_search_result_page>
+            </general>
+        </nextopia_search>
+    </default>
+</config>

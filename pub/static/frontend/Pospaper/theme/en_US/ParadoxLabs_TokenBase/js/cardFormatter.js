@@ -1,0 +1,1 @@
+/chroot/home/pospaper/pospaper.com/html/app/code/ParadoxLabs/TokenBase/view/base/web/js/cardFormatter.js

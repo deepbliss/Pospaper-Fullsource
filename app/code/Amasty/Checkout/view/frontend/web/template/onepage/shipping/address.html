@@ -1,0 +1,57 @@
+<script type="text/javascript">
+    define([
+   'jquery',
+   'mage/url'
+], function ($,url) { 
+
+  var linkUrl = url.build('paypal/express/start/button/1/');
+  console.log(linkUrl);
+});
+</script>
+
+<li id="shipping" class="checkout-shipping-address" data-bind="fadeVisible: visible()">
+    <div class="step-title" data-bind="i18n: getNameShippingAddress()" data-role="title"></div>
+    <div id="checkout-step-shipping"
+         class="step-content"
+         data-role="content">
+         <div id="button">
+            <a href="https://magento.pospaper.com/paypal/express/start/button/1/">
+            <img id="btnPayPal" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-medium.png">
+            </a>
+        </div>
+
+        <!-- ko if: (!quoteIsVirtual) -->
+        <!-- ko foreach: getRegion('customer-email') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+        <!--/ko-->
+
+        <!-- ko foreach: getRegion('address-list') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+
+        <!-- ko foreach: getRegion('address-list-additional-addresses') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+
+        <!-- Address form pop up -->
+        <!-- ko if: (!isFormInline) -->
+        <button type="button"
+                data-bind="click: showFormPopUp, visible: !isNewAddressAdded()"
+                class="action action-show-popup">
+            <span data-bind="i18n: 'New Address'"></span></button>
+        <div id="opc-new-shipping-address" data-bind="visible: isFormPopUpVisible()">
+            <!-- ko template: 'Magento_Checkout/shipping-address/form' --><!-- /ko -->
+        </div>
+        <!-- /ko -->
+
+        <!-- ko foreach: getRegion('before-form') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+
+        <!-- Inline address form -->
+        <!-- ko if: (isFormInline) -->
+        <!-- ko template: 'Magento_Checkout/shipping-address/form' --><!-- /ko -->
+        <!-- /ko -->
+    </div>
+</li>

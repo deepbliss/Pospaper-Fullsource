@@ -1,0 +1,3 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_ImportExport:etc/import.xsd">
+    <entity name="manu_import" label="Manufacturer Import" model="Pos\Manufacturer\Model\Import\CustomImport" behaviorModel="Magento\ImportExport\Model\Source\Import\Behavior\Basic" />
+</config>

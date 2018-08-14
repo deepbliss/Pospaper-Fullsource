@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- <type name="Aheadworks\RewardPoints\Model\Config\Validator\EarnRate">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="website_id" xsi:type="object">Magento\Framework\Validator\NotEmpty</item>
+                <item name="customer_group_id" xsi:type="object">Magento\Framework\Validator\NotEmpty</item>
+                <item name="lifetime_sales_amount" xsi:type="object">Magento\Framework\Validator\NotEmpty</item>
+                <item name="base_amount" xsi:type="object">Magento\Framework\Validator\NotEmpty</item>
+                <item name="points" xsi:type="object">Magento\Framework\Validator\NotEmpty</item>
+            </argument>
+        </arguments>
+    </type> -->
+</config>

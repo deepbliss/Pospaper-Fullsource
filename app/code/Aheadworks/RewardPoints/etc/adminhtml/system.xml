@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="aheadworks" translate="label" sortOrder="300">
+            <label>Aheadworks Extensions</label>
+        </tab>
+        <section id="aw_rewardpoints" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Reward Points</label>
+            <tab>aheadworks</tab>
+            <resource>Aheadworks_RewardPoints::config_aw_rewardpoints</resource>
+            <group id="calculation" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Calculation</label>
+                <field id="points_earning_calculation" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Points earning calculation</label>
+                    <source_model>Aheadworks\RewardPoints\Model\Source\Calculation\PointsEarning</source_model>
+                    <tooltip><![CDATA[<b>Before Tax:</b><br />Points = (Subtotal - Discounts) * Earn Rate<br /><br /><b>After Tax:</b><br />Points = (Subtotal + Tax - Discounts) * Earn Rate]]></tooltip>
+                </field>
+                <field id="is_applying_points_to_shipping" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Allow applying points to shipping amount</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="earn_rates" translate="label,comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Earn Rates</label>
+                    <frontend_model>Aheadworks\RewardPoints\Block\Adminhtml\Form\Field\EarnRate</frontend_model>
+                    <backend_model>Aheadworks\RewardPoints\Model\Config\Backend\EarnRate</backend_model>
+                    <tooltip><![CDATA[<b>Earn Rate</b> defines what percentage of the customers spendings will be converted to points. If no Earn Rates are created, then a customer will only be able to recieve points for general store activities.<br /><br />NOTE: Do not use decimal values in rates. If you need to set up 10% rebate rate, set it like this: $10 = 1 point.]]></tooltip>
+                </field>
+                <field id="spend_rates" translate="label,comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Spend Rates</label>
+                    <frontend_model>Aheadworks\RewardPoints\Block\Adminhtml\Form\Field\SpendRate</frontend_model>
+                    <backend_model>Aheadworks\RewardPoints\Model\Config\Backend\SpendRate</backend_model>
+                    <tooltip><![CDATA[<b>Spend Rate</b> defines how points are treated when applied to an order. Setting Spend Rate is obligatory, no points earned for any kind of store activities can be applied unless the spend rates are set.<br /><br />NOTE: Do not use decimal values in rates. If you need 1 point to equal $0.1 on the checkout, set it up like 10 points = $1.]]></tooltip>
+                </field>
+                <field id="is_refund_automatically" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Refund to Reward Points Automatically</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <!-- <field id="is_spend_on_shipping" translate="label,comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Points could be spent on shipping fee</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field> -->
+                <field id="once_min_balance" translate="label,comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Points can't be used unless the balance is greater than</label>
+                    <comment><![CDATA[empty or 0 - no limitations]]></comment>
+                    <validate>validate-digits</validate>
+                </field>
+                <!-- <field id="cap_balance" translate="label,comment" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Cap reward points balance at</label>
+                    <comment><![CDATA[empty or 0 - no limitations]]></comment>
+                    <validate>validate-digits</validate>
+                </field> -->
+                <field id="share_covered" translate="label,comment" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Share of purchase that could be covered by points, %</label>
+                    <comment><![CDATA[empty or 0 - no limitations]]></comment>
+                    <validate>validate-digits validate-digits-range digits-range-0-100</validate>
+                </field>
+                <field id="is_cancel_earned_points_refund_order" translate="label,comment" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Cancel points earned on refunded order</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="is_reimburse_refund_points" translate="label,comment" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Reimburse Points Spent on Refunded Order</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="expire_reward_points" translate="label,comment" type="text" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Reward points expire in, days</label>
+                    <comment><![CDATA[empty or 0 - reward points will never expire]]></comment>
+                    <validate>validate-digits</validate>
+                </field>
+            </group>
+            <group id="awarded" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Points Awarded for</label>
+                <field id="registration" translate="label,comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Registration</label>
+                    <validate>validate-digits</validate>
+                </field>
+                <field id="newsletter_signup" translate="label,comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Newsletter signup</label>
+                    <comment><![CDATA[Only for customers who subscribed for the first time.]]></comment>
+                    <validate>validate-digits</validate>
+                </field>
+                <field id="sharing" translate="label,comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sharing on social network</label>
+                    <tooltip><![CDATA[This option defines how many points a customer will receive for each interaction with social buttons on a product page. For example, for each Facebook Share or a Tweet action. A customer can not earn additional points for sharing the same page via the same social network. However, he can earn points for sharing other pages.<br /><br />NOTE: We strongly recommend to set up earning limitations in the fields below so that a customer doesn't exploit the option too much.]]></tooltip>
+                </field>
+                <field id="sharing_daily_limit" translate="label,comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sharing on social network daily limit, points</label>
+                </field>
+                <field id="sharing_monthly_limit" translate="label,comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sharing on social network monthly limit, points</label>
+                </field>
+                <field id="product_review" translate="label,comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Product review</label>
+                    <comment><![CDATA[After approval by administrator]]></comment>
+                    <validate>validate-digits</validate>
+                </field>
+                <field id="product_review_daily_limit" translate="label,comment" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Product review daily limit, points</label>
+                    <comment><![CDATA[empty or 0 - no limitations]]></comment>
+                    <validate>validate-digits</validate>
+                </field>
+                <field id="is_product_review_owner" translate="label,comment" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Product review points awarded to product owners only</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="frontend" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Storefront</label>
+                <field id="is_points_balance_top_link" translate="label,comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Points Balance in Top Link</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="is_hide_if_rewardpoints_balance_empty" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Hide the top-link if Reward Points balance is empty</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <!-- <field id="is_apply_automatically" translate="label,comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Apply points automatically</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field> -->
+                <field id="rewardpoints_program_page" translate="label,comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Reward program explainer page</label>
+                    <source_model>Magento\Cms\Model\Config\Source\Page</source_model>
+                </field>
+                <field id="is_display_discount_info" translate="label,comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Display block with discount information</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="is_display_social_button" translate="label,comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Display social sharing buttons at product page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <!-- <field id="social_button_style" translate="label,comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Social buttons style</label>
+                    <source_model>Aheadworks\RewardPoints\Model\Config\Source\SocialButtonStyle</source_model>
+                </field> -->
+                <field id="is_display_invitation_to_newsletter" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Display invitation to newsletter subscription</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="is_display_invitation_to_register" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Display an invitation to register</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="notifications" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Email Notifications</label>
+                <field id="email_sender" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="is_subscribe_customers_to_notifications_by_default" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Subscribe Customers to Reward Points Notifications by Default</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="balance_update_template" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Balance Update Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="balance_update_actions" translate="label" type="multiselect" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Points balance notifications sent when</label>
+                    <source_model>Aheadworks\RewardPoints\Model\Source\Transaction\BalanceUpdateActions</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="expiration_reminder_template" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Points expiration reminder template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="expiration_reminder_days" translate="label,comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Expiration reminder timing, days</label>
+                </field>
+            </group>
+        </section>
+        <section id="sales">
+            <group id="totals_sort">
+                <field id="aw_reward_points" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>AW Reward Points</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

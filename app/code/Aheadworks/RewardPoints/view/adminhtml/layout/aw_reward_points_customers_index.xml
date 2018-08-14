@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="styles"/>
+    <update handle="aw_reward_points_admin_default"/>
+    <body>
+        <referenceContainer name="content">
+            <uiComponent name="aw_reward_points_customers_listing"/>
+        </referenceContainer>
+    </body>
+</page>

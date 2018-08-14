@@ -1,0 +1,57 @@
+<?php 
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$product = $objectManager->get('Magento\Framework\Registry')->registry('current_product');//get current product
+$product_sku = $product->getSku();
+echo $compatible_item_numbers = $product->getData('compatible_item_numbers');
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+//$messages = $objectManager->create('Pos\Manufacturer\Model\Manufacturer')->getCollection()->addFieldToFilter('product_ids', array('like' => $product_sku));
+
+$messages = $objectManager->create('Pos\Manufacturer\Model\Manufacturer')->getCollection()->addFieldToFilter('product_ids', array('finset' => $product_sku));
+$manufacturer = array();
+$model = array();
+foreach ($messages as $value) {
+	if(!(in_array($value->getdata('manufacturer'),$manufacturer)))
+	{
+		array_push($manufacturer,$value->getdata('manufacturer'));	
+	}
+}
+for ($i=0; $i < count($manufacturer); $i++) 
+{ 
+	array_push($model, -1);
+}
+foreach ($messages as $value) 
+{
+	$i = array_search($value->getdata('manufacturer'),$manufacturer);
+	if($model[$i] == -1)
+	{
+		$model[$i] = $value->getdata('model');
+	}
+	else
+	{
+		$model[$i] = $model[$i].', '.$value->getdata('model');	
+	}
+}?>
+<?php if(count($manufacturer) > 0):?>
+<ul>
+<?php /* for ($i=0; $i < count($manufacturer); $i++){ ?> 
+
+	<li class="manu-bold"><strong><?php echo $manufacturer[$i].':&nbsp;&nbsp;';?></strong><span class="manu-space"><?php echo $model[$i];?></span></li>
+<?php } */ ?>
+
+<?php 
+$dataArray = array();
+for ($i=0; $i < count($manufacturer); $i++){ 
+	$manf = $manufacturer[$i];
+	$mode = $model[$i];
+	$dataArray[$manufacturer[$i]] = $model[$i];
+}
+ksort($dataArray);
+foreach ($dataArray as $key => $value) {
+?> 
+
+	<li class="manu-bold"><strong><?php echo $key.':&nbsp;&nbsp;';?></strong><span class="manu-space"><?php echo $value;?></span></li>
+<?php }
+
+ ?>
+</ul>
+<?php endif;?>

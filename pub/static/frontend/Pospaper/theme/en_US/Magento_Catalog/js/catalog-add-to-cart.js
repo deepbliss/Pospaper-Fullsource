@@ -1,0 +1,1 @@
+/chroot/home/pospaper/pospaper.com/html/vendor/magento/module-catalog/view/frontend/web/js/catalog-add-to-cart.js

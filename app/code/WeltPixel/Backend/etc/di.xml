@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="WeltPixel\Backend\Model\ResourceModel\Debugger\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">weltpixel_debugger</argument>
+            <argument name="eventPrefix" xsi:type="string">weltpixel_debugger_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">weltpixel_debugger_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Magento\Framework\DataObject </argument>
+        </arguments>
+    </type>
+</config>

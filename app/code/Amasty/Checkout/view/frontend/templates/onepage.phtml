@@ -1,0 +1,158 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+?>
+<?php
+/** @var \Magento\Checkout\Block\Onepage $block */
+
+/** @var \Amasty\Checkout\Helper\Onepage $helper */
+$helper = $block->getData('amcheckout_helper');
+?>
+
+<div id="checkout" data-bind="scope:'checkout'" class="checkout-container am-checkout">
+    <div class="checkout-header">
+        <?php /* <h1 class="title"><?= $block->escapeHtml($helper->getTitle()) ?></h1> */ ?>
+        <div class="description"><?= $helper->getDescription() ?></div>
+    </div>
+
+    <div id="checkout-loader" data-role="checkout-loader" class="loading-mask" data-mage-init='{"checkoutLoader": {}}'>
+        <div class="loader">
+            <img src="<?php /* @escapeNotVerified */ echo $block->getViewFileUrl('images/loader-1.gif'); ?>"
+                 alt="<?php /* @escapeNotVerified */ echo __('Loading...'); ?>"
+                 style="position: absolute;">
+        </div>
+    </div>
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <script type="text/x-magento-init">
+        {
+            "#checkout": {
+                "Magento_Ui/js/core/app": <?php /* @escapeNotVerified */ echo $block->getJsLayout();?>
+            }
+        }
+    </script>
+    <script>
+        window.checkoutConfig = <?php /* @escapeNotVerified */ echo \Zend_Json::encode($block->getCheckoutConfig()); ?>;
+        // Create aliases for customer.js model from customer module
+        window.isCustomerLoggedIn = window.checkoutConfig.isCustomerLoggedIn;
+        window.customerData = window.checkoutConfig.customerData;
+    </script>
+    <script>
+        require([
+            'mage/url',
+            'Magento_Ui/js/block-loader'
+        ], function(url, blockLoader) {
+            blockLoader("<?php /* @escapeNotVerified */ echo $block->getViewFileUrl('images/loader-1.gif'); ?>");
+            return url.setBaseUrl('<?php /* @escapeNotVerified */ echo $block->getBaseUrl();?>');
+        });
+    </script>
+
+    <script>
+        require([
+            'jquery',
+            'Magento_Customer/js/customer-data',
+            'Magento_Checkout/js/checkout-data',
+            'Magento_Checkout/js/model/shipping-service',
+            'Magento_Checkout/js/action/select-shipping-method',
+            'Magento_Checkout/js/model/quote',
+            'Magento_Checkout/js/action/select-billing-address',
+            'uiRegistry'
+        ], function (
+            $,
+            storage,
+            checkoutData,
+            shippingService,
+            selectShippingMethodAction,
+            quote,
+            selectBillingAddress,
+            registry
+        ) {
+            var defaultAddress = <?= \Zend_Json::encode($helper->getDefaultAddress()) ?>;
+            if (defaultAddress) {
+                var mageStorage = $.initNamespaceStorage('mage-cache-storage').localStorage,
+                    mageCheckoutData = mageStorage.get('checkout-data');
+
+                if (!!mageCheckoutData && mageCheckoutData.hasOwnProperty('shippingAddressFromData')) {
+                    var shippingAddressFromData = mageCheckoutData.shippingAddressFromData;
+                    if (shippingAddressFromData) {
+                        Object.keys(shippingAddressFromData).map(function (key) {
+                            if (!defaultAddress.hasOwnProperty(key)) {
+                                defaultAddress[key] = shippingAddressFromData[key];
+                            }
+                        });
+                    }
+
+                    if (mageCheckoutData.hasOwnProperty('inputFieldEmailValue')) {
+                        var emailValue = mageCheckoutData.inputFieldEmailValue;
+                        checkoutData.setInputFieldEmailValue(emailValue);
+                        checkoutData.setValidatedEmailValue(emailValue);
+                    }
+                }
+
+                if (defaultAddress.hasOwnProperty('region_id') &&
+                    !Number.isInteger(parseInt(defaultAddress['region_id']))) {
+                    defaultAddress['region_id'] = undefined;
+                }
+
+                checkoutData.setShippingAddressFromData(defaultAddress);
+            }
+
+            <?php if ($defaultShipping = $helper->getDefaultShippingMethod()): ?>
+            if (!quote.shippingMethod()) {
+                storage.set('amasty-checkout-default-shipping-mehtod', '<?=$defaultShipping?>');
+            }
+
+            quote.shippingMethod.extend({ notify: 'always' });
+
+            quote.shippingMethod.subscribe(function(method){
+                if (method === null || method === true) {
+                    var ratesData = shippingService.getShippingRates()();
+                    var applicableMethod = _.find(ratesData, function (rate) {
+                        return rate.carrier_code + '_' + rate.method_code == '<?=$defaultShipping?>';
+                    });
+
+                    if (applicableMethod) {
+                        registry.get('checkout.steps.shipping-step.shippingAddress', function (shippingComponent) {
+                            shippingComponent.selectShippingMethod(applicableMethod);
+                        });
+                    }
+                }
+            });
+            <?php endif; ?>
+
+            <?php if ($defaultPayment = $helper->getDefaultPaymentMethod()): ?>
+            if (!quote.paymentMethod() && !checkoutData.getSelectedPaymentMethod()) {
+                checkoutData.setSelectedPaymentMethod('<?=$defaultPayment?>');
+            }
+            <?php endif ?>
+
+            // fix default "My billing and shipping address are the same" checkbox behaviour
+            quote.shippingAddress.subscribe(function (newAddress) {
+                if (!quote.paymentMethod()) {
+                    selectBillingAddress(newAddress);
+                    return;
+                }
+
+                var methodComponent = registry.get('checkout.steps.billing-step.payment.payments-list.'+quote.paymentMethod().method+'-form');
+                if (methodComponent && methodComponent.isAddressSameAsShipping()) {
+                    selectBillingAddress(newAddress);
+                }
+            });
+        });
+    </script>
+
+    <?php if ($helper->isAddressSuggestionEnabled() && ($apiKey = $helper->getGoogleMapsKey())): ?>
+    <script>
+        window.amasty_checkout_regions = <?= $helper->getRegionsJson() ?>;
+        
+        function amasty_checkout_gmaps_init() {
+            require(['Amasty_Checkout/js/autocomplete'], function (autocomplete) {
+                autocomplete.isReady(true);
+            });
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<?= $block->stripTags($apiKey) ?>&libraries=places&callback=amasty_checkout_gmaps_init" async defer></script>
+    <?php endif ?>
+</div>

@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Result\Page">
+        <plugin name="weltpixel-quickview-resultpage"
+                type="WeltPixel\Quickview\Plugin\ResultPage" sortOrder="1"/>
+    </type>
+    <type name="Magento\Catalog\Block\Product\View">
+        <plugin name="weltpixel-quickview-block-product-view"
+                type="WeltPixel\Quickview\Plugin\BlockProductView" sortOrder="1"/>
+    </type>
+     <type name="Magento\Catalog\Block\Product\ListProduct">
+        <plugin name="weltpixel-quickview-block-product-list"
+                type="WeltPixel\Quickview\Plugin\BlockProductList"
+                sortOrder="10"/>
+    </type>
+    <type name="Magento\Catalog\Block\Product\View\Gallery">
+        <plugin name="weltpixel-quickview-block-product-view-gallery"
+                type="WeltPixel\Quickview\Plugin\BlockProductViewGallery" sortOrder="5"/>
+    </type>
+    <type name="Magento\Catalog\Block\Product\View\Gallery">
+        <plugin name="weltpixel-quickview-block-product-view-gallery-magnifier"
+                type="WeltPixel\Quickview\Plugin\BlockProductViewGalleryMagnifier" sortOrder="15"/>
+    </type>
+    <type name="Magento\Catalog\Block\Product\AbstractProduct">
+        <plugin name="weltpixel-quickview-scopeconfig"
+        type="WeltPixel\Quickview\Plugin\AbstractProduct" sortOrder="5"/>
+    </type>
+    <type name="Magento\Framework\App\Config\ScopeConfigInterface">
+        <plugin name="weltpixel-quickview-scopeconfig"
+                type="WeltPixel\Quickview\Plugin\ScopeConfig" sortOrder="5"/>
+    </type>
+    <type name="Magento\Framework\App\Config\ScopeConfigInterface">
+        <plugin name="weltpixel-quickview-scopeconfig"
+                type="WeltPixel\Quickview\Plugin\ScopeConfig" sortOrder="5"/>
+    </type>
+    <type name="Magento\Checkout\Controller\Cart\Add">
+        <plugin name="weltpixel-quickview-cart-add"
+                type="WeltPixel\Quickview\Plugin\CartAdd" sortOrder="5"/>
+    </type>
+</config>

@@ -1,0 +1,21 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+// @codingStandardsIgnoreFile
+
+/* @var $block \Aheadworks\RewardPoints\Block\Product\View\Discount */
+$canShow = true;
+if (!$block->isAjax()): ?>
+    <?php $canShow = false ?>
+    <div data-aw-reward-points-block-name="<?php /* @noEscape */ echo $block->getNameInLayout() ?>"></div>
+<?php endif; ?>
+
+<?php if ($canShow && $block->isDisplayBlock() && $block->getAvailablePoints() > 0) : ?>
+    <div class="product-reward-points-discount">
+        <?php /* @noEscape */ echo __('You have <strong>%1</strong> point(s) which gives <strong>%2</strong> discount. You can apply your points on checkout.',
+            $block->getAvailablePoints(), $block->getFormattedAvailableAmount()); ?>
+    </div>
+<?php endif; ?>

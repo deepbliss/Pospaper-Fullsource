@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">aw_reward_points_transactions_form.aw_reward_points_transactions_form_data_source</item>
+            <item name="deps" xsi:type="string">aw_reward_points_transactions_form.aw_reward_points_transactions_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Transaction</item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">aw_reward_points_transactions_form</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array" >
+            <item name="back" xsi:type="string">Aheadworks\RewardPoints\Block\Adminhtml\Transaction\NewAction\BackButton</item>
+            <item name="reset" xsi:type="string">Aheadworks\RewardPoints\Block\Adminhtml\Transaction\NewAction\ResetButton</item>
+            <item name="save" xsi:type="string">Aheadworks\RewardPoints\Block\Adminhtml\Transaction\NewAction\SaveButton</item>
+        </item>
+    </argument>
+    <dataSource name="aw_reward_points_transactions_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Aheadworks\RewardPoints\Model\ResourceModel\Transaction\DataProvider</argument>
+            <argument name="name" xsi:type="string">aw_reward_points_transactions_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">transaction_id</argument>
+            <argument name="requestFieldName" xsi:type="string">transaction_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="aw_reward_points/transactions/save"/>
+                    <item name="component" xsi:type="string">Aheadworks_RewardPoints/js/ui/form/provider</item>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <fieldset name="general">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string"/>
+            </item>
+        </argument>
+         <field name="website_id">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Aheadworks\RewardPoints\Model\Source\Transaction\Website</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">int</item>
+                    <item name="label" xsi:type="string" translate="true">Website</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">transaction</item>
+                    <item name="dataScope" xsi:type="string">website_id</item>
+                    <item name="default" xsi:type="string">0</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="balance">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="label" xsi:type="string" translate="true">Points balance adjustment</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">transaction</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="dataScope" xsi:type="string">balance</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                        <item name="validate-number" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="notice" xsi:type="string" translate="true">You can use negative value to decrease points balance.</item>
+                </item>
+            </argument>
+        </field>
+        <field name="comment_to_customer">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Comment (visible for customer)</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">transaction</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="dataScope" xsi:type="string">comment_to_customer</item>
+                </item>
+            </argument>
+        </field>
+        <field name="comment_to_admin">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Comment (visible for admin only)</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">transaction</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="dataScope" xsi:type="string">comment_to_admin</item>
+                </item>
+            </argument>
+        </field>
+        <field name="expire">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Expire</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">transaction</item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                    <item name="switcherConfig" xsi:type="array">
+                        <item name="enabled" xsi:type="boolean">true</item>
+                        <item name="rules" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="value" xsi:type="string">expire_in_x_days</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">${ $.parentName }.expire_in_days</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                    <item name="1" xsi:type="array">
+                                        <item name="target" xsi:type="string">${ $.parentName }.expiration_date</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                </item>
+                            </item>
+                            <item name="1" xsi:type="array">
+                                <item name="value" xsi:type="string">expire_on_exact_days</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">${ $.parentName }.expire_in_days</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                    <item name="1" xsi:type="array">
+                                        <item name="target" xsi:type="string">${ $.parentName }.expiration_date</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+                <item name="options" xsi:type="object">Aheadworks\RewardPoints\Model\Source\Transaction\Expire</item>
+            </argument>
+        </field>
+        <field name="expire_in_days">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Expire in, days</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">transaction</item>
+                    <item name="sortOrder" xsi:type="number">50</item>
+                    <item name="notice" xsi:type="string" translate="true">0 or empty value means the transaction will never expire</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="validate-digits" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="expiration_date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Expiration Date</item>
+                    <item name="formElement" xsi:type="string">date</item>
+                    <item name="source" xsi:type="string">transaction</item>
+                    <item name="sortOrder" xsi:type="number">60</item>
+                    <item name="notice" xsi:type="string" translate="true">An empty value means the transaction never expire</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="validate-required-datetime" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="options" xsi:type="array">
+                        <item name="showsTime" xsi:type="boolean">true</item>
+                        <item name="minDate" xsi:type="number">0</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    
+    <fieldset name="customers">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Customers</item>
+                <item name="sortOrder" xsi:type="number">20</item>
+                <item name="dataScope" xsi:type="string"></item>
+            </item>
+        </argument>
+        
+        <modal name="customers_modal">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="isTemplate" xsi:type="boolean">false</item>
+                    <item name="componentType" xsi:type="string">modal</item>
+                    <item name="dataScope" xsi:type="string"/>
+                    <item name="provider" xsi:type="string">aw_reward_points_transactions_form.aw_reward_points_transactions_form_data_source</item>
+                    <item name="options" xsi:type="array">
+                        <item name="title" xsi:type="string" translate="true">Add Customer</item>
+                        <item name="buttons" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="text" xsi:type="string" translate="true">Cancel</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="targetName" xsi:type="string">${ $.name }</item>
+                                        <item name="actionName" xsi:type="string">closeModal</item>
+                                    </item>
+                                </item>
+                            </item>
+                            <item name="1" xsi:type="array">
+                                <item name="text" xsi:type="string" translate="true">Add Selected Customers</item>
+                                <item name="class" xsi:type="string">action-primary</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="targetName" xsi:type="string">index = customers_listing</item>
+                                        <item name="actionName" xsi:type="string">save</item>
+                                    </item>
+                                    <item name="1" xsi:type="array">
+                                        <item name="targetName" xsi:type="string">${ $.name }</item>
+                                        <item name="actionName" xsi:type="string">closeModal</item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+            <insertListing name="customers_listing">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="autoRender" xsi:type="boolean" >false</item>
+                        <item name="component" xsi:type="string">Aheadworks_RewardPoints/js/ui/form/components/insert-listing</item>
+                        <item name="componentType" xsi:type="string">insertListing</item>
+                        <item name="dataScope" xsi:type="string">customers_listing</item>
+                        <item name="externalProvider" xsi:type="string">aw_reward_points_transaction_customers_listing.aw_reward_points_transaction_customers_listing_data_source</item>
+                        <item name="selectionsProvider" xsi:type="string">aw_reward_points_transaction_customers_listing.aw_reward_points_transaction_customers_listing.customer_columns.ids</item>
+                        <item name="ns" xsi:type="string">aw_reward_points_transaction_customers_listing</item>
+                        <item name="provider" xsi:type="string">aw_reward_points_transactions_form.aw_reward_points_transactions_form_data_source</item>
+                        <item name="template" xsi:type="string">Aheadworks_RewardPoints/ui/form/insert</item>
+                        <item name="render_url" xsi:type="url" path="mui/index/render" />
+                        <item name="realTimeLink" xsi:type="boolean">true</item>
+                        <item name="dataLinks" xsi:type="array">
+                            <item name="imports" xsi:type="boolean" >false</item>
+                            <item name="exports" xsi:type="boolean" >true</item>
+                        </item>
+                        <item name="behaviourType" xsi:type="string">simple</item>
+                        <item name="externalFilterMode" xsi:type="boolean">true</item>
+                        <item name="maxTotalSelected" xsi:type="number">200</item>
+                    </item>
+                </argument>
+            </insertListing>
+        </modal>
+        <container name="customers_header">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true" />
+                    <item name="formElement" xsi:type="string">container</item>
+                    <item name="componentType" xsi:type="string">container</item>
+                    <item name="template" xsi:type="string">ui/form/components/complex</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+            </argument>
+            <container name="add_button">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="title" xsi:type="string" translate="true" >Add Customers</item>
+                        <item name="formElement" xsi:type="string">container</item>
+                        <item name="componentType" xsi:type="string">container</item>
+                        <item name="dataScope" xsi:type="string">customer_button_proxy</item>
+                        <item name="component" xsi:type="string">Aheadworks_RewardPoints/js/ui/form/components/modal-button-proxy</item>
+                        <item name="provider" xsi:type="string">aw_reward_points_transactions_form.aw_reward_points_transactions_form_data_source</item>
+                        <item name="listingDataProvider" xsi:type="string">customers_listing</item>
+                        <item name="parentScope" xsi:type="string" />
+                        <item name="sortOrder" xsi:type="number">20</item>
+                        <item name="actions" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="targetName" xsi:type="string">aw_reward_points_transactions_form.aw_reward_points_transactions_form.customers.customers_modal</item>
+                                <item name="actionName" xsi:type="string">toggleModal</item>
+                            </item>
+                            <item name="1" xsi:type="array">
+                                <item name="targetName" xsi:type="string">aw_reward_points_transactions_form.aw_reward_points_transactions_form.customers.customers_modal.customers_listing</item>
+                                <item name="actionName" xsi:type="string">render</item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </container>
+        </container>
+        <fieldset name="customers_selection_container">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="componentType" xsi:type="string">fieldset</item>
+                    <item name="label" xsi:type="string"/>
+                    <item name="opened" xsi:type="boolean">true</item>
+                </item>
+             </argument>
+             <dynamicRows name="customer_selections">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="componentType" xsi:type="string">dynamicRows</item>
+                        <item name="source" xsi:type="string">transaction</item>
+                        <item name="label" xsi:type="string"/>
+                        <item name="sortOrder" xsi:type="number">10</item>
+                        <item name="additionalClasses" xsi:type="string">admin__field-wide</item>
+                        <item name="component" xsi:type="string">Magento_Ui/js/dynamic-rows/dynamic-rows-grid</item>
+                        <item name="template" xsi:type="string">Aheadworks_RewardPoints/ui/dynamic-rows/templates/grid</item>
+                        <item name="columnsHeader" xsi:type="boolean">true</item>
+                        <item name="columnsHeaderAfterRender" xsi:type="boolean">true</item>
+                        <item name="itemTemplate" xsi:type="string">record</item>
+                        <item name="provider" xsi:type="string">aw_reward_points_transactions_form.aw_reward_points_transactions_form_data_source</item>
+                        <item name="dataProvider" xsi:type="string">${ $.dataScope }.customers_listing</item>
+                        <item name="identificationDRProperty" xsi:type="string">customer_id</item>
+                        <item name="identificationProperty" xsi:type="string">customer_id</item>
+                        <item name="map" xsi:type="array">
+                            <item name="customer_id" xsi:type="string">entity_id</item>
+                            <item name="customer_name" xsi:type="string">name</item>
+                            <item name="customer_email" xsi:type="string">email</item>
+                            <item name="website_id" xsi:type="string">website_id</item>
+                        </item>
+                        <item name="links" xsi:type="array">
+                            <item name="insertData" xsi:type="string">${ $.provider }:${ $.dataProvider }</item>
+                        </item>
+                        <item name="addButton" xsi:type="boolean">false</item>
+                        <item name="deleteButtonLabel" xsi:type="string">Remove</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                 </argument>
+                 <container name="record">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="label" xsi:type="string" translate="true">Customer</item>
+                            <item name="component" xsi:type="string" translate="true">Magento_Ui/js/dynamic-rows/record</item>
+                            <item name="isTemplate" xsi:type="boolean">true</item>
+                            <item name="is_collection" xsi:type="boolean">true</item>
+                            <item name="showFallbackReset" xsi:type="boolean">false</item>
+                        </item>
+                    </argument>
+                    <field name="customer_id">
+                        <argument name="data" xsi:type="array">
+                            <item name="config" xsi:type="array">
+                                <item name="formElement" xsi:type="string">input</item>
+                                <item name="dataType" xsi:type="string">text</item>
+                                <item name="dataScope" xsi:type="string">customer_id</item>
+                                <item name="fit" xsi:type="boolean">false</item>
+                                <item name="label" xsi:type="string">Customer Id</item>
+                                <item name="showFallbackReset" xsi:type="boolean">false</item>
+                                <item name="elementTmpl" xsi:type="string">ui/dynamic-rows/cells/text</item>
+                            </item>
+                        </argument>
+                    </field>
+                    <field name="customer_name">
+                        <argument name="data" xsi:type="array">
+                            <item name="config" xsi:type="array">
+                                <item name="formElement" xsi:type="string">input</item>
+                                <item name="dataType" xsi:type="string">text</item>
+                                <item name="dataScope" xsi:type="string">customer_name</item>
+                                <item name="fit" xsi:type="boolean">false</item>
+                                <item name="label" xsi:type="string">Customer Name</item>
+                                <item name="showFallbackReset" xsi:type="boolean">false</item>
+                                <item name="elementTmpl" xsi:type="string">ui/dynamic-rows/cells/text</item>
+                            </item>
+                        </argument>
+                    </field>
+                    <field name="customer_email">
+                        <argument name="data" xsi:type="array">
+                            <item name="config" xsi:type="array">
+                                <item name="formElement" xsi:type="string">input</item>
+                                <item name="dataType" xsi:type="string">text</item>
+                                <item name="dataScope" xsi:type="string">customer_email</item>
+                                <item name="fit" xsi:type="boolean">false</item>
+                                <item name="label" xsi:type="string">Customer Email</item>
+                                <item name="showFallbackReset" xsi:type="boolean">false</item>
+                                <item name="elementTmpl" xsi:type="string">ui/dynamic-rows/cells/text</item>
+                            </item>
+                        </argument>
+                    </field>
+                    <field name="website_id">
+                        <argument name="data" xsi:type="array">
+                            <item name="options" xsi:type="object">Aheadworks\RewardPoints\Model\Source\Transaction\Website</item>
+                            <item name="config" xsi:type="array">
+                                <item name="formElement" xsi:type="string">select</item>
+                                <item name="dataType" xsi:type="string">text</item>
+                                <item name="dataScope" xsi:type="string">website_id</item>
+                                <item name="fit" xsi:type="boolean">false</item>
+                                <item name="label" xsi:type="string">Web Site</item>
+                                <item name="showFallbackReset" xsi:type="boolean">false</item>
+                                <item name="template" xsi:type="string">Aheadworks_RewardPoints/ui/dynamic-rows/templates/cells/select-text</item>
+                            </item>
+                        </argument>
+                    </field>
+                    <actionDelete>
+                        <argument name="data" xsi:type="array">
+                            <item name="config" xsi:type="array">
+                                <item name="componentType" xsi:type="string">actionDelete</item>
+                                <item name="dataType" xsi:type="string">text</item>
+                                <item name="fit" xsi:type="boolean">false</item>
+                                <item name="label" xsi:type="string">Actions</item>
+                                <item name="sortOrder" xsi:type="string">50</item>
+                                <item name="additionalClasses" xsi:type="string">data-grid-actions-cell</item>
+                                <item name="template" xsi:type="string">Magento_Backend/dynamic-rows/cells/action-delete</item>
+                            </item>
+                        </argument>
+                    </actionDelete>
+                </container>
+             </dynamicRows>
+        </fieldset>
+    </fieldset>
+</form>

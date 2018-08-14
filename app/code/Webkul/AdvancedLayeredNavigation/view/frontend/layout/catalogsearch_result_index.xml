@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_AdvancedLayeredNavigation
+ * @author    Webkul
+ * @copyright Copyright (c) 2010-2018 Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+ -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Webkul_AdvancedLayeredNavigation::css/styles.css"/>
+    </head>
+    <body>
+        <referenceBlock name="catalogsearch.navigation.renderer">
+			<action method="setTemplate">
+				<argument name="template" xsi:type="string">Webkul_AdvancedLayeredNavigation::filter.phtml</argument>
+			</action>
+		</referenceBlock>
+		<referenceBlock name="catalogsearch.leftnav">
+			<action method="setTemplate">
+				<argument name="template" xsi:type="string">Webkul_AdvancedLayeredNavigation::view.phtml</argument>
+			</action>
+		</referenceBlock>
+		<referenceBlock name="catalogsearch.navigation.state">
+			<action method="setTemplate">
+				<argument name="template" xsi:type="string">Webkul_AdvancedLayeredNavigation::state.phtml</argument>
+			</action>
+		</referenceBlock>
+    </body>
+</page>

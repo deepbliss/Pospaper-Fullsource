@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+ Copyright © 2015 Wyomind. All rights reserved.
+ See LICENSE.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/Module/etc/module.xsd">
+    <module name="Wyomind_SimpleGoogleShopping" setup_version="13.4.3">
+        <sequence>
+            <module name="Wyomind_Core"/>
+        </sequence>
+    </module>
+</config>

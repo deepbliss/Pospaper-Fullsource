@@ -1,0 +1,36 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Aheadworks\Freeshippinglabel\Block\Label */
+?>
+<?php if ($block->isLabelEnabled()):
+    $label = $block->getLabelModel();
+    ?>
+    <div class="aw_fslabel_label"
+         style="display:none"
+         data-mage-init='{"awFslabelLabel":<?php /* @noEscape */ echo $block->getScriptOptions() ?>}'
+        >
+        <?php /* @noEscape */ echo $label->getMessage() ?>
+    </div>
+    <style>
+        div.aw_fslabel_label {
+            font-family: <?php echo $block->escapeHtml($label->getFontName()) ?>;
+            font-size: <?php echo $block->escapeHtml($label->getFontSize()) ?>px;
+            font-weight: <?php echo $block->escapeHtml($label->getFontWeight()) ?>;
+            text-align: <?php echo $block->escapeHtml($label->getTextAlign()) ?>;
+            color: <?php echo $block->escapeHtml($label->getFontColor()) ?>;
+            background: <?php echo $block->escapeHtml($label->getBackgroundColor()) ?>;
+            padding: <?php echo $block->escapeHtml($block->getPadding()) ?>px;
+            <?php echo $block->escapeHtml($label->getCustomCss()) ?>
+        }
+
+        div.aw_fslabel_label span.goal {
+            color: <?php echo $block->escapeHtml($label->getGoalFontColor()) ?>
+        }
+    </style>
+<?php endif; ?>

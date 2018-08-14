@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+		<tab id="mconnectsolutions" translate="label" sortOrder="200">
+            <label>M-Connect Media</label>
+        </tab>
+        <section id="mconnectsolutions_trackorder" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Track Order</label>
+            <tab>mconnectsolutions</tab>
+            <resource>Mconnectsolutions_Trackorder::config_trackorder</resource>
+            <group id="track_order" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+			
+                <label>Track Order Setting</label>
+				
+                <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+				
+				<field id="top_link" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allow For Top Link</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<comment><![CDATA[Select Yes to allow Top Link.]]></comment>
+                </field>
+				
+				<field id="top_menu" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allow For Top Menu</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<comment><![CDATA[Select Yes to allow Top Menu.]]></comment>
+                </field>
+				
+				<field id="link_email" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Track Order Link</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<comment><![CDATA[Select Yes to send track order link in email.]]></comment>
+                </field>
+				
+            </group>
+        </section>
+    </system>
+</config>

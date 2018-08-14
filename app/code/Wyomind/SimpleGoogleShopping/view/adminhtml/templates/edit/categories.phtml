@@ -1,0 +1,120 @@
+<?php
+/**
+ * Copyright © 2018 Wyomind. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+?>
+<!--
+  Categories tree view template
+-->
+<div class='entry-edit form-inline'>
+    <fieldset id="filter_fieldset" class="fieldset ">
+        <legend class="legend">
+            <span><?php echo __('Category filter type'); ?></span>
+        </legend>
+        <br>
+        <div>
+            <input type='radio' value='0' name='simplegoogleshopping_category_filter' class='category_filter'
+                   id="category_filter_0"/><label><?php echo __("<b>Exclude</b> all products from the selected categories."); ?></label><br/>
+            <input type='radio' value='1' name='simplegoogleshopping_category_filter' class='category_filter'
+                   id="category_filter_1"/><label><?php echo __("<b>Include</b> all products from the selected categories."); ?></label><br/>
+            <br/><b><?php echo __("Based on "); ?></b><br/><br/>
+            <input type="radio" value="0" name='simplegoogleshopping_category_type' class='category_type'
+                   id="category_type_0"/><label><?php echo __("<b>Product</b> categories only"); ?></label><br/>
+            <input type="radio" value="1" name='simplegoogleshopping_category_type' class='category_type'
+                   id="category_type_1"/><label><?php echo __("<b>Product and parent</b> categories"); ?></label><br/>
+            <input type="radio" value="2" name='simplegoogleshopping_category_type' class='category_type'
+                   id="category_type_2"/><label><?php echo __("<b>Parent</b> categories only"); ?></label><br/>
+        </div>
+    </fieldset>
+    <fieldset id="category-selector" class="fieldset ">
+        <legend class="legend">
+            <span><?php echo __('Category selection and mapping'); ?></span>
+        </legend>
+        <div id="taxonomy-box">
+            <b><?php echo __("Google Taxonomy source : ") ?></b>
+            <select id="simplegoogleshopping_feed_taxonomy" name='simplegoogleshopping_feed_taxonomy'>
+                <?php
+                $array = $block->getAvailableTaxonomies();
+
+                foreach ($array as $key => $file) {
+                    if ($block->getFeedTaxonomy() == $file) {
+                        $selected = "selected";
+                    } else {
+                        $selected = "";
+                    }
+                    echo "<option value='" . $file . "' $selected>" . basename(str_replace('.txt', null, $file)) . "</option>";
+                }
+                ?>
+            </select>
+        </div>
+        <br>
+        <span id='note' style='margin-left:10px;'>
+            <?php echo __("* If you do not select any category, all products will be exported"); ?>
+        </span>
+        <div class="category-selector" id="category-selector">
+            <textarea style="display:none" id="cat-json-tree"><?php echo $block->getJsonTree(); ?></textarea>
+            <div class="mapping-dropdown" id="mapping-dropdown"></div>
+        </div>
+    </fieldset>
+</div>
+<script>
+    require(["jquery", "sgs_categories"], function ($, categories) {
+        'use strict';
+
+        /* opening/closing treeview */
+        $(document).on("click", ".tv-switcher", function (evt) {
+            var elt = $(evt.target);
+            // click on treeview expand/collapse
+            if (elt.hasClass('closed')) {
+                elt.removeClass('closed');
+                elt.addClass('opened');
+                categories.displayChildren(categories.tree[elt.attr('id')], "#main-cat-" + elt.attr('id'));
+            } else if (elt.hasClass('opened')) {
+                elt.addClass('closed');
+                elt.removeClass('opened');
+                $("#main-cat-" + elt.attr('id')).parent().find("ul").remove();
+            }
+        });
+
+        // click on category select
+        $(document).on("click", ".category", function (evt) {
+            $(this).parent().toggleClass('selected');
+            categories.updateSelection();
+            categories.selectChildren($(this).attr("id").replace("cat_id_", ""));
+        });
+
+        // change categories filter value
+        $(document).on("click", ".category_filter", function (evt) {
+            $("#category_filter").val($(this).val());
+        });
+
+        // change categories type value
+        $(document).on("click", ".category_type", function (evt) {
+            $("#category_type").val($(this).val());
+        });
+
+        /* change mapping */
+        $(document).on("change", ".mapping", function () {
+            categories.updateSelection();
+        });
+
+        // change the taxonomy file 
+        $(document).on('change', '#simplegoogleshopping_feed_taxonomy', function () {
+            categories.updateAutoComplete();
+        });
+
+        /* initialize end keyboard shortcut */
+        $(document).on("keyup", ".mapping", function (event) {
+            if (event.key === "End") {
+                categories.updateChildrenMapping($(this).val(), $(this).attr('id').replace('category_mapping_', ''));
+            }
+        });
+
+        // load selected categories
+        categories.init();
+        // load the categories filter
+        categories.loadCategoriesFilter();
+
+    });
+</script>

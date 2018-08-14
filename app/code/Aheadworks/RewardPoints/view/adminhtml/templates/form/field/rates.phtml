@@ -1,0 +1,61 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+// @codingStandardsIgnoreFile
+?>
+
+<?php
+$_htmlId = '_' .  ($block->getHtmlId() ? $block->getHtmlId() : uniqid());
+$_colspan = $block->isAddAfter() ? 2 : 1;
+?>
+
+<div class="design_theme_ua_regexp" id="grid<?php echo $block->escapeHtml($_htmlId); ?>">
+    <div class="admin__control-table-wrapper">
+        <table class="admin__control-table">
+            <thead>
+            <tr>
+                <?php foreach ($block->getColumns() as $columnName => $column): ?>
+                    <th><?php echo $block->escapeHtml($column['label']); ?></th>
+                <?php endforeach;?>
+                <th class="col-actions" colspan="<?php echo $block->escapeHtml($_colspan); ?>"><?php echo $block->escapeHtml(__('Action')) ?></th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+                <td colspan="<?php echo count($block->getColumns()) + $_colspan; ?>" class="col-actions-add">
+                    <button id="rates-add-<?php echo $block->escapeHtml($_htmlId); ?>" class="action-add" title="<?php echo $block->escapeHtml($block->getAddButtonLabel()); ?>" type="button">
+                        <span><?php echo $block->escapeHtml($block->getAddButtonLabel()); ?></span>
+                    </button>
+                </td>
+            </tr>
+            </tfoot>
+            <tbody id="rates-body-<?php echo $block->escapeHtml($_htmlId); ?>"></tbody>
+        </table>
+    </div>
+    <input type="hidden" name="<?php echo $block->escapeHtml($block->getElement()->getName()); ?>[__empty]" value="" />
+</div>
+<script id="rates-row-template-<?php echo $block->escapeHtml($_htmlId); ?>" type="text/x-magento-template">
+    <tr id="<%- _id %><?php echo $block->escapeHtml($_htmlId); ?>">
+        <?php foreach ($block->getColumns() as $columnName => $column): ?>
+            <td><?php /* @noEscape */ echo $block->renderCellTemplate($columnName)?></td>
+        <?php endforeach; ?>
+            <td class="col-actions"><button class="rates-row-action-delete action-delete" id="<%- _id %><?php echo $block->escapeHtml($_htmlId); ?>_delete" type="button"><span><?php echo $block->escapeHtml(__('Delete')); ?></span></button></td>
+    </tr>
+</script>
+<script type="text/x-magento-init">
+{
+    "*": {
+     "awRewardPointsRates": {
+            "templateId": "#rates-row-template-<?php echo $block->escapeHtml($_htmlId); ?>",
+            "addButtonId": "#rates-add-<?php echo $block->escapeHtml($_htmlId);; ?>",
+            "rowContainer": "#rates-body-<?php echo $block->escapeHtml($_htmlId);; ?>",
+            "deleteButtonSelect": ".rates-row-action-delete",
+            "templateValues": <?php /* @noEscape */ echo $block->getTemplateValueJson() ?>,
+            "defaultValues": <?php /* @noEscape */ echo $block->getDefaultValueJson() ?>
+        }
+    }
+}
+</script>

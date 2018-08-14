@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento COMMUNITY edition
+ * BSS Commerce does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * BSS Commerce does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   BSS
+ * @package    Bss_Reindex
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2015-2016 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="adminhtml.indexer.grid.grid.massaction">
+            <arguments>
+                <argument name="massaction_id_field" xsi:type="string">indexer_id</argument>
+                <argument name="form_field_name" xsi:type="string">indexer_ids</argument>
+                <argument name="use_select_all" xsi:type="string">1</argument>
+                <argument name="options" xsi:type="array">
+                    <updater>Magento\Indexer\Block\Backend\Grid\ItemsUpdater</updater>
+                    <item name="change_mode_onthefly" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Update on Save</item>
+                        <item name="url" xsi:type="string">*/indexer/massOnTheFly</item>
+                    </item>
+                    <item name="change_mode_changelog" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Update by Schedule</item>
+                        <item name="url" xsi:type="string">*/indexer/massChangelog</item>
+                    </item>
+                    <item name="change_mode_reindex" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Reindex Data</item>
+                        <item name="url" xsi:type="string">reindexdata/indexer/massReindexData</item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Text" name="content.bsscontent">
+                <action method="setText">
+                    <argument translate="true" name="text" xsi:type="string">
+                        <![CDATA[
+                            <script>
+                                require(['jquery', 'domReady!'], function($){
+                                    'use strict';
+                                    $('.bss-reindex-info').closest('.message-success.success').addClass('bss-hidden');
+                                    $('.bss-reindex-show').click(function () {
+                                        if ($('.bss-reindex-info').length > 0) {
+                                            $('.bss-reindex-info').each(function () {
+                                                if ($(this).closest('.message-success.success').hasClass('bss-hidden')) {
+                                                    $(this).closest('.message-success.success').removeClass('bss-hidden');
+                                                } else {
+                                                    $(this).closest('.message-success.success').addClass('bss-hidden');
+                                                }
+                                            });
+                                        }
+                                    });
+                                });
+                            </script>
+                            <style>
+                                .bss-hidden{
+                                    display: none;
+                                }
+                            </style>
+                        ]]>
+                    </argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,32 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$mediaURL = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+                    ->getStore()
+                    ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+?>
+
+<ul>
+<li class="tooltip">
+<div class="image"><img src="<?php echo $mediaURL?>wysiwyg/shipping-icn.png" alt="" /></div>
+<div class="text">Free Shipping <small>($50 or more)</small></div>
+<div class="tooltiptext"><?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('free_shipping_top_block')->toHtml();?></div>
+</li>
+<li class="tooltip">
+<div class="image"><img src="<?php echo $mediaURL?>wysiwyg/cash-back-icn.png" alt="" /></div>
+<div class="text">3% Cash Back Online <span>Online Rewards Program</span></div>
+<div class="tooltiptext"><?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('online_reward_top_block')->toHtml();?></div>
+</li>
+<li class="tooltip">
+<div class="image"><img src="<?php echo $mediaURL?>wysiwyg/price-match-icn.png" alt="" /></div>
+<div class="text">Low Price Guarantee <span>We won't be beat on price</span></div>
+<div class="tooltiptext"><?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('low-price-top')->toHtml();?></div>
+</li>
+<li class="tooltip">
+<div class="image"><img src="<?php echo $mediaURL?>wysiwyg/map-icn.png" alt="" /></div>
+<div class="text"><span>Multiple Distribution Centers for </span>Quick Delivery!</div>
+<!--<div class="text">BPA Free Thermal Paper</div>-->
+<div class="tooltiptext"><?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('bpa_thermal_top_block')->toHtml();?></div>
+</li>
+</ul>
+
+

@@ -1,0 +1,241 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_AdvancedLayeredNavigation
+ * @author    Webkul
+ * @copyright Copyright (c) 2010-2018 Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+
+<?php
+$id = $this->getRequest()->getParam('id');
+ $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+if ($filter->getName() != __('Category')) {
+?>
+    <?php if($filter->getAttributeModel()->getAttributeCode() != "price"): ?>
+    <ol class="items expandible">
+       <!--  <li>
+            <div class="attr_filter_container">
+                <input type="text" data-attrname="<?php echo $filter->getAttributeModel()->getAttributeCode(); ?>" class="attr_filter_input" value="<?php echo $block->getSessionData($filter->getAttributeModel()->getAttributeCode()); ?>"/>
+                <span class="attr_filter_clear">×</span> 
+            </div>
+        </li> -->
+
+        <?php 
+       
+        $category = $objectManager->get('Magento\Framework\Registry')->registry('current_category');
+            if($filter->getAttributeModel()->getAttributeCode() == 'compatible_models'): ?>
+            <select class="com_model layered_attrs">
+<option data-url="<?php echo $category->getUrl();?>" class="layered_attrs" data-attrname="compatible_models" id="">
+            Please Select a Model</option>
+            <?php foreach ($filterItems as $filterItem): ?>
+            <?php $selected_value = $this->getRequest()->getParam($filter->getAttributeModel()->getAttributeCode());
+            $selected_value = explode("_",$selected_value); ?>
+            <?php if ($filterItem->getCount() > 0): ?>
+           <option data-url="<?php echo $block->escapeUrl($filterItem->getUrl()) ?>" class="layered_attrs" data-attrname="<?php echo $filter->getAttributeModel()->getAttributeCode(); ?>" id="<?php echo $filterItem->getValue(); ?>" <?php if(in_array($filterItem->getValue(), $selected_value))echo "selected"; ?>>
+            <?php /* @escapeNotVerified */ echo $filterItem->getLabel() ?>
+            </option>
+        <?php endif;?>
+        <?php endforeach ?>
+
+                     
+            </select>
+
+      <?php else:?>
+
+        <?php foreach ($filterItems as $filterItem): ?>
+            <li class="my item">
+                <?php
+                $selected_value = $this->getRequest()->getParam($filter->getAttributeModel()->getAttributeCode());
+                $selected_value = explode("_",$selected_value);
+                if ($filterItem->getCount() > 0): ?>
+                    <label class="layered-navigation-label" for="<?php echo $filterItem->getValue() ?>" data-url="<?php echo $block->escapeUrl($filterItem->getUrl()) ?>">
+                        <input data-attrname="<?php echo $filter->getAttributeModel()->getAttributeCode(); ?>" <?php if(in_array($filterItem->getValue(), $selected_value))echo "checked='checked'"; ?> class="layered_attrs" id="<?php echo $filterItem->getValue(); ?>" type="checkbox"/>
+                        <?php /* @escapeNotVerified */ echo $filterItem->getLabel() ?>
+                        <?php if ($this->helper('\Magento\Catalog\Helper\Data')->shouldDisplayProductCountOnLayer()): ?>
+                            <span class="count"><?php /* @escapeNotVerified */ echo $filterItem->getCount()?><span class="filter-count-label">
+                                <?php if ($filterItem->getCount() == 1):?> <?php /* @escapeNotVerified */ echo __('item')?><?php else:?> <?php /* @escapeNotVerified */ echo __('items') ?><?php endif;?></span></span>
+                        <?php endif; ?>
+                    </label>
+                <?php else:?>
+                    <?php /* @escapeNotVerified */ echo $filterItem->getLabel() ?>
+                    <?php if ($this->helper('\Magento\Catalog\Helper\Data')->shouldDisplayProductCountOnLayer()): ?>
+                        <span class="count"><?php /* @escapeNotVerified */ echo $filterItem->getCount()?><span class="filter-count-label">
+                            <?php if ($filterItem->getCount() == 1):?><?php /* @escapeNotVerified */ echo __('item')?><?php else:?><?php /* @escapeNotVerified */ echo __('items') ?><?php endif;?></span></span>
+                    <?php endif; ?>
+                <?php endif; ?>
+            </li>
+        <?php endforeach ?>
+        <?php endif;?>
+
+        
+    </ol>
+    <?php else:
+                $filter_array = [];
+                foreach ($filterItems as $_item) {
+                    $filter_values = explode("-", $_item->getValue());
+                    if (!empty($filter_values[0]) && strpos($filter_values[0], ',') !== false) {
+                        $filter_values[0] = explode(",", $filter_values[0])[0];
+                    }
+                    if (!empty($filter_values[1]) && strpos($filter_values[1], ',') !== false) {
+                        $filter_values[1] = explode(",", $filter_values[1])[0];
+                    }
+                    $filter_array[] = (int)preg_replace('/[^0-9]/', '', $filter_values[0]);
+                    $filter_array[] = (int)preg_replace('/[^0-9]/', '', $filter_values[1]);
+                }
+                
+                if($block->getMinVal($id) || $block->getMinVal($id) == 0){
+                    $session_min = $block->getMinVal($id);
+                    $to_cur_min = $to_display_min =$session_min; 
+                    if($filter_array[0] == "" || $to_display_min == "")
+                        $to_cur_min = $to_display_min = 0;
+                } else {
+                    $to_cur_min = $to_display_min = min($filter_array);
+                    if($filter_array[0] == "" || $to_display_min == "")
+                        $to_cur_min = $to_display_min = 0;
+                    $block->setMinVal($to_cur_min, $id);
+                }
+                $selected_value = $this->getRequest()->getParam($filter->getAttributeModel()->getAttributeCode());
+                if(($session_max = $block->getMaxVal($id)) && $selected_value){
+                    $to_cur_max = $to_display_max = $session_max;
+                    if($filter_array[count($filter_array)-1] == "")
+                        $to_cur_max = $to_display_max = $session_max;
+                } else {
+                    $to_cur_max = $to_display_max = max($filter_array);
+                    if($filter_array[count($filter_array)-1] == "")
+                        $to_cur_max = $to_display_max = max($filter_array);
+                    $block->setMaxVal($to_cur_max, $id);
+                }
+                
+                
+
+                if($selected_value != ""){
+                    $selected_value_arr = explode("-",$selected_value);
+                    if($selected_value_arr[0] != "")
+                        $to_cur_min = $selected_value_arr[0];
+                    if($selected_value_arr[1] != ""){
+                        $to_cur_max = $selected_value_arr[1];
+
+                    }
+                }
+            $to_cur_max = (int)preg_replace('/[^0-9]/', '', $to_cur_max);
+            $to_cur_min = (int)preg_replace('/[^0-9]/', '', $to_cur_min);
+            ?>
+                    <span style="display:none;" data-attrname="<?php echo $filter->getAttributeModel()->getAttributeCode(); ?>" class="layered_attrs for_price_filter" id="<?php echo $selected_value; ?>"></span>
+                    <div class= "range_slide_level_con" >
+                        <div class="min_range_display"><?php echo $to_display_min; ?></div>
+                        <div class="max_range_display"><?php echo $to_display_max.__(" & above"); ?></div>
+                    </div>
+                    <div class="range_slider_container">
+                        <div class="range_slider" data-range_min="<?php echo $to_display_min; ?>" data-range_max="<?php echo $to_display_max; ?>" data-cur_min="<?php echo $to_cur_min; ?>" data-cur_max="<?php echo $to_cur_max; ?>">
+                            <div class="range_slider_bar"></div>
+                            <div class="min_grip"><div class="stick"><span class="board min_range"></span></div></div>
+                            <div class="max_grip"><div class="stick"><span class="board max_range"></span></div></div>
+                        </div>
+                    </div>
+
+    <?php endif; ?>
+<?php } else { ?>
+    <ol class="items">
+
+     <!-- <li>
+        <div class="attr_filter_container">
+            <input type="text" data-attrname="cat" class="attr_filter_input" value="<?php echo $block->getSessionData('cat'); ?>"/>
+            <span class="attr_filter_clear">×</span> 
+        </div>
+    </li> -->
+    <?php 
+    $checked = 0;
+    foreach ($filterItems as $filterItem): ?>
+            <?php
+            $selected_value = $this->getRequest()->getParam('cat');
+            $selected_value = explode("_",$selected_value);
+            if(in_array($filterItem->getValue(), $selected_value))
+            {
+                $checked = 1;
+            }
+    endforeach; ?>
+    <?php
+    if($checked)
+    {
+        $stateFilter = $objectManager->create('\Magento\LayeredNavigation\Block\Navigation\State');
+        $selectedFilters = $stateFilter->getActiveFilters();
+        foreach($selectedFilters as $filter){
+            
+            $value = $filter->getValue();
+            $currenturl = $this->getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true]);
+                if($filter->getName() == 'Category') {
+                    $url = str_replace('cat='.$value, "", $currenturl);
+                }
+
+        }
+
+        foreach ($filterItems as $filterItem): ?>
+
+        
+            <?php
+            $selected_value = $this->getRequest()->getParam('cat');
+            $selected_value = explode("_",$selected_value);
+            if(in_array($filterItem->getValue(), $selected_value))
+            { ?>
+
+
+        <span class="wk-filter-action action remove" data-url="<?php echo $url?>">
+                       <span class="view-all-cat">View All</span>
+        </span>
+
+                
+                <li class="my item active-cat">
+                <?php /* @escapeNotVerified */ echo $filterItem->getLabel() ?>
+                <?php if ($this->helper('\Magento\Catalog\Helper\Data')->shouldDisplayProductCountOnLayer()): ?>
+
+                    <span class="count"><?php /* @escapeNotVerified */ echo $filterItem->getCount()?><span class="filter-count-label">
+                        <?php if ($filterItem->getCount() == 1):?><?php /* @escapeNotVerified */ echo __('item')?><?php else:?><?php /* @escapeNotVerified */ echo __('items') ?><?php endif;?></span></span>
+                <?php endif;
+                ?>
+                </li>
+                <?php
+            }
+            ?>
+        
+    <?php endforeach;
+    }
+    else
+    {
+    ?>
+    <?php foreach ($filterItems as $filterItem): ?>
+        <li class="my item">
+            <?php
+            $selected_value = $this->getRequest()->getParam('cat');
+            $selected_value = explode("_",$selected_value);
+            if ($filterItem->getCount() > 0): ?>
+                <label class="layered-navigation-label" for="<?php echo $filterItem->getValue() ?>" data-url="<?php echo $block->escapeUrl($filterItem->getUrl()) ?>">
+                    <input data-attrname="cat" <?php if(in_array($filterItem->getValue(), $selected_value))echo "checked='checked'"; ?> class="layered_attrs" id="<?php echo $filterItem->getValue(); ?>" type="checkbox"/>
+                    <?php /* @escapeNotVerified */ echo $filterItem->getLabel() ?>
+                    <?php if ($this->helper('\Magento\Catalog\Helper\Data')->shouldDisplayProductCountOnLayer()): ?>
+                        <span class="count"><?php /* @escapeNotVerified */ echo $filterItem->getCount()?><span class="filter-count-label">
+                            <?php if ($filterItem->getCount() == 1):?> <?php /* @escapeNotVerified */ echo __('item')?><?php else:?> <?php /* @escapeNotVerified */ echo __('items') ?><?php endif;?></span></span>
+                    <?php endif; ?>
+                </label>
+            <?php else:?>
+                <?php /* @escapeNotVerified */ echo $filterItem->getLabel() ?>
+                <?php if ($this->helper('\Magento\Catalog\Helper\Data')->shouldDisplayProductCountOnLayer()): ?>
+                    <span class="count"><?php /* @escapeNotVerified */ echo $filterItem->getCount()?><span class="filter-count-label">
+                        <?php if ($filterItem->getCount() == 1):?><?php /* @escapeNotVerified */ echo __('item')?><?php else:?><?php /* @escapeNotVerified */ echo __('items') ?><?php endif;?></span></span>
+                <?php endif; ?>
+            <?php endif; ?>
+        </li>
+    <?php endforeach; 
+    }
+    ?>
+
+</ol>
+<?php } 
+    
+?>
+
+

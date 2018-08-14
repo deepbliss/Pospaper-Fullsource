@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">aw_reward_points_customers_listing.aw_reward_points_customers_grid_data_source</item>
+            <item name="deps" xsi:type="string">aw_reward_points_customers_listing.aw_reward_points_customers_grid_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">aw_reward_points_customer_columns</item>
+        <item name="buttons" xsi:type="array">
+            <item name="go_to_transactions" xsi:type="array">
+                <item name="name" xsi:type="string">go_to_transactions</item>
+                <item name="label" xsi:type="string" translate="true">Go to Transactions</item>
+                <item name="class" xsi:type="string">hidden</item>
+                <item name="url" xsi:type="string">aw_reward_points/transactions</item>
+            </item>
+        </item>
+    </argument>
+    <dataSource name="aw_reward_points_customers_grid_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Aheadworks\RewardPoints\Ui\DataProvider\DataProvider</argument>
+            <argument name="name" xsi:type="string">aw_reward_points_customers_grid_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">customer_id</argument>
+            <argument name="requestFieldName" xsi:type="string">customer_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">customer_id</item>
+                        <item name="cacheRequests" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="sticky" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+        <exportButton name="export_button"/>
+        <container name="import_button">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Aheadworks_RewardPoints/js/ui/grid/import/button</item>
+                    <item name="action" xsi:type="array">
+                        <item name="targetName" xsi:type="string">${ $.ns }.${ $.ns }.import_container.import_modal</item>
+                        <item name="actionName" xsi:type="string">toggleModal</item>
+                    </item>
+                </item>
+            </argument>
+        </container>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="templates" xsi:type="array">
+                        <item name="filters" xsi:type="array">
+                            <item name="select" xsi:type="array">
+                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</item>
+                                <item name="template" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+                <item name="observers" xsi:type="array">
+                    <item name="column" xsi:type="string">column</item>
+                </item>
+            </argument>
+            <filterSelect name="website_id">
+                <argument name="optionsProvider" xsi:type="configurableObject">
+                    <argument name="class" xsi:type="string">Aheadworks\RewardPoints\Model\Source\Transaction\Website</argument>
+                </argument>
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="provider" xsi:type="string">${ $.parentName }</item>
+                        <item name="imports" xsi:type="array">
+                            <item name="visible" xsi:type="string">ns = ${ $.ns }, componentType = column, index = ${ $.index }:visible</item>
+                        </item>
+                        <item name="caption" xsi:type="string" translate="true">Select...</item>
+                        <item name="dataScope" xsi:type="string">website_id</item>
+                        <item name="label" xsi:type="string" translate="true">Website</item>
+                    </item>
+                </argument>
+            </filterSelect>
+            <filterSelect name="balance_update_notification_status">
+                <argument name="optionsProvider" xsi:type="configurableObject">
+                    <argument name="class" xsi:type="string">Aheadworks\RewardPoints\Model\Source\SubscribeStatus</argument>
+                </argument>
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="provider" xsi:type="string">${ $.parentName }</item>
+                        <item name="imports" xsi:type="array">
+                            <item name="visible" xsi:type="string">ns = ${ $.ns }, componentType = column, index = ${ $.index }:visible</item>
+                        </item>
+                        <item name="caption" xsi:type="string">Select...</item>
+                        <item name="dataScope" xsi:type="string">balance_update_notification_status</item>
+                        <item name="label" xsi:type="string" translate="true">Balance Update Notifications (status)</item>
+                    </item>
+                </argument>
+            </filterSelect>
+            <filterSelect name="expiration_notification_status">
+                <argument name="optionsProvider" xsi:type="configurableObject">
+                    <argument name="class" xsi:type="string">Aheadworks\RewardPoints\Model\Source\SubscribeStatus</argument>
+                </argument>
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="provider" xsi:type="string">${ $.parentName }</item>
+                        <item name="imports" xsi:type="array">
+                            <item name="visible" xsi:type="string">ns = ${ $.ns }, componentType = column, index = ${ $.index }:visible</item>
+                        </item>
+                        <item name="caption" xsi:type="string">Select...</item>
+                        <item name="dataScope" xsi:type="string">expiration_notification_status</item>
+                        <item name="label" xsi:type="string" translate="true">Balance Update Notifications (status)</item>
+                    </item>
+                </argument>
+            </filterSelect>
+        </filters>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <container name="import_container">
+        <modal name="import_modal">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="onCancel" xsi:type="string">closeModal</item>
+                    <item name="options" xsi:type="array">
+                        <item name="title" xsi:type="string">Import</item>
+                        <item name="buttons" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="text" xsi:type="string">Import</item>
+                                <item name="class" xsi:type="string">action-primary</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="targetName" xsi:type="string">${ $.ns }.${ $.ns }.import_container.import_modal.import_fieldset.form_container</item>
+                                        <item name="actionName" xsi:type="string">apply</item>
+                                    </item>
+                                    <item name="1" xsi:type="string">actionDone</item>
+                                </item>
+                            </item>
+                            <item name="1" xsi:type="array">
+                                <item name="text" xsi:type="string">Back</item>
+                                <item name="class" xsi:type="string">action-default back</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="targetName" xsi:type="string">${ $.name }</item>
+                                        <item name="actionName" xsi:type="string">actionCancel</item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+            <fieldset name="import_fieldset">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string"/>
+                        <item name="dataScope" xsi:type="string"/>
+                    </item>
+                </argument>
+                <container name="form_container">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="component" xsi:type="string">Aheadworks_RewardPoints/js/ui/grid/import/form</item>
+                            <item name="dataScope" xsi:type="string">import</item>
+                            <item name="submit_url" xsi:type="url" path="aw_reward_points/customers/import"/>
+                        </item>
+                    </argument>
+                    <field name="csv_file">
+                        <argument name="data" xsi:type="array">
+                            <item name="config" xsi:type="array">
+                                <item name="label" xsi:type="string" translate="true">Import From Csv File</item>
+                                <item name="formElement" xsi:type="string">fileUploader</item>
+                                <item name="componentType" xsi:type="string">fileUploader</item>
+                                <item name="additionalClasses" xsi:type="string">aw-reward-points-admin-file-uploader</item>
+                                <item name="previewTmpl" xsi:type="string">Aheadworks_RewardPoints/ui/form/element/uploader/file-preview</item>
+                                <item name="maxFileSize" xsi:type="number">2097152</item>
+                                <item name="allowedExtensions" xsi:type="string">csv</item>
+                                <item name="sortOrder" xsi:type="number">10</item>
+                                <item name="uploaderConfig" xsi:type="array">
+                                    <item name="url" xsi:type="string">aw_reward_points/customers/upload</item>
+                                </item>
+                                <item name="validation" xsi:type="array">
+                                    <item name="required-entry" xsi:type="boolean">true</item>
+                                </item>
+                            </item>
+                        </argument>
+                    </field>
+                </container>
+            </fieldset>
+        </modal>
+    </container>
+
+    <columns name="aw_reward_points_customer_columns">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="component" xsi:type="string">Aheadworks_RewardPoints/js/ui/grid/listing</item>
+            </item>
+        </argument>
+        <selectionsColumn name="ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </selectionsColumn>
+        <column name="customer_name" class="Aheadworks\RewardPoints\Ui\Component\Listing\Columns\CustomerName">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Aheadworks_RewardPoints/js/ui/grid/columns/link</item>
+                    <item name="label" xsi:type="string" translate="true">Customer Name</item>
+                    <item name="sortOrder" xsi:type="number">0</item>
+                    <item name="filter" xsi:type="string">text</item>
+                </item>
+            </argument>
+        </column>
+        <column name="customer_email">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Customer Email</item>
+                    <item name="sortOrder" xsi:type="number">5</item>
+                </item>
+            </argument>
+        </column>
+        <column name="lifetime_sales" class="Aheadworks\RewardPoints\Ui\Component\Listing\Columns\Price">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="label" xsi:type="string" translate="true">Lifetime sales</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+            </argument>
+        </column>
+        <column name="points">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="label" xsi:type="string" translate="true">Current customer balance</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                </item>
+            </argument>
+        </column>
+        <column name="points_earn">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="label" xsi:type="string" translate="true">Total points earned</item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                    <item name="totalsVisible" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+        </column>
+        <column name="points_spend">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="label" xsi:type="string" translate="true">Total points spent</item>
+                    <item name="sortOrder" xsi:type="number">50</item>
+                    <item name="totalsVisible" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+        </column>
+        <column name="website_id" class="Aheadworks\RewardPoints\Ui\Component\Listing\Columns\Website">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Aheadworks\RewardPoints\Model\Source\Transaction\Website</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="sortable" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true">Website</item>
+                </item>
+            </argument>
+        </column>
+        <column name="balance_update_notification_status">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Aheadworks\RewardPoints\Model\Source\SubscribeStatus</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="sortable" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true">Balance Update Notifications (status)</item>
+                </item>
+            </argument>
+        </column>
+        <column name="expiration_notification_status">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Aheadworks\RewardPoints\Model\Source\SubscribeStatus</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="sortable" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true">Points Expiration Notification (status)</item>
+                </item>
+            </argument>
+        </column>
+    </columns> 
+</listing>

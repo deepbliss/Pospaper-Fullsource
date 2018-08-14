@@ -1,0 +1,114 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php /* @var $block \Magento\Catalog\Block\Product\View\AbstractView */?>
+<?php $_product = $block->getProduct() ?>
+
+<?php if ($block->displayProductStockStatus()): ?>
+    <?php if ($_product->isAvailable()): ?>
+      <div class="stock available">
+		    <span class="icon"><?= /* @escapeNotVerified */ __('In stock:') ?></span>
+        <div class="tooltip">More Info...
+    		  <span class="tooltiptext"><?php /* @escapeNotVerified */ echo $_product->getResource()->getAttribute('estimated_shipping_time')->getFrontend()->getValue($_product); ?>
+          </span>
+        </div>
+      </div>
+    <?php else: ?>
+        <div class="stock unavailable">
+<div class="tooltip">More Info...
+<span class="tooltiptext"><?php /* @escapeNotVerified */ echo $_product->getResource()->getAttribute('out_of_stock_label')->getFrontend()->getValue($_product);?>
+</span>
+</div>
+</div>
+    <?php endif; ?>
+<?php endif; ?>
+
+
+<div class="block block-customer-login" id="price-match-modal" style="display:none">
+<h2>Low Price Guarantee</h2>  
+<?php echo $this->getLayout()->createBlock("Magento\Framework\View\Element\Template")->setTemplate("Magento_Theme::html/price-match.phtml")->toHtml(); ?>
+</div>
+
+
+
+<div class="block block-matric-poup" id="matric-convert-modal" style="display:none">
+<h2>Metric Conversion</h2>
+<iframe src="<?php echo $block->getBaseUrl()?>new-conv.php"></iframe>
+</div>
+
+<script type="text/javascript">
+require(['jquery','Magento_Ui/js/modal/modal'],
+function($, modal) {
+var options = {
+type: 'popup',
+responsive: true,
+innerScroll: true,
+modalClass: 'custom-block-customer-login block-price-popup',
+buttons: [{
+text: 'Close',
+class: '',
+click: function() {
+this.closeModal();
+}
+}],
+};
+
+var matric_options = {
+type: 'popup',
+responsive: true,
+innerScroll: true,
+modalClass: 'custom-matric-popup',
+buttons: [{
+text: 'Close',
+class: '',
+click: function() {
+this.closeModal();
+}
+}],
+};
+
+jQuery('#price-match').click(function(){
+var popup = modal(options, jQuery('#price-match-modal'));
+jQuery('#price-match-modal').modal('openModal');
+});
+
+
+jQuery('#matric-convert').click(function(){
+var matric_popup = modal(matric_options, jQuery('#matric-convert-modal'));
+jQuery('#matric-convert-modal').modal('openModal');
+});
+
+
+}
+);
+</script>
+
+<!-- <script>
+		(function($){
+			jQuery(window).on("load",function(){
+				
+				jQuery("#iframe-container").mCustomScrollbar({
+					axis:"yx",
+					theme:"dark-thick"
+				}).on("mouseenter",function(){ //cross-domain iframe mousewheel hack
+					jQuery(this).find("iframe").css("pointer-events","none");
+				}).on("mouseup",function(){
+					if(!$(this).find(".mCSB_scrollTools_onDrag").length) return;
+					setTimeout(function(){ jQuery("#iframe-container").trigger("mouseenter"); },1);
+				});
+				jQuery(window).on("blur",function(){
+					jQuery("#iframe-container iframe").css("pointer-events","auto");
+				}).on("focus",function(){
+					jQuery("#iframe-container").trigger("mouseenter");
+				});
+				
+			});
+		})(jQuery);
+	</script> -->
+ 

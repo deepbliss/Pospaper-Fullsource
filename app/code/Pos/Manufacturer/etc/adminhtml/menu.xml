@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Pos. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Backend/etc/menu.xsd">
+    <menu>
+        <add id="Pos_Manufacturer::pos_manufacturer_index" title="Product Compability" module="Pos_Manufacturer"  sortOrder="20" dependsOnModule="Pos_Manufacturer" action="manufacturer/manufacturer/index" resource="Pos_Manufacturer::pos_manufacturer_index"/>
+<!--AddMenu-->
+    </menu>
+</config>

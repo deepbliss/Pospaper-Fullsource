@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">                             
+                <resource id="Shreeji_ImportExportReviews::importexportreviews" title="Shreeji Infosys" translate="title" sortOrder="35">
+                    <resource id="Shreeji_ImportExportReviews::importexportreviews_operation" title="Import Export" translate="title" sortOrder="10">
+                        <resource id="Shreeji_ImportExportReviews::customerreview_manage" title="Customer Reviews" translate="title" sortOrder="10" />                        
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

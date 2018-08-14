@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_AjaxScroll
+ * @copyright  Copyright (c) 2016 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Config/etc/system_file.xsd">
+	<system>
+		<tab id="landofcoder" translate="label" sortOrder="400">
+			<label><![CDATA[Lof All - <a href="http://landofcoder.com" target="_BLANK" title=""Magento Marketplace, Opencart Marketplace, Magento 2 Extension, Free Magento Extension, Opencart Advanced Reports">landofcoder.com</a>]]></label>
+		</tab>
+		<section id="lofajaxscroll" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+			<class>separator-top</class>
+			<label>Ajax Scroll</label>
+			<tab>landofcoder</tab>
+			<resource>Lof_All::config</resource>
+			<group id="general" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>General Settings</label>
+				<field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enabled</label> 
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field> 
+			</group>
+			<group id="instances" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Instances</label> 
+				<field id="categories" translate="label comment" type="multiselect" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Use in Categories</label>
+					<source_model>Lof\AjaxScroll\Model\Config\Source\Categories</source_model> 
+				</field>
+				<field id="enabled_grid" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Use in Grid/List mode</label> 
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field> 
+				<field id="enabled_layer" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Use in Layer mode</label> 
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field> 
+				<field id="enabled_search" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Use in Search </label> 
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field> 
+				<field id="enabled_advanced" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Use in Advanced Search</label> 
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field> 
+				<field id="enabled_brand" translate="label comment" type="select" sortOrder="55" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Use in Brand Page</label> 
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field> 
+				<field id="enable_parameter" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enable Parameter</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field> 
+			</group>
+			<group id="selectors" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Selectors</label> 
+				<field id="content" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Content</label>
+					<comment><![CDATA[Selector for the element that surrounds the items you will be loading more of.]]></comment>
+				</field>
+				<field id="pagination" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Pagination</label> 
+					<comment><![CDATA[Selector for pagination]]></comment> 
+				</field> 
+				<field id="toolbar" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Toolbar</label>  
+					<comment><![CDATA[Selector for the toolbar (normally pagination, sort-by and display type are inside here)]]></comment>
+				</field> 
+				<field id="next" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Next</label>  
+					<comment><![CDATA[Selector for the link to the next page.]]></comment>
+				</field> 
+				<field id="grid_mode" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Items (grid mode)</label>  
+					<comment><![CDATA[Selector for all items you'll retrieve..]]></comment>
+				</field> 
+				<field id="list_mode" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Items (list mode)</label>  
+					<comment><![CDATA[Selector for the element that surrounds the items you will be loading more of.]]></comment>
+				</field> 
+			</group>
+			<group id="design" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Design</label> 
+				<field id="loading_image" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Loading Image</label>
+					<comment><![CDATA[Use absolute URL or relative path to skin path. Leave empty for default.]]></comment>
+				</field>
+				<field id="loading_text" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Loading Text</label>  
+				</field> 
+				<field id="done_text" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Done Text</label>   
+				</field> 
+				<field id="hide_toolbar" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Hide Toolbar</label> 
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>  
+					<comment><![CDATA[Make sure you have the right css selector for the toolbar]]></comment>
+				</field> 
+				<field id="local_mode" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Local Mode</label>   
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<comment><![CDATA[Instead of watching the entire window scrolling, watch only the element this plugin was called on (set in Selectors->Content).]]></comment>
+				</field> 
+				<field id="buffer" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Buffer (px)</label>  
+					<comment><![CDATA[Set an offset before page end from which the content will start to load. A high number will load the next page a long time before the user reaches the bottom of the screen.]]></comment>
+				</field> 
+				<field id="load_more" translate="label comment" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Load More threshold</label>  
+					<comment><![CDATA[When this page number is reached, a button to load more products will be shown instead of continue loading products automatically with the scroll (this could be useful to help the user to reach the footer). TIP: use a high number to disable this feature.]]></comment>
+				</field>
+				<field id="load_more_text" translate="label comment" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Load More button text</label>  
+					<comment><![CDATA[Set an offset before page end from which the content will start to load. A high number will load the next page a long time before the user reaches the bottom of the screen.]]></comment>
+				</field>
+			</group> 
+		</section>
+	</system>
+</config>

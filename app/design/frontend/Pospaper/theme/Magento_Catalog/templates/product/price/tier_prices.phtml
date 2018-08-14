@@ -1,0 +1,270 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+
+<?php
+/** @var \Magento\Catalog\Pricing\Render\PriceBox $block */
+
+/** @var \Magento\Catalog\Pricing\Price\TierPrice $tierPriceModel */
+
+$tierPriceModel = $block->getPrice();
+$tierPrices = $tierPriceModel->getTierPriceList();
+$msrpShowOnGesture = $block->getPriceType('msrp_price')->isShowPriceOnGesture();
+$product = $block->getSaleableItem();
+$j = 0;
+$price_qty_array = array();
+$tier_pricess = array();
+
+?>
+<?php if (count($tierPrices)) : ?>
+    <ul class="<?php /* @escapeNotVerified */ echo($block->hasListClass() ? $block->getListClass() : 'prices-tier items'); ?>">
+    <table class="tier-price-table-shipping" width='100%'>
+    <thead><tr><th width="25%">Quantity</th><th width="25%">Price</th><th width="25%">Discount</th><th width="25%">Shipping</th></tr></thead>
+    <tbody>
+    <?php foreach ($tierPrices as $index => $price) : 
+    $price_qty_array[] = $price['price_qty'];
+    $tier_pricess[]=$price['price'];
+        ?>
+        <li class="item">
+            <?php
+                $unit_of_measure = $product->getData('unit_of_measure');
+                $productId = $product->getId();
+                $isSaleable = $product->isSaleable();
+                $popupId = 'msrp-popup-' . $productId . $block->getRandomString(20);
+                if ($msrpShowOnGesture && $price['price']->getValue() < $product->getMsrp()):
+                    $addToCartUrl = '';
+                    if ($isSaleable) {
+                        $addToCartUrl = $this->helper('\Magento\Checkout\Helper\Cart')
+                            ->getAddUrl($product, ['qty' => $price['price_qty']]);
+                    }
+                    $tierPriceData = [
+                        'addToCartUrl' => $addToCartUrl,
+                        'name' => $product->getName(),
+                        'realPrice' => $block->renderAmount(
+                            $price['price'],
+                            [
+                                'price_id'          => $index,
+                                'id_suffix'         => '-' . $index,
+                                'include_container' => true
+                            ]
+                        ),
+                        'msrpPrice' => $block->renderAmount(
+                            $block->getPriceType('msrp_price')->getAmount(),
+                            [
+                                'price_id'          => $index,
+                                'id_suffix'         => '-' . $index,
+                                'include_container' => true
+                            ]
+                        ),
+                    ];
+                    if ($block->getCanDisplayQty($product)) {
+                        $tierPriceData['qty'] = $price['price_qty'];
+                    }
+                ?>
+
+                
+
+                <?php /* @escapeNotVerified */ echo __('Buy %1 for: ', $price['price_qty']); ?>
+                <a href="javascript:void(0);"
+                   id="<?php /* @escapeNotVerified */ echo($popupId);?>"
+                   data-tier-price="<?php echo $block->escapeHtml($block->jsonEncode($tierPriceData)); ?>">
+                    <?php /* @escapeNotVerified */ echo __('Click for price'); ?></a>
+                <?php else:
+                    $priceAmountBlock = $block->renderAmount(
+                        $price['price'],
+                        [
+                            'price_id'          => $index,
+                            'id_suffix'         => '-' . $index,
+                            'include_container' => true,
+                            'zone' => \Magento\Framework\Pricing\Render::ZONE_ITEM_OPTION
+                        ]
+                    );
+                ?>
+               
+                <?php /* @escapeNotVerified */ 
+                        $j++;
+
+                          $price_qqq = $price['price'];
+                          $qty_qqq = $price['price_qty'];
+                          $free_ship_text = bcmul($price_qqq , $qty_qqq , 5);
+                         
+                        if($free_ship_text > 50)
+                            {
+                                $free_shi_label = "Free Shipping";
+                            }
+                            else
+                            {
+                                $free_shi_label = "-----------------";
+                            }
+                        if(count($tierPrices) > $j)
+                        {
+                            $tmp = $price['price_qty'].' - '.($tierPrices[$j]['price_qty'] - 1);
+                            echo ($block->getShowDetailedPrice() !== false)
+                            ? __(
+        '<tr><td align="left" valigh="center" width="25%">%1</td><td align="left" valigh="center" width="25%">%2</td><td align="left" valigh="center" width="25%">Save<span class="percent tier-%3">&nbsp;%4</span>%</td><td align="left" valigh="center" width="25%">%5</td></tr>',
+                                $tmp,
+                                $priceAmountBlock,
+                                $index,
+                                $tierPriceModel->getSavePercent($price['price']),
+                                $free_shi_label
+                                
+                            )
+                            : __('Buy %1 for %2 each', $price['price_qty'], $priceAmountBlock);
+                        }
+                        else
+                        {
+                            $tmp = $price['price_qty'].' + ';
+                            echo ($block->getShowDetailedPrice() !== false)
+                            ? __(
+                                '<tr><td align="left" valigh="center" width="25%">%1</td><td align="left" valigh="center" width="25%">%2</td><td align="left" valigh="center"  width="25%">Save<span class="percent tier-%3">&nbsp;%4</span>%</td><td align="left" valigh="center" width="25%">%5</td></tr>',
+                                $tmp,
+                                $priceAmountBlock,
+                                $index,
+                                $tierPriceModel->getSavePercent($price['price']),
+                                $free_shi_label
+                                
+                            )
+                            : __('Buy %1 for %2 each', $price['price_qty'], $priceAmountBlock);
+                        }
+                ?>
+
+
+
+            <?php endif; ?>
+        </li>
+    <?php 
+        
+    endforeach; ?>
+    </tbody>
+    </table>
+    </ul>
+
+
+<?php
+$str = implode (",", $price_qty_array);
+$str_price = implode (",", $tier_pricess);
+$str_price = $product->getPrice().','.$str_price;
+?>
+<script type="text/javascript">
+//********************************************************
+//******** BEGIN QTY / PRICE DYNAMIC DISPLAY *************
+//********************************************************
+var pdQtyHasPriceBreak = true;
+var pdQtyPriceBreakUnit= [1,<?php echo $str ?>];
+var pdQtyPriceBreakCost = [<?php echo $str_price ?>];
+var pfreeship = jQuery(".free-ship-icon").attr("id");
+function formatCurrency(num, includeDollarSign) {
+    num = num.toString().replace(/\$|\,/g,'');
+    if(isNaN(num))
+    num = "0";
+    sign = (num == (num = Math.abs(num)));
+    num = Math.floor(num*100+0.50000000001);
+    cents = num%100;
+    num = Math.floor(num/100).toString();
+    if(cents<10)
+    cents = "0" + cents;
+    for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+    num = num.substring(0,num.length-(4*i+3))+','+
+    num.substring(num.length-(4*i+3));
+    
+    var returnValue = (((sign)?'':'-') + num + '.' + cents);
+    if(includeDollarSign == true) returnValue = "$" + returnValue;  
+    return returnValue;
+}
+function pdUpdateQty(mod,setQty){
+    var qtyVal = parseInt(jQuery(".pdqtyinput").val());
+    var newQtyVal = qtyVal + mod;
+    if(newQtyVal >= 0){
+        if(newQtyVal == 0){
+            jQuery(".pdqtyinput").val(1);
+            jQuery(".pdqtyinput").attr("value",1);
+        }else{
+            jQuery(".pdqtyinput").val(newQtyVal);
+            jQuery(".pdqtyinput").attr("value",newQtyVal);
+        }
+    }
+    if(setQty > 0){
+        pdUpdatePriceDisplay(setQty);
+    }else{
+        if(newQtyVal >= 1){pdUpdatePriceDisplay(newQtyVal);}
+    }
+}
+function pdUpdatePriceDisplay(qty){
+
+    var pdprice = jQuery(".price-wrapper").attr("data-price-amount");
+    
+    if(pdQtyHasPriceBreak){
+    //*** IF QTY PRICE BREAKS EXISTS CALCULATION***
+        if(qty >= pdQtyPriceBreakUnit[(pdQtyPriceBreakUnit.length - 1)]){
+            pdprice = pdQtyPriceBreakCost[(pdQtyPriceBreakUnit.length - 1)];
+        }else{
+            for (i = 0; i < pdQtyPriceBreakUnit.length; i++) { 
+                var compareVal;
+                if((i + 1) == pdQtyPriceBreakUnit.length){compareVal = 0;}else{compareVal = 1;}
+                
+                if(qty < pdQtyPriceBreakUnit[i + compareVal]){
+                    pdprice = pdQtyPriceBreakCost[i];
+                    break;
+                }else{
+                    continue;   
+                }
+            }   
+        }
+    }
+    var total = (pdprice - 0) * qty;
+    var final_total = total / qty;
+    total = formatCurrency(final_total,true);
+
+    jQuery(".price-wrapper.pdPriceDisplay").html('<span class="price">'+total+'</span>');
+        
+}
+//**** SET QTY ELEMENT EVENT TRIGGERS *****
+function pdSetQtyEventTriggers(){
+//alert('pdSetQtyEventTriggers');
+ jQuery(".pdqtyminus").click(function(e) {
+   pdUpdateQty(-1);
+    e.preventDefault();
+ });
+ jQuery(".pdqtyplus").click(function(e) {
+   pdUpdateQty(1);
+    e.preventDefault();
+ });
+ jQuery(".pdqtyinput").keyup(function(e) {
+   pdUpdateQty(0,jQuery(this).val());
+    e.preventDefault();
+ });
+}
+//********************************************************
+//********* END QTY / PRICE DYNAMIC DISPLAY **************
+//********************************************************
+pdSetQtyEventTriggers();
+</script>
+
+
+
+    <?php if ($msrpShowOnGesture):?>
+        <script type="text/x-magento-init">
+            {
+                ".product-info-main": {
+                    "addToCart": {
+                        "origin": "tier",
+                        "addToCartButton": "#product_addtocart_form [type=submit]",
+                        "inputQty": "#qty",
+                        "attr": "[data-tier-price]",
+                        "productForm": "#product_addtocart_form",
+                        "productId": "<?php /* @escapeNotVerified */ echo $productId; ?>",
+                        "productIdInput": "input[type=hidden][name=product]",
+                        "isSaleable": "<?php /* @escapeNotVerified */ echo $isSaleable; ?>"
+                    }
+                }
+            }
+        </script>
+    <?php endif;?>
+<?php endif; ?>
+

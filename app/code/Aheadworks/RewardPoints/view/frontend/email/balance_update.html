@@ -1,0 +1,17 @@
+<!--@subject {{trans "Your Reward Points balance has been updated"}} @-->
+<!--@vars {
+"template config_path=\"design\/email\/footer_template\"":"Email Footer Template",
+"template config_path=\"design\/email\/header_template\"":"Email Header Template"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting">Dear {{var customer_name}}</p>
+<p>Your reward point balance at <a href="{{var store_url}}">{{var store_name|escape}}</a> has just been changed:
+{{var points}} points added{{depend comment}} ({{var comment}}){{/depend}}.
+{{depend expire_date}}These points will expire on {{var expire_date}} ({{if expire_in_days}}{{var expire_in_days}} days left{{else}}today{{/if}}).{{/depend}}</p>
+<p>Your current balance is {{var points_balance}} points, which equals to {{var money_balance}} worth of discount.</p>
+<p>Click <a href="{{var rp_program_url}}">here</a> to learn more about our loyalty program.</p>
+<p>Click here to <a href="{{var unsubscribe_url}}">unsubscribe</a></p>
+
+{{template config_path="design/email/footer_template"}}

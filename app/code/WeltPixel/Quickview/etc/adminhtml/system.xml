@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="weltpixel_quickview" translate="label" type="text" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Quick View and Ajax Cart</label>
+            <tab>weltpixel</tab>
+            <resource>WeltPixel_Quickview::QuickviewSettings</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="enable_product_listing" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable on product listing</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="remove_product_image" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Remove product image</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="remove_product_image_thumb" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Remove product image thumb</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="remove_product_image">0</field>
+                    </depends>
+                </field>
+                <field id="remove_short_description" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Remove short description</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="remove_qty_selector" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Remove qty selector</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_goto_product_button" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable go to product button</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="remove_availability" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Remove availability</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="remove_sku" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Remove sku</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="button_style" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Button Style</label>
+                    <source_model>WeltPixel\Quickview\Model\Config\Source\Buttonstyle</source_model>
+                </field>
+                <field id="close_quickview" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>After adding product to cart close quickview in X seconds</label>
+                    <validate>number</validate>
+                    <comment>If you enter 0, it will remain open until you close it.</comment>
+                </field>
+                <field id="scroll_to_top" translate="label" type="select" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Auto scroll to top and open quick </label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_shopping_checkout_product_buttons" translate="label" type="select" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable continue shopping/go to checkout buttons</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="custom_css" translate="label" type="textarea" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Custom CSS</label>
+                </field>
+                <field id="enable_zoom" translate="label" type="select" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable zoom</label>
+                    <source_model>WeltPixel\Quickview\Model\Config\Source\TrueFalse</source_model>
+                </field>
+                <field id="zoom_fullscreenzoom" translate="label" type="text" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Zoom of fullscreen</label>
+                    <validate>validate-number</validate>
+                    <depends>
+                        <field id="enable_zoom">true</field>
+                    </depends>
+                </field>
+                <field id="zoom_top" translate="label" type="text" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Top position of magnifier</label>
+                    <depends>
+                        <field id="enable_zoom">true</field>
+                    </depends>
+                </field>
+                <field id="zoom_left" translate="label" type="text" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Left position of magnifier</label>
+                    <depends>
+                        <field id="enable_zoom">true</field>
+                    </depends>
+                </field>
+                <field id="zoom_width" translate="label" type="text" sortOrder="180" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Width of magnifier block</label>
+                    <depends>
+                        <field id="enable_zoom">true</field>
+                    </depends>
+                </field>
+                <field id="zoom_height" translate="label" type="text" sortOrder="190" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Height of magnifier block</label>
+                    <depends>
+                        <field id="enable_zoom">true</field>
+                    </depends>
+                </field>
+                <field id="zoom_eventtype" translate="label" type="select" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Action that activates zoom</label>
+                    <source_model>WeltPixel\Quickview\Model\Config\Source\Gallery\EventType</source_model>
+                    <depends>
+                        <field id="enable_zoom">true</field>
+                    </depends>
+                </field>
+            </group>            
+        </section>
+    </system>
+</config>

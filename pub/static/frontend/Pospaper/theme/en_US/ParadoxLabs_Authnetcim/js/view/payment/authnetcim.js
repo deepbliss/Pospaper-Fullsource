@@ -1,0 +1,1 @@
+/chroot/home/pospaper/pospaper.com/html/app/code/ParadoxLabs/Authnetcim/view/frontend/web/js/view/payment/authnetcim.js

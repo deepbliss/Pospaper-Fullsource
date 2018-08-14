@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Aheadworks_Freeshippinglabel::css/styles.css"/>
+    </head>
+    <body>
+        <referenceContainer name="after.body.start">
+            <block class="Aheadworks\Freeshippinglabel\Block\Label" name="aw_fslabel_page_top_fixed" as="aw_fslabel_page_top_fixed" before="-" />
+        </referenceContainer>
+        <referenceContainer name="content.top">
+            <block class="Aheadworks\Freeshippinglabel\Block\Label" name="aw_fslabel_page_top" as="aw_fslabel_page_top" before="-" />
+            <block class="Aheadworks\Freeshippinglabel\Block\Label" name="aw_fslabel_content_top" as="aw_fslabel_content_top" before="-" />
+        </referenceContainer>
+        <referenceContainer name="content.aside">
+            <block class="Aheadworks\Freeshippinglabel\Block\Label" name="aw_fslabel_content_bottom" as="aw_fslabel_content_bottom"  after="-" />
+            <block class="Aheadworks\Freeshippinglabel\Block\Label" name="aw_fslabel_page_bottom" as="aw_fslabel_page_bottom" after="-" />
+        </referenceContainer>
+        <referenceContainer name="before.body.end">
+            <block class="Aheadworks\Freeshippinglabel\Block\Label" name="aw_fslabel_page_bottom_fixed" as="aw_fslabel_page_bottom_fixed" after="-" />
+        </referenceContainer>
+    </body>
+</page>

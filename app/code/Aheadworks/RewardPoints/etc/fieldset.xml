@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:DataObject/etc/fieldset.xsd">
+    <scope id="global">
+        <fieldset id="sales_convert_quote">
+            <field name="aw_reward_points_amount">
+                <aspect name="to_order" />
+            </field>
+            <field name="base_aw_reward_points_amount">
+                <aspect name="to_order" />
+            </field>
+            <field name="aw_reward_points">
+                <aspect name="to_order" />
+            </field>
+            <field name="aw_reward_points_description">
+                <aspect name="to_order" />
+            </field>
+        </fieldset>
+        <fieldset id="sales_convert_quote_address">
+            <field name="aw_reward_points_amount">
+                <aspect name="to_order" />
+            </field>
+            <field name="base_aw_reward_points_amount">
+                <aspect name="to_order" />
+            </field>
+            <field name="aw_reward_points_shipping_amount">
+                <aspect name="to_order" />
+            </field>
+            <field name="base_aw_reward_points_shipping_amount">
+                <aspect name="to_order" />
+            </field>
+            <field name="aw_reward_points_shipping">
+                <aspect name="to_order" />
+            </field>
+        </fieldset>
+        <fieldset id="quote_convert_item">
+            <field name="aw_reward_points_amount">
+                <aspect name="to_order_item" />
+            </field>
+            <field name="base_aw_reward_points_amount">
+                <aspect name="to_order_item" />
+            </field>
+            <field name="base_aw_reward_points">
+                <aspect name="to_order_item" />
+            </field>
+        </fieldset>
+    </scope>
+</config>      

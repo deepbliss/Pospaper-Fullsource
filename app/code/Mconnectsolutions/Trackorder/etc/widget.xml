@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+	<widget id="Mconnectsolutions_trackorder" class="Mconnectsolutions\Trackorder\Block\Widget\TrackOrder">
+		<label translate="true">Track Order</label>
+		<description>Track Order Widget</description>
+		<parameters>
+			<parameter name="trackorder" xsi:type="text" visible="true" sort_order="10" >
+				<label translate="true">Track widget</label>
+			</parameter>
+		</parameters>
+	</widget>
+</widgets>

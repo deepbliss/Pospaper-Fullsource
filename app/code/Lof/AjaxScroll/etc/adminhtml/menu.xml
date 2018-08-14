@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_AjaxScroll
+ * @copyright  Copyright (c) 2016 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Backend/etc/menu.xsd">
+	<menu>
+		<add id="Lof_AjaxScroll::ajaxscroll" title="Ajax Scroll" module="Lof_AjaxScroll"  sortOrder="25" resource="Lof_AjaxScroll::ajaxscroll" parent="Lof_All::lof_all"/>  
+		<add id="Lof_AjaxScroll::ajaxscroll_settings" title="Settings" module="Lof_AjaxScroll" sortOrder="10" action="adminhtml/system_config/edit/section/lofajaxscroll" resource="Lof_AjaxScroll::settings" parent="Lof_AjaxScroll::ajaxscroll"/>
+	</menu>
+</config>

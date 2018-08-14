@@ -1,0 +1,1 @@
+/chroot/home/pospaper/pospaper.com/html/vendor/magento/module-instant-purchase/view/frontend/web/js/view/instant-purchase.js

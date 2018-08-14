@@ -1,0 +1,183 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<div class="import-export-orderimportexport">
+    <?php if (!$block->getIsReadonly()): ?>
+    <div class="import-orderimportexport">
+        <?php if ($block->getUseContainer()): ?>
+        <form id="import-form" action="<?php echo $block->getUrl('orderimportexport/data/importPost') ?>" method="post" enctype="multipart/form-data">
+        <?php endif; ?>
+            <?php echo $block->getBlockHtml('formkey')?>
+            <fieldset class="fieldset">
+			<div class="admin__field field field-orderimportexport">
+                <legend class="legend"><span><?php echo __('Import Orders') ?></span></legend>
+				<label class="label admin__field-label" for="import_delimiter"><span>Import CSV Delimiter Value</span></label>
+				<div class="control">
+					<input id="basic_behavior_import_delimiter" name="import_delimiter" value="," title="Import Delimiter" class="basic_behavior input-text admin__control-text" type="text" size="1">
+				</div>
+				<label class="label admin__field-label" for="import_enclose"><span>Import CSV Enclose Value</span></label>
+				<div class="control">
+					<input id="basic_behavior_import_enclose" name="import_enclose" value='"' title="Import Enclose" class="basic_behavior input-text admin__control-text" type="text" size="1">
+				</div>
+				<label class="label admin__field-label" for="update_customer_address"><span>Update Order Addresses</span></label>
+				<div class="admin__field-control control">
+					<select id="update_customer_address" name="update_customer_address" title="Update Order Addresses" class="select admin__control-select">
+						<option value="false">No</option>
+						<option value="true">Yes</option>
+					</select>
+				</div>
+				<label class="label admin__field-label" for="skip_product_lookup"><span>Skip Product Lookup</span></label>
+				<div class="admin__field-control control">
+					<select id="skip_product_lookup" name="skip_product_lookup" title="Skip Product Lookup" class="select admin__control-select">
+						<option value="false">No</option>
+						<option value="true">Yes</option>
+					</select>
+				</div>
+				<label class="label admin__field-label" for="create_invoice"><span>Create Invoices</span></label>
+				<div class="admin__field-control control">
+					<select id="create_invoice" name="create_invoice" title="Create Invoices" class="select admin__control-select">
+						<option value="false">No</option>
+						<option value="true">Yes</option>
+					</select>
+				</div>
+				<label class="label admin__field-label" for="create_shipment"><span>Create Shipments</span></label>
+				<div class="admin__field-control control">
+					<select id="create_shipment" name="create_shipment" title="Create Shipments" class="select admin__control-select">
+						<option value="false">No</option>
+						<option value="true">Yes</option>
+					</select>
+				</div>
+				<label class="label admin__field-label" for="use_historic_tax"><span>Use Histroic Tax</span></label>
+				<div class="admin__field-control control">
+					<select id="use_historic_tax" name="use_historic_tax" title="Use Histroic Tax" class="select admin__control-select">
+						<option value="false">No</option>
+						<option value="true">Yes</option>
+					</select>
+				</div>
+            	<div class="admin__field-control control">
+               	 	<input type="file" name="import_rates_file" class="input-file required-entry"/>
+				</div>
+            	<div class="admin__field-control control">
+                	<?php echo $block->getButtonHtml('Import Orders', '', 'import-submit') ?>
+				</div>
+			</div>
+            </fieldset>
+        <?php if ($block->getUseContainer()): ?>
+        </form>
+        <?php endif; ?>
+        <script>
+require(['jquery', "mage/mage", "loadingPopup"], function(jQuery){
+
+    jQuery('#import-form').mage('form').mage('validation');
+    (function ($) {
+        $('.import-submit').click(function(){
+            if($(':input[name="import_rates_file"]').val()) {
+                $('body').loadingPopup({
+                    timeout: false
+                });
+
+                $(this.form).submit();
+            }
+        });
+    })(jQuery);
+
+});
+</script>
+    </div>
+    <?php endif; ?>
+    <div class="export-orderimportexport <?php if ($block->getIsReadonly()): ?>box-left<?php else: ?>box-right<?php endif; ?>">
+        <?php if ($block->getUseContainer()): ?>
+        <form id="export_form" action="<?php echo $block->getUrl('orderimportexport/data/exportPost') ?>" method="post" enctype="multipart/form-data">
+        <?php endif; ?>
+            <?php echo $block->getBlockHtml('formkey')?>
+            <fieldset class="fieldset">
+                <legend class="legend"><span><?php echo __('Export Orders') ?></span></legend>
+				 <div class="admin__filter-actions" data-role="filter-form" id="ordersExport_period_date_range">
+					<span class="field-row">
+						<label for="ordersExport_period_date_from" class="admin__control-support-text">
+							<span><?php echo __('From') ?>:</span>
+						</label>
+						<input class="input-text no-changes required-entry admin__control-text"
+							   type="text"
+							   id="ordersExport_period_date_from"
+							   name="date_from"
+							   value="">
+						<span id="ordersExport_period_date_from_advice"></span>
+					</span>
+
+					<span class="field-row">
+						<label for="ordersExport_period_date_to" class="admin__control-support-text">
+							<span><?php echo __('To') ?>:</span>
+						</label>
+						<input class="input-text no-changes required-entry admin__control-text"
+							   type="text"
+							   id="ordersExport_period_date_to"
+							   name="date_to"
+							   value=""/>
+						<span id="ordersExport_period_date_to_advice"></span>
+					</span>
+					<script>
+						require([
+							"jquery",
+							"mage/calendar"
+						], function($){
+							$("#ordersExport_period_date_range").dateRange({
+								dateFormat:"M/d/yy",
+								buttonText:"<?php echo __('Select Date') ?>",
+								from:{
+									id:"ordersExport_period_date_from"
+								},
+								to:{
+									id:"ordersExport_period_date_to"
+								}
+							});
+						});
+					</script>
+				</div>
+				<div class="admin__field field field-orderimportexport">
+                    <label class="label admin__field-label" for="export_delimiter"><span>Export CSV Delimiter Value</span></label>
+					<div class="control">
+						<input id="basic_behavior_export_delimiter" name="export_delimiter" value="," title="Export Delimiter" class="basic_behavior input-text admin__control-text" type="text" size="1">
+					</div>
+                    <label class="label admin__field-label" for="export_delimiter"><span>Export CSV Enclose Value</span></label>
+					<div class="control">
+						<input id="basic_behavior_export_enclose" name="export_enclose" value='"' title="Export Enclose" class="basic_behavior input-text admin__control-text" type="text" size="1">
+					</div>
+                </div>
+				<label class="label admin__field-label" for="export_order_address"><span>Export Order Addresses</span></label>
+				<div class="admin__field-control control">
+					<select id="export_order_address" name="export_order_address" title="Export Order Addresses" class="select admin__control-select">
+						<option value="false">No</option>
+						<option value="true">Yes</option>
+					</select>
+				</div>
+				<label class="label admin__field-label" for="export_product_tax_percent"><span>Export Historical Tax</span></label>
+				<div class="admin__field-control control">
+					<select id="export_product_tax_percent" name="export_product_tax_percent" title="Export Historical Tax" class="select admin__control-select">
+						<option value="false">No</option>
+						<option value="true">Yes</option>
+					</select>
+				</div>
+				<label class="label admin__field-label" for="export_product_pricing"><span>Export Historical Product Data</span></label>
+				<div class="admin__field-control control">
+					<select id="export_product_pricing" name="export_product_pricing" title="Export Historical Product Data" class="select admin__control-select">
+						<option value="false">No</option>
+						<option value="true">Yes</option>
+					</select>
+				</div>
+				<br/>
+				<div class="admin__field-control control">
+					<?php echo $block->getButtonHtml('Export Orders', "this.form.submit()") ?>
+                </div>
+            </fieldset>
+        <?php if ($block->getUseContainer()): ?>
+        </form>
+        <?php endif; ?>
+    </div>
+</div>

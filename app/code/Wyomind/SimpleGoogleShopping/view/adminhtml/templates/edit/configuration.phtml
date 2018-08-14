@@ -1,0 +1,40 @@
+<script>
+
+    require(["jquery", "sgs_configuration"], function ($, configuration) {
+
+        function waitFor(elt, callback) {
+            var initializer = null;
+            initializer = setInterval(function () {
+                if ($(elt).length > 0) {
+                    callback();
+                    clearInterval(initializer);
+                }
+            }, 200);
+        }
+
+        waitFor('#simplegoogleshopping_xmlitempattern', function () {
+
+            /* template editor */
+            configuration.codeMirrorProductPattern = CodeMirror.fromTextArea(document.getElementById('simplegoogleshopping_xmlitempattern'), {
+                matchBrackets: true,
+                mode: "application/x-httpd-php",
+                indentUnit: 2,
+                indentWithTabs: false,
+                lineWrapping: true,
+                lineNumbers: true,
+                styleActiveLine: true
+            });
+
+
+            // to be sure that the good value will be well stored in db
+            configuration.codeMirrorProductPattern.on('blur', function () {
+                $('#simplegoogleshopping_xmlitempattern').val(configuration.codeMirrorProductPattern.getValue());
+            });
+
+
+            configuration.codeMirrorProductPattern.refresh();
+        });
+
+    });
+
+</script>

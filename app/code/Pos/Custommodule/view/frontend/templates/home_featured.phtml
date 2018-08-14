@@ -1,0 +1,124 @@
+	<ol id="featured-slider" class="featured-slider owl-carousel">
+		<?php 
+		$products_collection = $this->getProducts();
+		foreach ($products_collection as $product): 
+			echo "<li>";
+			echo "<div class='main_featured_div slider-section' id='main_featured_div'>";
+				echo "<div class='main_featured_img slider-pro-img' id='main_featured_img'>"; ?>
+                <a href="<?= /* @escapeNotVerified */ $product->getProductUrl() ?>">
+                <?php 
+					$imageUrl = $this->getMediaUrl(). 'catalog/product' . $product->getImage();
+					echo "<img src='".$imageUrl."' alt='".$product->getName()."' class='".$product->getName()."' />";
+                echo "</a>";
+				echo "</div>";
+                echo "<div class='slider-produc-info'>";
+				echo "<div class='main_featured_name slider-pro-name' id='main_featured_name'>"; ?>
+                <a href="<?= /* @escapeNotVerified */ $product->getProductUrl() ?>">
+                <?php               
+                    //echo $product->getName();   
+
+
+                           $str = $product->getName();
+                                   // $tmp_str = mb_substr($str,0,111,'utf-8');
+                                  echo $out = strlen($str) > 104 ? substr($str,0,104)."..." : $str;
+                                    
+
+                echo "</a>";
+				echo "</div>";
+				echo "<div class='main_featured_price slider-price' id='main_featured_price'>"; ?>
+                <div class="price-div">
+                    <?php
+            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                    if($product->getTierPrice())
+                    {
+                        $tier_prices = $product->getTierPrice();
+                        foreach ($tier_prices as $price) {
+                        $website_price = $price['website_price'];
+                        };
+                        $priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data'); // Instance of Pricing Helper
+                        $bsprice = '<span class="price-label">As low as</span><span class="price">'.$priceHelper->currency($website_price, true, false).'</span>';
+                    }
+                    else
+                    {
+                     $bsprice = $product->getFormatedPrice($product->getFinalPrice());    
+                    }
+                    echo $bsprice;
+             $product = $objectManager->create('Magento\Catalog\Model\Product')->load($product->getId());
+             echo '/'.$product->getData('unit_of_measure'); 
+            ?>
+        </div>
+        <?php
+                        
+                        if ($product->getData('is_bestseller') == 1): ?>
+                    <div class="bestseller-img">
+                    put image here
+                    </div>
+                        <?php endif;?>
+            <?php
+                       echo "<div class='rating-div'>"; ?>
+                       <?php 
+        //pass $product object as argument...
+                    $_ratingSummary = $block->getRatingSummary($product);
+                     $_reviewCount = $product->getRatingSummary()->getReviewsCount();
+                        ?>
+                        <?php if($_ratingSummary){ ?>
+                        <div class="product-reviews-summary short">
+                            <div class="rating-summary">
+                                <div title="<?php echo (int)$_ratingSummary; ?>%" class="rating-result">
+                                    <span style="width:<?php echo (int)$_ratingSummary; ?>%"><span><?php echo (int)$_ratingSummary; ?>%</span></span>
+                                </div>
+                            </div>
+                            <div class="reviews-actions">
+                                <?php echo __('('.$_reviewCount.')'); ?>
+                            </div>
+                        </div>
+                        <?php } ?>
+
+
+                      <?php echo "</div>";
+				echo "</div>";
+                
+                echo "<div class='slider-button-sec' id='main_featured_addto'>";
+				echo "<div class='main_featured_addto' id='main_featured_addto'>";
+					echo "<form data-role='tocart-form' action='".$this->getAddtocartlink($product)."' method='post'>
+    				".$block->getBlockHtml('formkey')."
+       				<button type='submit'
+               			title='Add to Cart'
+               			class='action tocart primary'>
+               			<span>Add to Cart</span>
+        			</button>
+ 				</form>";
+				echo "</div>";                                
+				echo "<div class='main_featured_quickview other-actions' id='main_featured_quickview'>";                    
+					 echo "<a class='action whishlist towishlist' href='#' data-action='add-to-wishlist' data-post='".$this->helper('Magento\Wishlist\Helper\Data')->getAddParams($product)."'>";
+                            echo "<span>Whishlist</span>";
+                    echo "</a>";
+                    echo "<a class='weltpixel-quickview weltpixel_quickview_button_v2' title='Quick View' data-quickview-url='".$block->getBaseUrl()."weltpixel_quickview/catalog_product/view/id/".$product->getId()."/'>";
+                            echo "<span>Quickview</span>";
+                    echo "</a>";
+                    echo "<a class='action tocompare' href='#' data-post='".$this->helper('Magento\Catalog\Helper\Product\Compare')->getPostDataParams($product)."' role='button'>";
+                            echo "<span>Compare</span>";
+                    echo "</a>";
+                echo "</div>";
+                echo "</div>";
+				echo "</div>";
+            echo "</div>";
+			echo "</li>";
+		endforeach; 
+		?>
+</ol>
+
+
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                "wishlist": {
+                    "component": "Magento_Wishlist/js/view/wishlist"
+                }
+            }
+        }
+    }
+}
+</script>

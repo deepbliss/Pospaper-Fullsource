@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+        <customnumber>
+            <general>
+                <enabled>0</enabled>
+            </general>
+            <order>
+                <start>1</start>
+            </order>
+            <invoice>
+                <same>1</same>
+                <prefix>INV-</prefix>
+            </invoice>
+            <shipment>
+                <same>31</same>
+                <prefix>SHI-</prefix>
+            </shipment>
+        </customnumber>
+		<payment>
+			<imported_placeholder>
+				<active>0</active>
+				<model>CommerceExtensions\OrderImportExport\Model\Payment\Method\Fake</model>
+				<title>imported</title>
+				<allowspecific>0</allowspecific>
+				<sort_order>1</sort_order>
+			</imported_placeholder>
+		</payment>
+       	<carriers>
+            <imported>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>CommerceExtensions\OrderImportExport\Model\Carrier\Imported</model>
+                <name>imported</name>
+                <price>0.00</price>
+                <title>imported</title>
+                <type>O</type>
+            </imported>
+        </carriers>
+	</default>
+</config>

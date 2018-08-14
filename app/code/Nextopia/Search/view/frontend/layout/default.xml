@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <referenceBlock name="head.additional">
+        <block template="Nextopia_Search::frontend/head.phtml"
+               class="Magento\Framework\View\Element\Template"
+               name="nextopia.search.nsearch.head">
+            <arguments>
+                <argument name="is_search_page" xsi:type="boolean">false</argument>
+            </arguments>
+        </block>
+    </referenceBlock>
+</page>

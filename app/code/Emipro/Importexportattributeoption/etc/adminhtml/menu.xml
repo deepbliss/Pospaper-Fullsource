@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Backend/etc/menu.xsd">
+    <menu>
+         <add id="Emipro_Importexportattributeoption::emipro_importexportattributeoption_index_index" title="Import/Export Attribute Options" parent="Magento_Backend::system_convert" module="Emipro_Importexportattributeoption"  sortOrder="60" action="importexportattributeoption/index/index" resource="Emipro_Importexportattributeoption::importexportattributeoption_index_index"/>
+    </menu>
+</config>

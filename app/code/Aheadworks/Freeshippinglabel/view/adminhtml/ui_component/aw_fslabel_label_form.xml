@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">aw_fslabel_label_form.aw_fslabel_label_form_data_source</item>
+            <item name="deps" xsi:type="string">aw_fslabel_label_form.aw_fslabel_label_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Settings</item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">aw_fslabel_label_form</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="save" xsi:type="string">Aheadworks\Freeshippinglabel\Block\Adminhtml\Settings\Index\Button\Save</item>
+        </item>
+    </argument>
+    <dataSource name="aw_fslabel_label_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Aheadworks\Freeshippinglabel\Ui\DataProvider\LabelDataProvider</argument>
+            <argument name="name" xsi:type="string">aw_fslabel_label_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="aw_fslabel_admin/settings/save"/>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <fieldset name="general_fieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="boolean">false</item>
+                <item name="collapsible" xsi:type="boolean">false</item>
+                <item name="sortOrder" xsi:type="number">10</item>
+            </item>
+        </argument>
+        <field name="id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">label</item>
+                    <item name="dataScope" xsi:type="string">id</item>
+                </item>
+            </argument>
+        </field>
+        <field name="is_enabled">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="label" xsi:type="string" translate="true">Enabled</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="source" xsi:type="string">label</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="dataScope" xsi:type="string">is_enabled</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="string">1</item>
+                        <item name="false" xsi:type="string">0</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="customer_group_ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Customer Groups</item>
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="source" xsi:type="string">label</item>
+                    <item name="dataScope" xsi:type="string">customer_group_ids</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+                <item name="options" xsi:type="object">Aheadworks\Freeshippinglabel\Model\Source\CustomerGroups</item>
+            </argument>
+        </field>
+        <field name="goal">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Free Shipping Goal</item>
+                    <item name="notice" xsi:type="string" translate="true">In base currency</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">label</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="dataScope" xsi:type="string">goal</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="validate-number" xsi:type="boolean">true</item>
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="display_settings_fieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Where to Display</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">20</item>
+            </item>
+        </argument>
+        <field name="page_type">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Aheadworks\Freeshippinglabel\Model\Source\PageType</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Pages</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">label</item>
+                    <item name="dataScope" xsi:type="string">page_type</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+            </argument>
+        </field>
+        <field name="position">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Aheadworks\Freeshippinglabel\Model\Source\Position</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Layout Position</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">label</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="dataScope" xsi:type="string">position</item>
+                </item>
+            </argument>
+        </field>
+        <field name="delay">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="label" xsi:type="string" translate="true">Display with delay after page load, seconds</item>
+                    <item name="notice" xsi:type="string" translate="true">0 - no delay</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">label</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="dataScope" xsi:type="string">delay</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="validate-number" xsi:type="boolean">true</item>
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="content_fieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Content</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">30</item>
+            </item>
+        </argument>
+        <container name="field_content" >
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+            </argument>
+            <htmlContent name="content_empty_cart">
+                <argument name="block" xsi:type="configurableObject">
+                    <argument name="class" xsi:type="string">Aheadworks\Freeshippinglabel\Block\Adminhtml\Settings\Index\Tab\Content</argument>
+                    <argument name="data" xsi:type="array">
+                        <item name="content_type" xsi:type="string">empty_cart</item>
+                        <item name="label" xsi:type="string" translate="true">Content when cart is empty</item>
+                    </argument>
+                </argument>
+            </htmlContent>
+            <htmlContent name="content_not_empty_cart">
+                <argument name="block" xsi:type="configurableObject">
+                    <argument name="class" xsi:type="string">Aheadworks\Freeshippinglabel\Block\Adminhtml\Settings\Index\Tab\Content</argument>
+                    <argument name="data" xsi:type="array">
+                        <item name="content_type" xsi:type="string">not_empty_cart</item>
+                        <item name="label" xsi:type="string" translate="true">Content when cart is not empty</item>
+                    </argument>
+                </argument>
+            </htmlContent>
+            <htmlContent name="content_goal_reached">
+                <argument name="block" xsi:type="configurableObject">
+                    <argument name="class" xsi:type="string">Aheadworks\Freeshippinglabel\Block\Adminhtml\Settings\Index\Tab\Content</argument>
+                    <argument name="data" xsi:type="array">
+                        <item name="content_type" xsi:type="string">goal_reached</item>
+                        <item name="label" xsi:type="string" translate="true">Content when goal is reached</item>
+                    </argument>
+                </argument>
+            </htmlContent>
+        </container>
+    </fieldset>
+    <fieldset name="design_fieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Design</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">40</item>
+            </item>
+        </argument>
+        <field name="font_name">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Aheadworks\Freeshippinglabel\Model\Source\Fonts</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Font</item>
+                    <item name="notice" xsi:type="string" translate="true">Most popular Google Fonts are used.</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">label</item>
+                    <item name="dataScope" xsi:type="string">font_name</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+            </argument>
+        </field>
+        <field name="font_size">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Font Size, px</item>
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">label</item>
+                    <item name="dataScope" xsi:type="string">font_size</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="validate-digits" xsi:type="boolean">true</item>
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="font_weight">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Aheadworks\Freeshippinglabel\Model\Source\FontWeight</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Font Weight</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">label</item>
+                    <item name="dataScope" xsi:type="string">font_weight</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                </item>
+            </argument>
+        </field>
+        <field name="font_color">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Font Color</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="component" xsi:type="string">Aheadworks_Freeshippinglabel/js/component/color-picker</item>
+                    <item name="source" xsi:type="string">label</item>
+                    <item name="dataScope" xsi:type="string">font_color</item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                </item>
+            </argument>
+        </field>
+        <field name="goal_font_color">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Font Color of Goal</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="component" xsi:type="string">Aheadworks_Freeshippinglabel/js/component/color-picker</item>
+                    <item name="source" xsi:type="string">label</item>
+                    <item name="dataScope" xsi:type="string">goal_font_color</item>
+                    <item name="sortOrder" xsi:type="number">50</item>
+                </item>
+            </argument>
+        </field>
+        <field name="background_color">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Background Color</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="component" xsi:type="string">Aheadworks_Freeshippinglabel/js/component/color-picker</item>
+                    <item name="source" xsi:type="string">label</item>
+                    <item name="dataScope" xsi:type="string">background_color</item>
+                    <item name="sortOrder" xsi:type="number">60</item>
+                </item>
+            </argument>
+        </field>
+        <field name="text_align">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Aheadworks\Freeshippinglabel\Model\Source\TextAlign</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Text Align</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">label</item>
+                    <item name="dataScope" xsi:type="string">text_align</item>
+                    <item name="sortOrder" xsi:type="number">70</item>
+                </item>
+            </argument>
+        </field>
+        <field name="custom_css">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Custom CSS</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="source" xsi:type="string">label</item>
+                    <item name="dataScope" xsi:type="string">custom_css</item>
+                    <item name="sortOrder" xsi:type="number">80</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="preview_fieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Preview</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">50</item>
+            </item>
+        </argument>
+        <container name="preview" >
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+            </argument>
+            <htmlContent name="html_content">
+                <argument name="block" xsi:type="object">Aheadworks\Freeshippinglabel\Block\Adminhtml\Settings\Index\Tab\Preview</argument>
+            </htmlContent>
+        </container>
+    </fieldset>
+</form>

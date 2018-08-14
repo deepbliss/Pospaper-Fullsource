@@ -1,0 +1,18 @@
+<?php
+/*
+ * Copyright © 2017 Wyomind. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+$data = [
+    'No product found.' => __('No product found.'),
+    'mapped as :' => __('mapped as :'),
+    'your google product category' => __('your google product category'),
+    'Press `End.` on your keyboard in order to apply this value to all the sub-categories' => __('Press `End.` on your keyboard in order to apply this value to all the sub-categories')
+];
+?>
+<script>
+    require(["jquery", "mage/translate"], function ($) {
+        $.mage.translate.add(<?php echo Zend_Json::encode($data) ?>)
+    });
+</script>

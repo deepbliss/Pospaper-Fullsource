@@ -1,0 +1,45 @@
+<div class="category-list">
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $category = $objectManager->get('Magento\Framework\Registry')->registry('current_category');//get current category
+    
+    $child_categories = $this->getChildCategories($category->getId());
+?>
+
+
+<ul>
+<?php
+foreach($child_categories as $category):
+     if (!$category->getIsActive()) {
+        continue;
+     }
+?>
+<li id="cat-id-<?php echo $category->getId() ?>" class="item">
+<div class="cat-img">
+<a href="<?php echo $category->getUrl(); ?>">
+<?php
+     $catId = $category->getId();
+    $categoryAgain = $this->getCategoryView()->load($catId);
+
+    $_outputhelper = $this->helper('Magento\Catalog\Helper\Output');
+    $_imgHtml   = '';
+    if ($_imgUrl = $categoryAgain->getImageUrl()) {
+        $_imgHtml = '<img src="' . $_imgUrl . '" />';
+        $_imgHtml = $_outputhelper->categoryAttribute($categoryAgain, $_imgHtml, 'image');
+        /* @escapeNotVerified */ 
+        echo $_imgHtml;
+    }
+?>
+</a>
+</div>
+<div class="cat-info">
+<a class="cat-id" href="<?php echo $category->getUrl(); ?>" id="<?php echo $category->getId() ?>"><?php echo $category->getName() ?></a>
+</div>
+</li>
+
+<?php
+endforeach;
+?>
+</ul>
+
+</div>

@@ -1,0 +1,19 @@
+<?php
+/** @var \ParadoxLabs\TokenBase\Block\Customer\Wrapper $block */
+// @codingStandardsIgnoreFile
+?>
+<?php if (count($block->getActiveMethods()) > 1): ?>
+    <ul class="links">
+        <?php foreach ($block->getActiveMethods() as $method): ?>
+            <li <?php if ($block->getCurrentMethod() == $method): ?>class="active"<?php endif; ?>>
+                <a href="<?php echo $block->escapeUrl($block->getUrl('*/*/*', ['method' => $method])); ?>">
+                    <?php echo $block->escapeHtml($block->getMethodTitle($method)); ?>
+                </a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
+
+<div class="manage-payment-method">
+    <?php echo $block->getChildHtml(); ?>
+</div>

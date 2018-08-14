@@ -1,0 +1,8 @@
+ * Magestore.com
+ *
+ * NOTICE OF LICENSE
+ * This source package is subject to the Magestore.com license that is available through the world-wide-web at this URL: http://www.magestore.com/license-agreement.html
+ * Please see LICENSE.txt
+ *
+ * DISCLAIMER
+ * Do not edit or add to any file of this package if you wish to upgrade this extension to newer version in the future.

@@ -1,0 +1,133 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Aheadworks\Freeshippinglabel\Block\Adminhtml\Settings\Index\Tab\Content */
+
+$contentType = $block->getContentType();
+$isSingleStoreMode = $block->isSingleStoreMode();
+?>
+<div class="admin__field">
+    <label class="admin__field-label">
+        <span><?php echo $block->escapeHtml($block->getLabel()) ?></span>
+    </label>
+    <table id="content_<?php /* @noEscape */ echo $contentType ?>_table" class="admin__control-table aw-fslabel_label__content">
+        <thead>
+        <tr>
+            <?php if (!$isSingleStoreMode): ?>
+                <th class="col-store-view"><?php echo $block->escapeHtml(__('Store View')) ?></th>
+            <?php endif; ?>
+            <th class="col-message">
+                <div class="label">
+                    <?php echo $block->escapeHtml(__('Message')) ?>
+                </div>
+                <div class="admin__field-tooltip">
+                    <a class="admin__field-tooltip-action action-help" tabindex="1" data-bind="attr: {href: tooltip.link}" href="#"></a>
+                    <div class="admin__field-tooltip-content" data-bind="text: tooltip.description">
+                        <?php echo $block->escapeHtml(__('Variables')) ?>:<br/>
+                        <?php echo $block->escapeHtml(__('{{ruleGoal}} - returns value of the Goal in current currency with currency code')) ?><br/>
+                        <?php echo $block->escapeHtml(__('{{ruleGoalLeft}} - returns value left to reach the Goal. (Left = Goal - CartTotal)')) ?>
+                    </div>
+                </div>
+            </th>
+            <?php if (!$isSingleStoreMode): ?>
+                <th class="col-delete">&nbsp;</th>
+            <?php endif; ?>
+        </tr>
+        </thead>
+        <tbody data-role="rows-container"></tbody>
+        <?php if (!$isSingleStoreMode): ?>
+            <tfoot>
+            <tr>
+                <td colspan="3" class="col-actions-add">
+                    <button title="<?php echo $block->escapeHtml(__('Add')) ?>"
+                            type="button"
+                            class="add"
+                            data-role="add-button">
+                        <span><?php echo $block->escapeHtml(__('Add')) ?></span>
+                    </button>
+                </td>
+            </tr>
+            </tfoot>
+        <?php endif; ?>
+        <script data-role="row-template" type="text/x-magento-template">
+            <tr data-role="row" data-index="<%- data.index %>">
+                <?php if ($isSingleStoreMode): ?>
+                    <input type="hidden"
+                           name="content[<?php /* @noEscape */ echo $contentType ?>][<%- data.index %>][store_id]"
+                           value="<?php /* @noEscape */ echo \Magento\Store\Model\Store::DEFAULT_STORE_ID; ?>"
+                           data-role="store-view"
+                           data-index="<%- data.index %>"
+                           data-form-part="aw_fslabel_label_form"/>
+                <?php else: ?>
+                    <td class="col-store-view">
+                        <select class="required-entry"
+                                name="content[<?php /* @noEscape */ echo $contentType ?>][<%- data.index %>][store_id]"
+                                data-form-part="aw_fslabel_label_form"
+                                data-role="store-view"
+                                data-index="<%- data.index %>">
+                            <?php foreach ($block->getStoresOptions() as $optGroup): ?>
+                                <?php if (is_array($optGroup['value'])): ?>
+                                    <optgroup label="<?php echo $block->escapeHtml(__($optGroup['label'])) ?>"></optgroup>
+                                    <?php foreach ($optGroup['value'] as $storeViewOption): ?>
+                                        <option value="<?php /* @noEscape */ echo $storeViewOption['value'] ?>"><?php echo $block->escapeHtml(__($storeViewOption['label'])) ?></option>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <option value="<?php /* @noEscape */ echo $optGroup['value'] ?>"><?php echo $block->escapeHtml(__($optGroup['label'])) ?></option>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </select>
+                    </td>
+                <?php endif; ?>
+                <input type="hidden"
+                       name="content[<?php /* @noEscape */ echo $contentType ?>][<%- data.index %>][content_type]"
+                       value="<?php /* @noEscape */ echo $contentType ?>"
+                       data-role="content_type"
+                       data-index="<%- data.index %>"
+                       data-form-part="aw_fslabel_label_form"/>
+                <td class="col-message">
+                    <input class="required-entry"
+                           type="text"
+                           name="content[<?php /* @noEscape */ echo $contentType ?>][<%- data.index %>][message]"
+                           value="<%- data.message %>"
+                           data-role="message"
+                           data-index="<%- data.index %>"
+                           data-form-part="aw_fslabel_label_form"/>
+                </td>
+                <?php if (!$isSingleStoreMode): ?>
+                    <td class="col-delete">
+                        <input class="delete-flag"
+                               type="hidden"
+                               name="content[<?php /* @noEscape */ echo $contentType ?>][<%- data.index %>][removed]"
+                               value="0"
+                               data-form-part="aw_fslabel_label_form"
+                               data-role="delete-flag"
+                               data-index="<%- data.index %>"
+                            />
+                        <button title="<?php echo $block->escapeHtml(__('Delete')) ?>"
+                                type="button"
+                                class="delete"
+                                data-role="delete-button"
+                                data-index="<%- data.index %>">
+                            <span><?php echo $block->escapeHtml(__('Delete')) ?></span>
+                        </button>
+                    </td>
+                <?php endif; ?>
+            </tr>
+        </script>
+    </table>
+</div>
+<script type="text/x-magento-init">
+    {
+        "#content_<?php /* @noEscape */ echo $contentType ?>_table": {
+            "awFslabelContent": {
+                "optionValues": <?php /* @noEscape */ echo \Zend_Json::encode($block->getContentItems()) ?>,
+                "templateSelector": "#content_<?php /* @noEscape */ echo $contentType ?>_table [data-role=row-template]"
+            }
+        }
+    }
+</script>

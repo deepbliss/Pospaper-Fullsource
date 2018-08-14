@@ -1,0 +1,32 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * @var \Magento\Theme\Block\Html\Header\Logo $block
+ */
+?>
+<?php $storeName = $block->getThemeName() ? $block->getThemeName() : $block->getLogoAlt();?>
+<a href="#menu" class="nav_btn">menu</a>
+<?php if ($block->isHomePage()):?>
+    <strong class="logo"><a href="<?= $block->getUrl('') ?>" title="<?= /* @escapeNotVerified */ $storeName ?>">
+<?php else: ?>
+    <a class="logo" href="<?= $block->getUrl('') ?>" title="<?= /* @escapeNotVerified */ $storeName ?>">
+<?php endif ?>
+        <img src="<?= /* @escapeNotVerified */ $block->getLogoSrc() ?>"
+             alt="<?= /* @escapeNotVerified */ $block->getLogoAlt() ?>"             
+        />
+<?php if ($block->isHomePage()):?>
+    </a></strong>
+<?php else:?>
+    </a>
+<?php endif?>
+
+
+
+
+<div id="back-to-top" class="back-to-top" title="Back to Top">Back to top</div>

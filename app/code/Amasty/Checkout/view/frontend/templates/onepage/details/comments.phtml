@@ -1,0 +1,20 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+?>
+<?php /** @var  $block \Magento\Sales\Block\Order\View*/?>
+
+<?php $_history = $block->getOrder()->getVisibleStatusHistory() ?>
+<?php if (count($_history)): ?>
+    <div class="block block-order-details-comments">
+        <div class="block-title"><strong><?= __('Comments') ?></strong></div>
+        <div class="block-content">
+            <?php foreach ($_history as $_historyItem): ?>
+                <div class="comment-content"><?php echo $block->escapeHtml($_historyItem->getComment()) ?></div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+<?php endif; ?>

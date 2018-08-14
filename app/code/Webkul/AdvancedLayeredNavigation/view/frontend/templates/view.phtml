@@ -1,0 +1,223 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_AdvancedLayeredNavigation
+ * @author    Webkul
+ * @copyright Copyright (c) 2010-2018 Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php if ($block->canShowBlock()): ?>
+    <!-- <div class="block filter" id="layered-filter-block" data-mage-init='{"collapsible":{"openedState": "active", "collapsible": true, "active": false, "collateral": { "openedState": "filter-active", "element": "body" } }}'> -->
+
+<div class="block filter1" id="layered-filter-block">
+
+        
+        <div class="refine-search md">
+            <strong><?php /* @escapeNotVerified */ echo __('Refine Your Search') ?></strong>
+        </div>
+        <div class="block-content filter-content">
+            <?php echo $block->getChildHtml('state') ?>
+
+            <?php if ($block->getLayer()->getState()->getFilters()): ?>
+                <div class="block-actions filter-actions">
+                    <span data-url="<?php /* @escapeNotVerified */ echo $block->getClearUrl() ?>" class="wk-filter-action action clear filter-clear"><a href="#"><?php /* @escapeNotVerified */ echo __('Clear All') ?></a></span>
+                </div>
+            <?php endif; ?>
+            <?php $wrapOptions = false; ?>
+            <?php foreach ($block->getFilters() as $filter): ?>
+                <?php if ($filter->getItemsCount()): ?>
+                    <?php if (!$wrapOptions): ?>
+                       <!--  <strong role="heading" aria-level="2" class="block-subtitle filter-subtitle"><?php /* @escapeNotVerified */ echo __('Shopping Options') ?></strong> -->
+                        <!-- <div class="filter-options" id="narrow-by-list" data-role="content" data-mage-init='{"accordion":{"openedState": "active", "collapsible": true, "active": false, "multipleCollapsible": false}}'> -->
+
+                        <div class="filter-options" id="narrow-by-list" data-role="content">
+                    <?php  $wrapOptions = true; endif; ?>
+
+                    <?php
+                    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                    $category = $objectManager->get('Magento\Framework\Registry')->registry('current_category');//get current category
+                    if(isset($category))
+                                    {
+                     $enable_filter = $category->getData('att_sorting');
+                     $all_filter_attributes = explode(',', $enable_filter);
+                   }
+                    if(isset($enable_filter)):
+                    if(in_array($filter->getId(), $all_filter_attributes)):
+                    if($filter->getName() == "Compatible Models")
+                                {
+                                    if(isset($category))
+                                    {
+                                         $showfilter = $category->getData('com_model_display');
+                                    }
+                                    if($showfilter)
+                                    {
+                                        ?>
+                                        <div data-role="collapsible" class="filter-options-item">
+                                            <div data-role="title" class="filter-options-title"><?php /* @escapeNotVerified */ echo __($filter->getName()) ?></div>
+                                            <div data-role="content" class="filter-options-content"><?php /* @escapeNotVerified */ echo $block->getChildBlock('renderer')->render($filter); ?></div>
+                                        </div>
+                                        <?php
+                                    }
+                                    else
+                                    { ?>
+                                        <div data-role="collapsible" class="filter-options-item">
+                                            <div data-role="title" class="filter-options-title"><?php /* @escapeNotVerified */ echo __($filter->getName()) ?></div>
+                                            <div data-role="content" class="filter-options-content"><?php /* @escapeNotVerified */ echo $block->getChildBlock('renderer')->render($filter); ?></div>
+                                        </div>
+                                    <?php }
+                                }   
+                                else
+                                {
+
+                                ?>
+                                <div data-role="collapsible" class="filter-options-item">
+                                    <div data-role="title" class="filter-options-title"><?php /* @escapeNotVerified */ echo __($filter->getName()) ?></div>
+                                    <div data-role="content" class="filter-options-content"><?php /* @escapeNotVerified */ echo $block->getChildBlock('renderer')->render($filter); ?></div>
+                                </div>
+                                <?php
+                            }
+
+
+                            else: ?>
+
+                <?php if($filter->getName() == "Category") { ?>
+                                    <div data-role="collapsible" class="filter-options-item">
+                                    <div data-role="title" class="filter-options-title"><?php /* @escapeNotVerified */ echo __($filter->getName()) ?></div>
+                                    <div data-role="content" class="filter-options-content"><?php /* @escapeNotVerified */ echo $block->getChildBlock('renderer')->render($filter); ?></div>
+                                </div>
+                                <?php } ?>
+                               <?php endif; 
+
+
+            else:
+
+
+
+                        if($filter->getName() == "Compatible Models")
+                                {
+                                    if(isset($category))
+                                    {
+                                         $showfilter = $category->getData('com_model_display');
+                                    }
+                                    if($showfilter)
+                                    {
+                                        ?>
+                                        <div data-role="collapsible" class="filter-options-item">
+                                            <div data-role="title" class="filter-options-title"><?php /* @escapeNotVerified */ echo __($filter->getName()) ?></div>
+                                            <div data-role="content" class="filter-options-content"><?php /* @escapeNotVerified */ echo $block->getChildBlock('renderer')->render($filter); ?></div>
+                                        </div>
+                                        <?php
+                                    }
+                                }   
+                                else
+                                {
+                                ?>
+                                <div data-role="collapsible" class="filter-options-item">
+                                    <div data-role="title" class="filter-options-title"><?php /* @escapeNotVerified */ echo __($filter->getName()) ?></div>
+                                    <div data-role="content" class="filter-options-content"><?php /* @escapeNotVerified */ echo $block->getChildBlock('renderer')->render($filter); ?></div>
+                                </div>
+                                <?php
+                                    }
+                                
+                                endif;    
+                                ?>
+
+<?php endif; ?>
+            <?php endforeach; ?>
+            <?php if ($wrapOptions): ?>
+                </div>
+            <?php else: ?>
+                <script>
+                    require([
+                        'jquery'
+                    ], function ($) {
+                        $('#layered-filter-block').addClass('filter-no-options');
+                    });
+                </script>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>
+
+
+<script type="text/javascript">
+jQuery('ol.expandible').each(function(){
+    var $ul = jQuery(this),
+        $lis = $ul.find('li:gt(4)'),
+        isExpanded = $ul.hasClass('expanded');
+    $lis[isExpanded ? 'show' : 'hide']();
+    
+    if($lis.length > 0){
+        $ul.append(jQuery('<span class="showmore"><p class="expand">' + (isExpanded ? 'Show Less' : 'Show More') + '</p></span>')
+            .click(function(event){
+                var isExpanded = $ul.hasClass('expanded');
+                event.preventDefault();
+                 jQuery(this).html(isExpanded ? '<p class="expand">Show More</p>' : '<p class="expand">Show Less</p>');
+                $ul.toggleClass('expanded');
+                $lis.toggle();
+            }));
+    }
+});
+
+
+jQuery(document).ready(function() {
+    jQuery(".filter-options-item").addClass("active");
+    jQuery('.filter-options-title').click(function() {
+       jQuery(this).parent().toggleClass('active');
+    });
+});
+
+</script>
+
+
+
+<!--<script type="text/javascript">
+    
+
+
+
+    jQuery(window).on("resize", function () {
+        if (jQuery(window).width() < 771) {
+            jQuery('.block.filter1 .filter-content').hide();
+        } else {
+            jQuery('.block.filter1 .filter-content').show();
+        }
+    });
+
+    jQuery('.refine-search').click(function(){
+        if (jQuery(window).width() < 771) {
+            jQuery('.block.filter1 .filter-content').slideToggle();
+            jQuery('.block.filter1').toggleClass('filter-title-active');            
+        }
+    });
+
+jQuery(window).on("load", function () {
+    if (jQuery(window).width() < 771) {
+       jQuery('.block.filter1 .filter-content').hide();
+    } else {
+        jQuery('.block.filter1 .filter-content').show();
+    }
+});
+
+
+</script>-->
+
+<script type="text/javascript">
+    
+
+
+
+if (jQuery(window).width() < 771) {
+    jQuery('.refine-search.md').click(function(){
+        
+            jQuery(this).next().slideToggle();
+            jQuery(this).parent().toggleClass('filter-title-active');            
+        
+    });
+    }
+
+
+</script>

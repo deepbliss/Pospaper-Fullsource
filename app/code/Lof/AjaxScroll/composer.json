@@ -1,0 +1,22 @@
+{
+  "name": "landofcoder/ajaxscroll",
+  "description": "Freely Scroll down & See what page of the catalog they're on, Automatically loading, Similar technique as seen on Twitter, Facebook",
+  "require": {
+    "php": "~5.5.0|~5.6.0|~7.0.0"
+  },
+  "license": [
+    "OSL-3.0",
+    "AFL-3.0"
+  ],
+  "type": "magento2-module",
+  "license": [
+    "OSL-3.0",
+    "AFL-3.0"
+  ],
+  "autoload": {
+    "files": [ "registration.php" ],
+    "psr-4": {
+      "Lof\\AjaxScroll\\": ""
+    }
+  }
+}

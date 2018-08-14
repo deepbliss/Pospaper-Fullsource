@@ -1,0 +1,169 @@
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_AdvancedLayeredNavigation
+ * @author    Webkul
+ * @copyright Copyright (c) 2010-2018 Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+.layered_filters{
+    color:#3399cc;
+    cursor: pointer;
+}
+.layered_attrs{
+    cursor: pointer;
+    vertical-align: sub;
+}
+.attribute_container{
+    max-height: 200px;
+    overflow-y: auto;
+}
+.attr_filter_clear{
+    color: #c62121;
+    cursor: pointer;
+    font-weight: bold;
+    height: 10px;
+    line-height: 8px;
+    opacity: 0.5;
+    position: absolute;
+    right: 6px;
+    top: 11px;
+}
+.attr_filter_clear:hover{
+    opacity: 1;
+}
+.attr_filter_container{
+    position: relative;
+}
+.range_slider_container{
+    background: #ffffff;
+    padding: 2px;
+    margin-bottom: 28px;
+    border-radius: 10px;
+        display: block;
+}
+.range_slider {
+    background: #1ab2ff;
+    cursor: pointer;
+    height: 3px;
+    position: relative;
+    display: block;
+}
+.range_slider .range_slider_bar {
+    border-radius: 10px;
+    height: 3px;
+    position: absolute;
+    background: #1ab2ff;
+}
+.min_range_display{
+    font-weight: bold;
+    line-height: 15px;
+    padding: 2px 0px;
+    float:left;
+}
+.min_range{
+    font-weight: bold;
+    line-height: 15px;
+     padding: 2px 0px;
+}
+.max_range_display{
+    display: inline-block;
+    float: right;
+    font-weight: bold;
+    line-height: 15px;
+    padding: 2px;
+}
+.max_range{
+    font-weight: bold;
+    line-height: 15px;
+    padding: 2px;
+}
+.range_slider .max_grip, .range_slider .min_grip {
+    border-radius: 10px;
+    height: 12px;
+    position: absolute;
+    width: 12px;
+    top: -4.6px;
+    background: #3399cc;
+}
+.board{
+    background: #ffffff;
+    border: 1px solid #3399cc;
+    bottom: 0px;
+    display: block;
+    height: 20px;
+    left: -19px;
+    position: relative;
+    text-align: center;
+    width: 41px;
+}
+.board:before {
+    border-bottom: 7px solid rgba(11, 55, 245, 0.51);
+    border-left: 7px solid rgba(0, 0, 0, 0);
+    border-right: 7px solid rgba(0, 0, 0, 0);
+    content: "";
+    display: inline-block;
+    left: 12px;
+    position: absolute;
+    top: -8px;
+}
+.board:after {
+    border-bottom: 6px solid #ffffff;
+    border-left: 6px solid rgba(0, 0, 0, 0);
+    border-right: 6px solid rgba(0, 0, 0, 0);
+    content: "";
+    display: inline-block;
+    left: 13px;
+    position: absolute;
+    top: -6px;
+}
+.wk_layer_loader_bg{
+    background: none repeat scroll 0 0 rgba(239, 239, 239, 0.7);
+    display: none;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 99999;
+}
+.wk_layer_loader_bg span{
+    background: url("../images/loader.gif") repeat scroll 0 0 rgba(0, 0, 0, 0);
+    display: block;
+    height: 32px;
+    margin: 24% auto;
+    width: 32px;
+}
+.layered-navigation-label{
+    cursor: pointer;
+}
+.wk-filter-action {
+    cursor :pointer;
+}
+.stick {
+    left: 5px;
+    position: absolute;
+    top: 28px;
+}
+.range_slide_level_con {
+    height:20px;
+}
+@media  screen and (max-width: 767px) and (min-width:0px){
+    .range_slider_container {
+        margin-left: 30px;
+        margin-right: 30px;
+    }
+    .board {
+        bottom: 6px;
+    }
+    .min_range_display {
+        padding-left: 30px;
+    }
+    .max_range_display {
+        padding-right: 30px;
+    }
+    .filter-clear {
+        display: none;
+    }
+}

@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+
+        
+
+        <referenceContainer name="header.container">
+        <block class="Pos\Custommodule\Block\Searchbybrand" name="searchbybrand" template="Pos_Custommodule::searchbybrand.phtml" before="product.shop" /> 
+         </referenceContainer>
+
+         <referenceContainer name="content">   
+
+            <!--<block class="Magento\Catalog\Block\Product\View" name="social.share" template="product/view/wdm-social.phtml" after="view.addto.compare" /> -->
+               <block class="Magento\Framework\View\Element\Template" name="startphoto" template="Magento_Catalog::product/view/reponsive_div.phtml" />
+    
+         </referenceContainer>
+         <container name="product.shop" htmlTag="div" htmlClass="product-shop"/>
+         <container name="tabing.section" htmlTag="div" htmlClass="tabing-section" />
+         <container name="pro.slider.section" htmlTag="div" htmlClass="pro-slider-section" />
+         <container name="shipping.section" htmlTag="div" htmlClass="detail-shipping-section" />         
+         
+         <move element="page.main.title" destination="product.info.main" before="-" />
+         <move element="product.shop" destination="content" before="-" />
+         <move element="tabing.section" destination="content" after="product.shop" />     
+         <move element="product.info.details" destination="product.info.media" after="-" />
+         <move element="shipping.section" destination="product.info.main" after="-" />
+         <move element="det_shipping_block" destination="shipping.section" />
+         <move element="product.info.main" destination="product.shop" before="-" />
+         <move element="product.info.media" destination="product.shop" after="product.info.main" /> 
+         <move element="product.info.mailto" destination="product.info.media" as="new_alias" after="-" />  
+         <!--<move element="social.share" destination="product.info.addto" as="new_alias_social_share" after="view.addto.compare" /> -->
+         <move element="product.info.extrahint" destination="product.info.main" as="new_alias_social_share" after="product.info" /> 
+          
+         <move element="product.info.review" destination="product.info.stock.sku" after="-" />  
+         <move element="product.info.type" destination="product.info.instock" after="-" />
+         <move element="product.price.final" destination="product.info.instock" before="-" />
+         <move element="product.info.instock" destination="product.info.price" after="product.info.stock.sku" />
+         
+         <move element="recently_viewed" destination="pro.slider.section" after="catalog.product.related" />
+         <move element="catalog.product.related" destination="pro.slider.section" before="-" />
+         <move element="pro.slider.section" destination="content" after="tabing.section" />
+         
+         <move element="product.price.tier" destination="product.info.main" after="product.info" />
+         <move element="product.info" destination="product.info.main" after="product.info.price" />
+         
+         <container name="product.info.instock" label="Product info instock" htmlTag="div" htmlClass="product-info-instock" />
+         
+         
+         <block class="Magento\Cms\Block\Block" name="det_shipping_block">
+         <arguments>
+            <argument name="block_id" xsi:type="string">det_shipping_block</argument>
+         </arguments>
+       </block>   
+
+
+          
+
+     <referenceContainer name="content.aside">
+          <block class="Magento\Reports\Block\Product\Widget\Viewed" after="-" name="recently_viewed" cacheable="false" template="Magento_Reports::widget/viewed/content/viewed_grid.phtml">
+    <action method="setPageSize">
+       <argument name="page_size" xsi:type="number">4</argument>
+    </action>
+  </block>
+    </referenceContainer> 
+               
+        
+         <block class="Magento\Catalog\Block\Product\View\Description" name="product.info.details" template="Magento_Catalog::product/view/details.phtml" after="product.info.media">
+                <block class="Magento\Catalog\Block\Product\View\Description" name="product.info.description" template="Magento_Catalog::product/view/attribute.phtml" group="detailed_info">
+                    <arguments>
+                        <argument name="at_call" xsi:type="string">getDescription</argument>
+                        <argument name="at_code" xsi:type="string">description</argument>
+                        <argument name="css_class" xsi:type="string">description</argument>
+                        <argument name="at_label" xsi:type="string">none</argument>
+                        <argument name="title" translate="true" xsi:type="string">Description</argument>
+                    </arguments>
+                </block> 
+          </block>
+       
+          <block class="Magento\Catalog\Block\Product\View" name="deliveryinfo.tab" as="deliveryinfo" template="product/view/delivery_info.phtml" group="detailed_info" before="reviews.tab">
+             <arguments>
+                <argument translate="true" name="title" xsi:type="string">Shipping Info</argument>
+             </arguments>
+          </block>
+
+   
+          <move element="deliveryinfo.tab" destination="product.info.details" before="reviews.tab" />      
+            
+    </body>
+</page>

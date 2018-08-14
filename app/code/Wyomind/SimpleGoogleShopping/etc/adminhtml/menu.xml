@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+ Copyright © 2015 Wyomind. All rights reserved.
+ See LICENSE.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <!-- Catalog > Simple Google Shopping -->
+        <add id="Wyomind_SimpleGoogleShopping::main"
+             parent="Magento_Catalog::catalog"
+             module="Wyomind_SimpleGoogleShopping"
+             title="Simple Google Shopping"
+             sortOrder="100"
+             resource="Wyomind_SimpleGoogleShopping::main"
+             action="simplegoogleshopping/feeds"/>
+
+    </menu>
+</config>

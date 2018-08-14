@@ -1,0 +1,49 @@
+<script>
+    requirejs(['jquery', 'weltpixel_quickview' ],
+        function   ($, quickview) {
+            $(document).ready(function() {
+                $('.weltpixel-quickview').bind('click', function() {
+                    var prodUrl = $(this).attr('data-quickview-url');
+                    if (prodUrl.length) {
+                        quickview.displayContent(prodUrl);
+                    }
+                });
+            });
+        });
+
+    window.weltpixel_quickview = <?php /* @escapeNotVerified */ echo \Zend_Json::encode($block->getConfig()); ?>;
+
+
+
+
+
+     function newwin(prodUrl)
+    {
+
+requirejs(['jquery', 'weltpixel_quickview' ],
+        function   ($, quickview) {
+            $(document).ready(function() {
+                if (prodUrl.length) {
+                        quickview.displayContent(prodUrl);
+                    }
+            });
+        });
+ window.weltpixel_quickview = <?php /* @escapeNotVerified */ echo \Zend_Json::encode($block->getConfig()); ?>;
+
+
+        /*requirejs(['jquery', 'weltpixel_quickview' ],
+        function   ($, quickview) {
+            $(document).ready(function() {
+                $('.weltpixel-quickview').bind('click', function() {
+                    var prodUrl = $(this).attr('data-quickview-url');
+                    if (prodUrl.length) {
+                        quickview.displayContent(prodUrl);
+                    }
+                });
+            });
+        });
+
+    window.weltpixel_quickview = <?php /* @escapeNotVerified */ echo \Zend_Json::encode($block->getConfig()); ?>;
+        // $('.weltpixel-quickview').trigger("click");*/
+    }
+</script>

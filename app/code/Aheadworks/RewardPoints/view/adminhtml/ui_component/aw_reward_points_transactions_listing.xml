@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">aw_reward_points_transactions_listing.aw_reward_points_transaction_grid_data_source</item>
+            <item name="deps" xsi:type="string">aw_reward_points_transactions_listing.aw_reward_points_transaction_grid_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">aw_reward_points_transaction_columns</item>
+        <item name="buttons" xsi:type="array">
+            <item name="add" xsi:type="array">
+                <item name="name" xsi:type="string">add</item>
+                <item name="label" xsi:type="string" translate="true">Add New Transaction</item>
+                <item name="class" xsi:type="string">primary</item>
+                <item name="url" xsi:type="string">*/*/new</item>
+            </item>
+        </item>
+    </argument>
+    <dataSource name="aw_reward_points_transaction_grid_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+            <argument name="name" xsi:type="string">aw_reward_points_transaction_grid_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">transaction_id</argument>
+            <argument name="requestFieldName" xsi:type="string">transaction_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">transaction_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="sticky" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="templates" xsi:type="array">
+                        <item name="filters" xsi:type="array">
+                            <item name="select" xsi:type="array">
+                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</item>
+                                <item name="template" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+                            </item>
+                        </item>
+                    </item>
+                    <item name="displayArea" xsi:type="string">dataGridFilters</item>
+                    <item name="dataScope" xsi:type="string">filters</item>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="provider" xsi:type="string">aw_reward_points_transactions_listing.aw_reward_points_transactions_listing.listing_top.bookmarks</item>
+                        <item name="namespace" xsi:type="string">current.filters</item>
+                    </item>
+                    <item name="childDefaults" xsi:type="array">
+                        <item name="provider" xsi:type="string">aw_reward_points_transactions_listing.aw_reward_points_transactions_listing.listing_top.listing_filters</item>
+                        <item name="imports" xsi:type="array">
+                            <item name="visible" xsi:type="string">aw_reward_points_transactions_listing.aw_reward_points_transactions_listing.listing_top.bookmarks:current.columns.${ $.index }.visible</item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+            <filterRange name="transaction_date" class="Magento\Ui\Component\Filters\Type\DateRange">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="dataScope" xsi:type="string">transaction_date</item>
+                        <item name="label" xsi:type="string" translate="true">Transaction Date</item>
+                        <item name="childDefaults" xsi:type="array">
+                            <item name="provider" xsi:type="string">aw_reward_points_transactions_listing.aw_reward_points_transactions_listing.listing_top.listing_filters</item>
+                        </item>
+                    </item>
+                </argument>
+                <filterDate name="from">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataScope" xsi:type="string">from</item>
+                            <item name="label" xsi:type="string" translate="true">from</item>
+                            <item name="placeholder" xsi:type="string" translate="true">From</item>
+                            <item name="dateFormat" xsi:type="string" translate="true">MM/dd/YYYY</item>
+                        </item>
+                    </argument>
+                </filterDate>
+                <filterDate name="to">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataScope" xsi:type="string">to</item>
+                            <item name="label" xsi:type="string" translate="true">to</item>
+                            <item name="placeholder" xsi:type="string" translate="true">To</item>
+                            <item name="dateFormat" xsi:type="string" translate="true">MM/dd/YYYY</item>
+                        </item>
+                    </argument>
+                </filterDate>
+            </filterRange>
+            <filterRange name="expiration_date" class="Magento\Ui\Component\Filters\Type\DateRange">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="dataScope" xsi:type="string">expiration_date</item>
+                        <item name="label" xsi:type="string" translate="true">Expiration Date</item>
+                        <item name="childDefaults" xsi:type="array">
+                            <item name="provider" xsi:type="string">aw_reward_points_transactions_listing.aw_reward_points_transactions_listing.listing_top.listing_filters</item>
+                        </item>
+                    </item>
+                </argument>
+                <filterDate name="from">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataScope" xsi:type="string">from</item>
+                            <item name="label" xsi:type="string" translate="true">from</item>
+                            <item name="placeholder" xsi:type="string" translate="true">From</item>
+                            <item name="dateFormat" xsi:type="string" translate="true">MM/dd/YYYY</item>
+                        </item>
+                    </argument>
+                </filterDate>
+                <filterDate name="to">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataScope" xsi:type="string">to</item>
+                            <item name="label" xsi:type="string" translate="true">to</item>
+                            <item name="placeholder" xsi:type="string" translate="true">To</item>
+                            <item name="dateFormat" xsi:type="string" translate="true">MM/dd/YYYY</item>
+                        </item>
+                    </argument>
+                </filterDate>
+            </filterRange>
+        </filters>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="aw_reward_points_transaction_columns">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="editorConfig" xsi:type="array">
+                    <item name="selectProvider" xsi:type="string">aw_reward_points_transactions_listing.aw_reward_points_transactions_listing.aw_reward_points_transaction_columns.ids</item>
+                    <item name="enabled" xsi:type="boolean">true</item>
+                    <item name="indexField" xsi:type="string">transaction_id</item>
+                    <item name="clientConfig" xsi:type="array">
+                        <item name="saveUrl" xsi:type="url" path="*/*/inlineEdit"/>
+                        <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+                <item name="childDefaults" xsi:type="array">
+                    <item name="fieldAction" xsi:type="array">
+                        <item name="provider" xsi:type="string">aw_reward_points_transactions_listing.aw_reward_points_transactions_listing.aw_reward_points_transaction_columns_editor</item>
+                        <item name="target" xsi:type="string">startEdit</item>
+                        <item name="params" xsi:type="array">
+                            <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                            <item name="1" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                </item>
+            </item>
+        </argument>
+        <selectionsColumn name="ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="indexField" xsi:type="string">transaction_id</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </selectionsColumn>
+        <column name="transaction_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="sorting" xsi:type="string">desc</item>
+                    <item name="label" xsi:type="string" translate="true">ID</item>
+                </item>
+            </argument>
+        </column>
+        <column name="customer_name" class="Aheadworks\RewardPoints\Ui\Component\Listing\Columns\CustomerName">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Aheadworks_RewardPoints/js/ui/grid/columns/link</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Customer Name</item>
+                </item>
+            </argument>
+        </column>
+        <column name="customer_email">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Customer Email</item>
+                </item>
+            </argument>
+        </column>
+        <column name="comment_to_customer" class="Aheadworks\RewardPoints\Ui\Component\Listing\Columns\Transaction\CommentToCustomer">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="label" xsi:type="string" translate="true">Comment To Customer</item>
+                </item>
+            </argument>
+        </column>
+        <column name="comment_to_admin">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Comment To Admin</item>
+                </item>
+            </argument>
+        </column>
+        <column name="balance" class="Aheadworks\RewardPoints\Ui\Component\Listing\Columns\Transaction\BalanceChange">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="label" xsi:type="string" translate="true">Balance Change</item>
+                    <item name="bodyTmpl" xsi:type="string" translate="true">Aheadworks_RewardPoints/ui/grid/cells/transactions-balance</item>
+                </item>
+            </argument>
+        </column>
+        <column name="current_balance">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="label" xsi:type="string" translate="true">Balance</item>
+                </item>
+            </argument>
+        </column>
+        <column name="balance_adjusted">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Balance Adjusted</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="sortable" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </column>
+        <column name="transaction_date" class="Magento\Ui\Component\Listing\Columns\Date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/date</item>
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="label" xsi:type="string" translate="true">Transaction Date</item>
+                </item>
+            </argument>
+        </column>
+        <column name="expiration_date" class="Aheadworks\RewardPoints\Ui\Component\Listing\Columns\Transaction\ExpirationDate">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="component" xsi:type="string">Aheadworks_RewardPoints/js/ui/grid/columns/expiration-date</item>
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="label" xsi:type="string" translate="true">Expiration Date</item>
+                    <item name="editor" xsi:type="array">
+                        <item name="editorType" xsi:type="string">date</item>
+                        <item name="options" xsi:type="array">
+                            <item name="showsTime" xsi:type="boolean">true</item>
+                            <item name="minDate" xsi:type="number">0</item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </column>
+        <column name="website_id" class="Aheadworks\RewardPoints\Ui\Component\Listing\Columns\Website">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Aheadworks\RewardPoints\Model\Source\Transaction\Website</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="label" xsi:type="string" translate="true">Website</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </column>
+        <column name="type">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Aheadworks\RewardPoints\Model\Source\Transaction\Type</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="label" xsi:type="string" translate="true">Type</item>
+                </item>
+            </argument>
+        </column>
+        <column name="status">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Aheadworks\RewardPoints\Model\Source\Transaction\Status</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="label" xsi:type="string" translate="true">Status</item>
+                </item>
+            </argument>
+        </column>
+        <column name="balance_update_notified">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Aheadworks\RewardPoints\Model\Source\NotifiedStatus</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="label" xsi:type="string" translate="true">Balance Update Notified</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </column>
+        <column name="expiration_notified">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Aheadworks\RewardPoints\Model\Source\NotifiedStatus</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="label" xsi:type="string" translate="true">Expiration Notified</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </column>
+        <column name="created_by">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Created By</item>
+                    <item name="filter" xsi:type="string">text</item>
+                </item>
+            </argument>
+        </column>
+    </columns>
+</listing>

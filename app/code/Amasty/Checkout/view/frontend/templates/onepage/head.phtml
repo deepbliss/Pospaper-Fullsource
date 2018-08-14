@@ -1,0 +1,51 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+?>
+<?php /** @var \Amasty\Checkout\Block\Onepage\Head $block */ ?>
+
+<style>
+    <?php foreach ($block->getFields() as $code => $width): ?>
+    .fieldset.address [name$=".<?=$code?>"] {
+        width: <?= $width ?>%;
+    }
+    <?php endforeach; ?>
+    
+    <?php if ($font = $block->getCustomFont()): ?>
+    body {
+        font-family: '<?= $font ?>', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+    }
+    <?php endif ?>
+    
+    <?php if ($color = $block->getHeadingTextColor()): ?>
+    .step-title {
+        color: <?= $color ?> !important;
+    }
+    <?php endif ?>
+
+    <?php if ($color = $block->getBackgroundColor()): ?>
+    #checkout {
+        background: <?= $color ?> !important;
+    }
+    <?php endif ?>
+
+    <?php if ($color = $block->getSummaryBackgroundColor()): ?>
+    .opc-block-summary {
+        background-color: <?= $color ?> !important;
+    }
+    <?php endif ?>
+
+    <?php if ($color = $block->getButtonColor()): ?>
+    .action.primary {
+        background-color: <?= $color['normal'] ?> !important;
+        border: none !important;
+    }
+    .action.primary:hover {
+        background-color: <?= $color['hover'] ?> !important;
+        border: none !important;
+    }
+    <?php endif ?>
+</style>

@@ -1,0 +1,15 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <head>
+		<css src="Magehit_Bestsellerproducts::css/bestsellerproducts.css"/>
+    </head>
+    <body>
+        <!-- <move element="page.main.title" destination="content" before="bestseller_data"/>
+        <move element="breadcrumbs" destination="content" before="bestseller_data"/> -->
+        <referenceContainer name="content">
+            <block class="Magehit\Bestsellerproducts\Block\BestsellerList" name="bestseller_data" template="bestseller_list.phtml" ifconfig="bestsellerproducts_settings/bestseller_products/enable"/>
+        </referenceContainer>
+        <!-- <referenceContainer name="sidebar.main">
+            <block class="Ibnab\CategoriesSide\Block\CategorisCollection" name="categoriecollection" template="Ibnab_CategoriesSide::storecategories.phtml"/>
+        </referenceContainer> -->
+    </body>
+</page>

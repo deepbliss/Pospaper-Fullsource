@@ -1,0 +1,1 @@
+/chroot/home/pospaper/pospaper.com/html/app/code/Amasty/Checkout/view/frontend/web/js/action/set-payment-method-mixin.js

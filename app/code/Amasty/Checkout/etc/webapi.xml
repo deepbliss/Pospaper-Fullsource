@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+
+    <route url="/V1/guest-carts/:cartId/payment-information" method="POST">
+        <service class="Amasty\Checkout\Api\GuestPaymentInformationManagementInterface" method="savePaymentInformationAndPlaceOrder"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <route url="/V1/carts/mine/payment-information" method="POST">
+        <service class="Amasty\Checkout\Api\PaymentInformationManagementInterface" method="savePaymentInformationAndPlaceOrder"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+
+    <!-- Gift Messages -->
+
+    <route url="/V1/amasty_checkout/carts/:cartId/gift-message" method="POST">
+        <service class="Amasty\Checkout\Api\GiftMessageInformationManagementInterface" method="update"/>
+        <resources>
+            <resource ref="Magento_Cart::manage" />
+        </resources>
+    </route>
+
+    <route url="/V1/amasty_checkout/guest-carts/:cartId/gift-message" method="POST">
+        <service class="Amasty\Checkout\Api\GuestGiftMessageInformationManagementInterface" method="update"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <route url="/V1/amasty_checkout/carts/mine/gift-message" method="POST">
+        <service class="Amasty\Checkout\Api\GiftMessageInformationManagementInterface" method="update"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+
+    <!-- Gift Wrap -->
+
+    <route url="/V1/amasty_checkout/carts/:cartId/gift-wrap" method="POST">
+        <service class="Amasty\Checkout\Api\GiftWrapInformationManagementInterface" method="update"/>
+        <resources>
+            <resource ref="Magento_Cart::manage" />
+        </resources>
+    </route>
+
+    <route url="/V1/amasty_checkout/guest-carts/:cartId/gift-wrap" method="POST">
+        <service class="Amasty\Checkout\Api\GuestGiftWrapInformationManagementInterface" method="update"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <route url="/V1/amasty_checkout/carts/mine/gift-wrap" method="POST">
+        <service class="Amasty\Checkout\Api\GiftWrapInformationManagementInterface" method="update"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+
+    <!-- Delivery -->
+
+    <route url="/V1/amasty_checkout/carts/:cartId/delivery" method="POST">
+        <service class="Amasty\Checkout\Api\DeliveryInformationManagementInterface" method="update"/>
+        <resources>
+            <resource ref="Magento_Cart::manage" />
+        </resources>
+    </route>
+
+    <route url="/V1/amasty_checkout/guest-carts/:cartId/delivery" method="POST">
+        <service class="Amasty\Checkout\Api\GuestDeliveryInformationManagementInterface" method="update"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <route url="/V1/amasty_checkout/carts/mine/delivery" method="POST">
+        <service class="Amasty\Checkout\Api\DeliveryInformationManagementInterface" method="update"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+
+    <!-- Remove Item -->
+
+    <route url="/V1/amasty_checkout/carts/:cartId/remove-item" method="POST">
+        <service class="Amasty\Checkout\Api\ItemManagementInterface" method="remove"/>
+        <resources>
+            <resource ref="Magento_Cart::manage" />
+        </resources>
+    </route>
+
+    <route url="/V1/amasty_checkout/guest-carts/:cartId/remove-item" method="POST">
+        <service class="Amasty\Checkout\Api\GuestItemManagementInterface" method="remove"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <route url="/V1/amasty_checkout/carts/mine/remove-item" method="POST">
+        <service class="Amasty\Checkout\Api\ItemManagementInterface" method="remove"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+
+    <!-- Update Item -->
+
+    <route url="/V1/amasty_checkout/carts/:cartId/update-item" method="POST">
+        <service class="Amasty\Checkout\Api\ItemManagementInterface" method="update"/>
+        <resources>
+            <resource ref="Magento_Cart::manage" />
+        </resources>
+    </route>
+
+    <route url="/V1/amasty_checkout/guest-carts/:cartId/update-item" method="POST">
+        <service class="Amasty\Checkout\Api\GuestItemManagementInterface" method="update"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <route url="/V1/amasty_checkout/carts/mine/update-item" method="POST">
+        <service class="Amasty\Checkout\Api\ItemManagementInterface" method="update"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+
+    <!-- subsrice newsletter -->
+
+    <route url="/V1/amasty_checkout/guest-carts/:cartId/newsletter" method="POST">
+        <service class="Amasty\Checkout\Api\GuestNewsletterManagementInterface" method="subscribe"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <route url="/V1/amasty_checkout/carts/mine/newsletter" method="POST">
+        <service class="Amasty\Checkout\Api\NewsletterManagementInterface" method="subscribe"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+</routes>

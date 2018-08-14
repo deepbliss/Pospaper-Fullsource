@@ -1,0 +1,52 @@
+<?php
+$dataTestimonial = $block->getTestimonial();
+
+?>
+<div
+    class="block block-testimonial .block-compare .block-title strong .block-reorder .block-title strong .widget .block-title strong block-wishlist block-title strong">
+    <div class="block-title">
+        <strong><?php /* @escapeNotVerified */
+            echo __('Lastest Reviews'); ?></strong>
+    </div>
+    <div class="block-content">
+        <?php if ($dataTestimonial && count($dataTestimonial)): ?>
+            <div class="row">
+                <div id="mb_owl-testimonial">
+                    <?php foreach ($dataTestimonial as $key => $item): ?>
+                        <div class="item">
+                            <img  src="<?php echo $block->getImage($item['avatar']); ?>" alt="<?php echo __('Image'); ?>">
+                            <br>
+                            <div class="testimonial" style="text-align: justify;"><span class="mb-quote">"</span><?php echo $block->setLimitChacracter($item['testimonial']); ?><span class="mb-quote">"</span></div>
+                            <br>
+                            <div class="posted-on"><b>Posted on: <?php echo $block->_formatDate($item['created_time']); ?></b></div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <div style="margin-top: 10px">
+                    <a href="<?php echo $block->getLinkIndexAction(); ?>">Show All Testimonial</a>
+                </div>
+            </div>
+        <?php else: ?>
+            <div class="empty">
+                <span><?php echo __('Testimonial records not available.'); ?></span>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
+
+<script type="text/javascript">
+    require(['jquery', 'OwlCarousel'], function () {
+        jQuery(document).ready(function () {
+            jQuery("#mb_owl-testimonial").owlCarousel({
+                autoPlay: 3000, //Set AutoPlay to 3 seconds
+                animateIn: 'fadeIn',
+                animateOut: 'fadeOut',
+                items : 1,
+                itemsDesktop : [1199,1],
+                itemsDesktopSmall : [979,1]
+            });
+        });
+    });
+</script>
+
+

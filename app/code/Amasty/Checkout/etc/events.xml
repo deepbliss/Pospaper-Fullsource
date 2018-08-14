@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="payment_cart_collect_items_and_amounts">
+        <observer name="amasty_checkout"
+                  instance="Amasty\Checkout\Observer\Payment\Model\Cart\CollectTotalsAndAmounts" />
+    </event>
+</config>

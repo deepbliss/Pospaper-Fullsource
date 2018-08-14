@@ -1,0 +1,38 @@
+<?php
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $logger=$objectManager->get('Psr\Log\LoggerInterface');
+    $tBlock=$objectManager->get('Mconnectsolutions\Trackorder\Block\Trackorder');
+    $urlInterface=$objectManager->get('Magento\Framework\UrlInterface');
+    $orderRepository=$objectManager->get('Magento\Sales\Api\OrderRepositoryInterface');
+    $_shipment = $block->getShipment();
+    $_order = $block->getOrder();
+
+if ($tBlock->getEmailLink()) {
+    if ($this->getRequest()->getParam('order_id')) {
+        $order_id = $this->getRequest()->getParam('order_id');
+        $order = $orderRepository->get($order_id);
+        $orderIncrementId = $order->getIncrementId();
+        $customerEmail = $order->getCustomerEmail();
+        $storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+        $link = $storeManager->getStore(0)->getBaseUrl().'trackorder/?ord='.$orderIncrementId.'&email='.$customerEmail;
+    ?>
+    <table>
+        <tr><td><a href="<?php /* @noEscape */ echo $link;?>" target="_blanck">Track Order</a></td></tr>
+    </table>
+    <?php
+    } elseif ($this->getRequest()->getParam('shipment_id')) {
+        $shipment_id = $this->getRequest()->getParam('shipment_id');
+        $order_id = $_shipment->getOrderId();
+        $order = $orderRepository->get($order_id);
+        $orderIncrementId = $order->getIncrementId();
+        $customerEmail = $order->getCustomerEmail();
+        $storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+        $link = $storeManager->getStore(0)->getBaseUrl().'trackorder/?ord='.$orderIncrementId.'&email='.$customerEmail;
+    ?>
+    <table>
+        <tr><td><a href="<?php /* @noEscape */ echo $link;?>" target="_blanck">Track Order</a></td></tr>
+    </table>
+    <?php
+    }
+}
+?>

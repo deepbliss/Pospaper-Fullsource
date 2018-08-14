@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Nextopia Software Corporation. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="nextopia" translate="label" sortOrder="500">
+            <label>Nextopia</label>
+        </tab>
+        <section id="nextopia_search" translate="label" type="text" sortOrder="340" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Search</label>
+            <tab>nextopia</tab>
+            <resource>Nextopia_Search::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Configuration Fields</label>
+                <field id="public_client_id" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Public Client ID</label>
+                    <tooltip><![CDATA[This can be obtained by visiting the Account section of the Nextopia control panel, and looking for "Public Client ID." It will look something like "1234567890abcdef1234567890abcdef" and is 32 characters long.]]></tooltip>
+                </field>
+                <field id="ajax_version" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Nextopia Ajax version</label>
+                    <source_model>Nextopia\Search\Model\Source\AjaxVersion</source_model>
+                    <tooltip><![CDATA[Default value should work fine for this, but if this doesn't work, contact nextopia support.]]></tooltip>
+                </field>
+                <field id="searchstatus" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <tooltip><![CDATA[Set this to "No" to use the default Magento search. Set this to "Yes" when you wish to make Nextopia Search live.]]></tooltip>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="searchdemo" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Demo mode</label>
+                    <tooltip><![CDATA[When this is set to "Yes", it will enable /nsearch url but will not default to it.  It will demonstrate our search, without enabling it on the site.  This setting is ignored when the module is enabled]]></tooltip>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="navstatus" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Navigation enabled</label>
+                    <tooltip><![CDATA[When this is set to "Yes", it takes over navigation to use nextopia NAV product and will replace your category pages]]></tooltip>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="content_div_id" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Content div id</label>
+                    <tooltip><![CDATA[This setting is to override default content id of 'nxt-content' with whatever id you want (in case one is using this id).]]></tooltip>
+                </field>
+                <field id="refinement_div_id" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Content div id</label>
+                    <tooltip><![CDATA[This setting is to override default content id of 'nxt-refine' with whatever id you want (in case one is using this id).]]></tooltip>
+                </field>
+                <field id="selected_layout" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Layout</label>
+                    <source_model>Nextopia\Search\Model\Source\Layout</source_model>
+                </field>
+                <field id="default_content" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Loading Content</label>
+                    <tooltip><![CDATA[This will be shown as the client waits for the content to load.]]></tooltip>
+                </field>                
+                <field id="personas_status" translate="label" type="select" sortOrder="95" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Tracking Personas Activities Enabled</label>
+                    <tooltip><![CDATA[Information gathered about an individual user, based on their preference for certain attributes 
+(ie. gender) each session. our powerful algorithm uses this information to then display the most relevant results for each individual user. 
+Personas affects each user's search results, autocomplete suggestions and product recommendations per session. For more informations, contact us]]></tooltip>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="cron_nextopia_status" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Nextopia cron enabled</label>
+                    <tooltip><![CDATA[This setting is to enable the Nextopia Cron Job]]></tooltip>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="auth_user" translate="label" type="text" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Auth username</label>
+                    <tooltip><![CDATA[Username for Export CSV File on /nsearch/exporter/index/store_id/{ID}]]></tooltip>
+                </field>
+                <field id="auth_pw" translate="label" type="text" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Auth password</label>
+                    <tooltip><![CDATA[Password for Export CSV File on /nsearch/exporter/index/store_id/{ID}]]></tooltip>
+                </field>
+                <field id="label_search_result_page" translate="label" type="text" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Label on search result page</label>
+                    <tooltip><![CDATA[The default text is {Search results for "keyword"}]]></tooltip>
+                </field>
+            </group> 
+        </section>
+    </system>
+</config>

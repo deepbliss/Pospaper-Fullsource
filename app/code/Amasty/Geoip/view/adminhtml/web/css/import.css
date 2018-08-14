@@ -1,0 +1,224 @@
+.am_processer_container {
+    padding-left: 27px;
+    padding-right: 31px;
+    height: 28px;
+    width: 130px;
+    margin-left: 25px;
+}
+#am-download-import {/*margin-left: 100px;*/}
+.am_download_container .am_line,
+.am_processer_container .am_line {
+    border-top: 2px solid #e0e0e0;
+    position: relative;
+    top: 2px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.am_download_container {
+    width: 130px;
+    position: relative;
+    left: 52px;
+}
+
+.am_download_container .am_download,
+.am_processer_container .am_processer {
+    background-color: #f78a39;
+    white-space: nowrap;
+    position: relative;
+    height: 10px;
+    background-size: 20px 20px;
+    background-image: linear-gradient(308deg, rgba(255, 255, 255, .25) 25%, transparent 25%,
+    transparent 50%, rgba(255, 255, 255, .25) 50%, rgba(255, 255, 255, .25) 75%,
+    transparent 75%, transparent);
+    -webkit-animation: animate-stripes 3s linear infinite;
+    -moz-animation: animate-stripes 3s linear infinite;
+    -ms-animation: animate-stripes 3s linear infinite;
+    -o-animation: animate-stripes 3s linear infinite;
+    /* animation: animate-stripes 3s linear infinite; */
+}
+
+@-moz-keyframes animate-stripes{
+    0% {background-position: 0 0;} 100% {background-position: 60px 0;}
+}
+
+@-webkit-keyframes animate-stripes{
+    0% {background-position: 0 0;} 100% {background-position: 60px 0;}
+}
+
+@keyframes animate-stripes {
+    0% {background-position: 0 0;} 100% {background-position: 60px 0;}
+}
+
+.am_download_container .am_download span,
+.am_processer_container .am_processer span {
+    position: absolute;
+    z-index: 1001;
+    font-size: 11px;
+    font-family: impact;
+    text-align: center;
+    width: 24px;
+}
+
+.am_processer_container .am_processer span {
+    left: 133px;
+    top: -3px;
+}
+
+.am_download_container .am_download span {
+    left: 129px;
+    top: -4px;
+}
+
+.bubble {
+    position: relative;
+    width: 80px;
+    height: 18px;
+    padding: 0px;
+    background: #FFFFFF;
+    text-align: center;
+    vertical-align: middle;
+    color: #949494;
+    font-weight: bold;
+}
+
+#row_amgeoip_download_import_download_import_button .download .bubble
+.import .bubble {
+    right: 25px;
+}
+
+#row_amgeoip_import_import_button .am_processer_container {
+    padding-bottom: 18px;
+}
+
+#row_amgeoip_download_import_download_import_button .import .bubble {
+    left: 73px;
+}
+
+.completed .bubble {
+    left: 75px;
+}
+
+.completed_import .bubble{
+    left: 148px;
+}
+
+.bubble:after
+{
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 0 8px 9px;
+    border-color: #FFFFFF transparent;
+    display: block;
+    width: 0;
+    z-index: 1;
+    top: -9px;
+    left: 32px;
+}
+
+.am_processer_container .end_imported,
+.am_processer_container .end_not_imported,
+.am_processer_container .end_processing {
+    position: relative;
+    left: 128px;
+    bottom: 6px;
+    padding-top: 14px;
+    padding-right: 32px;
+    padding-bottom: 4px;
+    top: -5px;
+}
+
+.am_processer_container .end_downloading_process,
+.am_processer_container .end_downloading_not_completed,
+.am_processer_container .end_downloading_completed {
+    position: relative;
+    padding-top: 14px;
+    padding-right: 32px;
+    padding-bottom: 5px;
+    right: 31px;
+    top: 26px;
+    z-index: 10;
+}
+
+.progressbar .import .bubble {
+    right: 2px;
+}
+
+#row_amgeoip_import_import_button span.import,
+#row_amgeoip_import_import_button span.completed {
+    position: relative;
+    left: 1px;
+    top: 2px;
+}
+
+.am_processer_container .end_downloading_completed {
+    background: url(../images/ellips2.png) no-repeat;
+}
+
+.am_processer_container .end_downloading_not_completed {
+    background: url(../images/ellips_error.png) no-repeat;
+}
+
+.am_processer_container .end_downloading_process {
+    background: url(../images/ellips1.png) no-repeat;
+}
+
+.am_processer_container .end_imported {
+    background: url(../images/ellips2.png) no-repeat;
+}
+
+.am_processer_container .end_processing {
+    background: url(../images/ellips1.png) no-repeat;
+}
+
+.am_processer_container .end_not_imported {
+    background: url(../images/ellips_error.png) no-repeat;
+}
+
+.progressbar .am_download_container .begin,
+.progressbar .am_processer_container .begin {
+    background: url(../images/ellips1.png) no-repeat;
+    padding-right: 33px;
+    padding-bottom: 28px;
+    position: relative;
+    right: 30px;
+    top: 12px;
+    z-index: 10;
+}
+
+#row_amgeoip_import_import_button .import,
+#row_amgeoip_download_import_download_import_button .import,
+#row_amgeoip_download_import_download_import_button .completed,
+#row_amgeoip_download_import_download_import_button .completed_import,
+#row_amgeoip_download_import_download_import_button .download,
+#row_amgeoip_import_import_button .completed {
+    display: inline-block;
+}
+
+#row_amgeoip_download_import_download_import_button .am_processer_container {
+    position: relative;
+    left: 155px;
+    bottom: 32px;
+}
+
+#row_amgeoip_download_import_download_import_button .bubble {
+    right: 1px;
+}
+
+#row_amgeoip_import_import_button .bubble {
+    top: 10px;
+}
+
+tr#row_amgeoip_import_import_button .note img {
+    position: relative;
+    left: 6px;
+}
+.amgeoip-files-available, .amgeoip-files-unavailable {
+    background: url(../images/accept.png) no-repeat;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+}
+.amgeoip-files-unavailable {
+    background: url(../images/unavailable.png) no-repeat;
+}

@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright Copyright (c) 2016 www.magebuzz.com
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="magebuzz" translate="label" sortOrder="2">
+            <label>Extensions</label>
+        </tab>
+        <section id="testimonial_config" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <label>Testimonial</label>
+            <tab>magebuzz</tab>
+            <resource>Magebuzz_Testimonial::config</resource>
+            <group id="group_testimonial_general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <!-- add a new group with id active display -->
+                <label>General Options</label>
+
+                <field id="config_toplink" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <!-- add a new field with id scope -->
+                    <label>Show Testimonial Link in Toplink</label>
+                    <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                    <depends>
+                        <field id="config_enable">1</field>
+                    </depends>
+                </field>
+                <field id="config_sidabar" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <!-- add a new field with id scope -->
+                    <label>Show Testimonial in Sidebar</label>
+                    <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                    <depends>
+                        <field id="config_enable">1</field>
+                    </depends>
+                </field>
+                <field id="config_paging" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <!-- add a new field with id scope -->
+                    <label>Show Testimonial Paging</label>
+                    <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                    <depends>
+                        <field id="config_enable">1</field>
+                    </depends>
+                </field>
+                <field id="config_per_page" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <!-- add a new field with id scope -->
+                    <label>Testimonial Per Page </label>
+                    <comment><![CDATA[Comma-separated (,)]]></comment>
+                    <depends>
+                        <field id="config_enable">1</field>
+                    </depends>
+                </field>
+                <field id="config_amount_word" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <!-- add a new field with id scope -->
+                    <label>Maximum Number of Word Per Testimonial</label>
+                    <validate>validate-digits</validate>
+                    <depends>
+                        <field id="config_enable">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <!--Group 02 : Testimonial Configuration-->
+            <group id="group_testimonial_configuration" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <!-- add a new group with id active display -->
+                <label>Testimonial Configuration</label>
+                <field id="config_allow_customer_submit" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <!-- add a new field with id scope -->
+                    <label>Allow Guest to Submit Testimorial</label>
+                    <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                </field>
+                <field id="config_thank_you_message" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <!-- add a new field with id scope -->
+                    <label>Thank You Message</label>
+                    <comment>Message displayed after testimonial submission</comment>
+                </field>
+                <field id="config_approve" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <!-- add a new field with id scope -->
+                    <label>Approve Testimonial</label>
+                    <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                </field>
+            </group>
+            <!--GROUP 03 : Email Configuration-->
+            <group id="group_testimonial_email_configuration" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <!-- add a new group with id active display -->
+                <label>Email Configuration</label>
+                <field id="config_send_email_after_post" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <!-- add a new field with id scope -->
+                    <label>Sending Email After Posting Testimonial</label>
+                    <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                </field>
+                <field id="config_send_email_after_approved" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <!-- add a new field with id scope -->
+                    <label>Sending Email After Testimonial is Approved</label>
+                    <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                </field>
+                <field id="config_email_template_posting" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <!-- add a new field with id scope -->
+                    <label>Select Email Template For Posting Testimonial</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="config_email_template_approving" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <!-- add a new field with id scope -->
+                    <label>Select Email Template For Approving Testimonial</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

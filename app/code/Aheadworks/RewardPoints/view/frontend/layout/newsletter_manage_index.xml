@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="customer_newsletter">
+            <container name="customer.form.newsletter.extra" label="Newsletter Subscription Form" htmlTag="" htmlClass=""/>
+        </referenceContainer>
+        <referenceContainer name="customer.form.newsletter.extra">
+            <block class="Aheadworks\RewardPoints\Block\Customer\Subscribe" name="aw_rewardpoints.subscribe" />
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Aheadworks\RewardPoints\Block\Information\Bar" name="aw_reward_points_information_bar" as="aw_reward_points_information_bar" before="-" cacheable="false">
+                <arguments>
+                    <argument name="information_messages" xsi:type="array">
+                        <item name="newsletter" xsi:type="string">Aheadworks\RewardPoints\Block\Information\Messages\Newsletter</item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,253 @@
+<?php
+/*
+ * Copyright © 2015 Wyomind. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+?>
+<!--
+  Data feed's filters template 
+-->
+
+<div class='entry-edit form-inline'>
+    <fieldset id="type-ids-selector" class="fieldset ">
+        <legend class="legend">
+            <span><?php echo __('Product Type'); ?></span>
+            <span class="select-all"><?php echo __('Select all'); ?></span>
+            <span class="unselect-all"><?php echo __('Unselect all'); ?></span>
+        </legend>
+        <br>
+        <div>
+            <div class="node">
+                <div class='cat-box'><input class="filter_product_type" type='checkbox' id='type_id_simple'
+                                            identifier='simple'/><label><?php echo __('Simple'); ?></label></div>
+            </div>
+            <div class="node">
+                <div class='cat-box'><input class="filter_product_type" type='checkbox' id='type_id_configurable'
+                                            identifier='configurable'/><label><?php echo __('Configurable'); ?></label>
+                </div>
+            </div>
+            <div class="node">
+                <div class='cat-box'><input class="filter_product_type" type='checkbox' id='type_id_bundle'
+                                            identifier='bundle'/><label><?php echo __('Bundle'); ?></label></div>
+            </div>
+            <div class="node">
+                <div class='cat-box'><input class="filter_product_type" type='checkbox' id='type_id_grouped'
+                                            identifier='grouped'/><label><?php echo __('Grouped'); ?></label></div>
+            </div>
+            <div class="node">
+                <div class='cat-box'><input class="filter_product_type" type='checkbox' id='type_id_virtual'
+                                            identifier='virtual'/><label><?php echo __('Virtual'); ?></label></div>
+            </div>
+            <div class="node">
+                <div class='cat-box'><input class="filter_product_type" type='checkbox' id='type_id_downloadable'
+                                            identifier='downloadable'/><label><?php echo __('Downloadable'); ?></label>
+                </div>
+            </div>
+            <input id="simplegoogleshopping_type_ids" name="simplegoogleshopping_type_ids"
+                   value='<?php echo $block->getSGSTypeIds(); ?>' class=" input-text required" type="hidden"
+                   class="debug">
+
+        </div>
+    </fieldset>
+
+
+    <fieldset id="attribute-sets-selector" class="fieldset ">
+        <legend class="legend">
+            <span><?php echo __('Attribute Set'); ?></span>
+            <span class="select-all"><?php echo __('Select all'); ?></span>
+            <span class="unselect-all"><?php echo __('Unselect all'); ?></span>
+        </legend>
+        <br>
+        <div>
+            <?php
+            $attributeSets = $block->getAttributeSets();
+            foreach ($attributeSets as $set) {
+                ?>
+                <div class="node">
+                    <div class='cat-box'>
+                        <input type='checkbox' class="filter_attribute_set"
+                               id='attribute_set_<?php echo $set->getAttributeSetId(); ?>'
+                               identifier='<?php echo $set->getAttributeSetId(); ?>'/><label><?php echo $set->getAttributeSetName(); ?></label>
+                    </div>
+                </div>
+                <?php
+            }
+            ?>
+            <input id="simplegoogleshopping_attribute_sets" name="simplegoogleshopping_attribute_sets"
+                   value='<?php echo $block->getSGSAttributeSets(); ?>' class=" input-text required" type="hidden"
+                   class="debug">
+        </div>
+    </fieldset>
+
+    <fieldset id="visibility-selector" class="fieldset ">
+        <legend class="legend">
+            <span><?php echo __('Product Visibility'); ?></span>
+            <span class="select-all"><?php echo __('Select all'); ?></span>
+            <span class="unselect-all"><?php echo __('Unselect all'); ?></span>
+        </legend>
+        <br>
+        <div>
+            <div class="node">
+                <div class='cat-box'><input class="filter_visibility" type='checkbox' id='visibility_1' identifier='1'/><label><?php echo __('Not Visible Individually'); ?></label>
+                </div>
+            </div>
+            <div class="node">
+                <div class='cat-box'><input class="filter_visibility" type='checkbox' id='visibility_2' identifier='2'/><label><?php echo __('Catalog'); ?></label>
+                </div>
+            </div>
+            <div class="node">
+                <div class='cat-box'><input class="filter_visibility" type='checkbox' id='visibility_3' identifier='3'/><label><?php echo __('Search'); ?></label>
+                </div>
+            </div>
+            <div class="node">
+                <div class='cat-box'><input class="filter_visibility" type='checkbox' id='visibility_4' identifier='4'/><label><?php echo __('Catalog, Search'); ?></label>
+                </div>
+            </div>
+            <input id="simplegoogleshopping_visibility" name="simplegoogleshopping_visibility"
+                   value='<?php echo $block->getSGSVisibility(); ?>' class=" input-text required" type="hidden"
+                   class="debug">
+        </div>
+    </fieldset>
+
+
+    <fieldset id="attributes-selector" class="fieldset ">
+        <legend class="legend">
+            <span><?php echo __('Advanced filters'); ?></span>
+        </legend>
+
+        <br>
+        <div>
+            <script>
+                var attribute_codes = <?php echo $block->getJsData(); ?>;
+                attribute_codes['is_in_stock'] = [{"label": "Yes", "value": 1}, {"label": "No", "value": 0}];
+                attribute_codes['qty'] = [];
+                attribute_codes['entity_id'] = [];
+            </script>
+
+            <?php
+            $selectOutput = $block->getSelectHtml();
+            $nbFilters = $block->getNbFilters();
+            ?>
+            <?php for ($x = 0; $x < $nbFilters; $x++) : ?>
+
+                <div class="node advanced_filters" id='node_<?php echo $x; ?>'>
+                    <table class='cat-box one-value'>
+                        <tr>
+                            <td><input class="checked-attribute" type='checkbox' id='attribute_<?php echo $x; ?>'
+                                       identifier='<?php echo $x; ?>'/></td>
+                            <?php
+                            if (!$block->getFiltersSql()) {
+                                $display = "none";
+                            } else {
+                                $display = "";
+                            }
+                            ?>
+                            <td>
+                                <?php if ($x > 0) : ?>
+                                    <select style="display:<?php echo $display; ?>;" disabled="disabled"
+                                            class="statement-attribute" id='statement_attribute_<?php echo $x; ?>'>
+                                        <option value="AND">AND</option>
+                                        <option value="OR">OR</option>
+                                    </select>
+                                <?php else : ?>
+                                    <input type="text" id='statement_attribute_<?php echo $x; ?>' value=''
+                                           class="statement-attribute" style=" display:<?php echo $display; ?>;"/>
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <select style="" disabled="disabled" class="name-attribute"
+                                        id='name_attribute_<?php echo $x; ?>' identifier="<?php echo $x; ?>">
+                                    <?php echo $selectOutput; ?>
+                                </select>
+                            </td>
+                            <td>
+                                <select disabled="disabled" class="condition-attribute"
+                                        id='condition_attribute_<?php echo $x; ?>' identifier="<?php echo $x; ?>">
+                                    <option value='eq'><?php echo __('=') ?></option>
+                                    <option value='gt'><?php echo __('>') ?></option>
+                                    <option value='lt'><?php echo __('<') ?></option>
+                                    <option value='gteq'><?php echo __('&ge;') ?></option>
+                                    <option value="lteq"><?php echo __('&le;') ?></option>
+                                    <option value='neq'><?php echo __('&ne;') ?></option>
+                                    <option value='like'><?php echo __('like') ?></option>
+                                    <option value='nlike'><?php echo __('not like') ?></option>
+                                    <option value='null'><?php echo __('is null') ?></option>
+                                    <option value='notnull'><?php echo __('is not null') ?></option>
+                                    <option value='in'><?php echo __('in') ?></option>
+                                    <option value='nin'><?php echo __('not in') ?></option>
+                                </select>
+                            </td>
+                            <td>
+                                <select disabled="disabled" class='pre-value-attribute'
+                                        id="pre_value_attribute_<?php echo $x; ?>" multiple="multiple" size="5"
+                                        identifier="<?php echo $x; ?>"></select>
+                                <input disabled="disabled" type='text'
+                                       class="value-attribute <?php echo $block->getFiltersSql() ? "advanced" : ""; ?>"
+                                       id="value_attribute_<?php echo $x; ?>"/>
+                            </td>
+
+                        </tr>
+                    </table>
+                </div>
+            <?php endfor; ?>
+
+        </div>
+    </fieldset>
+</div>
+
+
+<script>
+
+    require(["jquery", "sgs_filters"], function ($, filters) {
+        'use strict';
+
+        filters.attributeCodes = <?php echo $block->getJsData(); ?>;
+        filters.attributeCodes['is_in_stock'] = [{"label": "Yes", "value": 1}, {"label": "No", "value": 0}];
+        filters.attributeCodes['qty'] = [];
+        filters.attributeCodes['entity_id'] = [];
+
+        /* select product types */
+        $(document).on("click", ".filter_product_type", function (evt) {
+            var elt = $(this);
+            elt.parent().toggleClass('selected');
+            filters.updateProductTypes();
+        });
+        filters.loadProductTypes();
+        /* select attribute sets */
+        $(document).on("click", ".filter_attribute_set", function (evt) {
+            var elt = $(this);
+            elt.parent().toggleClass('selected');
+            filters.updateAttributeSets();
+        });
+        filters.loadAttributeSets();
+        /* select product visibilities */
+        $(document).on("click", ".filter_visibility", function (evt) {
+            var elt = $(this);
+            elt.parent().toggleClass('selected');
+            filters.updateProductVisibilities();
+        });
+        filters.loadProductVisibilities();
+        /* un/select all */
+        $(document).on("click", ".select-all", function (evt) {
+            var elt = $(this);
+            filters.selectAll(elt);
+        });
+        $(document).on("click", ".unselect-all", function (evt) {
+            var elt = $(this);
+            filters.unselectAll(elt);
+        });
+        filters.updateUnSelectLinks();
+        /* select advanced filters */
+
+        // change attribute select 
+        $(document).on('change', '.name-attribute,.condition-attribute', function (evt) {
+            var id = $(this).attr('identifier');
+            var attribute_code = $('#name_attribute_' + id).val();
+            filters.updateRow(id, attribute_code);
+        });
+        $(document).on('change', '.checked-attribute,.statement-attribute,.name-attribute,.condition-attribute,.value-attribute,.pre-value-attribute', function (evt) {
+            filters.updateAdvancedFilters();
+        });
+        filters.loadAdvancedFilters();
+    });
+</script>

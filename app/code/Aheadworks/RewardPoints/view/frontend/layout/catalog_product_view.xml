@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Aheadworks_RewardPoints::css/product.css"/>
+    </head>
+    <body>
+        <referenceContainer name="product.info.main">
+            <block class="Aheadworks\RewardPoints\Block\Product\View\Discount" name="aw_reward_points.product.view.discount" as="aw_reward_points.product.view.discount" after="product.info.price" />
+            <block class="Aheadworks\RewardPoints\Block\Product\View\Share" name="aw_reward_points.product.view.share" as="aw_reward_points.product.view.share" after="product.info.extrahint" />
+        </referenceContainer>
+    </body>
+</page>

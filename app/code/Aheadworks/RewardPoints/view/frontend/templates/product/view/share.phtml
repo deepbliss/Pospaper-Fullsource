@@ -1,0 +1,43 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+// @codingStandardsIgnoreFile
+
+/* @var $block \Aheadworks\RewardPoints\Block\Product\View\Share */
+
+$canShow = true;
+if (!$block->isAjax()): ?>
+    <?php $canShow = false ?>
+    <div data-aw-reward-points-block-name="<?php /* @noEscape */ echo $block->getNameInLayout() ?>"></div>
+<?php endif; ?>
+
+<?php if ($canShow && $block->isDisplayBlock()) : ?>
+    <div class="product-reward-points-share product-social-links">
+        <a href="<?php echo $block->escapeHtml($block->getFacebookShareUrl()); ?>"
+           class="reward-points-share-facebook"
+            <?php if (!$block->isGuest()) : ?>
+                data-mage-init='{"awRewardPointsShare": {"productId": "<?php /* @noEscape */ echo $block->escapeHtml($block->getProductId());?>", "url": "<?php /* @noEscape */ echo $block->escapeHtml($block->getAjaxActionUrl());?>", "network": "facebook"}}'
+            <?php endif; ?>
+           target="_blank"><?php echo $block->escapeHtml(__('facebook')) ?></a>
+        <a href="<?php echo $block->escapeHtml($block->getTwitterShareUrl()); ?>"
+           class="reward-points-share-twitter"
+            <?php if (!$block->isGuest()) : ?>
+                data-mage-init='{"awRewardPointsShare": {"productId": "<?php /* @noEscape */ echo $block->escapeHtml($block->getProductId());?>", "url": "<?php /* @noEscape */ echo $block->escapeHtml($block->getAjaxActionUrl());?>", "network": "twitter"}}'
+            <?php endif; ?>
+           target="_blank"><?php echo $block->escapeHtml(__('twitter')) ?></a>
+        <a href="<?php echo $block->escapeHtml($block->getGooglePlusShareUrl()); ?>"
+           class="reward-points-share-google-plus"
+            <?php if (!$block->isGuest()) : ?>
+                data-mage-init='{"awRewardPointsShare": {"productId": "<?php /* @noEscape */ echo $block->escapeHtml($block->getProductId());?>", "url": "<?php /* @noEscape */ echo $block->escapeHtml($block->getAjaxActionUrl());?>", "network": "google-plus"}}'
+            <?php endif; ?>
+           target="_blank"><?php echo $block->escapeHtml(__('google-plus')) ?></a>
+        <?php if (!$block->isGuest() && $block->getAwardedPointsForShare() > 0) : ?>
+            <br />
+            <?php /* @noEscape */ echo __('Share this page to earn <strong>%1</strong> point(s) (<strong>%2</strong> discount).',
+                $block->getAwardedPointsForShare(), $block->getFormattedAwardedAmount()) ?>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>

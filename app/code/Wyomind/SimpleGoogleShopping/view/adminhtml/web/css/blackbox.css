@@ -1,0 +1,291 @@
+/**
+Copyright © 2016 Wyomind. All rights reserved.
+See LICENSE.txt for license details.
+*/
+.blackbox {
+    position: fixed !important;
+    top: 0px;
+    left: 0px;
+    min-width: 200px;
+    min-height: 49px;
+    z-index: 9999;
+    width: auto;
+    height: auto;
+    border-radius: 3px;
+    display: none;
+    background: url(../images/resize.png) no-repeat 100% 100% #373330;
+}
+
+.blackbox.draggable {
+
+}
+
+.blackbox .resizable {
+    width: 200px;
+    height: 200px;
+    min-width: 200px;
+    min-height: 49px;
+    padding: 6px;
+}
+
+.blackbox .content {
+    position: absolute;
+    bottom: 6px;
+    top: 55px;
+    right: 6px;
+    left: 6px;
+    background: white;
+}
+
+.blackbox .header {
+    cursor: move;
+    height: 55px;
+}
+
+.blackbox .header .button.active:before,
+.blackbox .header .button.active {
+    color: white;
+}
+
+.blackbox .header .button {
+    font-variant: small-caps;
+    color: #AAA6A0;
+    display: inline-block;
+    padding-right: 10px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.blackbox .header .button:hover {
+    background: #4A4542;
+    color: #F7F3EB;
+}
+
+.blackbox .button:before {
+    font-family: 'Admin Icons';
+    font-weight: normal !important;
+    color: #aaa6a0;
+    display: block;
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.blackbox .button.preview:before {
+    content: '\e61f ' !important;
+}
+
+.blackbox .button.library:before {
+    content: '\e612 ' !important;
+}
+
+.blackbox .button.report:before {
+    content: '\e609 ' !important;
+}
+
+.blackbox .button.fullscreen:before,
+.blackbox .button.window:before {
+    font-family: 'MUI-Icons';
+}
+
+.blackbox .button.fullscreen:before {
+    content: '\e04f ' !important;
+}
+
+.blackbox .button.window:before {
+    content: '\e04e ' !important;
+}
+
+.blackbox .button.collapse:before {
+    content: '\e615 ' !important;
+}
+
+.blackbox .button.expand:before {
+    content: '\e616 ' !important;
+}
+
+.blackbox .button.collapse,
+.blackbox .button.expand,
+.blackbox .button.fullscreen,
+.blackbox .button.window {
+    float: right;
+}
+
+.blackbox .button.collapse:before,
+.blackbox .button.expand:before,
+.blackbox .button.fullscreen:before,
+.blackbox .button.window:before {
+    font-size: 1em;
+}
+
+.blackbox .content .error {
+    position: absolute;
+    right: 0px;
+    left: 0px;
+    bottom: -1px;
+    top: 0px;
+    display: none;
+    padding: 0rem 4rem 0rem 5.5rem;
+    overflow: auto;
+}
+
+.blackbox .content .error .msg {
+    position: relative;
+    margin-top: 1rem;
+}
+
+.blackbox .content .preview,
+.blackbox .content .library,
+.blackbox .content .report {
+    position: absolute;
+    bottom: 0px;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    display: none;
+}
+
+.blackbox .content .library,
+.blackbox .content .report {
+    overflow: auto;
+}
+
+.blackbox .content .loader {
+    position: absolute;
+    bottom: 0px;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    display: none;
+    background: url('../images/loader.gif') no-repeat 50% 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.blackbox .content .preview .CodeMirror {
+    position: absolute;
+    bottom: 0px;
+    top: 0px;
+    height: auto;
+    left: 0px;
+    right: 0px;
+}
+
+.blackbox .content .report #sgs-report {
+    font-family: arial;
+    font-size: 12px;
+    margin: 13px;
+}
+
+.blackbox .content .report #sgs-report H3 {
+    font-weight: bold;
+    color: red;
+    margin-top: 10px;
+}
+
+.blackbox .content .report #sgs-report .exemples {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #efefef;
+}
+
+/* library itself */
+.data-feed-library ul li {
+    list-style: outside none none;
+    display: inline-block;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.data-feed-library .separator {
+    border-bottom: 1px solid black;
+    display: block;
+    width: 6%;
+    height: 10px;
+    margin-left: 47%;
+    margin-right: 47%;
+}
+
+.data-feed-library .label {
+
+    border-right: medium none;
+    height: auto;
+    width: 50%;
+}
+
+.data-feed-library .pink {
+    width: 50%;
+    font-weight: bold;
+    color: #2F7295;
+    border-left: medium none;
+}
+
+div.attr-list {
+    margin: 5px;
+}
+
+table.attr-list {
+    width: 100%;
+    border: 1px solid #f7f3eb;
+}
+
+table.attr-list a {
+    color: lightgray;
+}
+
+tr.attribute-sample {
+    display: none;
+}
+
+tr.attribute-sample table {
+    width: 100%;
+}
+
+/*table.attr-list th {
+    border: 1px solid black;
+}*/
+tr.attribute-sample table td {
+    border: none;
+    background-color: transparent;
+    width: 50%;
+    padding-bottom: 10px;
+}
+
+tr.attribute-sample table td.values {
+    text-align: left;
+}
+
+tr.attribute-sample.visible {
+    display: table-row;
+}
+
+.attr-list th {
+    background: #524d49 none repeat scroll 0 0 !important;
+    color: white;
+    padding: 5px;
+}
+
+.attribute-sample.visible > td {
+    padding: 25px;
+}
+
+tr.attribute-documentation_0 td {
+    padding: 3px;
+    margin: 1px !important;
+    background-color: white !important;
+}
+
+tr.attribute-documentation_1:hover td,
+tr.attribute-documentation_0:hover td {
+    background-color: #2F7295 !important;
+    color: white;
+    margin: 1px !important;
+    cursor: pointer;
+}
+
+tr.attribute-documentation_1 td {
+    padding: 3px;
+    margin: 1px !important;
+}
+
+.attr-list h3 {
+    font-size: 1.2em;
+    margin-left: 25px;
+}

@@ -1,0 +1,64 @@
+<?php
+
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_Megamenu
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+?>
+<?php
+
+$columnNumber = $block->getColumnNumber();
+
+$parrent_categories = $block->getParentCategories();
+if ($parrent_categories->getSize() && $parrent_categories->getSize() < $columnNumber) {
+    $columnNumber = $parrent_categories->getSize();
+}elseif($columnNumber>12){
+    $columnNumber = 12;
+}
+$data = $block->getAllCategory($columnNumber,$parrent_categories);
+$col_index = floor(12/$columnNumber);
+switch ($columnNumber) {
+    case 5:$col_index = 24;
+        break;
+    case 7:$col_index = 14;
+        break;
+    case 8:$col_index = 125;
+        break;
+    case 9:$col_index = 111;
+        break;
+    case 10:$col_index = 100;
+        break;
+    case 11:$col_index = 909;
+        break;
+    default:
+        break;
+}
+
+?>
+<?php if ($parrent_categories->getSize()): ?>
+    <div class="row ms-category">
+        <?php if($block->getItem()->getCategoriesBoxTitle()): ?><strong class="ms-boxtitle form-group col-xs-12"><?php echo $block->getItem()->getCategoriesBoxTitle(); ?></strong><?php endif; ?>
+        <?php foreach ($data as $categories): ?>
+            <div class="col-category col-xs-<?php echo $col_index ?>">
+                <?php foreach ($categories as $category): ?>
+                    <a class="form-group <?php echo $block->getLevel($category->getLevel()); ?>" href="<?php echo $category->getUrl() ?>"><?php echo $category->getName() ?></a>
+                <?php  endforeach; ?>
+            </div>
+        <?php  endforeach; ?>
+    </div>
+<?php endif; ?>

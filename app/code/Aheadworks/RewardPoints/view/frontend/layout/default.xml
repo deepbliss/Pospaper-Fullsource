@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="default_head_blocks"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Aheadworks\RewardPoints\Block\Ajax" template="Aheadworks_RewardPoints::ajax.phtml" name="aw_rp_ajax" />
+        </referenceContainer>
+        <referenceBlock name="header.links">
+            <block class="Aheadworks\RewardPoints\Block\Customer\RewardPointsBalance\Toplink" name="aw_rp_balance_toplink" />
+        </referenceBlock>
+    </body>
+</page>

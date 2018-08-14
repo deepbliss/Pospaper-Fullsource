@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/system_file.xsd">
+    <system>
+         <!-- create section -->
+        <section id="bestsellerproducts_settings" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Bestseller Products</label>
+            <!-- Assign section to tab -->
+            <tab>magehit</tab>
+            <resource>Magehit_Bestsellerproducts::bestsellerproducts</resource>
+            <!-- create group for fields in section -->
+            <group id="bestseller_products" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Bestseller Products</label>
+                <!-- create field -->
+                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+				<field id="sortby" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Sort By</label>
+                    <source_model>Magehit\Bestsellerproducts\Model\Source\Sortby</source_model>
+					<comment><![CDATA[Default: Random]]></comment>
+					<depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+				<field id="startdate" translate="label" type="text" sortOrder="65" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Start Date</label>
+                    <comment><![CDATA[Date Format (Year-Month-Date)]]></comment>
+                    <frontend_model>Magehit\Bestsellerproducts\Model\Source\Calendar</frontend_model>
+                </field>
+				<field id="enddate" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>End Date</label>
+                    <comment><![CDATA[Date Format (Year-Month-Date)]]></comment>
+                    <frontend_model>Magehit\Bestsellerproducts\Model\Source\Calendar</frontend_model>
+                </field>
+            </group>
+			<group id="horizontal_setting" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Horizontal carousels setting (CMS page, static block)</label>
+                <field id="title" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                </field>
+                <field id="limit" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Limit</label>
+                    <comment><![CDATA[Number of products displayed]]></comment>
+                </field>
+                <field id="slide_auto" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Slide Auto</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Default: Yes. Slides will automatically transition.]]></comment>
+                </field>
+                <field id="slide_pagination" translate="label comment" type="select" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show slide pagination</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="slide_navigation" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show prev/next navigation</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+			</group>
+			<group id="vertical_setting" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+				<field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+				<label>Vertical carousels setting (Left/Right sidebar)</label>
+				<field id="title" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+				<field id="limit" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Limit</label>
+                    <comment><![CDATA[Number of products displayed]]></comment>
+					<depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+				<field id="slide_auto" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Slide Auto</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Default: Yes. Slides will automatically transition.]]></comment>
+					<depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+				<field id="slide_pagination" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show slide pagination</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model> 
+					<depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+				<field id="slide_navigation" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show prev/next navigation</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+			</group>
+        </section>
+    </system>
+</config>

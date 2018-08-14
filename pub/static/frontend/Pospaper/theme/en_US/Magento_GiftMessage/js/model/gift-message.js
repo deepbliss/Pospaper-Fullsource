@@ -1,0 +1,1 @@
+/chroot/home/pospaper/pospaper.com/html/vendor/magento/module-gift-message/view/frontend/web/js/model/gift-message.js

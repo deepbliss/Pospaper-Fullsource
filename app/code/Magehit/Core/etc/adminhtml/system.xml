@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/system_file.xsd">
+    <system>
+        <!-- add new tab in system configuration section -->
+        <tab id="magehit" translate="label" sortOrder="500">
+            <label>Magehit</label>
+        </tab>
+    </system>
+</config>

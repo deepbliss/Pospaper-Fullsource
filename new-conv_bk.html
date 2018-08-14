@@ -1,0 +1,104 @@
+<script language="JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v4.0
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && document.getElementById) x=document.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+</script>
+
+
+<script language="JavaScript"><!--
+  function convert(){
+    var val = 0;
+    for (var i = 1; i <= 5; i++){
+      if(document.forms[0].elements[i].value.length != 0){
+          if (i == 1 && document.forms[0].elements[2].value != "") return false;
+          val = document.forms[0].elements[i].value / document.forms[0].elements[i].factor;
+          break;
+        }
+      }
+      for (var i = 1; i <= 5; i++) document.forms[0].elements[i].value =
+        Math.round(val * document.forms[0].elements[i].factor*10000)/10000;
+        return true;
+      }
+    
+    function Cx() {
+      for (var i = 1; i <= 5; i++) document.forms[0].elements[i].value = "";
+      return true;
+    }
+    
+    
+    // -->
+    </script>
+
+
+
+
+    <center>
+    <style type="text/css">
+    @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i|Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i'); 
+    .convert-div .convert-btn {margin-bottom: 0;margin-right: 0;width: auto;font-size: 14px;color: #fff;text-transform: uppercase;font-weight: 700;letter-spacing: 0;background: #8fcc05;border-radius: 0;border: 0;padding: 8px 12px;line-height: 19px;font-family: 'Poppins', sans-serif;text-decoration: none;}
+    .convert-div .convert-btn:hover{background: #61499d;transition: all 0.5s ease 0s;-webkit-transition: all 0.5s ease 0s;-moz-transition: all 0.5s ease 0s;}
+	.convert-div .box{float:left; margin-right:0px; width:20%; padding-right: 10px;box-sizing: border-box;}
+	.convert-div .box input {border: 1px solid #d1d1d1;background: #fdfdfd;font-family: 'Poppins', sans-serif;font-weight: 400;font-size: 16px;color: #929292;padding: 0 15px;
+	box-sizing: border-box;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;text-align: left;height: 35px;width: 100%;display: block;}
+.convert-div .box span{text-align:center; float:left; width:100%}
+	.convert-div tr td{padding:0;}
+	@media screen and (max-width: 675px) { 
+	.convert-div .convert-btn{width: 100%;float: left;box-sizing: border-box;text-align: center; margin-bottom:0; margin-top: 20px;}
+	.convert-div tr td{float:left; width:100%;}
+	.convert-div{padding: 10px;}	
+	}
+	@media screen and (max-width: 578px) { 
+	.convert-div .box {float: left;margin-right: 0;margin-bottom: 8px;width: 33.33%;}
+	}
+	@media screen and (max-width: 430px) { 
+	.convert-div .box {float: left;margin-right: 0;margin-bottom: 8px;width: 50%;}
+	}
+</style>
+<div style="background-color:#FFFFFF; border:2px solid #dbdbdb; padding: 20px;" class="convert-div">
+<table cellspacing="0" cellpadding="5" border="0" bgcolor="#FFFFFF">
+<tr>
+<td valign="top">
+
+<form method="POST">
+</td>
+<td NOwrap valign="middle"> 
+  <input type="hidden" name="hiddenField">
+  <div class="box"><input type="text" name="mm" size="7" onFocus="Cx()"><span class="bluetext"> mm </span></div>
+  <div class="box"><input type="text" name="m" size="7" onFocus="Cx()"><span class="bluetext"> m </span> </div>
+  <div class="box inbox"><input type="text" name="inc" size="7" onFocus="Cx()"><span class="bluetext"> in </span> </div>
+  <div class="box"><input type="text" name="ft" size="7" onFocus="Cx()"><span class="bluetext"> ft </span>  </div>
+  <div class="box ydsbox"><input type="text" name="yds" size="7" onFocus="Cx()"><span class="bluetext"> yds </span></div>
+</form>
+
+<a href="javascript:;" onClick="convert()" class="convert-btn"> Convert </a>
+    <script language="JavaScript">
+    <!--
+      document.forms[0].mm.factor = 10; 
+      document.forms[0].m.factor = 0.01; 
+      document.forms[0].inc.factor = 0.3937007874; 
+      document.forms[0].ft.factor = 0.03280839895; 
+      document.forms[0].yds.factor = 0.01093613298;
+    // -->
+    </script><br/><br/>
+</td></tr></table></center>

@@ -1,0 +1,9 @@
+.transactions-toolbar {
+    position: relative;   
+}
+.aw_reward_points__balance-green {
+    color: #329c6e;
+}
+.aw_reward_points__balance-red {
+    color: #d13441;
+}

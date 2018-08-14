@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Store/etc/config.xsd">
+    <default>
+        <bestsellerproducts_settings>
+            <bestseller_products>
+                <enable>0</enable>
+            </bestseller_products> 
+            <horizontal_setting>
+                <limit>8</limit>
+                <title>Bestseller Products</title>
+                <slide_auto>1</slide_auto>
+            </horizontal_setting>  
+            <vertical_setting>
+                <limit>8</limit>
+                <title>Bestseller Products</title>
+				<slide_auto>1</slide_auto>
+            </vertical_setting>            
+        </bestsellerproducts_settings>
+    </default>
+</config>

@@ -1,0 +1,21 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Aheadworks\RewardPoints\Block\Information\Bar */
+
+$messages = $block->getMessages();
+?>
+<?php if (count($messages)) : ?>
+    <div class="aw_reward_points__information-bar">
+        <?php foreach ($messages as $message): ?>
+            <div class="message-notice notice message">
+                <div><?php /* @noEscape */ echo $message ?></div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>

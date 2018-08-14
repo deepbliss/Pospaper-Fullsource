@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_Megamenu
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" layout="admin-2columns-left">
+  <head>
+    <!--<title>Edit Mega Menu Item</title>-->
+    <css src="Magestore_Megamenu::css/megamenu.css"/>
+    <script src="Magestore_Megamenu::js/jscolor.min.js"/>
+  </head>
+   <update handle="editor"/>
+  <body>
+    <referenceContainer name="content">
+      <block class="Magestore\Megamenu\Block\Adminhtml\Megamenu\Edit" name="admin.block.megamenu.form.container"/>
+    </referenceContainer>
+    <referenceContainer name="left">
+      <block class="Magestore\Megamenu\Block\Adminhtml\Megamenu\Edit\Tabs" name="megamenu_edit_tab">
+        <block class="Magestore\Megamenu\Block\Adminhtml\Megamenu\Edit\Tab\GeneralTab" name="megamenu_edit_tab_general"/>
+        <block class="Magestore\Megamenu\Block\Adminhtml\Megamenu\Edit\Tab\Content" name="megamenu_edit_tab_content"/>
+        <action method="addTab">
+          <argument name="name" xsi:type="string">general_section</argument>
+          <argument name="block" xsi:type="string">megamenu_edit_tab_general</argument>
+        </action>
+        <action method="addTab">
+          <argument name="name" xsi:type="string">content_section</argument>
+          <argument name="block" xsi:type="string">megamenu_edit_tab_content</argument>
+        </action>
+      </block>
+    </referenceContainer>
+  </body>
+</page>

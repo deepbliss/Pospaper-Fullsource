@@ -1,0 +1,24 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+?>
+<?php
+/** @var $block \Magento\Downloadable\Block\Checkout\Cart\Item\Renderer */
+if ($_options = $block->getOptionList()) : ?>
+    <?php foreach ($_options as $_option) : ?>
+        <?php $formattedOptionValue = $block->getFormatedOptionValue($_option) ?>
+        <dl>
+            <dt><b><?= $block->escapeHtml($_option['label']) ?>:</b></dt>
+            <dd>
+                <?php if (isset($formattedOptionValue['full_view'])) : ?>
+                    <?= /* @escapeNotVerified */ $formattedOptionValue['full_view'] ?>
+                <?php else : ?>
+                    <?= /* @escapeNotVerified */ $formattedOptionValue['value'] ?>
+                <?php endif; ?>
+            </dd>
+        </dl>
+    <?php endforeach; ?>
+<?php endif; ?>

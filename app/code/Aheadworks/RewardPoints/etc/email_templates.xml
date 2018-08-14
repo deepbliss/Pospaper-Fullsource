@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="aw_rewardpoints_notifications_balance_update_template" label="Balance update" file="balance_update.html" type="html" module="Aheadworks_RewardPoints" area="frontend"/>
+    <template id="aw_rewardpoints_notifications_expiration_reminder_template" label="Points expiration reminder" file="expiration_reminder.html" type="html" module="Aheadworks_RewardPoints" area="frontend"/>
+</config>

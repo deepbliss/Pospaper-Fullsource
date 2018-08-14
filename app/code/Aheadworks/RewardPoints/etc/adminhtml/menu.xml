@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Aheadworks_RewardPoints::aw_reward_points" title="Reward Points by Aheadworks" translate="title" module="Aheadworks_RewardPoints" parent="Magento_Backend::marketing" sortOrder="100" resource="Aheadworks_RewardPoints::aw_reward_points"/>
+        <add id="Aheadworks_RewardPoints::aw_reward_points_transaction" title="Transactions" translate="title" sortOrder="20" module="Aheadworks_RewardPoints" parent="Aheadworks_RewardPoints::aw_reward_points" action="aw_reward_points/transactions/" dependsOnModule="Aheadworks_RewardPoints" resource="Aheadworks_RewardPoints::aw_reward_points_transaction"/>
+        <add id="Aheadworks_RewardPoints::aw_reward_points_customers" title="Customers" translate="title" sortOrder="30" module="Aheadworks_RewardPoints" parent="Aheadworks_RewardPoints::aw_reward_points" action="aw_reward_points/customers/" dependsOnModule="Aheadworks_RewardPoints" resource="Aheadworks_RewardPoints::aw_reward_points_customers"/>
+    </menu>
+</config>

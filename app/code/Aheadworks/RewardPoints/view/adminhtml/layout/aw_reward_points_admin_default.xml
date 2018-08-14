@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Aheadworks_RewardPoints::css/page-menu.css"/>
+        <css src="Aheadworks_RewardPoints::css/style.css"/>
+    </head>
+    <body>
+        <referenceContainer name="page.main.actions">
+            <block class="Aheadworks\RewardPoints\Block\Adminhtml\Page\Menu" name="aw_reward_points_menu">
+                <block class="Aheadworks\RewardPoints\Block\Adminhtml\Page\Menu\Item" name="aw_reward_points_menu_item.transactions">
+                    <arguments>
+                        <argument name="path" xsi:type="string">*/transactions/index</argument>
+                        <argument name="label" xsi:type="string">Transactions</argument>
+                        <argument name="resource" xsi:type="string">Aheadworks_RewardPoints::aw_reward_points_transaction</argument>
+                        <argument name="controller" xsi:type="string">transactions</argument>
+                    </arguments>
+                </block>
+                <block class="Aheadworks\RewardPoints\Block\Adminhtml\Page\Menu\Item" name="aw_reward_points_menu_item.customers">
+                    <arguments>
+                        <argument name="path" xsi:type="string">*/customers/index</argument>
+                        <argument name="label" xsi:type="string">Customers</argument>
+                        <argument name="resource" xsi:type="string">Aheadworks_RewardPoints::aw_reward_points_customers</argument>
+                        <argument name="controller" xsi:type="string">customers</argument>
+                    </arguments>
+                </block>
+                <block class="Aheadworks\RewardPoints\Block\Adminhtml\Page\Menu\Item" name="aw_reward_points_menu_item.settings">
+                    <arguments>
+                        <argument name="path" xsi:type="string">adminhtml/system_config/edit/section/aw_rewardpoints</argument>
+                        <argument name="label" xsi:type="string">Settings</argument>
+                        <argument name="resource" xsi:type="string">Aheadworks_RewardPoints::settings</argument>
+                    </arguments>
+                </block>
+                <block class="Aheadworks\RewardPoints\Block\Adminhtml\Page\Menu\Item" name="aw_reward_points_menu_item.readme">
+                    <arguments>
+                        <argument name="label" xsi:type="string">Readme</argument>
+                        <argument name="link_attributes" xsi:type="array">
+                            <item name="href" xsi:type="string">http://confluence.aheadworks.com/display/EUDOC/Reward+Points+-+Magento+2</item>
+                            <item name="target" xsi:type="string">_blank</item>
+                            <item name="class" xsi:type="string">separator</item>
+                        </argument>
+                    </arguments>
+                </block>
+                <block class="Aheadworks\RewardPoints\Block\Adminhtml\Page\Menu\Item" name="aw_reward_points_menu_item.support">
+                    <arguments>
+                        <argument name="label" xsi:type="string">Get Support</argument>
+                        <argument name="link_attributes" xsi:type="array">
+                            <item name="href" xsi:type="string">http://ecommerce.aheadworks.com/contacts/</item>
+                            <item name="target" xsi:type="string">_blank</item>
+                        </argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

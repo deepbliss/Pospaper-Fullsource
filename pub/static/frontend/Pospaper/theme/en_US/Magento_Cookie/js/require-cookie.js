@@ -1,0 +1,1 @@
+/chroot/home/pospaper/pospaper.com/html/vendor/magento/module-cookie/view/frontend/web/js/require-cookie.js

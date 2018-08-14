@@ -1,0 +1,115 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+/** @var \Magento\Contact\Block\ContactForm $block */
+?>
+<form class="form contact"
+      action="<?= $block->escapeUrl($block->getFormAction()) ?>"
+      id="contact-form"
+      method="post"
+      data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+      data-mage-init='{"validation":{}}'>
+    <fieldset class="fieldset">
+        <h2>Contact us directly</h2>
+        <div class="field fname required">            
+            <div class="control">
+                <input name="fname" id="fname" title="<?= $block->escapeHtmlAttr(__('First Name')) ?>" value="<?= $block->escapeHtmlAttr($this->helper('Magento\Contact\Helper\Data')->getPostValue('name') ?: $this->helper('Magento\Contact\Helper\Data')->getUserName()) ?>" class="input-text" type="text" data-validate="{required:true}" placeholder="First Name *"/>
+            </div>
+        </div>
+        <div class="field lname required">            
+            <div class="control">
+                <input name="lname" id="lname" title="<?= $block->escapeHtmlAttr(__('First Name')) ?>" value="<?= $block->escapeHtmlAttr($this->helper('Magento\Contact\Helper\Data')->getPostValue('name') ?: $this->helper('Magento\Contact\Helper\Data')->getUserName()) ?>" class="input-text" type="text" data-validate="{required:true}" placeholder="Last Name *"/>
+            </div>
+        </div>
+        <div class="field email required">
+            <div class="control">
+                <input name="email" id="email" title="<?= $block->escapeHtmlAttr(__('Email')) ?>" value="<?= $block->escapeHtmlAttr($this->helper('Magento\Contact\Helper\Data')->getPostValue('email') ?: $this->helper('Magento\Contact\Helper\Data')->getUserEmail()) ?>" class="input-text" type="email" data-validate="{required:true, 'validate-email':true}" placeholder="Email Address *"/>
+            </div>
+        </div>
+        <div class="field category required">
+            <div class="control">
+            <select name="inquiry" id="inquiry">
+               <option value="">Select Inquiry Category</option>
+               <option value="Sales">Sales</option>
+               <option value="Customer Service">Customer Service</option>
+               <option value="Order Tracking">Order Tracking</option>
+               <option value="Returns">Returns</option>
+               <option value="Other">Other</option>    
+            </select>
+            </div>
+        </div>
+        <!--<div class="field telephone">
+            <label class="label" for="telephone"><span><?= $block->escapeHtml(__('Phone Number')) ?></span></label>
+            <div class="control">
+                <input name="telephone" id="telephone" title="<?= $block->escapeHtmlAttr(__('Phone Number')) ?>" value="<?= $block->escapeHtmlAttr($this->helper('Magento\Contact\Helper\Data')->getPostValue('telephone')) ?>" class="input-text" type="text" placeholder="Phone Number *"/>
+            </div>
+        </div>-->
+        <div class="field comment required">
+            <div class="control">
+                <textarea name="comment" id="comment" title="<?= $block->escapeHtmlAttr(__('How can we help you?')) ?>" class="input-text" cols="5" rows="3" data-validate="{required:true}" placeholder="How can we help you?"><?= $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('comment')) ?></textarea>
+            </div>
+        </div>
+        <div class="field captcha required">
+            <div class="control">
+                <div class="g-recaptcha" id="g-recaptchas3" ></div>
+
+      <div class="validation-advice g-captcha3 mage-error" generated="true" id="comment-error"></div>
+            </div>
+        </div> 
+
+ 
+
+
+        <?= $block->getChildHtml('form.additional.info') ?>
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <input type="hidden" name="hideit" id="hideit" value="" />
+            <button type="submit" title="<?= $block->escapeHtmlAttr(__('Submit')) ?>" class="action submit primary">
+                <span><?= $block->escapeHtml(__('Submit')) ?></span>
+            </button>
+        </div>
+    </div>
+</form>
+
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback3&render=explicit" async defer></script> 
+<script type="text/javascript">
+
+var html_element_id3;
+var onloadCallback3 = function() {
+
+html_element_id3 = grecaptcha.render('g-recaptchas3', {
+'sitekey' : '6Ld371oUAAAAAD6UD6hnQNUl-6sT-QmxgRYpBQBF'
+});
+};
+
+jQuery('#contact-form').on('submit', function(e) {
+  
+   var captcha_response3 = grecaptcha.getResponse(html_element_id3); 
+   //alert(captcha_response3.length);
+   if(captcha_response3.length == 0)
+   {
+     
+    jQuery(".g-captcha3").html('This is a required field.');
+
+       // Captcha is not Passed
+       return false;
+   }
+   else
+   {
+     jQuery(".g-captcha3").html('');
+       // Captcha is not Passed
+       return true;
+   }  
+});
+</script> 
+
+
+<style type="text/css">
+    
+    #comment-error.mage-error{display: inline-block !important;}
+</style>

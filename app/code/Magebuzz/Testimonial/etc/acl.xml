@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright Copyright (c) 2016 www.magebuzz.com
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::content">
+                    <resource id="Magebuzz_Testimonial::content" title="Testimonial Content" sortOrder="10">
+                        <resource id="Magebuzz_Testimonial::testimonial" title="Testimonial" sortOrder="40">
+                            <resource id="Magebuzz_Testimonial::save" title="Save Testimonial" sortOrder="10"/>
+                            <resource id="Magebuzz_Testimonial::post_delete" title="Delete Testimonial" sortOrder="20"/>
+                        </resource>
+                    </resource>
+                </resource>
+                <!-- below part of our system configuration settings -->
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Magebuzz_Testimonial::config" title="Testimonial Config"/>
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

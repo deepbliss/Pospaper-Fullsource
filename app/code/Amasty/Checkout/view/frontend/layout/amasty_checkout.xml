@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="checkout" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="head.additional">
+            <block class="Amasty\Checkout\Block\Onepage\Head" name="amasty.checkout.head"  template="Amasty_Checkout::onepage/head.phtml" after="-"/>
+        </referenceBlock>
+        <referenceBlock name="checkout.root">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="checkout" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="additional" xsi:type="array">
+                                    <item name="component" xsi:type="string">uiComponent</item>
+                                    <item name="children" xsi:type="array">
+                                        <item name="gift_message_container" xsi:type="array">
+                                            <item name="component" xsi:type="string">Amasty_Checkout/js/form/element/gift-messages/container</item>
+                                            <item name="config" xsi:type="array">
+                                                <item name="popUpForm" xsi:type="array">
+                                                    <item name="element" xsi:type="string">#amcheckout-gift-messages</item>
+                                                    <item name="options" xsi:type="array">
+                                                        <item name="type" xsi:type="string">popup</item>
+                                                        <item name="responsive" xsi:type="boolean">true</item>
+                                                        <item name="innerScroll" xsi:type="boolean">true</item>
+                                                        <item name="title" xsi:type="string" translate="true">Gift Messages</item>
+                                                        <item name="trigger" xsi:type="string">amcheckout-gift-messages</item>
+                                                        <item name="buttons" xsi:type="array">
+                                                            <item name="save" xsi:type="array">
+                                                                <item name="text" xsi:type="string" translate="true">Update</item>
+                                                                <item name="class" xsi:type="string">action primary action-save-address</item>
+                                                            </item>
+                                                            <item name="cancel" xsi:type="array">
+                                                                <item name="text" xsi:type="string" translate="true">Close</item>
+                                                                <item name="class" xsi:type="string">action secondary action-hide-popup</item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                            <item name="children" xsi:type="array">
+                                                <item name="checkbox" xsi:type="array">
+                                                    <item name="component" xsi:type="string">Amasty_Checkout/js/form/element/gift-messages/checkbox</item>
+                                                    <item name="description" xsi:type="string" translate="true">Add a gift message</item>
+                                                    <item name="dataScope" xsi:type="string">amcheckout.gift_message</item>
+                                                    <item name="value" xsi:type="string">1</item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                        <item name="subscribe" xsi:type="array">
+                                            <item name="component" xsi:type="string">Magento_Ui/js/form/element/single-checkbox</item>
+                                            <item name="description" xsi:type="string" translate="true">Sign Up for Our Newsletter</item>
+                                            <item name="dataScope" xsi:type="string">amcheckout.subscribe</item>
+                                            <item name="value" xsi:type="string">1</item>
+                                            <item name="checked" xsi:type="string">1</item>
+                                        </item>
+                                        <item name="gift_wrap" xsi:type="array">
+                                            <item name="component" xsi:type="string">Amasty_Checkout/js/form/element/gift-wrap</item>
+                                            <item name="dataScope" xsi:type="string">amcheckout.gift_wrap</item>
+                                            <item name="value" xsi:type="string">1</item>
+                                        </item>
+                                        <item name="comment" xsi:type="array">
+                                            <item name="component" xsi:type="string">Magento_Ui/js/form/element/textarea</item>
+                                            <item name="template" xsi:type="string">ui/form/field</item>
+                                            <item name="label" xsi:type="string" translate="true">Order Comment</item>
+                                            <item name="dataScope" xsi:type="string">amcheckout.comment</item>
+                                        </item>
+                                        <item name="register" xsi:type="array">
+                                            <item name="component" xsi:type="string">Magento_Ui/js/form/element/single-checkbox</item>
+                                            <item name="description" xsi:type="string" translate="true">Create an Account</item>
+                                            <item name="dataScope" xsi:type="string">amcheckout.register</item>
+                                            <item name="value" xsi:type="string">1</item>
+                                            <item name="checked" xsi:type="string">1</item>
+                                        </item>
+                                    </item>
+                                </item>
+                                <item name="sidebar" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="summary" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="totals" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="amasty_checkout" xsi:type="array">
+                                                            <item name="component"  xsi:type="string">Amasty_Checkout/js/view/checkout/summary/gift-wrap</item>
+                                                            <item name="sortOrder" xsi:type="string">30</item>
+                                                            <item name="label" xsi:type="string" translate="true">Gift Wrap</item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                                <item name="steps" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="shipping-step" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="step-config" xsi:type="array">
+                                                    <item name="component" xsi:type="string">uiComponent</item>
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="shipping-rates-validation" xsi:type="array">
+                                                            <item name="children" xsi:type="array">
+                                                                <!--Step configuration components-->
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                                <item name="amcheckout-delivery-date" xsi:type="array">
+                                                    <item name="component" xsi:type="string">Amasty_Checkout/js/view/delivery-date</item>
+                                                    <item name="dataScope" xsi:type="string">amcheckoutDelivery</item>
+                                                    <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                    <item name="config" xsi:type="array">
+                                                        <item name="deps" xsi:type="array">
+                                                            <item name="0" xsi:type="string">checkoutProvider</item>
+                                                        </item>
+                                                    </item>
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="fieldset" xsi:type="array">
+                                                            <item name="component" xsi:type="string">uiComponent</item>
+                                                            <item name="label" xsi:type="boolean">false</item>
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="deps" xsi:type="array">
+                                                                    <item name="0" xsi:type="string">checkoutProvider</item>
+                                                                </item>
+                                                            </item>
+                                                            <item name="children" xsi:type="array">
+                                                                <item name="date" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">Amasty_Checkout/js/form/element/delivery-date</item>
+                                                                    <item name="template" xsi:type="string">ui/form/field</item>
+                                                                    <item name="elementTmpl" xsi:type="string">Amasty_Checkout/form/date</item>
+                                                                    <item name="readonly" xsi:type="string">1</item>
+                                                                    <item name="outputDateFormat" xsi:type="string">y-MM-dd</item>
+                                                                    <item name="label" xsi:type="string" translate="true">Delivery Date</item>
+                                                                    <item name="additionalClasses" xsi:type="string">datepicker</item>
+
+                                                                    <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                                    <item name="dataScope" xsi:type="string">date</item>
+                                                                </item>
+                                                                <item name="time" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">Magento_Ui/js/form/element/select</item>
+                                                                    <item name="template" xsi:type="string">ui/form/field</item>
+                                                                    <item name="label" xsi:type="string" translate="true">Delivery Time Interval</item>
+
+                                                                    <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                                    <item name="dataScope" xsi:type="string">time</item>
+                                                                </item>
+                                                                <item name="comment" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">Magento_Ui/js/form/element/textarea</item>
+                                                                    <item name="template" xsi:type="string">ui/form/field</item>
+                                                                    <item name="label" xsi:type="string" translate="true">Delivery Comment</item>
+                                                                    <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                                    <item name="dataScope" xsi:type="string">comment</item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

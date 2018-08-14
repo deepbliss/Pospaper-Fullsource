@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_Megamenu
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Magestore_Megamenu::css/megamenulibrary.css"/>
+        <css src="Magestore_Megamenu::css/megamenu.css"/>
+    </head>
+    <body>
+        <referenceBlock name="store.menu">
+            <block class="Magestore\Megamenu\Block\Megamenu" name="catalog.topnav" template="topmenu.phtml" ttl="3600">
+                <block class="Magestore\Megamenu\Block\Megamenu" name="topcss.gen" as="topcss_gen" template="cssgen/topcss.phtml" ttl="3600"/>
+                <block class="Magento\Theme\Block\Html\Topmenu" name="theme_menu" template="html/topmenu.phtml" ttl="3600"/>
+            </block>
+        </referenceBlock>
+        <referenceContainer name="sidebar.main">
+            <block class="Magestore\Megamenu\Block\Megamenu" ifconfig="megamenu/general/enable"  name="left-menu" template="leftmenu.phtml" ttl="3600">
+                <block class="Magestore\Megamenu\Block\Megamenu" name="leftcss.gen" as="leftcss_gen" template="cssgen/leftcss.phtml" ttl="3600"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

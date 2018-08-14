@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="catalog_product_view"/>
+    <body>
+        <referenceBlock name="catalog.product.related" remove="true"/>
+        <referenceBlock name="product.info.upsell" remove="true"/>
+        <referenceBlock name="header.container" remove="true"/>
+        <referenceBlock name="footer-container" remove="true"/>
+        <referenceBlock name="page.top" remove="true" />
+        <referenceBlock name="copyright" remove="true" />
+        <referenceBlock name="authentication-popup" remove="true" />
+        <referenceContainer name="page.messages" remove="true" />
+        <!--remove the short description-->
+        <referenceBlock name="product.info.overview">
+            <action method="setTemplate" ifconfig="weltpixel_quickview/general/remove_short_description">
+                <argument name='template' xsi:type='string'></argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="product.info.sku">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="helper" helper="WeltPixel\Quickview\Helper\Data::getSkuTemplate">
+                </argument>
+            </action>
+        </referenceBlock>
+
+        <referenceBlock name="product.info.form.content">
+            <block ifconfig="weltpixel_quickview/general/enable_goto_product_button" class="Magento\Catalog\Block\Product\View" after="product.info.addtocart" name="goto.product" as="goto.product" template="WeltPixel_Quickview::gotoproduct.phtml"/>
+        </referenceBlock>
+
+        <referenceContainer name="before.body.end">
+            <block class="Magento\Framework\View\Element\Template" name="welpixel.quickview.beforebodyend" template="WeltPixel_Quickview::beforebodyend.phtml" />
+        </referenceContainer>
+
+        <referenceContainer name="product.info.social" remove="true"/>
+
+        <referenceBlock name="product.info.details" remove="true"/>
+
+        <!-- for 2.1 -->
+        <referenceBlock name="product.info.addtocart">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">WeltPixel_Quickview::product/view/addtocart.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="product.info.addtocart.additional">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">WeltPixel_Quickview::product/view/addtocart.phtml</argument>
+            </action>
+        </referenceBlock>
+        <!-- for 2.1 -->
+
+        <!-- for enterprise GTM activated -->
+        <referenceBlock name="related_products_impression" remove="true"/>
+        <referenceBlock name="upsell_products_impression" remove="true"/>
+        <referenceBlock name="related_products_impression" remove="true"/>
+        
+        <referenceBlock name="pro.slider.section" remove="true"/>
+        <referenceBlock name="shipping.section" remove="true"/>
+        <!-- for enterprise GTM activated -->
+    </body>
+</page>

@@ -1,0 +1,28 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+?>
+<?php /** @var \Amasty\Checkout\Block\Sales\Order\Email\Delivery $block */?>
+<?php if ($fields = $block->getDeliveryDateFields()): ?>
+    <table class="order-details">
+        <thead>
+        <tr>
+            <td class="address-details">
+                <h3><?= __('Delivery Date Info') . ':'; ?></h3>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($fields as $field): ?>
+            <tr>
+                <td><label><?= __($field['label']); ?></label></td>
+                <td><?= $field['value']; ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+    <br /><br />
+<?php endif; ?>

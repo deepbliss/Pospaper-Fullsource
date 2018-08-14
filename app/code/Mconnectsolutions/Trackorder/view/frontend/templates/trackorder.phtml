@@ -1,0 +1,91 @@
+<?php
+if ($block->getEnableTrackOrder()) {
+?>
+<div class="mcs-track" id="mcs_track">
+    <h2><?php /* @noEscape */ echo __('Login or Register to view order history and status in your account.'); ?></h2>
+    <div class="mcs-tracking-container">
+    <div class="mcs-tracking-div">
+    <form class="form track-order"
+          name="track_order"
+          action="<?php /* @noEscape */ echo $block->getAjaxUrl(); ?>"
+          id="track_order"
+          method="post"
+          data-hasrequired="<?php /* @noEscape */ echo __('* Required Fields') ?>"
+          data-mage-init='{"validation":{}}'>
+        <fieldset class="fieldset">
+            <div class="field order required">
+                <!--<label class="label" for="name">
+                    <span><?php /* @noEscape */ echo __('Order Id') ?></span>
+                </label>-->
+                <div class="control">
+                    <input name="order" id="order_id" title="<?php /* @noEscape */ echo __('Order Id') ?>"
+                    value="<?php if ($block->getRequest()->getParam('ord')) {/* @noEscape */ echo $block->getRequest()->getParam('ord');} ?>"
+                        class="input-text" type="text" data-validate="{required:true}" placeholder="Enter Your Order Number *"/>
+                </div>
+            </div>
+            <div class="field postcode required">
+                <!--<label class="label" for="postcode">
+                    <span><?php /* @noEscape */ echo __('Zip Code') ?></span>
+                </label>-->
+                <div class="control">
+                    <input name="postcode" id="postcode_order" title="<?php /* @noEscape */ echo __('Zip Code') ?>"
+                    value="<?php if ($block->getRequest()->getParam('postcode')) { /* @noEscape */ echo $block->getRequest()->getParam('postcode');} ?>"
+                    class="input-text" type="text" data-validate="{required:true}" placeholder="Zip Code *"/>
+                </div>
+            </div>
+        </fieldset>
+        <div class="actions-toolbar">
+            <div class="primary">            
+                <button type="submit" title="<?php /* @noEscape */ echo __('Get Status') ?>"
+                class="action submit primary track-info">
+                    <span><?php /* @noEscape */ echo __('Get Status') ?></span>
+                </button>
+            </div>
+        </div>
+    </form>
+    </div>
+    
+    <div class="or-div"><span>OR</span></div>
+
+<div class="ups-tracking-div">
+<form name="trkbynum" action="https://wwwapps.ups.com/WebTracking/track" method="POST" onsubmit="target_popup(this)">
+    <input type="hidden" name="loc" value="en_IN">
+    <input type="hidden" name="HTMLVersion" value="5.0">        
+    <input type="hidden" name="USER_HISTORY_LIST" value="">
+    <input type="hidden" name="AgreeToTermsAndConditions" value="yes">
+    <div class="field">
+        <div class="control">
+            <input type="text" id="trackNums" name="trackNums" class="ups-textArea input-text" placeholder="Enter Your Tracking Number"/>
+        </div>
+    </div>
+    <input class="ups-cta ups-cta_primary action" name="track.x" type="submit" value="Get Status">
+</form>
+</div>
+
+<script type="text/javascript">
+    function target_popup(form) {
+    window.open('', 'formpopup', 'width=1200,height=600,resizeable,scrollbars');
+    form.target = 'formpopup';
+}
+</script>
+
+</div>
+</div>
+<div id="mcs-tracking-info"></div>
+
+<script type="text/javascript">
+//<![CDATA[
+require(
+    ['jquery','mcs'],
+    function($,mcs){
+        var ajaxurl = '<?php /* @noEscape */ echo $block->getAjaxUrl() ?>';
+        mcs.mcsData(ajaxurl);
+    }
+);
+// ]]>
+</script>
+<?php } ?>
+
+
+
+

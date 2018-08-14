@@ -1,0 +1,20 @@
+.config-nav-block.commerceextensions-tab strong:before {
+    background: url(../images/logo.png) no-repeat;
+    width: 16px;
+    height: 18px;
+    content: '';
+    display: inline-block;
+    margin-right: 12px;
+    vertical-align: bottom;
+}
+
+.admin__menu [data-ui-id^="menu-commerceextensions-"] .submenu-group-title span:before,
+.admin__menu [data-ui-id^="menu-magento-"] [data-ui-id^="menu-magento-"] [data-ui-id^="menu-commerceextensions-"] span:before {
+    background: url(../images/logo.png) no-repeat;
+    width: 16px;
+    height: 18px;
+    content: '';
+    display: inline-block;
+    margin-right: 12px;
+    vertical-align: top;
+}

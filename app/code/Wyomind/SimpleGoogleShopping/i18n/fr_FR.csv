@@ -1,0 +1,346 @@
+"./Block/Adminhtml/Simplegoogleshopping/Edit.php",""
+
+"Delete","Supprimer"
+"Duplicate","Copier"
+"Generate","Générer"
+"Save","Enregistrer"
+
+
+"./Block/Adminhtml/Simplegoogleshopping/Edit/Tab/Categories.php",""
+
+"Categories","Catégories"
+
+
+"./Block/Adminhtml/Simplegoogleshopping/Edit/Tab/Configuration.php",""
+
+"Attributes filters","Filtres avancés"
+"Categories","Catégories"
+"Category filter","Filtres des catégories"
+"Category type","Type de catégories"
+"Configuration","Configuration"
+"Description","Description"
+"Filename","Nom du fichier"
+"Path","Chemin du fichier"
+"Store View","Vue Magasin"
+"Title","Titre"
+"Xml pattern","Modèle Xml"
+"Website url","Url du site"
+"Need help? Did you read our Tutorial?","Besoin d'aide ? Avez vous lu notre tutoriel ?"
+"Refresh Preview","Actualiser l'aperçu"
+
+"Library sample url","Url exemples librairie"
+"Sample report url","Url exemple rapport"
+"Library url","Url librairie"
+"Categories url","Url catégories"
+"Sample url","Url exemple"
+
+
+"./Block/Adminhtml/Simplegoogleshopping/Edit/Tab/Cron.php",""
+
+"Cron schedule","Tâches Cron"
+
+
+"./Block/Adminhtml/Simplegoogleshopping/Edit/Tab/Filters.php",""
+
+"Filters","Filtres"
+
+
+"./Block/Adminhtml/Simplegoogleshopping/Edit/Tabs.php",""
+
+"Simple Google Shopping","Simple Google Shopping"
+
+
+"./Block/Adminhtml/Simplegoogleshopping/Grid.php",""
+
+"Action","Action"
+"Are you sure you want to delete this feed ?","Êtes-vous sûr de vouloir supprimer le flux ?"
+"Delete","Supprimer"
+"Edit","Éditer"
+"Filename","Nom du fichier"
+"Generate","Générer"
+"Generate a data feed can take a while. Are you sure you want to generate it now ?","Générer un flux de données peut prendre du temps. Êtes-vous sûr de vouloir le générer maintenant ?"
+"Id","Id"
+"Link","Lien"
+"Path","Chemin"
+"Show Report","Afficher le rapport"
+"Status","Statut"
+"Store","Magasin"
+"Update","Mise à jour"
+"Preview (%1 items)","Aperçu (%1 produits)"
+
+
+"./Block/Adminhtml/Simplegoogleshopping.php",""
+
+"Create New Data Feed","Créer un nouveau flux de données"
+"Manage Data feeds","Gérer les flux de données"
+
+
+"./Block/Adminhtml/Simplegoogleshopping/Preview.php",""
+
+"Invalid license","Licence Invalide"
+"Unable to generate the data feed :","Impossible de générer le flux :"
+
+
+"./Block/Adminhtml/Simplegoogleshopping/Renderer/Status.php",""
+
+"ERROR","ERREUR"
+"PROCESSING","EN COURS"
+"PENDING","ATTENTE DE GENERATION"
+"HOLD","EN ATTENTE"
+"FAILED","ECHEC"
+"SUCCEED","SUCCES"
+
+
+"./Block/Adminhtml/Simplegoogleshopping/Sample.php",""
+
+"Invalid license","Licence Invalide"
+
+
+"./Controller/Adminhtml/Simplegoogleshopping/Delete.php",""
+
+"The data feed has been deleted.","Le flux de données a été supprimé."
+"We can't find a data feed to delete.","Aucun flux à supprimer."
+
+
+"./Controller/Adminhtml/Simplegoogleshopping/Edit.php",""
+
+"Manage Data Feeds","Gérer les flux de données"
+"Modify data feed : ","Modification du flux de données : "
+"New data feed","Nouveau flux de données"
+"Simple Google Shopping","Simple Google Shopping"
+"This data feed no longer exists.","Ce flux de données n'existe plus."
+
+
+"./Controller/Adminhtml/Simplegoogleshopping/Generate.php",""
+
+"Invalid license.","Licence invalide."
+"The data feed ","Le flux de données "
+" has been generated."," a été généré."
+"Unable to find a data feed to generate.","Aucun flux de données à générer trouvé."
+"Unable to generate the data feed.","Impossible de générer le flux de données."
+
+
+"./Controller/Adminhtml/Simplegoogleshopping/Index.php",""
+
+"Google Shopping Data Feeds","Flux de données Google Shopping"
+"Manage Data Feeds","Gérer les flux de données"
+"Simple Google Shopping","Simple Google Shopping"
+
+
+"./Controller/Adminhtml/Simplegoogleshopping/Save.php",""
+
+"The data feed has been saved.","Le flux de données a été enregistré."
+"Unable to save the data feed.","Impossible d'enregistrer le flux de données."
+
+
+"./Controller/Simplegoogleshopping/Generate.php",""
+
+"The data feed ","Le flux de données "
+" has been generated."," a été généré."
+"Unable to find a data feed to generate.","Aucun flux de données à générer trouvé."
+
+
+"./Helper/Data.php",""
+
+"Examples:","Exemples:"
+"items","produits"
+"no error detected","aucune erreur détectée"
+"no error detected.","aucune erreur détectée."
+"no report available","aucun rapport disponible"
+"The data feed must be generated prior to any report.","Le flux de données doit être généré avant visualisation du rapport."
+"This report does not replace the error report from Google and is by no means a guarantee that your data feed will be approved by the Google team.","Ce rapport ne remplace pas le rapport de Google et n'est aucunement une garantie quant à l'acceptation de votre flux par l'équipe Google."
+" product"," produit"
+" exported in "," exportés en "
+"error","erreur"
+"warning","avertissement"
+
+"./Model/Config/Urlrewrite.php",""
+
+"Individual product urls","Url individuelle de produit"
+"Longest category urls","Plus longue url des catégories"
+"Shortest category urls","Plus petite url des catégories"
+
+
+"./Model/Simplegoogleshopping.php",""
+
+"Attribute value too long","Valeur d'attribut trop longue"
+"expected","attendu(e)"
+"File \"%1\" cannot be saved.<br/>Please, make sure the directory \"%2\" is writeable by web server.","Le fichier \"%1\" ne peut pas être enregistré.<br/>Vérifiez que le dossier \"%2\" permet l'écriture de fichier par le serveur web."
+"File \"%s\" is already processing. Please wait the end of the process.",
+"Le fichier \"%s\" est en cours de génération. Veuillez attendre la fin du processus."
+"Invalid attribute value","Valeur d'attribut invalide"
+"Missing recommended attribute","Attribut recommandé manquant"
+"Missing required attribute","Attribut requis manquant"
+"Please check the template syntax.","Veuillez vérifier la syntaxe du modèle xml."
+"symbols maximum","symboles maximum"
+"Too many attributes","Trop d'attributs"
+
+
+"./view/adminhtml/templates/edit/categories.phtml",""
+
+"<b>Exclude</b> all products from the selected categories.","<b>Exclure</b> tous les produits des catégories sélectionnées."
+"<b>Include</b> all products from the selected categories.","<b>Inclure</b> tous les produits des catégories sélectionnées."
+"Category filter type","Type de filtre sur les catégories"
+"Category selection and mapping","Sélection et cartographie des catégories"
+"Google Taxonomy source : ","Source des taxonomies Google : "
+"* If you do not select any category, all products will be exported","* Si aucune catégorie n'est sélectionnée, tous les produits seront exportés"
+"mapped as","Associée à"
+"your google product category","Catégorie Google"
+"Based on ","Basé sur "
+"<b>Product</b> categories only","Catégories <b>des produits</b> seulement"
+"<b>Product and parent</b> categories","Catégories <b>des produits et des produits parents</b>"
+"<b>Parent</b> categories only","Catégories <b>des produits parents</b> seulement"
+
+
+"./view/adminhtml/templates/edit/cron.phtml",""
+
+"00:00 AM","Minuit"
+"00:30 AM","00:30"
+"01:00 AM","01:00"
+"01:00 PM","13:00"
+"01:30 AM","01:30"
+"01:30 PM","13:30"
+"02:00 AM","02:00"
+"02:00 PM","14:00"
+"02:30 AM","02:30"
+"02:30 PM","14:30"
+"03:00 AM","03:00"
+"03:00 PM","15:00"
+"03:30 AM","03:30"
+"03:30 PM","15:30"
+"04:00 AM","04:00"
+"04:00 PM","16:00"
+"04:30 AM","04:30"
+"04:30 PM","16:30"
+"05:00 AM","05:00"
+"05:00 PM","17:00"
+"05:30 AM","05:30"
+"05:30 PM","17:30"
+"06:00 AM","06:00"
+"06:00 PM","18:00"
+"06:30 AM","06:30"
+"06:30 PM","18:30"
+"07:00 AM","07:00"
+"07:00 PM","19:00"
+"07:30 AM","07:30"
+"07:30 PM","19:30"
+"08:00 AM","08:00"
+"08:00 PM","20:00"
+"08:30 AM","08:30"
+"08:30 PM","20:30"
+"09:00 AM","09:00"
+"09:00 PM","21:00"
+"09:30 AM","09:30"
+"09:30 PM","21:30"
+"10:00 AM","10:00"
+"10:00 PM","22:00"
+"10:30 AM","10:30"
+"10:30 PM","22:30"
+"11:00 AM","11:00"
+"11:00 PM","23:00"
+"11:30 AM","11:30"
+"11:30 PM","23:30"
+"12:00 AM","12:00"
+"12:30 AM","00:30"
+"Days of the week","Jours de la semaine"
+"Friday","Vendredi"
+"Hours of the day","Heures de la journée"
+"Monday","Lundi"
+"Saturday","Samedi"
+"Settings","Configuration"
+"Sunday","Dimanche"
+"Thursday","Jeudi"
+"Tuesday","Mardi"
+"Wednesday","Mercredi"
+
+
+"./view/adminhtml/templates/edit/filters.phtml",""
+
+"<","<"
+"=","="
+">",">"
+"Advanced filters","Filtres avancés"
+"Attribute Set","Jeux d'attributs"
+"Bundle","Bundle"
+"Catalog","Catalogue"
+"Catalog, Search","Catalogue, Recherche"
+"Configurable","Configurable"
+"Downloadable","Téléchargeable"
+"Grouped","Groupé"
+"in","est dans"
+"is not null","n'est pas nul"
+"is null","est nul"
+"like","ressemble à"
+"not in","n'est pas dans"
+"not like","ne ressemble pas à"
+"Not Visible Individually","Non visible individuellement"
+"Product Type","Type de produit"
+"Product Visibility","Visibilité de produit"
+"Search","Recherche"
+"Select all","Tout sélectionner"
+"Simple","Simple"
+"Unselect all","Tout désélectionner"
+"Virtual","Virtuel"
+
+"Manage Google Shopping data feeds","Gérer les flux de données Google Shopping"
+
+
+"./view/adminhtml/templates/edit/translate.phtml",""
+
+"No product found.","Aucun produit trouvé."
+"mapped as :","correspond à :"
+"your google product category","Categories Produit Google"
+"Press `End.` on your keyboard in order to apply this value to all the sub-categories","Pressez la toucher `Fin` de votre cavlier pour appliquer la correspondance de catégorie avec toutes les categories enfant"
+"Generate data feed","Générer un flux"
+"Generate a data feed can take a while. Are you sure you want to generate it now ?","Générer un flux peut prendre un long moment. Êtes-vous sûrs de vouloir le générer maintent ?"
+"Delete data feed","Supprimer un flux"
+"Are you sure you want to delete this feed ?","Êtes-vous sûrs de vouloir supprimer ce flux ?"
+
+
+"./Block/Adminhtml/Simplegoogleshopping/Library.php",""
+
+"Online documentation : ","Documentation en ligne : "
+"Special Attributes","Attributs spéciaux"
+"Attribute options","Options d'attributs"
+"Tutorial","Tutoriel"
+"More documentation","Plus de documentation"
+"Attribute label","Nom d'attribut"
+"Attribute code","Code d'attribut"
+"Load sample","Charger des exemples"
+
+
+"System / Config / Simple Google Shopping",""
+
+"License activation","Licence"
+"Extension version","Version de l'extension"
+"Activation key","Clé d'activation"
+"1- Fill this field with your activation key.","1- Renseignez ce champ avec votre clé d'activation."
+"Remote activation","Activation automatique"
+"2- Choose your activation method.\n[yes = automatic activation]\n[no = manual activation]","2- Choisissez votre méthode d'activation.<br/>[oui = Activation automatique]<br/>[non = Activation manuelle]"
+"Activation code","Code d'activation"
+"3 - Follow the instructions in the notification.\nThen fill this field with the license code you get.","3 - Suivez les intructions dans la notification.<br/>Ensuite remplissez le champ avec le code d'activation que vous obtenez."
+"Cron job reporting","Rapport des tâches cron"
+"Enable cron job reporting","Activer les rapports"
+"Send the reports to","Envoyer les rapports à"
+"Emails must be separated with a comma (,).","Les adresses emails doivent être séparées par des virgules (,)."
+"Report title","Titre du rapport"
+"Core settings // Advanced users //","Configuration avancée <b>// Utilisateurs avertis //</b>"
+"Items in preview","Produits dans l'aperçu"
+"Default value : 10","Valeur par défaut -> 10"
+"Items in buffer","Produits dans la mémoire tampon"
+"Default value : 10","Valeur par défaut -> 10"
+"Items in SQL request","Produits dans la requête SQL"
+"Default value : 1500","Valeur par défaut -> 1500"
+"Number of advanced filters","Nombre de filtres avancés"
+"Default value : 10","Valeur par défaut -> 10"
+"Use of OR/AND statements in advanced filters","Utilisation des opérateurs OR/AND dans les filtres avancés"
+"Default value : No","Valeur par défaut -> Non"
+"Include not in menu categories","Inclure les catégories exclues du menu"
+"Default value : No","Valeur par défaut -> Non"
+"Memory limit size (M)","Taille limite de la mémoire (M)"
+"Default value : 1024","Valeur par défaut -> 1024"
+"Use canonical urls","Utilisation des urls canoniques"
+"Enable log reporting","Activer le log"
+"Default value : No","Valeur par défaut -> Non"
+
+"Javascript Translation",""

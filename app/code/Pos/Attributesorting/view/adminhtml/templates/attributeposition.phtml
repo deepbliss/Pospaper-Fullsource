@@ -1,0 +1,111 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+$connection = $resource->getConnection();
+$tableName = $resource->getTableName('eav_attribute');
+
+// SELECT DATA 
+$fields = array('attribute_id','attribute_code','frontend_label');
+$sql = "SELECT `eav_attribute`.`attribute_id`, `eav_attribute`.`attribute_code`, `eav_attribute`.`frontend_label`, `catalog_eav_attribute`.`attribute_id` FROM `eav_attribute` INNER JOIN `catalog_eav_attribute` ON eav_attribute.attribute_id=catalog_eav_attribute.attribute_id WHERE entity_type_id = '4' AND `catalog_eav_attribute`.`is_filterable`=1 ORDER BY frontend_label ASC";
+$result = $connection->fetchAll($sql); 
+?>
+
+<div class="divTable blueTable">
+<div class="divTableHeading">
+<div class="divTableRow">
+<div class="divTableHead">Attribute Name</div>
+<div class="divTableHead">Attribute Code</div>
+<div class="divTableHead">Attribute Id</div>
+</div>
+</div>
+<div class="divTableBody">
+
+<?php
+foreach ($result as $value): ?>
+<div class="divTableRow"><div class="divTableCell"><?php echo $value['frontend_label'];?></div><div class="divTableCell"><?php echo $value['attribute_code'];?></div><div class="divTableCell"><?php echo $value['attribute_id'];?></div></div>
+ 	
+ 	
+ 	
+ <?php endforeach;?>
+
+
+
+</div>
+</div>
+
+<style type="text/css">
+	div.blueTable {
+  border: 1px solid #3D0407;
+  background-color: #EEEEEE;
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+.divTable.blueTable .divTableCell, .divTable.blueTable .divTableHead {
+  border: 1px solid #AAAAAA;
+  padding: 3px 2px;
+}
+.divTable.blueTable .divTableBody .divTableCell {
+  font-size: 13px;
+}
+.divTable.blueTable .divTableRow:nth-child(even) {
+  background: #F5F5F5;
+}
+.divTable.blueTable .divTableCell:nth-child(even) {
+  background: #F5F5F5;
+}
+.divTable.blueTable .divTableHeading {
+  background: #000000;
+  background: -moz-linear-gradient(top, #404040 0%, #191919 66%, #000000 100%);
+  background: -webkit-linear-gradient(top, #404040 0%, #191919 66%, #000000 100%);
+  background: linear-gradient(to bottom, #404040 0%, #191919 66%, #000000 100%);
+  border-bottom: 2px solid #444444;
+}
+.divTable.blueTable .divTableHeading .divTableHead {
+  font-size: 15px;
+  font-weight: bold;
+  color: #FFFFFF;
+  border-left: 2px solid #F5F5F5;
+}
+.divTable.blueTable .divTableHeading .divTableHead:first-child {
+  border-left: none;
+}
+
+.blueTable .tableFootStyle {
+  font-size: 14px;
+  font-weight: bold;
+  color: #FFFFFF;
+  background: #D0E4F5;
+  background: -moz-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+  background: -webkit-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+  background: linear-gradient(to bottom, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+  border-top: 2px solid #444444;
+}
+.blueTable .tableFootStyle {
+  font-size: 14px;
+}
+.blueTable .tableFootStyle .links {
+	 text-align: right;
+}
+.blueTable .tableFootStyle .links a{
+  display: inline-block;
+  background: #1C6EA4;
+  color: #FFFFFF;
+  padding: 2px 8px;
+  border-radius: 5px;
+}
+.blueTable.outerTableFooter {
+  border-top: none;
+}
+.blueTable.outerTableFooter .tableFootStyle {
+  padding: 3px 5px; 
+}
+/* DivTable.com */
+.divTable{ display: table; }
+.divTableRow { display: table-row; }
+.divTableHeading { display: table-header-group;}
+.divTableCell, .divTableHead { display: table-cell;}
+.divTableHeading { display: table-header-group;}
+.divTableFoot { display: table-footer-group;}
+.divTableBody { display: table-row-group;}
+</style>

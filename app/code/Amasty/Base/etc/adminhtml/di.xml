@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_Base
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\AdminNotification\Block\Grid\Renderer\Actions">
+        <plugin name="Amasty_Base::show-unsubscribe-link"
+                type="Amasty\Base\Plugin\AdminNotification\Block\Grid\Renderer\Actions"/>
+
+    </type>
+
+    <type name="Magento\AdminNotification\Block\Grid\Renderer\Notice">
+        <plugin name="Amasty_Base::add-amasty-class"
+                type="Amasty\Base\Plugin\AdminNotification\Block\Grid\Renderer\Notice"/>
+    </type>
+
+    <type name="Magento\AdminNotification\Block\ToolbarEntry">
+        <plugin name="Amasty_Base::add-amasty-class-logo"
+                type="Amasty\Base\Plugin\AdminNotification\Block\ToolbarEntry"/>
+    </type>
+</config>

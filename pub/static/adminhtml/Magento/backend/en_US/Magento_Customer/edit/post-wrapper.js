@@ -1,0 +1,1 @@
+/chroot/home/pospaper/pospaper.com/html/vendor/magento/module-customer/view/adminhtml/web/edit/post-wrapper.js

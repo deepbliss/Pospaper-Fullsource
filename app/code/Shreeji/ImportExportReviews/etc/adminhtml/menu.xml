@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Shreeji_ImportExportReviews::importexportreviews" title="Shreeji Infosys" translate="title" module="Shreeji_ImportExportReviews" sortOrder="35" resource="Shreeji_ImportExportReviews::importexportreviews"/>
+        <add id="Shreeji_ImportExportReviews::importexportreviews_operation" title="Import Export" translate="title" module="Shreeji_ImportExportReviews" sortOrder="10" parent="Shreeji_ImportExportReviews::importexportreviews" resource="Shreeji_ImportExportReviews::importexportreviews_operation" />
+        <add id="Shreeji_ImportExportReviews::customerreview_manage" title="Customer Reviews" translate="title" module="Shreeji_ImportExportReviews" sortOrder="10" parent="Shreeji_ImportExportReviews::importexportreviews" action="importexportreviews/manage/index/" resource="Shreeji_ImportExportReviews::customerreview"/>        
+    </menu>
+</config>

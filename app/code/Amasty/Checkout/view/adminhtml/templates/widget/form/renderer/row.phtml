@@ -1,0 +1,40 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+?>
+<?php /** @var \Amasty\Checkout\Block\Adminhtml\Field\Edit\Group\Row\Renderer $block */ ?>
+<?php $field = $block->getElement()->getData('field'); ?>
+<?php $namePrefix = "field[{$field->getData('attribute_id')}]" ?>
+<?php $isStoreSelected = $block->isStoreSelected() ?>
+<tr>
+    <td>
+        <div class="draggable-handle"></div>
+        <input type="hidden" name="<?= $namePrefix?>[id]" value="<?= $field->getId() ?>" />
+        <input data-role="sort-order" type="hidden" name="<?= $namePrefix?>[sort_order]" value="<?= $field->getSortOrder() ?>" />
+        <input data-role="enabled" type="hidden" name="<?= $namePrefix?>[enabled]" value="<?= $field->getEnabled() ?>" />
+    </td>
+    <td><?= __($field->getData('default_label')) ?></td>
+    <td>
+        <input data-role="label" type="text" name="<?= $namePrefix?>[label]" value="<?= $field->getData('label')?>" <?= $field->getData('use_default') && $isStoreSelected ? 'disabled=disabled' : ''?> />
+    </td>
+    <?php if ($isStoreSelected): ?>
+    <td class="center middle checkbox-cell">
+        <input data-role="use-default" name="<?= $namePrefix?>[use_default]" <?= $field->getData('use_default') ? 'checked=checked' : ''?> type="checkbox" value="1" />
+    </td>
+    <?php endif ?>
+    <td data-role="width-control" class="width-control">
+        <div data-role="width-slider"></div>
+        <input data-role="width-input" name="<?= $namePrefix?>[width]" value="<?= $field->getData('width')?>" />
+    </td>
+    <td class="center middle checkbox-cell">
+        <div class="tooltip">
+            <input type="checkbox" value="1" name="<?= $namePrefix?>[required]" <?= $field->isRequired() ? 'checked=checked' : ''?>  <?= ($field->isNotChangeable()) ? 'disabled=disabled' : '' ?> />
+            <?php if ($field->isNotChangeable()): ?>
+            <div class="tooltip-content"><?= $field->getTooltipInfo(); ?></div>
+            <?php endif; ?>
+        </div>
+    </td>
+</tr>

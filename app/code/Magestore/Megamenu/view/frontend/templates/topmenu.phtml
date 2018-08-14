@@ -1,0 +1,188 @@
+<?php
+
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_Megamenu
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+?>
+<?php   
+    $objectManagerlogin = \Magento\Framework\App\ObjectManager::getInstance();
+    $customerSession = $objectManagerlogin->get('Magento\Customer\Model\Session');
+    $baseurl = $objectManagerlogin->get('Magento\Store\Model\StoreManagerInterface')->getStore(0)->getBaseUrl();
+    $items = $block->getTopMenuCollection();
+    $width = $block->getSubMenuWidth($items);
+    $effect = $block->getEffect();
+    $align = $block->getAlign();
+    $mobile_effect = $block->getMobileEffect();
+    $className = $block->getClassMenuType('topmenu');
+    $change =  $block->getConfig('megamenu/top_menu/menu_width_main', $block->getStoreId());
+    $responsive = $block->getConfig('megamenu/top_menu/responsive', $block->getStoreId());
+    $enable = $block->getConfig('megamenu/general/enable', $block->getStoreId());
+?>
+<?php if($enable && $items->getSize()):?>
+<?php echo $block->getChildHtml('topcss_gen');?>
+<nav class="navigation ms-megamenu" role="navigation">
+    <ul id="ms-topmenu" class="ms-topmenu <?php echo $className;?>" data-mage-init='{"menu":{"responsive":true, "expanded":true, "position":{"my":"left top","at":"left bottom"}}}'>
+        <?php $i=0; foreach($items as $item): ?>
+            <li class="ms-level0 nav-<?php echo $item->getId(); ?><?php if(!$i):?> first<?php endif;?>" id="nav-<?php echo $item->getId(); ?>">
+                <a class="ms-label <?php if($item->getMenuType() == \Magestore\Megamenu\Model\Megamenu::ANCHOR_TEXT): ?>anchor_text<?php endif;?>" <?php if($item->getLink()):?> href="<?php echo $item->getLink();?>"<?php endif; ?>>
+                    <?php if($item->getItemIcon()&& $align != 1):?><img alt="<?php echo $item->getNameMenu() ?>" class="ms-iconmega" draggable="false" src="<?php echo  $block->getImageIcon($item); ?>"/>&nbsp;<?php endif; ?>
+                    <?php echo $item->getNameMenu() ?>
+                    <?php if($item->getItemIcon()&& $align == 1):?>&nbsp;<img alt="<?php echo $item->getNameMenu() ?>" class="ms-iconmega" draggable="false" src="<?php echo $block->getImageIcon($item); ?>"/><?php endif; ?>
+                </a>
+                <?php if($item->getMenuType() != \Magestore\Megamenu\Model\Megamenu::ANCHOR_TEXT):?>
+                    <span class="mb-label glyphicon <?php if($mobile_effect == \Magestore\Megamenu\Model\Megamenu::MOBILE_BLIND): ?>glyphicon-plus<?php else:?>glyphicon-chevron-right<?php endif; ?>">&nbsp;</span>
+                    <?php echo $block->getContent($item); ?>
+                <?php endif; ?>
+            </li>
+        <?php $i++; endforeach;?>
+    </ul>  
+</nav>      
+
+<script>
+    require(['jquery', 'megamenu'], function ($) {
+        var arr = <?php echo $width;?>;
+        var options = {
+            effect:'<?php echo $effect; ?>',
+            mobile_effect: '<?php echo $mobile_effect; ?>',
+            arr: arr,
+            change: '<?php echo $change;?>',
+            responsive: '<?php echo $responsive;?>'
+        }
+        $('#ms-topmenu').megamenu(options);
+    });
+</script>
+<?php else:?>
+    <?php echo $block->getChildHtml('theme_menu');?>
+<?php endif ;?>                  
+
+<div class="mobile-menu">
+<nav id="menu">
+
+
+    <?php
+    $baseurl = $block->getBaseUrl();
+    $catId =2;
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $subcategory = $objectManager->create('Magento\Catalog\Model\Category')->load($catId);           
+    $subcats = $subcategory->getChildrenCategories();
+    ?>
+ 
+            <ul id="panel-menu">
+                <?php
+                foreach ($subcats as $subcat) {
+                    if ($subcat->getIsActive()) {
+                        $subcat_url = $subcat->getUrl();
+                        ?>
+                        <li>
+                            <a href="<?php echo $subcat_url; ?>">
+                                <?php echo $subcat->getName(); 
+                                $subcategory1 = $objectManager->create('Magento\Catalog\Model\Category')->load($subcat->getId());           
+                                $subcats1 = $subcategory1->getChildrenCategories();
+                                ?>
+                            </a>
+                            <?php
+                            if(count($subcats1) > 0)
+                            {
+                                ?>
+                                <ul>
+                                    <?php
+                                    foreach ($subcats1 as $subcat1) 
+                                    {
+                                        if ($subcat1->getIsActive()) 
+                                        {
+                                            $subcat_url1 = $subcat1->getUrl();
+                                            ?>
+                                            <li>  
+                                                <a href="<?php echo $subcat_url1; ?>">
+                                        <?php echo $subcat1->getName();
+
+                        $subcategory2 = $objectManager->create('Magento\Catalog\Model\Category')->load($subcat1->getId());           
+                                $subcats2 = $subcategory2->getChildrenCategories(); ?>
+                                                </a>                        
+                                                <?php
+                            if(count($subcats2) > 0)
+                            {
+                                ?>
+                        <ul>
+
+                                           <?php foreach ($subcats2 as $subcat2) 
+                                    {
+                                        if ($subcat2->getIsActive()) 
+                                        {
+                                            $subcat_url2 = $subcat2->getUrl();
+                                            ?>
+
+                                                <li>
+                                                    
+                                                    <a href="<?php echo $subcat_url2; ?>">
+                                        <?php echo $subcat2->getName();?>
+
+                                    </a>
+
+                                                </li>
+                                               <?php
+
+                                               }
+                                               }
+                                               ?>
+                                                </ul>
+                                                <?php 
+
+                                                }?>
+                                            </li>
+                                            <?php    
+                                        }
+                                    }
+                                    ?>
+                                </ul>
+                                <?php
+                            }
+                            ?>
+                        </li>
+
+                        <?php
+                    }
+                }
+                ?>
+            </ul>    
+                    
+
+
+
+    <ul id="panel-account">    
+    <li><a href="<?php echo $baseurl .'trackorder'; ?>">Track Your Shipment</a></li>
+    <?php if($customerSession->isLoggedIn()) { ?>
+        <li>
+            <a href="<?php echo $baseurl .'customer/account/index'; ?>"><?php echo __('My Account') ?></a>
+        </li>
+        <li>
+            <a href="<?php echo $baseurl .'customer/account/logout'; ?>"><?php echo __('Sign Out') ?></a>
+        </li>
+     <?php } else { ?>
+        <li>
+            <a href="<?php echo $baseurl .'customer/account/login'; ?>"><?php echo __('Sign In') ?></a>
+        </li>
+        <li>
+            <a href="<?php echo $baseurl .'customer/account/create'; ?>"><?php echo __('Register') ?></a>
+        </li>
+    <?php } ?>
+        
+</ul>
+</nav>
+</div> 

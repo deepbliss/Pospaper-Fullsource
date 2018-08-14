@@ -1,0 +1,137 @@
+<div class="block block-customer-login" id="popup-modal" style="display:none">
+
+
+<form class="form contactfrm" name="contactfrm" id="contactfrm" method="post" action="<?php echo $block->getBaseURL()?>custommodule/Productinq/Productinq" onsubmit="return validate();" data-hasrequired="* Required Fields" data-mage-init='{"validation":{}}' enctype="multipart/form-data">
+
+<fieldset class="fieldset">
+
+<div class="field name">
+      <label class="label" for="name">
+        <span>
+          To :
+        </span>
+      </label>
+      <div class="control">
+        <a href="mailto:sales@pospaper.com">sales@pospaper.com</a>
+      </div>
+    </div>
+
+   <div class="field name required">
+      <label class="label" for="name">
+        <span>
+          Name : 
+        </span>
+      </label>
+      <div class="control">
+        <input type="text" name="name" id="name" class="name required-entry"  />
+      </div>
+    </div>
+
+
+<div class="field name required">
+      <label class="label" for="email">
+        <span>
+          Email : 
+        </span>
+      </label>
+      <div class="control">
+        <input type="text" name="email" id="email" class="email required-entry"  />
+      </div>
+    </div>
+
+    <div class="field name">
+      <label class="label" for="phone">
+        <span>
+          Phone : 
+        </span>
+        <p>(for fastest response)</p>
+      </label>
+      <div class="control">
+        <input type="text" name="phone" id="phone" class="phone"  />
+      </div>
+    </div>
+
+    <div class="field name">
+      <label class="label" for="company">
+        <span>
+          Company : 
+        </span>
+      </label>
+      <div class="control">
+        <input type="text" name="company" id="company" class="company"  />
+      </div>
+    </div>
+
+    <div class="field name">
+      <label class="label" for="comments">
+        <span>
+          Message : 
+        </span>
+      </label>
+      <div class="control">
+        <textarea rows="10" cols="45" name="comments" id="comments" class="comments">
+        </textarea>
+      </div>
+    </div>
+    <div class="field name required">
+      <label class="label" for="comments">
+        <span>
+         Security Code : 
+        </span>
+        <!-- <p>Type security code in the field below.</p> -->
+      </label>
+      <div class="control">
+        <?php $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]";?>
+         <img src="<?php echo $actual_link?>/price-match/CaptchaSecurityImages.php?width=80&amp;height=30&amp;characters=5" alt="captcha" title="captcha">
+               <input name="security_code" id="security_code" type="text" class="required-entry">
+      </div>
+    </div>
+
+</fieldset>
+          
+<div class="actions-toolbar">
+    <div class="primary">
+      <input type="hidden" name="hideit" id="hideit" value="" />
+      <button type="submit" title="Submit" class="action submit primary">
+        <span>Submit</span>
+      </button>
+    </div>
+  </div>
+</form>
+
+
+
+
+
+</div>
+
+
+
+
+<script type="text/javascript">
+require(['jquery','Magento_Ui/js/modal/modal'],
+function($, modal) {
+var options = {
+type: 'popup',
+responsive: true,
+innerScroll: true,
+modalClass: 'custom-block-customer-login product-email',
+buttons: [{
+text: 'Ok',
+class: '',
+click: function() {
+this.closeModal();
+}
+}],
+};
+
+$('#login-popup').click(function(){
+var popup = modal(options, $('#popup-modal'));
+$('#popup-modal').modal('openModal');
+});
+}
+);
+</script>
+
+
+

@@ -1,0 +1,1 @@
+/chroot/home/pospaper/pospaper.com/html/app/code/Magestore/Bannerslider/view/frontend/web/js/report/impress.js

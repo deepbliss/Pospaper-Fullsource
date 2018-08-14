@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <listingToolbar name="listing_top">
+            <massaction name="listing_massaction">
+                <action name="order_delete">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="type" xsi:type="string">order_delete</item>
+                            <item name="label" xsi:type="string" translate="true">Delete Order(s)</item>
+                            <item name="url" xsi:type="url" path="deleteorder/deleteorder/massDelete"/>
+                            <item name="confirm" xsi:type="array">
+                                <item name="title" xsi:type="string" translate="true">Delete Order(s)</item>
+                                <item name="message" xsi:type="string" translate="true">Are you sure you wan't to delete selected items?</item>
+                            </item>
+                        </item>
+                    </argument>
+                </action>
+            </massaction>
+    </listingToolbar>
+</listing>

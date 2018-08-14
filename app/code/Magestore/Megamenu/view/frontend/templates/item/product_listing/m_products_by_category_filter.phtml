@@ -1,0 +1,74 @@
+<?php
+
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_Megamenu
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+?>
+<?php
+$categories = $block->getListingcategories();
+$enable_image = $block->getItem()->getCategoryImage();
+?>
+<div class="row ms-category-level">
+    <div class="col-category col-xs-12">
+        <div class="row">
+            <?php $i=1;foreach($categories as $category): ?>
+                <?php $childrens = $block->getProductbycategory($category);
+                ?>
+                <div class="col-xs-12 col-level <?php if($childrens->getSize()) echo 'parent' ?>">
+                    <?php if($childrens->getSize()) :?>
+                        <p class="form-group"><a href="<?php echo $category->getUrl() ?>"><?php echo $category->getName() ?></a><small class="mb-level-click glyphicon glyphicon-plus small">&nbsp;</small></p>
+                    <?php else:?>
+                        <a class="form-group" href="<?php echo $category->getUrl() ?>"><?php echo $category->getName() ?></a>
+                    <?php endif;?>
+                    <?php if($childrens->getSize()) :?>
+                        <div class="col-xs-12 col-sub">
+                            <div class="row">
+                                <?php foreach($childrens as $children):?>
+
+                                    <div class="col-sm-4 col-xs-6 col-tn-12<?php if($enable_image): ?> text-center<?php else: ?> text-left<?php endif;?> ">
+                                        <?php $_imgHtml   = '';
+                                        if ($children->getSmallImage()) {
+                                            $_imgHtml = $block->getProductImage($children);
+                                        }else{
+                                            $_imgHtml = '<img src="'.$block->getViewFileUrl("Magestore_Megamenu::images/small_image.jpg").'" alt="'.$block->stripTags($children->getName(), null, true).'" title="'.$block->stripTags($children->getName(), null, true).'"/>';
+                                        }
+                                        ?>
+                                        <a class="form-group" href="<?php echo $children->getProductUrl() ?>">
+                                            <?php if($enable_image): ?>
+                                                <span class="form-group col-category-image"><?php echo $_imgHtml;?></span>
+                                            <?php endif;?>
+                                            <span><?php echo $children->getName() ?></span>
+                                        </a>
+                                        <div class="form-group">
+                                            <?php
+                                            $price = $block->getPriceHtml($children);
+                                            $price = str_replace('product-price-'.$children->getId(),'menu-item-'.$block->getItem()->getId().'-grid-product-price-'.$children->getId(),$price);
+                                            echo $price;
+                                            ?>
+                                        </div>
+                                    </div>
+                                <?php endforeach;?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <?php $i++; endforeach;?>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,152 @@
+@weltpixel_store_color: #FFF;
+
+#nav {
+    li.item-weltpixel {
+        > a {
+            &:before {
+                content: '';
+                background-image: url("../WeltPixel_Backend/images/WeltPixel_logo.svg");
+                background-repeat: no-repeat;
+                background-size: 70px;
+                background-position: center;
+                height: 50px;
+            }
+            > span {
+                font-size: 0px;
+            }
+        }
+        .submenu {
+            .submenu-title {
+                background-image: url("../WeltPixel_Backend/images/WeltPixel_logo.svg");
+                background-repeat: no-repeat;
+                padding-left: 80px;
+                height: 80px;
+                font-size: 0px;
+                margin-bottom: 15px;
+                background-size: 120px;
+            }
+            .item-weltpixel-documentation {
+                a {
+                    &:after {
+                        content: '\e60d';
+                        font-family: 'Admin Icons';
+                        margin-left: 10px;
+                    }
+                }
+            }
+            .item-weltpixel-helpcenter {
+                a {
+                    &:after {
+                        content: '\e633';
+                        font-family: 'Admin Icons';
+                        margin-left: 10px;
+                    }
+                }
+            }
+            .item-weltpixel-debugger {
+                .submenu-group-title {
+                    &:after {
+                        content: '\e613';
+                        font-family: 'Admin Icons';
+                        margin-left: 10px;
+                        color: #FFF;
+                    }
+                }
+            }
+            .item-pearl-theme-options {
+                display: none;
+                &.parent {
+                    display: block
+                }
+            }
+        }
+    }
+}
+
+.config-nav {
+    .item-weltpixel-documentation {
+        a {
+            &:after {
+                content: '\e60d';
+                font-family: 'Admin Icons';
+                margin-left: 10px;
+            }
+        }
+    }
+
+    .weltpixel-tab {
+        .admin__page-nav-title {
+            strong {margin-left: 50px;}
+            &:before {
+                content: '';
+                background-image: url("../WeltPixel_Backend/images/WeltPixel_logo_dark.svg");
+                background-repeat: no-repeat;
+                background-size: 40px;
+                background-position: 0px 0px;
+                height: 30px;
+                position: absolute;
+                width: 50px;
+                top: 14px;
+            }
+        }
+    }
+}
+
+#weltpixel_store {
+    border: none;
+    height: 1500px;
+}
+
+.section-config {
+    &.weltpixel-recommended-header {
+        .admin__collapsible-block {
+            display: block !important;
+            a {
+                font-weight: normal;
+                text-transform: uppercase;
+                &:before {
+                    content: '' !important;
+                }
+            }
+            table {
+                td.label {
+                    display: none;
+                }
+                td.value {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+iframe#launcher {
+    display: none !important;
+}
+
+.col-rewrite-status {width: 160px;}
+.rewrite-status {
+    width: 100%;
+    display: block;
+    text-align: center;
+    padding: 5px;
+    font-weight: bold;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    color: #FFF;
+}
+.rewrite-status-nok {
+    background-color: #ff0000;
+}
+.rewrite-status-ok {
+    background-color: #00aa00;
+}
+.module-title {
+    font-size: 16px;
+}
+.module-theme-info {
+    font-size: 12px;
+    font-style: italic;
+    font-weight: bold;
+}

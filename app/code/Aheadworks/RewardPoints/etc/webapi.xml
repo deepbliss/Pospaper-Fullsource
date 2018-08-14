@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    
+    <route url="/V1/carts/mine/aw-get-customer-reward-points" method="GET">
+        <service class="Aheadworks\RewardPoints\Api\CustomerRewardPointsManagementInterface" method="getCustomerRewardPointsDetails"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+    
+    <!-- Managing mine Cart Reward Points -->
+    <route url="/V1/carts/mine/aw-reward-points" method="GET">
+        <service class="Aheadworks\RewardPoints\Api\RewardPointsCartManagementInterface" method="get"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/carts/mine/apply-aw-reward-points" method="PUT">
+        <service class="Aheadworks\RewardPoints\Api\RewardPointsCartManagementInterface" method="set"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/carts/mine/remove-aw-reward-points" method="DELETE">
+        <service class="Aheadworks\RewardPoints\Api\RewardPointsCartManagementInterface" method="remove"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+
+</routes>
+        

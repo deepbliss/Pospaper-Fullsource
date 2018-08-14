@@ -1,0 +1,327 @@
+END USER LICENSE AGREEMENT
+
+Last updated: January 2017
+
+IMPORTANT: Please read this End-User License Agreement (the "Agreement") carefully
+before clicking the "I AGREE" button, downloading or using software product (the
+"Software"). By clicking the "I AGREE" button, downloading or using the Software, you are
+agreeing to be bound by the terms and conditions of this agreement. If you do not agree to the
+terms of this Agreement, do not click on the "I AGREE" button and do not download or use the
+software.
+
+This Agreement is an agreement between you, the legal or natural person who is being licensed to use
+the Software (the "Customer"), and aheadWorks Capital SIA, a private limited liability company
+registered under the laws of the Republic of Latvia with registration number 50103778351
+("aheadWorks"). The Agreement applies to all software products you obtain from aheadWorks.
+Unless you have a different license agreement signed by aheadWorks, your use of the Software
+indicates your acceptance of this Agreement and its terms.
+
+1.	LICENSE
+
+1.1.	License. aheadWorks hereby grants to the Customer a non-exclusive and non-transferable
+license to use the Software without the rights to sublicense and as further stipulated under this
+Agreement (the "License"). The Customer shall be entitled only to those rights with respect to
+the Software that are expressly granted under this Agreement.
+
+1.2.	Number of Installations. The Agreement entitles the Customer to use a single copy of the
+Software on a single production Magento installation, solely for personal or business use. A
+separate software license must be obtained for each production Magento installation.
+
+1.3.	Pre-conditions. The License rights shall take effect after (i) the License Fee is received by
+aheadWorks and the respective Software is downloaded, but (ii) in case of free products - after
+the respective Software is downloaded. By receiving and opening the file package and/or using
+any Software product produced, licensed or sold by aheadWorks, the Customer agrees that this
+Agreement is a legally binding and valid contract and agrees to be bound by it. The Customer
+agrees to abide by the applicable intellectual property and other relevant laws and all of the
+terms and conditions of this Agreement.
+
+1.4.	Restrictions. One copy of the Software created or transferred pursuant to this Agreement is
+licensed, not sold, and the Customer receives no title to or ownership of any copy or of the
+Software itself. Furthermore, the Customer receives no rights to the Software other than those
+specifically granted in Clause 1.1 above. Without limiting the generality of the foregoing, the
+Customer shall not:
+
+(a)	modify or create derivative works from the Software, except where it is done for
+personal use or business needs only and in respect of single production Magento
+installation;
+
+(b)	distribute or sublicense the Software;
+
+(c)	use the Software (or any part thereof) for service bureau, time-sharing, hosting or like
+purposes or in any other way allow third parties to exploit the Software (this paragraph
+shall not restrict the rights of the Customer to allow its customers to use the Software as
+part of the end product delivered by the Customer to its customers and where it is
+needed to access or use the end-product delivered by the Customer to its customers);
+
+(d)	reverse engineer, decompile, disassemble, or otherwise attempt to derive any of the
+Software's source code, except where it is done for personal use or business needs only
+and in respect of single production Magento installation;
+
+(e)	place the Software in whole or partially on a server so that its source code (except
+stylesheet (css/less), javascript and images) is accessible for viewing, copying or
+downloading via a public network such as the Internet, including, to place the Software
+in publicly accessible repositories (e.g. free Github account);
+
+(f)	assign, sell, sublicense, rent, lease or distribute the Software (or any portion thereof) in
+any other way to any third parties;
+
+(g)	modify, make error correction, translate, or create derivative works from the Software,
+incorporate the Software (or any portion thereof) into or with other software, always
+subject to additional License and License Fee for each production Magento installation;
+
+(h)	remove any Software identification, proprietary, copyright or other notices contained in
+the Software;
+
+(i)	install the same copy of the Software on more than one production Magento
+installation;
+
+(j)	sell or otherwise alienate any device on which the software is installed or stored as
+backup before deleting all copies of the Software.
+
+(k)	Use the Software on Magento edition other than it was specified during purchase.
+
+
+1.5.	Exceptions: The following exceptions to the restrictions listed above shall apply:
+
+(a)	the Customer shall be entitled to add the Software and work with it via the Customer's
+version control system (SVN, GIT, or similar), except if it provides public access to the
+source code of the Software, other than stylesheet (css/less), javascript and images;
+
+(b)	several copies of Magento installed on a respective number of different web servers,
+which are combined into a single load-balanced environment is considered to be a
+single installation;
+
+(c)	in addition to a single production Magento installation, the Agreement allows installing
+the Software on a development and/or staging Magento environment.
+
+2.	FEES AND PAYMENTS
+
+2.1.	Fees. The Customer shall pay to aheadWorks license fee for each License and for other services
+as indicated in the website www.aheadworks.com or agreed between the parties (the "License
+Fee").
+
+2.2.	Payments. The License Fee shall be paid prior to the Software is downloaded. Any other
+payment by the Customer pursuant to this Agreement shall be due within 30 (thirty) days after
+the date of the respective invoice (including any penalties or payment of additional License Fee
+in case the Software is used for more than 1 (one) production Magento installation in breach of
+this Agreement).
+
+3.	COPYRIGHT RESTRICTIONS
+The Software contains proprietary copyrighted material. It is prohibited for the Customer to
+create any derivative works or other works that are based upon or derived from the Software in
+whole or any part of it for commercial or non-commercial distribution purposes, without written
+permission from aheadWorks. aheadWorks retains all right, title, and interest in and to the
+Software, related documentations and upgrades. All rights not expressly granted by this
+Agreement are reserved for aheadWorks. The Customer recognizes that the Software and its
+components are protected by copyright and other laws.
+
+4.	CONFIDENTIALITY
+
+4.1.	Confidential Information. The Software and related documentation (including user manuals etc.)
+as well as any other information provided by aheadWorks and marked or designated as
+'confidential' constitutes confidential proprietary information of aheadWorks (the "Confidential
+Information"). The Customer shall not be entitled to disclose, provide or otherwise make
+available such confidential information in any form to any third party without the prior written
+consent of aheadWorks, unless otherwise required under the applicable laws by the relevant
+authorities. The Customer shall protect the Confidential Information with the same degree of
+care it uses to protect its own confidential information of similar nature and importance, but
+with no less than reasonable care.
+
+4.2.	Exceptions. The Confidential Information does not include information that (i) becomes known
+publicly, before or after disclosure, other than as a result of the Customer's improper action or
+inaction; or (ii) is approved for release in writing by aheadWorks.
+
+4.3.	Injunction. The Customer agrees that breach of Clause 4.1 would cause aheadWorks irreparable
+injury, for which monetary damages would not provide adequate compensation, and that in
+addition to any other remedy, aheadWorks will be entitled to injunctive relief against such
+breach or threatened breach, without proving actual damage or posting a bond or other security.
+
+4.4.	Termination & Return. With respect to each item of the Confidential Information, the
+obligations of this Clause 4 will terminate 10 (ten) years after the date of disclosure. Upon
+termination of this Agreement, Recipient shall return all copies of the Confidential Information
+to aheadWorks or certify, in writing, the destruction thereof.
+
+4.5.	Retention of Rights. This Agreement does not transfer ownership of the Confidential
+Information or grant a license thereto. aheadWorks will retain all right, title, and interest in and
+to all Confidential Information.
+
+5.	WARRANTY
+
+5.1.	Limited Warranty. To the extent permitted by applicable law, the Software is provided to the
+Customer "AS IS" without any warranty, either express or implied, that the Software usage will
+be uninterrupted and that all errors have been or can be eliminated from the Software or in
+respect of merchantability of fitness for a particular purpose. The sole liability of aheadWorks
+(and the exclusive remedy of the Customer) for any breach of this warranty shall be, in sole
+discretion of aheadWorks, to use commercially reasonable efforts to provide the Customer with
+an error correction or workaround which corrects the reported nonconformity, to provide the
+Software upgrades with corrected errors for the upcoming Software release or service pack or if
+aheadWorks determines such remedies to be impracticable within a reasonable period of time,
+to terminate the Agreement and refund License Fee.
+
+5.2.	Warranty Exceptions. The limited warranty provided under Clause 5.1 shall not apply (and
+aheadWorks shall have no liability) to warranty claims arising out of or relating to:
+
+(a)	a modification of the Software made by anyone other than aheadWorks;
+
+(b)	use of the Software in combination with any operating system not authorized in the
+respective specifications or other documentation or with hardware or software
+specifically forbidden by the respective specifications or other documentation;
+
+(c)	defects in the Software due to accident, abuse or improper use by the Customer; or
+
+(d)	the Software provided on a no charge or non-commercial trial use basis, if any; or
+
+(e)	the Software being incompatible with the Customer's other hardware or software etc.
+
+6.	LIABILITY LIMITATIONS
+
+6.1.	In no event (including, without limitation, in the event of negligence) will aheadWorks, its
+employees, agents or distributors be liable for any consequential, incidental, indirect, special or
+punitive damages whatsoever (including, without limitation, damages for loss of profits, loss of
+use, business interruption, loss of information or data, or pecuniary loss), in connection with or
+arising out of or related to this Agreement, the Software or the use or inability to use the
+Software or the furnishing, performance or use of any other matters hereunder whether based
+upon contract, furnishing or any other theory including negligence. aheadWorks shall not be
+liable for any prosecution arising from use of the Software against law or for any illegal use.
+
+6.2.	The aggregate liability of aheadWorks under or in relation to this Agreement, without
+exceptions, is limited to the amount paid by the Customer to aheadWorks under this Agreement
+in respect of the respective Software.
+
+6.3.	The liabilities limited by this Clause 6 inter alia apply:
+
+(a) to liability for negligence;
+
+(b) regardless of the form of action, whether in contract, tort, strict product liability, or otherwise;
+
+(c) even if aheadWorks is advised in advance of the possibility of the damages in question and
+even if such damages were foreseeable; and (d) even if the Customer's remedies fail of their
+essential purpose. If applicable law limits the application of the provisions of this Clause 6, the
+liability of aheadWorks will be limited to the maximum extent permissible. For the avoidance of
+doubt, the liability limits and other rights set forth in this Clause 6 apply likewise to affiliates,
+licensors, suppliers, advertisers, agents, sponsors, directors, officers, employees, consultants,
+and other representatives of aheadWorks.
+
+7.	CONSENT OF USE OF DATA
+
+7.1.	The Customer hereby irrevocably and unconditionally agrees that aheadWorks is entitled to
+collect and use information gathered in any manner as part of the product support services
+provided to the Customer, if any, related to the Software. aheadWorks may also use this
+information to provide notices to the Customer which, in the sole opinion of aheadWorks, may
+be of use or interest to the Customer.
+
+7.2.	The Customer hereby grants aheadWorks a perpetual, irrevocable, worldwide license to use any
+Feedback the Customer communicates to aheadWorks, without compensation, without any
+obligation to report on such use, and without any other restriction. The rights of aheadWorks
+granted under this Clause 7.2 include, without limitation, the right to exploit the Feedback in
+any and every way, as well as the right to grant sublicenses. No Feedback shall be considered as
+the Customer's confidential information. The "Feedback" refers to any suggestion or idea for
+modifying any of the products or services of aheadWorks, including without limitation all
+intellectual property rights in any such suggestion or idea.
+
+7.3.	Data gathered during technical support.
+
+(a)	aheadWorks does not collect any information which may be present on a particular
+store, including but not limited to a personal or financial one, except an information
+directly related to the Customer's inquiries, namely: particular orders, clients, files,
+information about a server and store configuration, etc.
+
+(b)	aheadWorks may collect the information about an overall quantity of customers, orders,
+products in a particular store, if it is related to the Customer's inquiry.
+
+(c)	The data gathered during technical support is used for: (i) Enhancement of technical
+support of a particular Customer in case of future inquiries or other Customers who
+have encountered a similar issue; (ii) Analysis of technical problems aimed at
+improvement of the quality of the products by aheadWorks.
+
+7.4.	aheadWorks shall protect the information gathered from clients with the same degree of care it
+uses to protect its own confidential information of similar nature and importance, but with no
+less than reasonable care.
+
+7.5.	Notwithstanding the foregoing, aheadWorks retains the right to collect and use at their own
+discretion any and all information obtained from customer or gathered on customers' website or
+server in case of doubt or evidence that one or more clauses of this Agreement have been
+breached.
+
+8.	SOFTWARE USE MONITORING
+
+8.1.	As long as the Software is used by the Customer, aheadWorks shall be entitled to monitor the
+Customer's use of the Software.
+
+8.2.	If aheadWorks discovers unauthorized use, reproduction, distribution, or other exploitation of
+the Software, the Customer shall (i) pay to aheadWorks the License Fee for each such
+unauthorized use, reproduction, distribution, or other exploitation of the Software contradictory
+to this Agreement (for instance, if the Software is installed on more than 1 (one) production
+Magento installation, than the License Fee shall be paid for each such additional installation),
+(ii) pay a contractual penalty in the amount of EUR 1,000 for each breach for each such
+unauthorized use, reproduction, distribution, or other exploitation of the Software contradictory
+to this Agreement and (iii) indemnify aheadWorks in respect of any other costs or damages.
+
+9.	AMENDMENTS TO THIS AGREEMENT
+aheadWorks reserves the right, at its sole discretion, to modify or replace this Agreement at any
+time. If a revision is material, aheadWorks will provide at least 30 days' notice prior to any new
+terms taking effect. What constitutes a material change will be determined at sole discretion of
+aheadWorks. The continued use of the Software by the Customer after the changes have been
+published by aheadWorks will constitute the acceptance by the Customer of the changed terms.
+
+10.	TERMINATION
+
+10.1.	aheadWorks may terminate this Agreement for any reason or no reason in its sole discretion.
+Any failure to comply with the terms and conditions of this Agreement will result in automatic
+and immediate termination of the License in which case the Customer shall immediately cease
+use of the Software and destroy all copies of the Software supplied under this Agreement. Such
+termination shall not oblige aheadWorks to return any amounts received from the Customer
+pursuant to the Agreement.
+
+10.2.	The Customer shall be entitled to terminate this Agreement at any point by destroying all copies
+of the Software.
+
+10.3.	The financial obligations incurred by the Customer shall survive the expiration or termination of
+the License.
+
+11.	APPLICABLE LAW AND DISPUTE RESOLUTION
+
+11.1.	This Agreement shall be governed by the laws of Latvia.
+
+11.2.	The parties shall resolve all disputes related to this Agreement by way of negotiations. In case
+any dispute is not resolved within 30 (thirty) days as of the initial notice, such dispute of any
+nature that may arise in relation to this Agreement shall be finally resolved by the courts of the
+Republic Latvia.
+
+12.	MISCELLANEOUS
+
+12.1.	Notices. Notices to the Customer pursuant to this Agreement shall be sent to the addressees
+indicated by the Customer when purchasing the Software, to the registered addresses or to such
+others as the Customer may provide in writing. Notices to the Vendor pursuant to this
+Agreement shall be sent to the addressees indicated by the Vendor on the website
+www.aheadworks.com, to the registered addresses or to such others as either party may provide
+in writing. Such notices will be deemed received at such addresses upon the earlier of (a) actual
+receipt or (b) delivery in person, by email with confirmation of receipt, or by certified mail
+return receipt requested.
+
+12.2.	Force Majeure. No delay, failure, or default, other than a failure to pay fees when due, will
+constitute a breach of this Agreement to the extent caused by acts of war, terrorism, hurricanes,
+earthquakes, other acts of God or of nature, strikes or other labour disputes, riots or other acts of
+civil disorder, embargoes, or other causes beyond the performing party's reasonable control.
+
+12.3.	Assignment. The Customer may not assign this Agreement or any of its rights or obligations
+hereunder without the express written consent of aheadWorks. Except to the extent forbidden in
+this Clause 12.3, this Agreement will be binding upon and inure to the benefit of the parties'
+respective successors and assigns.
+
+12.4.	Severability. To the extent permitted by the applicable laws, the parties hereby waive any
+provision of law that would render any clause of this Agreement invalid or otherwise
+unenforceable in any respect. In the event that a provision of this Agreement is held to be
+invalid or otherwise unenforceable, such provision will be interpreted to fulfil its intended
+purpose to the maximum extent permitted by the applicable laws, and the remaining provisions
+of this Agreement will continue in full force and effect.
+
+12.5.	No Waiver. Neither party will be deemed to have waived any of its rights under this Agreement
+by lapse of time or by any statement or representation other than by an authorized representative
+in an explicit written waiver. No waiver of a breach of this Agreement will constitute a waiver
+of any other breach of this Agreement.
+
+12.6.	Entire Agreement. This Agreement sets forth the entire agreement of the parties and supersedes
+all prior or contemporaneous writings, negotiations, and discussions with respect to its subject
+matter. Neither party has relied upon any such prior or contemporaneous communications.
+

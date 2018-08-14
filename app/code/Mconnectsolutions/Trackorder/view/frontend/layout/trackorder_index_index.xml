@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+        <css src="Mconnectsolutions_Trackorder::css/mcs_track.css" />
+    </head>
+	<body>
+		<referenceContainer name="content">
+			<block ifconfig="mconnectsolutions_trackorder/track_order/enable" class="Mconnectsolutions\Trackorder\Block\Trackorder" name="mcs_track_index" template="Mconnectsolutions_Trackorder::trackorder.phtml" />
+		</referenceContainer>
+        
+         <referenceBlock name="breadcrumbs">
+            <action method="addCrumb">
+                <argument name="crumbName" xsi:type="string">home</argument>
+                <argument name="crumbInfo" xsi:type="array">
+                    <item name="title" xsi:type="string">Home</item>
+                    <item name="label" xsi:type="string">Home</item>
+                    <item name="link" xsi:type="string">/</item>
+                </argument>
+            </action>
+            <action method="addCrumb">
+                <argument name="crumbName" xsi:type="string">track-order</argument>
+                <argument name="crumbInfo" xsi:type="array">
+                    <item name="title" xsi:type="string">Track Orders</item>
+                    <item name="label" xsi:type="string">Track Orders</item>
+                </argument>
+            </action>
+        </referenceBlock>
+        
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Check Your Order Status</argument>
+            </action>
+        </referenceBlock>
+	</body>
+</page>

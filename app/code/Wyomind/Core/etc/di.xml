@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+  Copyright © 2017 Wyomind. All rights reserved.
+  See LICENSE.txt for license details.
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    
+    <!-- LOGGER -->
+    <type name="Wyomind\Core\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    
+    <type name="Wyomind\Core\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">WYOMIND CORE</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="core" xsi:type="object">Wyomind\Core\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+    
+    
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="wyomind_license_activate" xsi:type="object">Wyomind\Core\Console\Command\Activate</item>
+                <item name="wyomind_status_activate" xsi:type="object">Wyomind\Core\Console\Command\Status</item>
+            </argument>
+        </arguments>
+    </type>
+       
+</config>

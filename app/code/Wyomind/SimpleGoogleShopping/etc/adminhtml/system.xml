@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<!--
+ Copyright © 2015 Wyomind. All rights reserved.
+ See LICENSE.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+
+        <!-- master tab -->
+
+        <tab id="wyomind" translate="label" sortOrder="1000000">
+            <label><![CDATA[<span class='wyomind-logo'>Wyomind</span>]]></label>
+        </tab>
+
+        <!-- module tab -->
+
+        <section id="simplegoogleshopping" translate="label" sortOrder="130" showInDefault="1" showInWebsite="0"
+                 showInStore="0">
+            <class>separator-top</class>
+            <label><![CDATA[<span class='sgs-logo'>Simple Google Shopping</span>]]></label>
+            <tab>wyomind</tab>
+            <resource>Wyomind_SimpleGoogleShopping::simplegoogleshopping_config</resource>
+
+            <!-- License -->
+
+            <group id="license" translate="label" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>License activation</label>
+                <field id="extension_version" translate="label" type="link" sortOrder="1" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Extension version</label>
+                </field>
+                <field id="activation_key" translate="label comment" type="text" sortOrder="2" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Activation key</label>
+                    <comment>
+                        <![CDATA[<span class="notice">Enter your activation key and click on `save config`.</span>]]></comment>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <frontend_model>Wyomind\Core\Block\Adminhtml\System\Config\Form\Field\Encrypted</frontend_model>
+                </field>
+                <field id="activation_code" translate="label comment" type="text" sortOrder="4" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Activation code</label>
+                    <comment>
+                        <![CDATA[<span class="notice">Enter your license code <b>only if prompted<b>.</span>]]></comment>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <frontend_model>Wyomind\Core\Block\Adminhtml\System\Config\Form\Field\Encrypted</frontend_model>
+                </field>
+            </group>
+
+            <!-- Cron job reporting -->
+
+            <group id="settings" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="0"
+                   showInStore="0">
+                <label>Cron job reporting</label>
+                <field id="enable_reporting" translate="label" type="select" sortOrder="1" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Enable cron job reporting</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="sender_email" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Sender Email</label>
+                    <validate>validate-email</validate>
+                    <backend_model>Magento\Config\Model\Config\Backend\Email\Address</backend_model>
+                    <depends>
+                        <field id="enable_reporting">1</field>
+                    </depends>
+                </field>
+                <field id="sender_name" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Sender Name</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Email\Sender</backend_model>
+                    <validate>validate-emailSender</validate>
+                    <depends>
+                        <field id="enable_reporting">1</field>
+                    </depends>
+                </field>
+                <field id="emails" translate="label comment" type="text" sortOrder="4" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Send the reports to</label>
+                    <comment>Emails must be separated with a comma (,).</comment>
+                    <depends>
+                        <field id="enable_reporting">1</field>
+                    </depends>
+                </field>
+                <field id="report_title" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>Report title</label>
+                    <depends>
+                        <field id="enable_reporting">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <!-- System -->
+
+            <group id="system" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="0"
+                   showInStore="0">
+                <label>Core settings // Advanced users //</label>
+                <field id="preview" translate="label comment" type="text" sortOrder="1" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Items in preview</label>
+                    <comment>Default value : 10</comment>
+                    <validate>required-entry validate-number validate-greater-than-zero</validate>
+                </field>
+                <field id="buffer" translate="label comment" type="text" sortOrder="2" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Items in buffer</label>
+                    <comment>Default value : 10</comment>
+                    <validate>required-entry validate-number validate-greater-than-zero</validate>
+                </field>
+                <field id="sqlsize" translate="label comment" type="text" sortOrder="3" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Items in SQL request</label>
+                    <comment>Default value : 1500</comment>
+                    <validate>required-entry validate-number validate-greater-than-zero</validate>
+                </field>
+                <field id="filters" translate="label comment" type="text" sortOrder="4" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Number of advanced filters</label>
+                    <comment>Default value : 10</comment>
+                    <validate>required-entry validate-number validate-greater-than-zero</validate>
+                </field>
+                <field id="filters_sql" translate="label comment" type="select" sortOrder="5" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Use of OR/AND statements in advanced filters</label>
+                    <comment>Default value : No</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="include_in_menu" translate="label comment" type="select" sortOrder="6" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Include not in menu categories</label>
+                    <comment>Default value : No</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="memorylimit" translate="label comment" type="text" sortOrder="7" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Memory limit size (M)</label>
+                    <comment>Default value : 1024</comment>
+                    <validate>required-entry validate-number validate-greater-than-zero</validate>
+                </field>
+                <field id="urlrewrite" translate="label" type="select" sortOrder="8" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>Use canonical urls</label>
+                    <source_model>Wyomind\SimpleGoogleShopping\Model\Config\UrlRewrite</source_model>
+                </field>
+                <field id="log" translate="label comment" type="select" sortOrder="9" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Enable log reporting</label>
+                    <comment>Default value : No</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+
+
+        </section>
+    </system>
+</config>

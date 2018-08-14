@@ -1,0 +1,133 @@
+<?php
+$helper = $this->helper('Nextopia\Search\Helper\Data');
+$id = $helper->getNxtId();
+if ($id && (($this->getIsSearchPage() && $helper->showInNxtSearchPage()) //for demo mode only
+        || (!$this->getIsSearchPage() && $helper->showEverywhere())) //if the module is enabled
+        && $helper->isClientOneLineCodeAvailable() //if one line code available for the current client
+) :
+    ?>
+    <!-- nextopia ajax initializer -->
+    <script type="text/javascript">
+        //Nxt version : 2.2.1
+        //Unfortunate our 1.5.1 js depends on this method, due to it's global nature, it cannot be inside require.
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        //Nextopia initialization before code load.  This has to be global due to the nature of our code.
+        if (typeof nxtOptions !== 'object') {
+            var nxtOptions = {};
+        }
+        if (!nxtOptions.customOptions) {
+            nxtOptions.customOptions = {};
+        }
+
+        nxtOptions.customOptions.formKey = '<?php echo $helper->getFormKey(); ?>';
+        //following is group code, not id, this is to maintain previous name for backwards compatibility.
+        nxtOptions.customOptions.groupId = '<?php echo $helper->getGroupCode(); ?>';
+
+        <?php if ($helper->isPersonasEnabled()) : ?>
+        // code snipet to avoid 'npo' undefined
+        window.npo = window.npo || function () {
+            (npo.q = npo.q || []).push(arguments);
+        };
+        <?php endif; ?>
+            
+        require.config({
+            paths: {
+                nextopiaSearch: "//cdn.nextopia.net/<?php echo $helper->getAjaxVersion(); ?>/<?Php echo $id; ?>"
+            },
+            shim: {
+                'nextopiaSearch': ['jquery']
+            }
+        });
+        require(['jquery', 'nextopiaSearch'], function (jqnxt) {
+            jqnxt("#search_mini_form").prop("action", "<?php echo $helper->getResultUrl(); ?>");
+            //Type custom code here
+            var target = jqNxt("#<?php echo $helper->getContentDivId(); ?>")[0];
+            var config = {
+                attributes: true,
+                childList: true,
+                characterData: true
+            };
+
+            
+            <?php if ($helper->isPersonasEnabled()) : ?>
+                <?php
+                    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                    $product = $objectManager->get('Magento\Framework\Registry')->registry('current_product'); //get current product
+
+                    if (isset($product)) : ?>
+                                npo('view', {
+                                    sku: '<?php echo $product->getSku(); ?>'
+                                });
+                <?php endif;
+                
+                    $cart = $objectManager->get('\Magento\Checkout\Helper\Cart');
+                    $items = $cart->getQuote()->getAllVisibleItems();
+
+                    if (count($items) > 0) : ?>
+                        npo('cart', [ <?php foreach ($items as $key => $item): ?> { sku: '<?php echo $item->getSku() ?>' }
+                                <?php if ($key !== (count($items) - 1)): ?>,<?php endif; ?><?php endforeach; ?> ]);
+
+                        npo('purchase', [ <?php foreach ($items as $key => $item): ?> { sku: '<?php echo $item->getSku() ?>' }
+                                <?php if ($key !== (count($items) - 1)): ?>,<?php endif; ?><?php endforeach; ?> ]);                            
+                <?php endif; ?>                
+            <?php endif; ?>
+            
+            try {
+                // Create an observer instance
+                var observer = new MutationObserver(function (mutations) {
+                    require(["jquery", "catalogAddToCart", "nextopiaSearch",
+                        "accordion", "collapsible", "Magento_Ui/js/modal/confirm", 
+                        "Magento_Ui/js/modal/modal", "Magento_Ui/js/modal/alert",
+                        "Magento_Ui/js/modal/prompt"], function (jqnxt) {
+                        jqnxt('[data-role="tocart-form"]').catalogAddToCart();
+                        jqnxt('[name="form_key"]').val(getCookie('form_key'));
+
+                        if (nxtOptions.mageOptions !== undefined) {
+                            var mageOptions = nxtOptions.mageOptions;
+
+                            for (var i = 0; i < mageOptions.length; i++) {
+                                // Example : jqnxt('#selectorId').accordion({ "openedState": "active","collapsible": true, active": false, "multipleCollapsible": false} );
+                                if (mageOptions[i]["type"] !== undefined & mageOptions[i]["type"] === "ACCORDION") {
+                                    jqnxt(mageOptions[i]["selector"]).accordion(mageOptions[i]["params"]);
+                                }
+                                if (mageOptions[i]["type"] !== undefined & mageOptions[i]["type"] === "ALERT") {
+                                    jqnxt(mageOptions[i]["selector"]).alert(mageOptions[i]["params"]);
+                                }
+                                if (mageOptions[i]["type"] !== undefined & mageOptions[i]["type"] === "COLLAPSIBLE") {
+                                    jqnxt(mageOptions[i]["selector"]).collapsible(mageOptions[i]["params"]);
+                                }
+                                if (mageOptions[i]["type"] !== undefined & mageOptions[i]["type"] === "CONFIRM") {
+                                    jqnxt(mageOptions[i]["selector"]).confirm(mageOptions[i]["params"]);
+                                }
+                                if (mageOptions[i]["type"] !== undefined & mageOptions[i]["type"] === "MODAL") {
+                                    jqnxt(mageOptions[i]["selector"]).modal(mageOptions[i]["params"]);
+                                }
+                                if (mageOptions[i]["type"] !== undefined & mageOptions[i]["type"] === "PROMPT") {
+                                    jqnxt(mageOptions[i]["selector"]).prompt(mageOptions[i]["params"]);
+                                }
+                            }
+                        }
+                    });
+                });
+
+                observer.observe(target, config);
+            } catch (e) {
+            }
+        });
+    </script>
+    <!-- nextopia ajax  initializer end -->
+<?php endif; ?>

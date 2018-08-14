@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright Copyright (c) 2016 www.magebuzz.com
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="testimonial_config_group_testimonial_email_configuration_config_email_template_posting" label="New Testimonial Notification Email Template" file="new_testimonial_notification.html" type="html" module="Magebuzz_Testimonial" area="frontend"/>
+    <template id="testimonial_config_group_testimonial_email_configuration_config_email_template_approving" label="Approved Testimonial Notification Email Template" file="approved_testimonial_notification.html" type="html" module="Magebuzz_Testimonial" area="frontend"/>
+</config>

@@ -1,0 +1,172 @@
+/* ======== Filters ======== */
+
+.node .cat-box {
+    margin-left: 10px;
+    padding: 5px;
+}
+
+.node .cat-box label {
+    display: inline-block;
+}
+
+.node .cat-box.selected {
+    color: green;
+    font-weight: bold;
+}
+
+.node .cat-box input {
+    margin-right: 10px;
+}
+
+.node .condition-attribute {
+    width: 120px !important;
+}
+
+.node .cat-box.one-value {
+    height: 30px;
+    width: 10px;
+    /*position:relative;*/
+    padding-top: 8px;
+}
+
+.node .cat-box.one-value .checked-attribute {
+    /*position:absolute;*/
+    margin-top: 9px;
+}
+
+.node .cat-box.one-value select.statement-attribute {
+    /*position:absolute;*/
+    width: 85px;
+    left: 60px;
+}
+
+.node .cat-box.one-value input.statement-attribute {
+    /*position:absolute;*/
+    left: 60px;
+    width: 0px;
+    visibility: hidden;
+    margin-right: 79px;
+}
+
+.node .cat-box.one-value .name-attribute {
+    width: 290px;
+    /*position:absolute;*/
+    left: 150px;
+}
+
+.node .cat-box.one-value .condition-attribute {
+    /*position:absolute;*/
+    left: 445px;
+}
+
+.node .cat-box.one-value .pre-value-attribute {
+    display: none;
+    width: 253px;
+    /*position:absolute;*/
+}
+
+.node .cat-box.one-value.dddw .pre-value-attribute {
+    display: inline !important;
+    left: 570px;
+    width: 250px;
+}
+
+.node .cat-box.one-value.dddw .value-attribute {
+    width: 250px;
+    /*position:absolute;*/
+    left: 828px;
+}
+
+.node .cat-box.one-value .value-attribute {
+    width: 250px;
+    /*position:absolute;*/
+    left: 570px;
+}
+
+.node .cat-box.multiple-value {
+    height: 105px;
+    width: 10px;
+    padding-top: 8px;
+    /*position:relative;*/
+}
+
+.node .cat-box.multiple-value .checked-attribute {
+    /*position:absolute;*/
+    margin-top: 9px;
+    /*top:48px;*/
+}
+
+.node .cat-box.multiple-value select.statement-attribute {
+    /*position:absolute;*/
+    width: 85px;
+    left: 60px;
+    top: 48px;
+}
+
+.node .cat-box.multiple-value input.statement-attribute {
+    /*position:absolute;*/
+    left: 60px;
+    width: 0px;
+    visibility: hidden;
+    margin-right: 79px;
+    top: 48px;
+}
+
+.node .cat-box.multiple-value .name-attribute {
+    width: 290px;
+    /*position:absolute;*/
+    left: 150px;
+    top: 48px;
+}
+
+.node .cat-box.multiple-value .condition-attribute {
+    /*position:absolute;*/
+    left: 445px;
+    top: 48px;
+}
+
+.node .cat-box.multiple-value .pre-value-attribute {
+    display: inline;
+    left: 570px;
+    width: 250px;
+    /*    position:absolute;*/
+}
+
+.node .cat-box.multiple-value .value-attribute {
+    width: 250px;
+    /*position:absolute;*/
+    left: 828px;
+    top: 48px;
+}
+
+.node .cat-box td {
+    padding: 3px !important;
+    vertical-align: middle;
+    width: 10px;
+}
+
+div.node.advanced_filters:nth-child(odd) {
+    /*background : #F7F3EB;*/
+}
+
+div.node.advanced_filters {
+    padding-bottom: 4px;
+    /*border-bottom:1px solid #F0F0F0;*/
+}
+
+.unselect-all,
+.select-all {
+    display: none !important;
+    font-size: 0.7em !important;
+    font-weight: normal !important;
+    margin-left: 10px;
+    cursor: pointer;
+    color: #2F7295 !important;
+}
+
+.unselect-all.visible,
+.select-all.visible {
+    display: inline !important;
+}
+
+

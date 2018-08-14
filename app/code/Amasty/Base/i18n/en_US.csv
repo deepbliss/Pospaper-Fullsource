@@ -1,0 +1,27 @@
+Installed,Installed
+"Update available","Update available"
+"Output disabled","Output disabled"
+"Magento Mode","Magento Mode"
+"Magento Path","Magento Path"
+"Current Time","Current Time"
+"Server User","Server User"
+"No cron jobs found","No cron jobs found"
+"Learn more","Learn more"
+"Cron (Last 5)","Cron (Last 5)"
+General,General
+"Special Deals","Special Deals"
+"Available Updates","Available Updates"
+"Unsubscribe from all","Unsubscribe from all"
+" by "," by "
+"Update is available and recommended. See the <a target=""_blank"" href=""%1"">Change Log</a>","Update is available and recommended. See the <a target=""_blank"" href=""%1"">Change Log</a>"
+"Need help with the settings?  Please  consult the <a target=""_blank"" href=""%1"">user guide</a> to configure the extension properly.","Need help with the settings?  Please  consult the <a target=""_blank"" href=""%1"">user guide</a> to configure the extension properly."
+Extension,Extension
+"Incompatibility with the %1. To avoid the conflicts we strongly recommend turning off the 3rd party mod via the following command: ""%2""","Incompatibility with the %1. To avoid the conflicts we strongly recommend turning off the 3rd party mod via the following command: ""%2"""
+"Problems detected:","Problems detected:"
+Unsubscribe,Unsubscribe
+"Amasty Extensions","Amasty Extensions"
+"Extensions &amp; Notifications","Extensions &amp; Notifications"
+Notifications,Notifications
+"I want to Receive Notifications about:","I want to Receive Notifications about:"
+"Installed Extensions","Installed Extensions"
+"System Information","System Information"

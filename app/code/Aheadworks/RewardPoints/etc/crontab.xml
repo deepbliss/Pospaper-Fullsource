@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="aw_rp_expiration_check" instance="Aheadworks\RewardPoints\Cron\ExpirationCheck" method="execute">
+            <schedule>* * * * *</schedule>
+        </job>
+        <job name="aw_rp_expiration_reminder" instance="Aheadworks\RewardPoints\Cron\ExpirationReminder" method="execute">
+            <schedule>0 */1 * * *</schedule>
+        </job>
+    </group>
+</config>
