@@ -1288,7 +1288,7 @@ class CsvImportHandler
             $productcounters = 1;
 
             //sync product names/prices, and update shipping
-            /*
+            
             foreach($products_ordered as $data) {
 
                 $parts = explode(':', $data);
@@ -1297,7 +1297,7 @@ class CsvImportHandler
                 $this->updateShippingTotal($importData, $order1, $connection, $resource, $parts, $e, $select_qry, $newrowItemId, $item_id, $params);
                 $productcounters++;
             }
-            */
+            
             //Adding invoice/shipment creation
             $productItemscounter = 1;
             foreach($products_ordered as $data) {
@@ -1754,6 +1754,7 @@ class CsvImportHandler
                 'comment'           => array('customer_note' => $order_comments),
                 'send_confirmation' => $csv_send_email,
                 'shipping_method'   => $row->getShippingMethod(),
+                'shipping_description'   => $row->getShippingDescription(),
                 'billing_address'   => $billing_address_final,
                 'shipping_address'  => array(
                     'customer_address_id' => $final_shipping['entity_id'],
@@ -2068,7 +2069,8 @@ class CsvImportHandler
                 $addressId = $order1->getShippingAddress()->getId();
 
                 #$shippingDescription = "Imported - " . $shippingMethod;
-                $shippingDescription = $shippingMethod;
+                echo $shippingDescription = $importData['shipping_description'];
+                echo "hello";
 
                 try {
 
