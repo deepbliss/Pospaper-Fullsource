@@ -3,3 +3,22 @@
 var*
 
 staging*
+
+
+
+/var/*
+/media/*
+app/etc/local.xml
+*.tgz
+*.zip
+*.sql
+*.gz
+*.tar
+/robots.txt
+/robots.txt.bak
+/sitemap.xml
+/error_log
+/db/*
+/docs/*
+/Page/*
+/tmp/*
