@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="shipping">
+            <group id="pospaper" translate="label" type="text" sortOrder="99" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>POSPaper Settings</label>
+                <field id="ups_surcharge" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>UPS Surcharge</label>
+                    <comment>Enter numbers only, without "%" sign.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
