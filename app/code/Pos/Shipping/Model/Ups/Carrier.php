@@ -112,13 +112,16 @@ class Carrier extends \Magento\Ups\Model\Carrier
         $destRegion = null;
         $destCity = null;
         try {
-            if($request->getDestPostcode() && !$request->getDestRegionCode()) {
+            if($request->getDestPostcode()) {
                 $location = $this->getOriginFromZipcode($request->getDestPostcode());
                 if(!empty($location)) {
-                    $destRegion = $location['state'];
-                    $destCity = $location['city'];
+                    if(isset($location['state']) && $location['state'] != $request->getDestRegionCode()) {
+                        $destRegion = $location['state'];
+                        $destCity = $location['city'];
+                    }
                 }
             }
+
         } catch (Exception $e) {
             $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
             $this->_debug($debugData);
@@ -140,7 +143,7 @@ class Carrier extends \Magento\Ups\Model\Carrier
         $rowRequest->setDestCountry($country->getData('iso2_code') ?: $destCountry);
 
         $rowRequest->setDestRegionCode($request->getDestRegionCode());
-        if(!$request->getDestRegionCode() && $destRegion) {
+        if($destRegion) {
             $rowRequest->setDestRegionCode($destRegion);
         }
 
