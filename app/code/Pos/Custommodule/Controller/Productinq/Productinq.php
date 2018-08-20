@@ -1,6 +1,4 @@
 <?php
-
-session_start();
  
 namespace Pos\Custommodule\Controller\Productinq;
  
@@ -9,6 +7,8 @@ use Magento\Framework\Controller\ResultFactory;
  
 class Productinq extends \Magento\Framework\App\Action\Action
 {
+
+    session_start();
     protected $_resultPageFactory;
  
     public function __construct(Context $context, \Magento\Framework\View\Result\PageFactory $resultPageFactory)
