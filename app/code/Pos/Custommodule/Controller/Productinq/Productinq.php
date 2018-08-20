@@ -1,4 +1,6 @@
 <?php
+
+session_start();
  
 namespace Pos\Custommodule\Controller\Productinq;
  
