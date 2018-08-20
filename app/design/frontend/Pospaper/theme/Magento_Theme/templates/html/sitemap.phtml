@@ -32,11 +32,7 @@ $excludedCategory = array(0);
                             <?php if ($subcategories->getLevel()==3):?>
                                 <div class = "sitemap-list">
                                     <li>
-                                        <?php if($subcategories->getImageUrl()): ?>
-                                        <div class="mega-menu-ad">
-                                            <img src="<?php echo ($subcategories->getImageUrl()); ?>" width="25" height="25" />
-                                        </div>
-                                        <?php endif; ?>
+                                        
 
                                         <a href="<?php echo $subcategories->getUrl(); ?>"><?php echo $subcategories->getName(); ?></a>
                                         <?php
