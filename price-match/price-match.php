@@ -140,16 +140,16 @@
                 <h2>How did you see this price?</h2>
                 <div class="pmf-radio_list">
         <ul>
-         <li><input type="radio" name="promo-location" value="Website" checked="checked" onclick="$('.promo-fields').toggle();" /> <label>Website</label> </li>
-         <li> <input type="radio" name="promo-location" value="Retail Store" onclick="$('.promo-fields').toggle();" /> <label>Retail Store</label> </li>
+         <li><input type="radio" name="promo-location" value="Website" checked="checked" onclick="$('.promo-fields1').toggle();" /> <label>Website</label> </li>
+         <li> <input type="radio" name="promo-location" value="Retail Store" onclick="$('.promo-fields2').toggle();" /> <label>Retail Store</label> </li>
         </ul>
        </div>
                 
-                <div id="website-promo" class="promo-fields">
+                <div id="website-promo" class="promo-fields1">
                     <label>Enter the competitor's website address you found the item(s) at:</label>
                     <input type="text" name="website-field"  />
                 </div>
-                  <div id="retail-promo" class="promo-fields" style="display: none;">
+                  <div id="retail-promo" class="promo-fields2" style="display: none;">
         <div class="retail-promo-row">
          <label>Store Name:</label>
          <input name="store-name" type="text">
