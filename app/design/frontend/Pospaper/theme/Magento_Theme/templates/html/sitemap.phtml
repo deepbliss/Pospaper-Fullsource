@@ -52,12 +52,7 @@ $excludedCategory = array(0);
                                                 <?php foreach ($subSubCollection as $subSubcategories){ ?>
                                                         <div class = "sitemap-list">
                                                             <li>
-                                                                <?php if($subSubcategories->getImageUrl()): ?>
-                                                                <div class="mega-menu-ad">
-                                                                    <img src="<?php echo ($subSubcategories->getImageUrl()); ?>" width="25" height="25" />
-                                                                </div>
-                                                                <?php endif; ?>
-                                                                <a href="<?php echo $subSubcategories->getUrl(); ?>"><?php echo $subSubcategories->getName()?></a>
+                                                              <a href="<?php echo $subSubcategories->getUrl(); ?>"><?php echo $subSubcategories->getName()?></a>
                                                             </li>
                                                         </div>
                                                 <?php } ?> 
