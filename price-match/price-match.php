@@ -103,7 +103,7 @@
 
 <body>
     <div id="wrapper" class="price-match-form content">        
-        <form action="<?php echo "http://" . $_SERVER['SERVER_NAME'] . "/price-match/pmcontact.php"; ?>" method="post" name="pricematch" onsubmit="return validateForm();">             
+        <form action="<?php echo "https://" . $_SERVER['SERVER_NAME'] . "/price-match/pmcontact.php"; ?>" method="post" name="pricematch" onsubmit="return validateForm();">             
           <h2 class="title">LOW PRICE GUARANTEE</h2>
             <div class="pmf-head-section" id="item-table">
                 <div class="padding">
