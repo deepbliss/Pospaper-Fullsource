@@ -1,0 +1,79 @@
+<?php 
+$objectManagerr = \Magento\Framework\App\ObjectManager::getInstance();
+$categoryFactory = $objectManagerr->create('Magento\Catalog\Model\ResourceModel\Category\CollectionFactory');
+$categoryy = $categoryFactory->create()   
+        ->addAttributeToSelect('*');
+//->addAttributeToFilter('is_active',1)
+//->addAttributeToFilter('is_anchor',1);
+$excludedCategory = array(0);
+
+?>
+
+<ul class="sitelist">
+<?php foreach ($categoryy as $cc): ?>
+    <?php if(!in_array($cc->getId(), $excludedCategory)):?>
+        <div class = "sitemap-list" style="float:left;">
+        <?php if ($cc->getLevel()==2):?>
+            <li>
+                <h3><a href="<?php echo $cc->getUrl(); ?>"><?php echo $cc->getName(); ?></a></h3>
+                <?php
+                    if($cc->getChildren())
+                    {
+                        $sub = explode(",", $cc->getChildren());
+                        $categoryFactorysub = $objectManagerr->create('Magento\Catalog\Model\ResourceModel\Category\CollectionFactory');
+                        $categoryysub = $categoryFactorysub->create()   
+                        ->addAttributeToSelect('*');
+                        $subcat=$categoryysub->addFieldToFilter('entity_id', array('in' =>$sub));
+
+                        //$subcat->printlogquery(true);exit;
+                        ?>
+                            <ul style="margin-left:15px;"> 
+                        <?php foreach ($subcat as $subcategories){ ?>
+                            <?php if ($subcategories->getLevel()==3):?>
+                                <div class = "sitemap-list">
+                                    <li>
+                                        <?php if($subcategories->getImageUrl()): ?>
+                                        <div class="mega-menu-ad">
+                                            <img src="<?php echo ($subcategories->getImageUrl()); ?>" width="25" height="25" />
+                                        </div>
+                                        <?php endif; ?>
+
+                                        <a href="<?php echo $subcategories->getUrl(); ?>"><?php echo $subcategories->getName(); ?></a>
+                                        <?php
+                                            if($subcategories->getChildren())
+                                            {
+                                                $subSubCat = explode(",", $subcategories->getChildren());
+                                                $subsubCatFactory = $objectManagerr->create('Magento\Catalog\Model\ResourceModel\Category\CollectionFactory');
+                                                $subSubCatCollection = $subsubCatFactory->create()
+                                                ->addAttributeToSelect('*');
+                                                $subSubCollection=$subSubCatCollection->addFieldToFilter('entity_id', array('in' =>$subSubCat));
+                                                ?>
+                                                    <ul style="margin-left:20px;">
+                                                <?php foreach ($subSubCollection as $subSubcategories){ ?>
+                                                        <div class = "sitemap-list">
+                                                            <li>
+                                                                <?php if($subSubcategories->getImageUrl()): ?>
+                                                                <div class="mega-menu-ad">
+                                                                    <img src="<?php echo ($subSubcategories->getImageUrl()); ?>" width="25" height="25" />
+                                                                </div>
+                                                                <?php endif; ?>
+                                                                <a href="<?php echo $subSubcategories->getUrl(); ?>"><?php echo $subSubcategories->getName()?></a>
+                                                            </li>
+                                                        </div>
+                                                <?php } ?> 
+                                                    </ul>
+                                        <?php   } ?>
+
+                                    </li>
+                                </div>
+                            <?php endif;?>
+                        <?php } ?>
+                            </ul>
+                <?php   } ?>
+
+            </li>
+        <?php endif;?>
+        </div>
+    <?php endif;?>
+    <?php endforeach; ?>
+    </ul>
