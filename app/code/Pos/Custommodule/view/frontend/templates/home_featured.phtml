@@ -28,32 +28,30 @@
 				echo "<div class='main_featured_price slider-price' id='main_featured_price'>"; ?>
                 <div class="price-div">
                     <?php
-            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
                     if($product->getTierPrice())
                     {
                         $tier_prices = $product->getTierPrice();
                         foreach ($tier_prices as $price) {
                         $website_price = $price['website_price'];
                         };
-                        $priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data'); // Instance of Pricing Helper
-                        $bsprice = '<span class="price-label">As low as</span><span class="price">'.$priceHelper->currency($website_price, true, false).'</span>';
+                        $bsprice = '<span class="price-label">As low as</span>'.$this->getFormatedPrice($website_price);
                     }
                     else
                     {
-                     $bsprice = $product->getFormatedPrice($product->getFinalPrice());    
+                     $bsprice = $this->getFormatedPrice($product->getFinalPrice());    
                     }
                     echo $bsprice;
+                    
+
+
+                    
+            
+            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
              $product = $objectManager->create('Magento\Catalog\Model\Product')->load($product->getId());
              echo '/'.$product->getData('unit_of_measure'); 
             ?>
         </div>
-        <?php
-                        
-                        if ($product->getData('is_bestseller') == 1): ?>
-                    <div class="bestseller-img">
-                    put image here
-                    </div>
-                        <?php endif;?>
             <?php
                        echo "<div class='rating-div'>"; ?>
                        <?php 
@@ -93,7 +91,7 @@
 					 echo "<a class='action whishlist towishlist' href='#' data-action='add-to-wishlist' data-post='".$this->helper('Magento\Wishlist\Helper\Data')->getAddParams($product)."'>";
                             echo "<span>Whishlist</span>";
                     echo "</a>";
-                    echo "<a class='weltpixel-quickview weltpixel_quickview_button_v2' title='Quick View' data-quickview-url='".$block->getBaseUrl()."weltpixel_quickview/catalog_product/view/id/".$product->getId()."/'>";
+                    echo "<a class='weltpixel-quickview weltpixel_quickview_button_v2' title='Quick View' data-quickview-url='".$block->getBaseUrl()."weltpixel_quickview/catalog_product/view/id/".$product->getId()."/' href='javascript:void(0);'>";
                             echo "<span>Quickview</span>";
                     echo "</a>";
                     echo "<a class='action tocompare' href='#' data-post='".$this->helper('Magento\Catalog\Helper\Product\Compare')->getPostDataParams($product)."' role='button'>";
@@ -103,6 +101,17 @@
                 echo "</div>";
 				echo "</div>";
             echo "</div>";
+            ?>
+             <script type="text/x-magento-init">
+        {
+            "[data-role=tocart-form], .form.map.checkout": {
+                "catalogAddToCart": {
+                    "product_sku": "<?php echo $product->getSku();?>"
+                }
+            }
+        }
+        </script>
+            <?php
 			echo "</li>";
 		endforeach; 
 		?>
