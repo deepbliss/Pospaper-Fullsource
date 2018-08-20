@@ -25,7 +25,7 @@ session_start();
 
 class CaptchaSecurityImages {
 
-	var $font = '/chroot/home/ab63f743/pospaper.com/html/price-match/monofont.ttf';
+	var $font = '/home/pospaper/pospaper.com/html/price-match/monofont.ttf';
 
 	function generateCode($characters) {
 		/* list all possible characters, similar looking characters and vowels have been removed */
