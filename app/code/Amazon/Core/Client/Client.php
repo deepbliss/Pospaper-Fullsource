@@ -14,18 +14,20 @@
  * permissions and limitations under the License.
  */
 namespace Amazon\Core\Client;
-/*use AmazonPay\Client as AmazonClient;
+
+use AmazonPay\Client as AmazonClient;
+
 class Client extends AmazonClient
 {
-    *
+    /**
      * Client constructor
      *
      * Changes variable name from config to fix an issue with M2 DI compiler
      *
      * @param array $amazonConfig
-     
+     */
     public function __construct(array $amazonConfig)
     {
         parent::__construct($amazonConfig);
     }
-}*/
+}

@@ -27,7 +27,7 @@ use Magento\Customer\Model\Url;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Psr\Log\LoggerInterface;
-use Amazon\Login\Api\Customer\CompositeMatcherInterface;
+use Amazon\Login\Model\Customer\MatcherInterface;
 use Amazon\Login\Api\CustomerLinkManagementInterface;
 
 /**
@@ -67,7 +67,7 @@ abstract class Login extends Action
     protected $accountRedirect;
 
     /**
-     * @var CompositeMatcherInterface
+     * @var MatcherInterface
      */
     protected $matcher;
 
@@ -92,18 +92,20 @@ abstract class Login extends Action
     protected $logger;
 
     /**
-     * @param AmazonCustomerFactory       $amazonCustomerFactory
-     * @param ClientFactoryInterface      $clientFactory
+     * Login constructor.
+     * @param Context $context
+     * @param AmazonCustomerFactory $amazonCustomerFactory
+     * @param ClientFactoryInterface $clientFactory
      * @param LoggerInterface             $logger
      * @param AmazonCoreHelper            $amazonCoreHelper
      * @param Url                         $customerUrl
      * @param AccessTokenRequestValidator $accessTokenRequestValidator
-     * @param AccountRedirect             $accountRedirect
-     * @param CompositeMatcherInterface   $matcher
-     * @param CustomerLinkManagementInterface    $customerLinkManagement
-     * @param CustomerSession             $customerSession
-     * @param Session                     $session
-     * @param LoggerInterface             $logger
+     * @param AccountRedirect $accountRedirect
+     * @param MatcherInterface $matcher
+     * @param CustomerLinkManagementInterface $customerLinkManagement
+     * @param CustomerSession $customerSession
+     * @param Session $session
+     * @param LoggerInterface $logger
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function __construct(
@@ -114,7 +116,7 @@ abstract class Login extends Action
         Url $customerUrl,
         AccessTokenRequestValidator $accessTokenRequestValidator,
         AccountRedirect $accountRedirect,
-        CompositeMatcherInterface $matcher,
+        MatcherInterface $matcher,
         CustomerLinkManagementInterface $customerLinkManagement,
         CustomerSession $customerSession,
         Session $session,
@@ -143,8 +145,8 @@ abstract class Login extends Action
     {
         try {
             $userInfo = $this->clientFactory
-                             ->create()
-                             ->getUserInfo($this->getRequest()->getParam('access_token'));
+                ->create()
+                ->getUserInfo($this->getRequest()->getParam('access_token'));
 
             if (is_array($userInfo) && isset($userInfo['user_id'])) {
                 $data = [

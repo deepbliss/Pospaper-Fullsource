@@ -13,22 +13,31 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-namespace Amazon\Login\Api\Customer;
 
-use Amazon\Core\Api\Data\AmazonCustomerInterface;
-use Magento\Customer\Api\Data\CustomerInterface;
+namespace Amazon\Payment\Gateway\Http\Client;
+
 
 /**
- * @api
+ * Class Client
+ *
+ * @package Amazon\Payment\Gateway\Http\Client
  */
-interface MatcherInterface
+class AuthorizeClient extends AbstractClient
 {
+
     /**
-     * Match magento customer using amazon customer
-     *
-     * @param AmazonCustomerInterface $amazonCustomer
-     *
-     * @return CustomerInterface|null
+     * @inheritdoc
      */
-    public function match(AmazonCustomerInterface $amazonCustomer);
+    protected function process(array $data)
+    {
+        $response = $this->adapter->authorize($data, false);
+
+        if (!$response['attempts'] && $response['auth_mode'] != 'synchronous' && isset($response['response_code'])
+            && $response['response_code'] == 'TransactionTimedOut') {
+            $response = $this->adapter->authorize($data, false, $attempts = 1);
+        }
+
+        return $response;
+    }
+
 }
