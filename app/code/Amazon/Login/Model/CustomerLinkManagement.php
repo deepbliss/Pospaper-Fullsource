@@ -59,11 +59,11 @@ class CustomerLinkManagement implements \Amazon\Login\Api\CustomerLinkManagement
 
     /**
      * @param CustomerLinkRepositoryInterface $customerLinkRepository
-     * @param CustomerLinkFactory $customerLinkFactory
-     * @param CustomerInterface $customerInterface
-     * @param CustomerInterfaceFactory $customerDataFactory
-     * @param AccountManagementInterface $accountManagement
-     * @param Random $random
+     * @param CustomerLinkFactory             $customerLinkFactory
+     * @param CustomerInterface               $customerInterface
+     * @param CustomerInterfaceFactory        $customerDataFactory
+     * @param AccountManagementInterface      $accountManagement
+     * @param Random                          $random
      */
     public function __construct(
         CustomerLinkRepositoryInterface $customerLinkRepository,

@@ -14,8 +14,10 @@
  * permissions and limitations under the License.
  */
 namespace Amazon\Core\Client;
+
 use Magento\Store\Model\ScopeInterface;
 use AmazonPay\ClientInterface;
+
 interface ClientFactoryInterface
 {
     /**

@@ -140,16 +140,16 @@
                 <h2>How did you see this price?</h2>
                 <div class="pmf-radio_list">
         <ul>
-         <li><input type="radio" name="promo-location" value="Website" checked="checked" onclick="$('.promo-fields').toggle();" /> <label>Website</label> </li>
-         <li> <input type="radio" name="promo-location" value="Retail Store" onclick="$('.promo-fields').toggle();" /> <label>Retail Store</label> </li>
+         <li><input type="radio" name="promo-location" checked="checked" value="2" /> <label>Website</label> </li>
+         <li> <input type="radio" name="promo-location"  value="3"/> <label>Retail Store</label> </li>
         </ul>
        </div>
                 
-                <div id="website-promo" class="promo-fields">
+                <div id="promo2" class="promo-fields">
                     <label>Enter the competitor's website address you found the item(s) at:</label>
                     <input type="text" name="website-field"  />
                 </div>
-                  <div id="retail-promo" class="promo-fields" style="display: none;">
+                  <div id="promo3" class="promo-fields" style="display: none;">
         <div class="retail-promo-row">
          <label>Store Name:</label>
          <input name="store-name" type="text">
@@ -168,6 +168,17 @@
         </div>
        </div>
             </div>
+
+<script type="text/javascript">
+  jQuery(document).ready(function() {
+    jQuery("input[name$='promo-location']").click(function() {
+        var test = jQuery(this).val();
+
+        jQuery("div.promo-fields").hide();
+        jQuery("#promo" + test).show();
+    });
+});
+</script>
 
             <div class="padding">
             <div class="pmf-contact-info" id="contact-info">
