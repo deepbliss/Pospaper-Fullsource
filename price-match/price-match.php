@@ -1,14 +1,17 @@
-
+<?php
+    $name = $_GET['name'];
+    $price = $_GET['price'];
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>POSPaper Price Match Request</title>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="jquery.mCustomScrollbar.concat.min.js"></script>
-    <link rel="stylesheet" href="price-match.css" type="text/css" />
-    <link rel="stylesheet" href="jquery.mCustomScrollbar.css" type="text/css" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="<?php echo "https://" . $_SERVER['SERVER_NAME'] . "/price-match/"?>jquery.mCustomScrollbar.concat.min.js"></script>
+    <link rel="stylesheet" href="<?php echo "https://" . $_SERVER['SERVER_NAME'] . "/price-match/"?>price-match.css" type="text/css" />
+    <link rel="stylesheet" href="<?php echo "https://" . $_SERVER['SERVER_NAME'] . "/price-match/"?>jquery.mCustomScrollbar.css" type="text/css" />
     <script type="text/javascript">
         function addItem() {
             count = $('.item-row').length - 1;
@@ -99,9 +102,9 @@
   </head>
 
 <body>
-    <div id="wrapper" class="price-match-form content">
-    
-        <form action="<?php echo "http://" . $_SERVER['SERVER_NAME'] . "/pospaper/price-match/pmcontact.php"; ?>" method="post" name="pricematch" onsubmit="return validateForm();">             
+    <div id="wrapper" class="price-match-form content">        
+        <form action="<?php echo "https://" . $_SERVER['SERVER_NAME'] . "/price-match/pmcontact.php"; ?>" method="post" name="pricematch" onsubmit="return validateForm();">             
+          <h2 class="title">LOW PRICE GUARANTEE</h2>
             <div class="pmf-head-section" id="item-table">
                 <div class="padding">
                     <div class="pmf-head"><h1>POSPaper Price Match Request</h1></div>
@@ -112,7 +115,7 @@
                      <div class="pmf-head-body-section">
                     <div class="pmf-head-row item-row">
                      <div class="pmf-head-row-left"><div class="count-num">1.</div>
-                      <input name="name_1" value="" type="text"></div>
+                      <input name="name_1" value="<?= $name ?>" type="text"></div>
                      <div class="pmf-head-row-right"><input name="price_1" class="price-field" onblur="calculateTotal();" type="text"></div>
                     </div>
                          <div class="pmf-head-body-row control-block">
@@ -132,22 +135,6 @@
                 </div>
                </div>
           </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
            
             <div id="promos" class="pmf-howdid-section padding">
                 <h2>How did you see this price?</h2>
@@ -192,10 +179,6 @@
     });
 });
 </script>
-
-
-
-
 
             <div class="padding">
             <div class="pmf-contact-info" id="contact-info">
@@ -313,9 +296,10 @@
         
       });
     })(jQuery);
-  </script>
-  <style type="text/css">
-    .content{height: 100vh;}
-  </style>
+ </script>
+ <style type="text/css">
+   .content{height: 100vh;}
+ </style>
 </body>
 </html>
+
