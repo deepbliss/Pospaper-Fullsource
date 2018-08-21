@@ -4,6 +4,7 @@ define(["jquery/ui","jquery"], function(Component, $){
         minicart.on('contentLoading', function () {
             minicart.on('contentUpdated', function () {
                 minicart.find('[data-role="dropdownDialog"]').dropdownDialog("open");
+                window.scrollTo(0,0);
             });
         });
     }
