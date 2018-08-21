@@ -43,13 +43,13 @@ h2.title{font-weight: 600;font-size: 25px;text-transform: uppercase;color: #4d48
 .pmf-radio_list ul li:last-child{margin-right: 0}
 .promo-fields{float: left; width: 100%;}
 .promo-fields{float: left; width: 100%;}
-#website-promo.promo-fields{margin-bottom: 10px;}
+#promo2.promo-fields{margin-bottom: 10px;}
 .promo-fields label{font-size: 14px; color: #4d485b; letter-spacing: 0.03em; margin-bottom: 9px; float: left; width: 100%;}
 .promo-fields input[type="text"]{height: 35px; border: 1px solid #d4d4d4; color: #000; padding: 0 10px; font-size: 14px; font-family: 'Poppins', sans-serif;box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box;}
-#website-promo.promo-fields input[type="text"]{width: 455px;}
-#retail-promo.promo-fields .retail-promo-row{float: left; width: 50%; margin-bottom: 10px;}
-#retail-promo.promo-fields .retail-promo-row input[type="text"]{width: 250px;}
-#retail-promo.promo-fields .retail-promo-row label{float: left; width: 100%;}
+#promo2.promo-fields input[type="text"]{width: 455px;}
+#promo3.promo-fields .retail-promo-row{float: left; width: 50%; margin-bottom: 10px;}
+#promo3.promo-fields .retail-promo-row input[type="text"]{width: 250px;}
+#promo3.promo-fields .retail-promo-row label{float: left; width: 100%;}
 
 
 .pmf-contact-info{float: left; width: 100%; border-bottom: 1px solid #e5e5e5; padding-bottom: 29px;}
@@ -91,16 +91,16 @@ h2.title{font-weight: 600;font-size: 25px;text-transform: uppercase;color: #4d48
 	.pmf-howdid-section h2, .pmf-contact-info h2 {font-size: 15px;margin: 10px 0 14px 0;}
 	.pmf-radio_list ul li input{margin-right: 5px;}
 	.pmf-radio_list ul li {margin-right: 20px;}
-	#website-promo.promo-fields input[type="text"] {width: 100%;}
+	#promo2.promo-fields input[type="text"] {width: 100%;}
 	.pmf-radio_list {margin-bottom: 9px;}
 	.promo-fields label {font-size: 13px;line-height: 19px;margin-bottom: 5px;float: left;width: 100%;}
 	.pmf-howdid-section{padding-bottom: 10px;}
 	.pmf-contact-wrap .pmf-cnt-right, .pmf-contact-wrap .pmf-cnt-left{width: 100%;}
 	.pmf-contact-wrap .pmf-cnt-left {padding-right: 0;}
 	.pmf-contact-wrap .pmf-cnt-right {padding-left: 0;}
-	#retail-promo.promo-fields .retail-promo-row:nth-child(odd){padding-right: 5px;}
-	#retail-promo.promo-fields .retail-promo-row:nth-child(even){padding-left: 5px;}
-	#retail-promo.promo-fields .retail-promo-row input[type="text"] {width: 100%;}
+	#promo3.promo-fields .retail-promo-row:nth-child(odd){padding-right: 5px;}
+	#promo3.promo-fields .retail-promo-row:nth-child(even){padding-left: 5px;}
+	#promo3.promo-fields .retail-promo-row input[type="text"] {width: 100%;}
 	h2.title{font-size: 18px;}
 }
 @media screen and (max-width: 549px) {
@@ -111,9 +111,9 @@ h2.title{font-weight: 600;font-size: 25px;text-transform: uppercase;color: #4d48
 	.pmf-head-row .count-num {margin-right: 0;width: 18px;}
 	.pmf-head-row .pmf-head-row-left input[type="text"] {width: 85%;}
 	.pmf-ship-section{margin-top: 12px;}
-	#retail-promo.promo-fields .retail-promo-row {width: 100%;margin-bottom: 7px; padding-right: 0}
-	#retail-promo.promo-fields .retail-promo-row:nth-child(2n+1) {padding-right: 0px;}
-	#retail-promo.promo-fields .retail-promo-row:nth-child(2n) {padding-left: 0px;}
+	#promo3.promo-fields .retail-promo-row {width: 100%;margin-bottom: 7px; padding-right: 0}
+	#promo3.promo-fields .retail-promo-row:nth-child(2n+1) {padding-right: 0px;}
+	#promo3.promo-fields .retail-promo-row:nth-child(2n) {padding-left: 0px;}
 	.pmf-contact-wrap .pmf-contact-wrap-row textarea{height: 100px;}
 	.pmf-contact-info{padding-bottom: 15px;}
 	.pmf-contact-wrap .pmf-contact-wrap-row.captcha_code #security_code {width: 132px;}
