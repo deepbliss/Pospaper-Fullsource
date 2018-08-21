@@ -30,7 +30,7 @@ if(($_SESSION['security_code'] == $_POST['security_code']) && (!empty($_SESSION[
 {
         
 
-$to      = 'sales@pospaper.com';
+$to      = 'deepshah983@gmail.com';
 $subject = 'Inquiry Form';
 
 $message = "
