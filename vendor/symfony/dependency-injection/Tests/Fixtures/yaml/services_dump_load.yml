@@ -2,7 +2,6 @@
 services:
     service_container:
         class: Symfony\Component\DependencyInjection\ContainerInterface
-        public: true
         synthetic: true
     foo:
         autoconfigure: true

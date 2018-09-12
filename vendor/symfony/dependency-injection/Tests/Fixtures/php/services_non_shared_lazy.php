@@ -19,25 +19,29 @@ class ProjectServiceContainer extends Container
     private $parameters;
     private $targetDirs = array();
 
-    /**
-     * @internal but protected for BC on cache:clear
-     */
-    protected $privates = array();
-
     public function __construct()
     {
-        $this->services = $this->privates = array();
+        $this->services = array();
         $this->methodMap = array(
             'bar' => 'getBarService',
+            'foo' => 'getFooService',
+        );
+        $this->privates = array(
+            'bar' => true,
+            'foo' => true,
         );
 
         $this->aliases = array();
     }
 
-    public function reset()
+    public function getRemovedIds()
     {
-        $this->privates = array();
-        parent::reset();
+        return array(
+            'Psr\\Container\\ContainerInterface' => true,
+            'Symfony\\Component\\DependencyInjection\\ContainerInterface' => true,
+            'bar' => true,
+            'foo' => true,
+        );
     }
 
     public function compile()
@@ -50,13 +54,11 @@ class ProjectServiceContainer extends Container
         return true;
     }
 
-    public function getRemovedIds()
+    public function isFrozen()
     {
-        return array(
-            'Psr\\Container\\ContainerInterface' => true,
-            'Symfony\\Component\\DependencyInjection\\ContainerInterface' => true,
-            'foo' => true,
-        );
+        @trigger_error(sprintf('The %s() method is deprecated since Symfony 3.3 and will be removed in 4.0. Use the isCompiled() method instead.', __METHOD__), E_USER_DEPRECATED);
+
+        return true;
     }
 
     protected function createProxy($class, \Closure $factory)
@@ -65,13 +67,13 @@ class ProjectServiceContainer extends Container
     }
 
     /**
-     * Gets the public 'bar' shared service.
+     * Gets the private 'bar' shared service.
      *
      * @return \stdClass
      */
     protected function getBarService()
     {
-        return $this->services['bar'] = new \stdClass($this->getFooService());
+        return $this->services['bar'] = new \stdClass(${($_ = isset($this->services['foo']) ? $this->services['foo'] : $this->getFooService()) && false ?: '_'});
     }
 
     /**

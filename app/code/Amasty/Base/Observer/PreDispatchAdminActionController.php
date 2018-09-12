@@ -39,6 +39,7 @@ class PreDispatchAdminActionController implements ObserverInterface
             /** @var \Amasty\Base\Model\Feed $feedModel */
             $feedModel = $this->feedFactory->create();
             $feedModel->checkUpdate();
+            $feedModel->removeExpiredItems();
         }
     }
 }

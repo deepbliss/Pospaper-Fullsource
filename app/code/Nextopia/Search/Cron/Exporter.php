@@ -28,6 +28,8 @@ class Exporter {
         $this->_logger->debug("Public Path : " . $publicDir);
         $bootstrapFileName = $appDir . '/bootstrap.php';
         $this->_logger->debug("Bootstrap FilePath : " . $bootstrapFileName);
+        $varDir = $oDir->getPath($oDir::VAR_DIR);
+        $this->_logger->debug("Var Path : " . $varDir);
 
         if (!file_exists($bootstrapFileName)) {
             $this->_logger->err("Bootstrap NOT FOUND");
@@ -36,7 +38,7 @@ class Exporter {
             $this->_logger->debug("Bootstrap Ok");
         }
 
-        new NxtExporter($publicDir, $this->_logger);
+        new NxtExporter($publicDir, $this->_logger, $varDir);
 
         return $this;
     }

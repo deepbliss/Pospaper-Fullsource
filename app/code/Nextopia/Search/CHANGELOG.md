@@ -1,4 +1,64 @@
 **
+v2.4.1 :
+**
+
+* Remove useless blocks on Nxt search page
+
+**
+v2.4.0 :
+**
+
+* Navigation settings
+
+**
+v2.3.4 :
+**
+
+* Add validation step on client Id when Search or Nav enabled
+
+**
+v2.3.3 :
+**
+
+* Label in control panel fixed
+
+**
+v2.3.2 :
+**
+
+* Nxt Exporter
+
+**
+v2.3.1 :
+**
+
+* Demo mode bug fixed
+
+**
+v2.3.0 :
+**
+
+* No curl anymore
+
+**
+v2.2.3 :
+**
+
+* Add new setting field on Nextopia's control panel for Ssl
+
+**
+v2.2.2 :
+**
+
+* Add new setting field on Nextopia's control panel for default text on result page
+
+**
+v2.2.1 :
+**
+
+* Add extension version value on template
+
+**
 v2.2.0 :
 **
 

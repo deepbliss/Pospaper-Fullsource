@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Pos_Custommodule::pricing_tiers" module="Pos_Custommodule" resource="Pos_Custommodule::pricing_tiers"
+             sortOrder="100" title="Pricing Tiers" parent="Magento_Catalog::catalog"/>
+
+        <add id="Pos_Custommodule::remove_pricing_tiers" title="Remove Pricing Tiers" module="Pos_Custommodule"
+             sortOrder="10" action="pospaper/tiers/index" resource="Pos_Custommodule::remove_pricing_tiers"
+             parent="Pos_Custommodule::pricing_tiers"/>
+    </menu>
+</config>

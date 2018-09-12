@@ -11,4 +11,9 @@
     <head>
         <css src="Amasty_Base::css/config.css"/>
     </head>
+    <body>
+        <referenceContainer name="messages.wrapper">
+            <block class="Amasty\Base\Block\Adminhtml\Messages" name="ambase.messages" template="Amasty_Base::messages.phtml" after="page.messages"/>
+        </referenceContainer>
+    </body>
 </page>

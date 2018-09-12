@@ -30,6 +30,32 @@ class Interceptor extends \Magento\CatalogUrlRewrite\Model\Storage\DbStorage imp
     /**
      * {@inheritdoc}
      */
+    public function findAllByData(array $data)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'findAllByData');
+        if (!$pluginInfo) {
+            return parent::findAllByData($data);
+        } else {
+            return $this->___callPlugins('findAllByData', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findOneByData(array $data)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'findOneByData');
+        if (!$pluginInfo) {
+            return parent::findOneByData($data);
+        } else {
+            return $this->___callPlugins('findOneByData', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function replace(array $urls)
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'replace');

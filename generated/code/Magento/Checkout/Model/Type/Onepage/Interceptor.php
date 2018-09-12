@@ -17,6 +17,110 @@ class Interceptor extends \Magento\Checkout\Model\Type\Onepage implements \Magen
     /**
      * {@inheritdoc}
      */
+    public function getCheckout()
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getCheckout');
+        if (!$pluginInfo) {
+            return parent::getCheckout();
+        } else {
+            return $this->___callPlugins('getCheckout', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getQuote()
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getQuote');
+        if (!$pluginInfo) {
+            return parent::getQuote();
+        } else {
+            return $this->___callPlugins('getQuote', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setQuote(\Magento\Quote\Model\Quote $quote)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'setQuote');
+        if (!$pluginInfo) {
+            return parent::setQuote($quote);
+        } else {
+            return $this->___callPlugins('setQuote', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCustomerSession()
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getCustomerSession');
+        if (!$pluginInfo) {
+            return parent::getCustomerSession();
+        } else {
+            return $this->___callPlugins('getCustomerSession', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function initCheckout()
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'initCheckout');
+        if (!$pluginInfo) {
+            return parent::initCheckout();
+        } else {
+            return $this->___callPlugins('initCheckout', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCheckoutMethod()
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getCheckoutMethod');
+        if (!$pluginInfo) {
+            return parent::getCheckoutMethod();
+        } else {
+            return $this->___callPlugins('getCheckoutMethod', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function saveCheckoutMethod($method)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'saveCheckoutMethod');
+        if (!$pluginInfo) {
+            return parent::saveCheckoutMethod($method);
+        } else {
+            return $this->___callPlugins('saveCheckoutMethod', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function saveShipping($data, $customerAddressId)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'saveShipping');
+        if (!$pluginInfo) {
+            return parent::saveShipping($data, $customerAddressId);
+        } else {
+            return $this->___callPlugins('saveShipping', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function saveShippingMethod($shippingMethod)
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'saveShippingMethod');
@@ -24,6 +128,45 @@ class Interceptor extends \Magento\Checkout\Model\Type\Onepage implements \Magen
             return parent::saveShippingMethod($shippingMethod);
         } else {
             return $this->___callPlugins('saveShippingMethod', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function savePayment($data)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'savePayment');
+        if (!$pluginInfo) {
+            return parent::savePayment($data);
+        } else {
+            return $this->___callPlugins('savePayment', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function saveOrder()
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'saveOrder');
+        if (!$pluginInfo) {
+            return parent::saveOrder();
+        } else {
+            return $this->___callPlugins('saveOrder', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getLastOrderId()
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getLastOrderId');
+        if (!$pluginInfo) {
+            return parent::getLastOrderId();
+        } else {
+            return $this->___callPlugins('getLastOrderId', func_get_args(), $pluginInfo);
         }
     }
 }

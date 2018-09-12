@@ -1,0 +1,744 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2018 MageModule, LLC: All rights reserved
+  ~
+  ~ LICENSE: This source file is subject to our standard End User License
+  ~ Agreeement (EULA) that is available through the world-wide-web at the
+  ~ following URI: http://www.magemodule.com/magento2-ext-license.html.
+  ~
+  ~ If you did not receive a copy of the EULA and are unable to obtain it through
+  ~ the web, please send a note to admin@magemodule.com so that we can mail
+  ~ you a copy immediately.
+  ~
+  ~ @author       MageModule, LLC admin@magemodule.com
+  ~ @copyright   2018 MageModule, LLC
+  ~ @license       http://www.magemodule.com/magento2-ext-license.html
+  ~
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="MageModule\OrderImportExport\Api\Data\ImportConfigInterface" type="MageModule\OrderImportExport\Model\Config\Import"/>
+    <preference for="MageModule\OrderImportExport\Api\Data\ExportConfigInterface" type="MageModule\OrderImportExport\Model\Config\Export"/>
+    <preference for="MageModule\OrderImportExport\Api\ImporterInterface" type="MageModule\OrderImportExport\Model\Importer" />
+    <preference for="MageModule\OrderImportExport\Api\ExporterInterface" type="MageModule\OrderImportExport\Model\Exporter" />
+
+    <type name="MageModule\OrderImportExport\Api\Data\ExportConfigInterface">
+        <arguments>
+            <argument name="defaultOptions" xsi:type="array">
+                <item name="directory" xsi:type="string">var/export</item>
+                <item name="filename" xsi:type="string">orders.csv</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="MageModule\OrderImportExport\Console\Command\Export">
+        <arguments>
+            <argument name="defaultOptions" xsi:type="array">
+                <item name="directory" xsi:type="string">var/export</item>
+                <item name="filename" xsi:type="string">orders.csv</item>
+                <item name="delimiter" xsi:type="string"><![CDATA[,]]></item>
+                <item name="enclosure" xsi:type="string"><![CDATA["]]></item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="export" xsi:type="object">MageModule\OrderImportExport\Console\Command\Export</item>
+                <item name="import" xsi:type="object">MageModule\OrderImportExport\Console\Command\Import</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="ImportOrderMapper" type="MageModule\Core\Model\Data\Mapper">
+        <arguments>
+            <argument name="mapping" xsi:type="array">
+                <item name="group_id" xsi:type="string">customer_group_id</item>
+                <item name="email" xsi:type="string">customer_email</item>
+                <item name="prefix" xsi:type="string">customer_prefix</item>
+                <item name="firstname" xsi:type="string">customer_firstname</item>
+                <item name="middlename" xsi:type="string">customer_middlename</item>
+                <item name="lastname" xsi:type="string">customer_lastname</item>
+                <item name="suffix" xsi:type="string">customer_suffix</item>
+                <item name="dob" xsi:type="string">customer_dob</item>
+                <item name="taxvat" xsi:type="string">customer_taxvat</item>
+                <item name="gender" xsi:type="string">customer_gender</item>
+                <item name="confirmation" xsi:type="string">customer_confirmation</item>
+                <item name="disable_auto_group_change" xsi:type="string">customer_disable_auto_group_change</item>
+                <item name="is_guest" xsi:type="string">customer_is_guest</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="MageModule\OrderImportExport\Model\Processor\Address\Billing" type="MageModule\OrderImportExport\Model\Processor\Address">
+        <arguments>
+            <argument name="addressType" xsi:type="string">billing</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="MageModule\OrderImportExport\Model\Processor\Address\Shipping" type="MageModule\OrderImportExport\Model\Processor\Address">
+        <arguments>
+            <argument name="addressType" xsi:type="string">shipping</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ImportOrderItemParser" type="MageModule\OrderImportExport\Model\Parser\ParserOne">
+        <arguments>
+            <argument name="parentTagname" xsi:type="string">order_item</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ImportStatusHistoryParser" type="MageModule\OrderImportExport\Model\Parser\ParserOne">
+        <arguments>
+            <argument name="parentTagname" xsi:type="string">status_history</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="MageModule\OrderImportExport\Model\Processor\Order">
+        <arguments>
+            <argument name="excludedFields" xsi:type="array">
+                <item name="entity_id" xsi:type="null" />
+                <item name="billing_address_id" xsi:type="null" />
+                <item name="shipping_address_id" xsi:type="null" />
+                <item name="quote_address_id" xsi:type="null" />
+                <item name="quote_id" xsi:type="null" />
+                <item name="base_customer_balance_invoiced" xsi:type="null" />
+                <item name="base_discount_invoiced" xsi:type="null" />
+                <item name="base_discount_tax_compensation_invoiced" xsi:type="null" />
+                <item name="base_gift_cards_invoiced" xsi:type="null" />
+                <item name="base_rwrd_crrncy_amt_invoiced" xsi:type="null" />
+                <item name="base_shipping_invoiced" xsi:type="null" />
+                <item name="base_subtotal_invoiced" xsi:type="null" />
+                <item name="base_tax_invoiced" xsi:type="null" />
+                <item name="base_total_invoiced" xsi:type="null" />
+                <item name="customer_balance_invoiced" xsi:type="null" />
+                <item name="discount_invoiced" xsi:type="null" />
+                <item name="discount_tax_compensation_invoiced" xsi:type="null" />
+                <item name="gift_cards_invoiced" xsi:type="null" />
+                <item name="gw_base_price_invoiced" xsi:type="null" />
+                <item name="gw_base_tax_amount_invoiced" xsi:type="null" />
+                <item name="gw_card_base_price_invoiced" xsi:type="null" />
+                <item name="gw_card_base_tax_invoiced" xsi:type="null" />
+                <item name="gw_card_price_invoiced" xsi:type="null" />
+                <item name="gw_card_tax_invoiced" xsi:type="null" />
+                <item name="gw_items_base_price_invoiced" xsi:type="null" />
+                <item name="gw_items_base_tax_invoiced" xsi:type="null" />
+                <item name="gw_items_price_invoiced" xsi:type="null" />
+                <item name="gw_items_tax_invoiced" xsi:type="null" />
+                <item name="gw_price_invoiced" xsi:type="null" />
+                <item name="gw_tax_amount_invoiced" xsi:type="null" />
+                <item name="rwrd_currency_amount_invoiced" xsi:type="null" />
+                <item name="shipping_invoiced" xsi:type="null" />
+                <item name="subtotal_invoiced" xsi:type="null" />
+                <item name="tax_invoiced" xsi:type="null" />
+                <item name="total_invoiced" xsi:type="null" />
+                <item name="base_customer_balance_refunded" xsi:type="null" />
+                <item name="base_discount_refunded" xsi:type="null" />
+                <item name="base_discount_tax_compensation_refunded" xsi:type="null" />
+                <item name="base_gift_cards_refunded" xsi:type="null" />
+                <item name="base_shipping_refunded" xsi:type="null" />
+                <item name="base_shipping_tax_refunded" xsi:type="null" />
+                <item name="base_subtotal_refunded" xsi:type="null" />
+                <item name="base_tax_refunded" xsi:type="null" />
+                <item name="base_total_offline_refunded" xsi:type="null" />
+                <item name="base_total_online_refunded" xsi:type="null" />
+                <item name="base_total_refunded" xsi:type="null" />
+                <item name="bs_customer_bal_total_refunded" xsi:type="null" />
+                <item name="customer_balance_refunded" xsi:type="null" />
+                <item name="customer_bal_total_refunded" xsi:type="null" />
+                <item name="discount_refunded" xsi:type="null" />
+                <item name="discount_tax_compensation_refunded" xsi:type="null" />
+                <item name="gift_cards_refunded" xsi:type="null" />
+                <item name="gw_base_price_refunded" xsi:type="null" />
+                <item name="gw_base_tax_amount_refunded" xsi:type="null" />
+                <item name="gw_card_base_price_refunded" xsi:type="null" />
+                <item name="gw_card_base_tax_refunded" xsi:type="null" />
+                <item name="gw_card_price_refunded" xsi:type="null" />
+                <item name="gw_card_tax_refunded" xsi:type="null" />
+                <item name="gw_items_base_price_refunded" xsi:type="null" />
+                <item name="gw_items_base_tax_refunded" xsi:type="null" />
+                <item name="gw_items_price_refunded" xsi:type="null" />
+                <item name="gw_items_tax_refunded" xsi:type="null" />
+                <item name="gw_price_refunded" xsi:type="null" />
+                <item name="gw_tax_amount_refunded" xsi:type="null" />
+                <item name="rwrd_crrncy_amnt_refunded" xsi:type="null" />
+                <item name="shipping_refunded" xsi:type="null" />
+                <item name="shipping_tax_refunded" xsi:type="null" />
+                <item name="subtotal_refunded" xsi:type="null" />
+                <item name="tax_refunded" xsi:type="null" />
+                <item name="total_offline_refunded" xsi:type="null" />
+                <item name="total_online_refunded" xsi:type="null" />
+                <item name="total_refunded" xsi:type="null" />
+                <item name="base_total_paid" xsi:type="null" />
+                <item name="total_paid" xsi:type="null" />
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="MageModule\OrderImportExport\Model\Processor\OrderItem">
+        <arguments>
+            <argument name="excludedFields" xsi:type="array">
+                <item name="item_id" xsi:type="null" />
+                <item name="order_id" xsi:type="null" />
+                <item name="parent_item_id" xsi:type="null" />
+                <item name="quote_item_id" xsi:type="null" />
+                <item name="store_id" xsi:type="null" />
+                <item name="product_id" xsi:type="null" />
+                <item name="ext_order_item_id" xsi:type="null" />
+                <item name="qty_invoiced" xsi:type="null" />
+                <item name="qty_refunded" xsi:type="null" />
+                <item name="qty_returned" xsi:type="null" />
+                <item name="qty_shipped" xsi:type="null" />
+                <item name="base_tax_invoiced" xsi:type="null" />
+                <item name="tax_invoiced" xsi:type="null" />
+                <item name="base_discount_invoiced" xsi:type="null" />
+                <item name="discount_invoiced" xsi:type="null" />
+                <item name="base_discount_tax_compensation_invoiced" xsi:type="null" />
+                <item name="discount_tax_compensation_invoiced" xsi:type="null" />
+                <item name="gw_base_tax_amount_invoiced" xsi:type="null" />
+                <item name="gw_tax_amount_invoiced" xsi:type="null" />
+                <item name="gw_base_price_invoiced" xsi:type="null" />
+                <item name="gw_price_invoiced" xsi:type="null" />
+                <item name="base_row_invoiced" xsi:type="null" />
+                <item name="row_invoiced" xsi:type="null" />
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="MageModule\OrderImportExport\Model\Processor\Shipping">
+        <arguments>
+            <argument name="excludedFields" xsi:type="array">
+                <item name="base_shipping_invoiced" xsi:type="null" />
+                <item name="base_shipping_refunded" xsi:type="null" />
+                <item name="base_shipping_tax_refunded" xsi:type="null" />
+                <item name="shipping_invoiced" xsi:type="null" />
+                <item name="shipping_refunded" xsi:type="null" />
+                <item name="shipping_tax_refunded" xsi:type="null" />
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="MageModule\OrderImportExport\Model\Processor\Payment">
+        <arguments>
+            <argument name="excludedFields" xsi:type="array">
+                <item name="entity_id" xsi:type="null" />
+                <item name="parent_id" xsi:type="null" />
+                <item name="quote_id" xsi:type="null" />
+                <item name="quote_payment_id" xsi:type="null" />
+                <item name="base_amount_paid" xsi:type="null" />
+                <item name="amount_paid" xsi:type="null" />
+                <item name="base_amount_authorized" xsi:type="null" />
+                <item name="amount_authorized" xsi:type="null" />
+                <item name="base_amount_paid_online" xsi:type="null" />
+                <item name="amount_refunded" xsi:type="null" />
+                <item name="base_amount_refunded" xsi:type="null" />
+                <item name="base_amount_refunded_online" xsi:type="null" />
+                <item name="base_shipping_amount" xsi:type="null" />
+                <item name="shipping_amount" xsi:type="null" />
+                <item name="base_shipping_captured" xsi:type="null" />
+                <item name="shipping_captured" xsi:type="null" />
+                <item name="base_shipping_refunded" xsi:type="null" />
+                <item name="shipping_refunded" xsi:type="null" />
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="MageModule\OrderImportExport\Model\Processor\StatusHistory">
+        <arguments>
+            <argument name="parser" xsi:type="object">ImportStatusHistoryParser</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="ImportSanitizer" type="MageModule\Core\Model\Data\Sanitizer">
+        <arguments>
+            <argument name="fields" xsi:type="array">
+                <item name="created_at" xsi:type="string">datetime</item>
+                <item name="updated_at" xsi:type="string">datetime</item>
+                <item name="customer_dob" xsi:type="string">date</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ImportOrderRequiredValuesValidator" type="MageModule\Core\Model\Data\Validator\RequiredValues">
+        <arguments>
+            <argument name="requiredFields" xsi:type="array">
+                <!--<item name="1" xsi:type="string">something</item>-->
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ImportOrderDataValidator" type="MageModule\Core\Model\Data\Validator">
+        <arguments>
+            <argument name="pool" xsi:type="array">
+                <item name="1" xsi:type="object">ImportOrderRequiredValuesValidator</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ImportOrderItemRequiredValuesValidator" type="MageModule\Core\Model\Data\Validator\RequiredValues">
+        <arguments>
+            <argument name="requiredFields" xsi:type="array">
+                <item name="1" xsi:type="string">sku</item>
+                <item name="2" xsi:type="string">name</item>
+                <item name="3" xsi:type="string">product_type</item>
+                <item name="4" xsi:type="string">price</item>
+                <item name="5" xsi:type="string">price_incl_tax</item>
+                <item name="6" xsi:type="string">qty_ordered</item>
+                <item name="7" xsi:type="string">tax_amount</item>
+                <item name="8" xsi:type="string">tax_percent</item>
+                <item name="9" xsi:type="string">discount_amount</item>
+                <item name="10" xsi:type="string">row_total</item>
+                <item name="11" xsi:type="string">row_total_incl_tax</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ImportOrderItemDataValidator" type="MageModule\Core\Model\Data\Validator">
+        <arguments>
+            <argument name="pool" xsi:type="array">
+                <item name="1" xsi:type="object">ImportOrderItemRequiredValuesValidator</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="MageModule\OrderImportExport\Model\Importer">
+        <arguments>
+            <argument name="mapper" xsi:type="object">ImportOrderMapper</argument>
+            <argument name="sanitizer" xsi:type="object">ImportSanitizer</argument>
+            <argument name="orderDataValidator" xsi:type="object">ImportOrderDataValidator</argument>
+            <argument name="orderItemDataValidator" xsi:type="object">ImportOrderItemDataValidator</argument>
+            <argument name="orderItemParser" xsi:type="object">ImportOrderItemParser</argument>
+            <argument name="storeProcessor" xsi:type="object">MageModule\OrderImportExport\Model\Processor\Store</argument>
+            <argument name="customerProcessor" xsi:type="object">MageModule\OrderImportExport\Model\Processor\Customer</argument>
+            <argument name="billingAddressProcessor" xsi:type="object">MageModule\OrderImportExport\Model\Processor\Address\Billing</argument>
+            <argument name="shippingAddressProcessor" xsi:type="object">MageModule\OrderImportExport\Model\Processor\Address\Shipping</argument>
+            <argument name="paymentProcessor" xsi:type="object">MageModule\OrderImportExport\Model\Processor\Payment</argument>
+            <argument name="transactionProcessor" xsi:type="object">MageModule\OrderImportExport\Model\Processor\Transaction</argument>
+            <argument name="shippingProcessor" xsi:type="object">MageModule\OrderImportExport\Model\Processor\Shipping</argument>
+            <argument name="itemProcessor" xsi:type="object">MageModule\OrderImportExport\Model\Processor\OrderItem</argument>
+            <argument name="statusHistoryProcessor" xsi:type="object">MageModule\OrderImportExport\Model\Processor\StatusHistory</argument>
+            <argument name="orderProcessor" xsi:type="object">MageModule\OrderImportExport\Model\Processor\Order</argument>
+            <argument name="invoiceProcessor" xsi:type="object">MageModule\OrderImportExport\Model\Processor\Invoice</argument>
+            <argument name="shipmentProcessor" xsi:type="object">MageModule\OrderImportExport\Model\Processor\Shipment</argument>
+            <argument name="creditMemoProcessor" xsi:type="object">MageModule\OrderImportExport\Model\Processor\CreditMemo</argument>
+            <argument name="excludedFields" xsi:type="array">
+                <item name="entity_id" xsi:type="null"/>
+                <item name="store_id" xsi:type="null"/>
+                <item name="send_email" xsi:type="null"/>
+                <item name="gift_message_id" xsi:type="null"/>
+                <item name="quote_id" xsi:type="null"/>
+                <item name="quote_address_id" xsi:type="null"/>
+                <item name="billing_entity_id" xsi:type="null"/>
+                <item name="billing_parent_id" xsi:type="null"/>
+                <item name="billing_address_id" xsi:type="null"/>
+                <item name="shipping_entity_id" xsi:type="null"/>
+                <item name="shipping_parent_id" xsi:type="null"/>
+                <item name="shipping_address_id" xsi:type="null"/>
+                <item name="payment_entity_id" xsi:type="null"/>
+                <item name="payment_parent_id" xsi:type="null"/>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="ExportCustomOptionFormatter" type="MageModule\Core\Model\Data\Formatter">
+        <arguments>
+            <argument name="valueWrapPattern" xsi:type="string">[[{{field}}]]{{value}}</argument>
+            <argument name="excludedFields" xsi:type="array">
+                <item name="print_value" xsi:type="null"/>
+                <item name="option_id" xsi:type="null"/>
+                <item name="custom_view" xsi:type="null"/>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ExportCustomOptionsIterator" type="MageModule\Core\Model\Data\Formatter\Iterator">
+        <arguments>
+            <argument name="glue" xsi:type="array">
+                <item name="0" xsi:type="string">newline</item>
+                <item name="1" xsi:type="string">tab</item>
+                <item name="2" xsi:type="string">[[options]]</item>
+            </argument>
+            <argument name="valueWrapPattern" xsi:type="string">{{value}}</argument>
+            <argument name="formatter" xsi:type="object">ExportCustomOptionFormatter</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ExportDefaultOrderItemMapper" type="MageModule\Core\Model\Data\Mapper">
+        <arguments>
+            <argument name="mapping" xsi:type="array">
+                <item name="product_options/options" xsi:type="string">options</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ExportDefaultOrderItemFormatter" type="MageModule\Core\Model\Data\Formatter">
+        <arguments>
+            <argument name="glue" xsi:type="string">newline</argument>
+            <argument name="valueWrapPattern" xsi:type="string">{{tab}}[[{{field}}]]{{value}}</argument>
+            <argument name="systemFieldMapper" xsi:type="object">ExportDefaultOrderItemMapper</argument>
+            <argument name="includedFields" xsi:type="array">
+                <item name="sku" xsi:type="null"/>
+                <item name="name" xsi:type="null"/>
+                <item name="product_type" xsi:type="null"/>
+                <item name="original_price" xsi:type="null"/>
+                <item name="base_original_price" xsi:type="null"/>
+                <item name="price" xsi:type="null"/>
+                <item name="price_incl_tax" xsi:type="null"/>
+                <item name="base_price" xsi:type="null"/>
+                <item name="base_price_incl_tax" xsi:type="null"/>
+                <item name="tax_amount" xsi:type="null"/>
+                <item name="base_tax_amount" xsi:type="null"/>
+                <item name="tax_percent" xsi:type="null"/>
+                <item name="weee_tax_applied_amount" xsi:type="null"/>
+                <item name="base_weee_tax_applied_amount" xsi:type="null"/>
+                <item name="discount_amount" xsi:type="null"/>
+                <item name="base_discount_amount" xsi:type="null"/>
+                <item name="row_total" xsi:type="null"/>
+                <item name="row_total_incl_tax" xsi:type="null"/>
+                <item name="base_row_total" xsi:type="null"/>
+                <item name="base_row_total_incl_tax" xsi:type="null"/>
+                <item name="qty_ordered" xsi:type="null"/>
+                <item name="qty_invoiced" xsi:type="null"/>
+                <item name="qty_shipped" xsi:type="null"/>
+                <item name="qty_backordered" xsi:type="null"/>
+                <item name="qty_refunded" xsi:type="null"/>
+                <item name="qty_returned" xsi:type="null"/>
+                <item name="qty_canceled" xsi:type="null"/>
+                <item name="options" xsi:type="null"/>
+            </argument>
+            <argument name="defaultValues" xsi:type="array">
+                <item name="original_price" xsi:type="number">0</item>
+                <item name="base_original_price" xsi:type="number">0</item>
+                <item name="price" xsi:type="number">0</item>
+                <item name="base_price" xsi:type="number">0</item>
+                <item name="tax_amount" xsi:type="number">0</item>
+                <item name="base_tax_amount" xsi:type="number">0</item>
+                <item name="tax_percent" xsi:type="number">0</item>
+                <item name="weee_tax_applied_amount" xsi:type="number">0</item>
+                <item name="base_weee_tax_applied_amount" xsi:type="number">0</item>
+                <item name="discount_amount" xsi:type="number">0</item>
+                <item name="base_discount_amount" xsi:type="number">0</item>
+                <item name="row_total" xsi:type="number">0</item>
+                <item name="base_row_total" xsi:type="number">0</item>
+                <item name="qty_ordered" xsi:type="number">0</item>
+                <item name="qty_invoiced" xsi:type="number">0</item>
+                <item name="qty_shipped" xsi:type="number">0</item>
+                <item name="qty_backordered" xsi:type="number">0</item>
+                <item name="qty_refunded" xsi:type="number">0</item>
+                <item name="qty_returned" xsi:type="number">0</item>
+                <item name="qty_canceled" xsi:type="number">0</item>
+            </argument>
+            <argument name="iterators" xsi:type="array">
+                <item name="options" xsi:type="object">ExportCustomOptionsIterator</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ExportConfigurableOrderItemMapper" type="MageModule\Core\Model\Data\Mapper">
+        <arguments>
+            <argument name="extendMappings" xsi:type="array">
+                <item name="1" xsi:type="object">ExportDefaultOrderItemMapper</item>
+            </argument>
+            <argument name="mapping" xsi:type="array">
+                <item name="product_options/attributes_info" xsi:type="string">options</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ExportConfigurableOrderItemFormatter" type="MageModule\Core\Model\Data\Formatter">
+        <arguments>
+            <argument name="glue" xsi:type="string">newline</argument>
+            <argument name="valueWrapPattern" xsi:type="string">{{tab}}[[{{field}}]]{{value}}</argument>
+            <argument name="systemFieldMapper" xsi:type="object">ExportConfigurableOrderItemMapper</argument>
+            <argument name="includedFields" xsi:type="array">
+                <item name="sku" xsi:type="null"/>
+                <item name="name" xsi:type="null"/>
+                <item name="product_type" xsi:type="null"/>
+                <item name="original_price" xsi:type="null"/>
+                <item name="base_original_price" xsi:type="null"/>
+                <item name="price" xsi:type="null"/>
+                <item name="price_incl_tax" xsi:type="null"/>
+                <item name="base_price" xsi:type="null"/>
+                <item name="base_price_incl_tax" xsi:type="null"/>
+                <item name="tax_amount" xsi:type="null"/>
+                <item name="base_tax_amount" xsi:type="null"/>
+                <item name="tax_percent" xsi:type="null"/>
+                <item name="weee_tax_applied_amount" xsi:type="null"/>
+                <item name="base_weee_tax_applied_amount" xsi:type="null"/>
+                <item name="discount_amount" xsi:type="null"/>
+                <item name="base_discount_amount" xsi:type="null"/>
+                <item name="row_total" xsi:type="null"/>
+                <item name="row_total_incl_tax" xsi:type="null"/>
+                <item name="base_row_total" xsi:type="null"/>
+                <item name="base_row_total_incl_tax" xsi:type="null"/>
+                <item name="qty_ordered" xsi:type="null"/>
+                <item name="qty_invoiced" xsi:type="null"/>
+                <item name="qty_shipped" xsi:type="null"/>
+                <item name="qty_backordered" xsi:type="null"/>
+                <item name="qty_refunded" xsi:type="null"/>
+                <item name="qty_returned" xsi:type="null"/>
+                <item name="qty_canceled" xsi:type="null"/>
+                <item name="options" xsi:type="null"/>
+            </argument>
+            <argument name="defaultValues" xsi:type="array">
+                <item name="original_price" xsi:type="number">0</item>
+                <item name="base_original_price" xsi:type="number">0</item>
+                <item name="price" xsi:type="number">0</item>
+                <item name="base_price" xsi:type="number">0</item>
+                <item name="tax_amount" xsi:type="number">0</item>
+                <item name="base_tax_amount" xsi:type="number">0</item>
+                <item name="tax_percent" xsi:type="number">0</item>
+                <item name="weee_tax_applied_amount" xsi:type="number">0</item>
+                <item name="base_weee_tax_applied_amount" xsi:type="number">0</item>
+                <item name="discount_amount" xsi:type="number">0</item>
+                <item name="base_discount_amount" xsi:type="number">0</item>
+                <item name="row_total" xsi:type="number">0</item>
+                <item name="base_row_total" xsi:type="number">0</item>
+                <item name="qty_ordered" xsi:type="number">0</item>
+                <item name="qty_invoiced" xsi:type="number">0</item>
+                <item name="qty_shipped" xsi:type="number">0</item>
+                <item name="qty_backordered" xsi:type="number">0</item>
+                <item name="qty_refunded" xsi:type="number">0</item>
+                <item name="qty_returned" xsi:type="number">0</item>
+                <item name="qty_canceled" xsi:type="number">0</item>
+            </argument>
+            <argument name="iterators" xsi:type="array">
+                <item name="options" xsi:type="object">ExportCustomOptionsIterator</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ExportBundleOrderItemMapper" type="MageModule\Core\Model\Data\Mapper">
+        <arguments>
+            <argument name="extendMappings" xsi:type="array">
+                <item name="1" xsi:type="object">ExportDefaultOrderItemMapper</item>
+            </argument>
+            <argument name="mapping" xsi:type="array">
+                <item name="product_options/bundle_options" xsi:type="string">bundle_options</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ExportBundleOrderSubitemFormatter" type="MageModule\Core\Model\Data\Formatter">
+        <arguments>
+            <argument name="valueWrapPattern" xsi:type="string">[[{{field}}]]{{value}}</argument>
+            <argument name="systemFieldMapper" xsi:type="object">ExportDefaultOrderItemMapper</argument>
+            <argument name="includedFields" xsi:type="array">
+                <item name="sku" xsi:type="null"/>
+                <item name="name" xsi:type="null"/>
+                <item name="product_type" xsi:type="null"/>
+                <item name="original_price" xsi:type="null"/>
+                <item name="base_original_price" xsi:type="null"/>
+                <item name="price" xsi:type="null"/>
+                <item name="price_incl_tax" xsi:type="null"/>
+                <item name="base_price" xsi:type="null"/>
+                <item name="base_price_incl_tax" xsi:type="null"/>
+                <item name="tax_amount" xsi:type="null"/>
+                <item name="base_tax_amount" xsi:type="null"/>
+                <item name="tax_percent" xsi:type="null"/>
+                <item name="weee_tax_applied_amount" xsi:type="null"/>
+                <item name="base_weee_tax_applied_amount" xsi:type="null"/>
+                <item name="discount_amount" xsi:type="null"/>
+                <item name="base_discount_amount" xsi:type="null"/>
+                <item name="row_total" xsi:type="null"/>
+                <item name="row_total_incl_tax" xsi:type="null"/>
+                <item name="base_row_total" xsi:type="null"/>
+                <item name="base_row_total_incl_tax" xsi:type="null"/>
+                <item name="qty_ordered" xsi:type="null"/>
+                <item name="qty_invoiced" xsi:type="null"/>
+                <item name="qty_shipped" xsi:type="null"/>
+                <item name="qty_backordered" xsi:type="null"/>
+                <item name="qty_refunded" xsi:type="null"/>
+                <item name="qty_returned" xsi:type="null"/>
+                <item name="qty_canceled" xsi:type="null"/>
+            </argument>
+            <argument name="defaultValues" xsi:type="array">
+                <item name="original_price" xsi:type="number">0</item>
+                <item name="base_original_price" xsi:type="number">0</item>
+                <item name="price" xsi:type="number">0</item>
+                <item name="base_price" xsi:type="number">0</item>
+                <item name="tax_amount" xsi:type="number">0</item>
+                <item name="base_tax_amount" xsi:type="number">0</item>
+                <item name="tax_percent" xsi:type="number">0</item>
+                <item name="weee_tax_applied_amount" xsi:type="number">0</item>
+                <item name="base_weee_tax_applied_amount" xsi:type="number">0</item>
+                <item name="discount_amount" xsi:type="number">0</item>
+                <item name="base_discount_amount" xsi:type="number">0</item>
+                <item name="row_total" xsi:type="number">0</item>
+                <item name="base_row_total" xsi:type="number">0</item>
+                <item name="qty_ordered" xsi:type="number">0</item>
+                <item name="qty_invoiced" xsi:type="number">0</item>
+                <item name="qty_shipped" xsi:type="number">0</item>
+                <item name="qty_backordered" xsi:type="number">0</item>
+                <item name="qty_refunded" xsi:type="number">0</item>
+                <item name="qty_returned" xsi:type="number">0</item>
+                <item name="qty_canceled" xsi:type="number">0</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ExportBundleOptionsIterator" type="MageModule\Core\Model\Data\Formatter\Iterator">
+        <arguments>
+            <argument name="glue" xsi:type="array">
+                <item name="0" xsi:type="string">newline</item>
+                <item name="1" xsi:type="string">tab</item>
+                <item name="2" xsi:type="string">[[bundle_items]]</item>
+            </argument>
+            <argument name="valueWrapPattern" xsi:type="string">{{value}}</argument>
+            <argument name="formatter" xsi:type="object">ExportBundleOrderSubitemFormatter</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ExportBundleOrderItemFormatter" type="MageModule\Core\Model\Data\Formatter">
+        <arguments>
+            <argument name="glue" xsi:type="string">newline</argument>
+            <argument name="valueWrapPattern" xsi:type="string">{{tab}}[[{{field}}]]{{value}}</argument>
+            <argument name="systemFieldMapper" xsi:type="object">ExportBundleOrderItemMapper</argument>
+            <argument name="includedFields" xsi:type="array">
+                <item name="sku" xsi:type="null"/>
+                <item name="name" xsi:type="null"/>
+                <item name="product_type" xsi:type="null"/>
+                <item name="original_price" xsi:type="null"/>
+                <item name="base_original_price" xsi:type="null"/>
+                <item name="price" xsi:type="null"/>
+                <item name="price_incl_tax" xsi:type="null"/>
+                <item name="base_price" xsi:type="null"/>
+                <item name="base_price_incl_tax" xsi:type="null"/>
+                <item name="tax_amount" xsi:type="null"/>
+                <item name="base_tax_amount" xsi:type="null"/>
+                <item name="tax_percent" xsi:type="null"/>
+                <item name="weee_tax_applied_amount" xsi:type="null"/>
+                <item name="base_weee_tax_applied_amount" xsi:type="null"/>
+                <item name="discount_amount" xsi:type="null"/>
+                <item name="base_discount_amount" xsi:type="null"/>
+                <item name="row_total" xsi:type="null"/>
+                <item name="row_total_incl_tax" xsi:type="null"/>
+                <item name="base_row_total" xsi:type="null"/>
+                <item name="base_row_total_incl_tax" xsi:type="null"/>
+                <item name="qty_ordered" xsi:type="null"/>
+                <item name="qty_invoiced" xsi:type="null"/>
+                <item name="qty_shipped" xsi:type="null"/>
+                <item name="qty_backordered" xsi:type="null"/>
+                <item name="qty_refunded" xsi:type="null"/>
+                <item name="qty_returned" xsi:type="null"/>
+                <item name="qty_canceled" xsi:type="null"/>
+                <item name="bundle_items" xsi:type="null"/>
+            </argument>
+            <argument name="defaultValues" xsi:type="array">
+                <item name="original_price" xsi:type="number">0</item>
+                <item name="base_original_price" xsi:type="number">0</item>
+                <item name="price" xsi:type="number">0</item>
+                <item name="base_price" xsi:type="number">0</item>
+                <item name="tax_amount" xsi:type="number">0</item>
+                <item name="base_tax_amount" xsi:type="number">0</item>
+                <item name="tax_percent" xsi:type="number">0</item>
+                <item name="weee_tax_applied_amount" xsi:type="number">0</item>
+                <item name="base_weee_tax_applied_amount" xsi:type="number">0</item>
+                <item name="discount_amount" xsi:type="number">0</item>
+                <item name="base_discount_amount" xsi:type="number">0</item>
+                <item name="row_total" xsi:type="number">0</item>
+                <item name="base_row_total" xsi:type="number">0</item>
+                <item name="qty_ordered" xsi:type="number">0</item>
+                <item name="qty_invoiced" xsi:type="number">0</item>
+                <item name="qty_shipped" xsi:type="number">0</item>
+                <item name="qty_backordered" xsi:type="number">0</item>
+                <item name="qty_refunded" xsi:type="number">0</item>
+                <item name="qty_returned" xsi:type="number">0</item>
+                <item name="qty_canceled" xsi:type="number">0</item>
+            </argument>
+            <argument name="iterators" xsi:type="array">
+                <item name="bundle_items" xsi:type="object">ExportBundleOptionsIterator</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ExportOrderItemFormatter" type="MageModule\OrderImportExport\Model\Formatter\Sales\Order\Item">
+        <arguments>
+            <argument name="formatters" xsi:type="array">
+                <item name="simple" xsi:type="object">ExportDefaultOrderItemFormatter</item>
+                <item name="grouped" xsi:type="object">ExportDefaultOrderItemFormatter</item>
+                <item name="configurable" xsi:type="object">ExportConfigurableOrderItemFormatter</item>
+                <item name="bundle" xsi:type="object">ExportBundleOrderItemFormatter</item>
+                <item name="virtual" xsi:type="object">ExportDefaultOrderItemFormatter</item>
+                <item name="downloadable" xsi:type="object">ExportDefaultOrderItemFormatter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ExportSystemOrderFieldMapper" type="MageModule\Core\Model\Data\Mapper">
+        <arguments>
+            <argument name="mapping" xsi:type="array">
+                <item name="items" xsi:type="string">products_ordered</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ExportCustomOrderFieldMapper" type="MageModule\Core\Model\Data\Mapper">
+        <arguments>
+            <argument name="mapping" xsi:type="array">
+                <!-- The end user's custom mapping can go here
+                <item name="status_histories" xsi:type="string">additional_comments</item> -->
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ExportOrderItemIterator" type="MageModule\Core\Model\Data\Formatter\Iterator">
+        <arguments>
+            <argument name="glue" xsi:type="string">newline</argument>
+            <argument name="valueWrapPattern" xsi:type="string">[[order_item]]{{newline}}{{value}}{{newline}}[[/order_item]]</argument>
+            <argument name="formatter" xsi:type="object">ExportOrderItemFormatter</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ExportStatusHistoryFormatter" type="MageModule\Core\Model\Data\Formatter">
+        <arguments>
+            <argument name="glue" xsi:type="string">newline</argument>
+            <argument name="valueWrapPattern" xsi:type="string">{{tab}}[[{{field}}]]{{value}}</argument>
+            <argument name="excludedFields" xsi:type="array">
+                <item name="entity_id" xsi:type="null"/>
+                <item name="parent_id" xsi:type="null"/>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ExportStatusHistoriesIterator" type="MageModule\Core\Model\Data\Formatter\Iterator">
+        <arguments>
+            <argument name="glue" xsi:type="string">newline</argument>
+            <argument name="valueWrapPattern" xsi:type="string">[[status_history]]{{newline}}{{value}}{{newline}}[[/status_history]]</argument>
+            <argument name="formatter" xsi:type="object">ExportStatusHistoryFormatter</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ExportOrderFormatter" type="MageModule\Core\Model\Data\Formatter">
+        <arguments>
+            <argument name="format" xsi:type="string">array</argument>
+            <argument name="systemFieldMapper" xsi:type="object">ExportSystemOrderFieldMapper</argument>
+            <argument name="customFieldMapper" xsi:type="object">ExportCustomOrderFieldMapper</argument>
+            <argument name="glue" xsi:type="string">|</argument>
+            <argument name="excludedFields" xsi:type="array">
+                <item name="payment_additional_information" xsi:type="null"/>
+            </argument>
+            <argument name="iterators" xsi:type="array">
+                <item name="products_ordered" xsi:type="object">ExportOrderItemIterator</item>
+                <item name="status_histories" xsi:type="object">ExportStatusHistoriesIterator</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="MageModule\OrderImportExport\Model\Exporter">
+        <arguments>
+            <argument name="formatter" xsi:type="object">ExportOrderFormatter</argument>
+            <argument name="frontColumns" xsi:type="array">
+                <item name="1" xsi:type="string">entity_id</item>
+                <item name="2" xsi:type="string">increment_id</item>
+                <item name="3" xsi:type="string">store_id</item>
+                <item name="4" xsi:type="string">store_code</item>
+                <item name="5" xsi:type="string">store_name</item>
+                <item name="6" xsi:type="string">state</item>
+                <item name="7" xsi:type="string">status</item>
+                <item name="8" xsi:type="string">created_at</item>
+                <item name="9" xsi:type="string">updated_at</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

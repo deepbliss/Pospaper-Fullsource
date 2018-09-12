@@ -24,7 +24,6 @@ use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
  */
 interface ContainerInterface extends PsrContainerInterface
 {
-    const RUNTIME_EXCEPTION_ON_INVALID_REFERENCE = 0;
     const EXCEPTION_ON_INVALID_REFERENCE = 1;
     const NULL_ON_INVALID_REFERENCE = 2;
     const IGNORE_ON_INVALID_REFERENCE = 3;

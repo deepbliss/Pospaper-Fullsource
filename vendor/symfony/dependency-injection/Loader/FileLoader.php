@@ -121,7 +121,7 @@ abstract class FileLoader extends BaseFileLoader
 
         $pattern = $parameterBag->unescapeValue($parameterBag->resolveValue($pattern));
         $classes = array();
-        $extRegexp = '/\\.php$/';
+        $extRegexp = \defined('HHVM_VERSION') ? '/\\.(?:php|hh)$/' : '/\\.php$/';
         $prefixLen = null;
         foreach ($this->glob($pattern, true, $resource) as $path => $info) {
             if (null === $prefixLen) {

@@ -1,0 +1,1 @@
+/chroot/home/pospaper/pospaper.com/html/app/code/Aheadworks/RewardPoints/view/frontend/web/js/aw-reward-points-ajax.js

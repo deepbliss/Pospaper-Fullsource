@@ -1,0 +1,13 @@
+<script>
+    require([
+        'jquery',
+        'mage/mage',
+        'prototype'
+    ], function(jQuery) {
+
+        //<![CDATA[
+        jQuery('#<?php echo $block->getFormId(); ?>').mage('form').mage('validation');
+        //]]>
+
+    });
+</script>

@@ -19,35 +19,18 @@ class ProjectServiceContainer extends Container
     private $parameters;
     private $targetDirs = array();
 
-    /**
-     * @internal but protected for BC on cache:clear
-     */
-    protected $privates = array();
-
     public function __construct()
     {
-        $this->services = $this->privates = array();
+        $this->services = array();
         $this->methodMap = array(
+            'private_foo' => 'getPrivateFooService',
             'public_foo' => 'getPublicFooService',
+        );
+        $this->privates = array(
+            'private_foo' => true,
         );
 
         $this->aliases = array();
-    }
-
-    public function reset()
-    {
-        $this->privates = array();
-        parent::reset();
-    }
-
-    public function compile()
-    {
-        throw new LogicException('You cannot compile a dumped container that was already compiled.');
-    }
-
-    public function isCompiled()
-    {
-        return true;
     }
 
     public function getRemovedIds()
@@ -60,6 +43,23 @@ class ProjectServiceContainer extends Container
         );
     }
 
+    public function compile()
+    {
+        throw new LogicException('You cannot compile a dumped container that was already compiled.');
+    }
+
+    public function isCompiled()
+    {
+        return true;
+    }
+
+    public function isFrozen()
+    {
+        @trigger_error(sprintf('The %s() method is deprecated since Symfony 3.3 and will be removed in 4.0. Use the isCompiled() method instead.', __METHOD__), E_USER_DEPRECATED);
+
+        return true;
+    }
+
     /**
      * Gets the public 'public_foo' shared service.
      *
@@ -67,6 +67,16 @@ class ProjectServiceContainer extends Container
      */
     protected function getPublicFooService()
     {
-        return $this->services['public_foo'] = new \stdClass(($this->privates['private_foo'] ?? $this->privates['private_foo'] = new \stdClass()));
+        return $this->services['public_foo'] = new \stdClass(${($_ = isset($this->services['private_foo']) ? $this->services['private_foo'] : $this->services['private_foo'] = new \stdClass()) && false ?: '_'});
+    }
+
+    /**
+     * Gets the private 'private_foo' shared service.
+     *
+     * @return \stdClass
+     */
+    protected function getPrivateFooService()
+    {
+        return $this->services['private_foo'] = new \stdClass();
     }
 }

@@ -65,4 +65,56 @@ class Interceptor extends \Magento\Integration\Model\IntegrationService implemen
             return $this->___callPlugins('get', func_get_args(), $pluginInfo);
         }
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findByName($name)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'findByName');
+        if (!$pluginInfo) {
+            return parent::findByName($name);
+        } else {
+            return $this->___callPlugins('findByName', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findByConsumerId($consumerId)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'findByConsumerId');
+        if (!$pluginInfo) {
+            return parent::findByConsumerId($consumerId);
+        } else {
+            return $this->___callPlugins('findByConsumerId', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findActiveIntegrationByConsumerId($consumerId)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'findActiveIntegrationByConsumerId');
+        if (!$pluginInfo) {
+            return parent::findActiveIntegrationByConsumerId($consumerId);
+        } else {
+            return $this->___callPlugins('findActiveIntegrationByConsumerId', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSelectedResources($integrationId)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getSelectedResources');
+        if (!$pluginInfo) {
+            return parent::getSelectedResources($integrationId);
+        } else {
+            return $this->___callPlugins('getSelectedResources', func_get_args(), $pluginInfo);
+        }
+    }
 }

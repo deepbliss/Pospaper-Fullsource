@@ -1,0 +1,18 @@
+{
+    "name": "magemodule/module-core",
+    "description": "MageModule core and common functionality",
+    "type": "magento2-module",
+    "version": "1.1.6",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "MageModule\\Core\\": ""
+        }
+    }
+}

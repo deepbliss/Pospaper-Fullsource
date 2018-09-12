@@ -45,7 +45,7 @@ This optional value is added to the restart command-line and is needed to force 
 
 If the original command-line contains an argument that pattern-matches this value, for example `--no-ansi` `--colors=never`, then _$colorOption_ is ignored.
 
-Do not use this parameter if the input handler cannot cope with an option as the last argument.
+If the pattern-match ends with =auto, for example `--colors=auto`, the argument is replaced by _$colorOption_. Otherwise it is added at either the end of the command-line, or preceeding a double-dash `--` delimiter.
 
 ## Advanced Usage
 ### How it works
@@ -53,11 +53,10 @@ Do not use this parameter if the input handler cannot cope with an option as the
 A temporary ini file is created from the loaded (and scanned) ini files, with any references to the xdebug extension commented out. Current ini settings are merged, so that settings made on the command-line or by the application are included.
 
 * `MYAPP_ALLOW_XDEBUG` is set with internal data to flag and use in the restart.
-* If any scanned ini files were used, `PHP_INI_SCAN_DIR` is set to an empty string. This tells PHP not to scan for additional inis.
+* The `-n` option is added to the command-line. This tells PHP not to scan for additional inis.
 * The temporary ini is added to the command-line with the `-c` option.
 * The application is restarted in a new process using `passthru`.
     * `MYAPP_ALLOW_XDEBUG` is unset.
-    * `PHP_INI_SCAN_DIR` is restored to its original value (if it was changed).
     * The application runs and exits.
 * The main process exits with the exit code from the restarted process.
 
@@ -73,7 +72,7 @@ use Composer\XdebugHandler\XdebugHandler;
 
 $files = XdebugHandler::getAllIniFiles();
 
-// $files[0] always exists, it could be an empty string
+# $files[0] always exists, it could be an empty string
 $loadedIni = array_shift($files);
 $scannedInis = $files;
 ```
@@ -88,7 +87,7 @@ Other static helper methods provide information about the current process, which
 use Composer\XdebugHandler\XdebugHandler;
 
 $version = XdebugHandler::getSkippedVersion();
-// $version: '2.6.0' (for example), or an empty string
+# $version: '2.6.0' (for example), or an empty string
 
 $settings = XdebugHandler::getRestartSettings();
 /**
@@ -98,25 +97,51 @@ $settings = XdebugHandler::getRestartSettings();
  *    'tmpIni'      => the temporary ini file used in the restart (string)
  *    'scannedInis' => if there were any scanned inis (bool)
  *    'scanDir'     => the original PHP_INI_SCAN_DIR value (false|string)
-  *   'inis'        => the original inis from getAllIniFiles (array)
+ *    'phprc'       => the original PHPRC value (false|string)
+ *    'inis'        => the original inis from getAllIniFiles (array)
  *    'skipped'     => the skipped version from getSkippedVersion (string)
  */
 ```
 
 #### Sub-processes
-Calling a PHP process from a restarted process will result in xdebug being loaded in that process, or another restart if xdebug-handler is implemented.
+Calling a PHP process from a restarted process using the **original** configuration will result in one of two outcomes:
 
-The `XdebugHandler::getRestartSettings()` method is provided so that an application can call a PHP process with the same settings that were used in a restart:
+1. xdebug will be loaded in the new process.
+2. If the new process implements xdebug-handler, it will restart without loading xdebug.
 
-* If `scannedInis` is true, set `PHP_INI_SCAN_DIR` to an empty string.
-* Add `tmpIni`to the command-line with the `-c` option.
-* Run the process.
-    * If xdebug-handler is implemented, its internal settings are synced and `PHP_INI_SCAN_DIR` is restored to its original value (if it was changed).
-* If `PHP_INI_SCAN_DIR` was changed, restore it using `scanDir`.
+The `XdebugHandler::getRestartSettings()` method provides data that can be used to call a PHP sub-process. For example:
 
-This solution is not without its pitfalls. In addition to the ini files issue outlined above, `PHP_INI_SCAN_DIR` is not restored in the sub-process (unless xdebug-hander is implemented). This will cause problems if it was changed and the sub-process calls another PHP process.
+*   Using **standard** restart settings.
+    * Add `-n`, `-c`, `tmpIni` to the command-line.
+    * xdebug will not be loaded, but points 1 and 2 apply to any sub-process.
 
-However, an application can safely spawn itself, or other scripts that it controls, or other applications that implement xdebug-handler.
+*   Using **persistent** environment variables.
+    * Set `PHPRC` to `tmpIni`
+    * Set `PHP_INI_SCAN_DIR` to an empty string if `scannedInis` is true.
+    * xdebug will not be loaded in this or any sub-process.
+
+The PhpConfig class can be used to manage these scenarios.
+
+#### PhpConfig
+This helper class provides command-line options and sets up the environment for calling a PHP sub-process. If there was no restart (because it was overriden, or xdebug is not present), an empty options array is returned and the environment is not changed.
+
+```php
+use Composer\XdebugHandler\PhpConfig;
+
+$config = new PhpConfig;
+
+$options = $config->useOriginal();
+# $options:     empty array
+# environment:  restored
+
+$options = $config->useStandard();
+# $options:     [-n, -c, tmpIni]
+# environment:  restored
+
+$options = $config->usePersistent();
+# $options:    empty array
+# environment: sets PHPRC, PHP_INI_SCAN_DIR (if needed)
+```
 
 ### Output
 The `setLogger` method enables the output of status messages to an external PSR3 logger.
@@ -129,7 +154,7 @@ $xdebug = new XdebugHandler('myapp');
 $xdebug->setLogger($myLogger);
 ```
 
-All messages are reported with either `DEBUG` or `WARNING` log levels. For example:
+All messages are reported with either `DEBUG` or `WARNING` log levels. For example (showing the level and message):
 
 ```
 // Restart overridden
@@ -143,8 +168,10 @@ DEBUG    The xdebug extension is loaded (2.5.0)
 WARNING  No restart (Unable to create temporary ini file)
 ```
 
+Status messages can also be output with `XDEBUG_HANDLER_DEBUG`. See the Debugging section, below.
+
 ### Main script
-The process will not be restarted if the location of the main script is inaccessible. This may occur if the working directory has been changed and can be fixed by using the `setMainScript` method.
+The process will not be restarted if the `argv` location of the main script is inaccessible. This is only likely in more esoteric use-cases and can be fixed by using the `setMainScript` method.
 
 ```php
 // Save the full path to the invoked script
@@ -155,6 +182,8 @@ use Composer\XdebugHandler\XdebugHandler;
 
 $xdebug = new XdebugHandler('myapp');
 $xdebug->setMainScript($mainScript);
+
+// The script name "--" is also supported (for standard input)
 ```
 
 ### Extending the library
@@ -165,6 +194,13 @@ By default the process will restart if xdebug is loaded. Overriding this allows 
 
 #### _restart($command)_
 An application can hook into this to access the temporary ini file, its location given in the `tmpIni` property.
+
+### Debugging
+The following environment settings can be used to troubleshoot unexpected behavior:
+
+* `XDEBUG_HANDLER_DEBUG=1` Outputs status messages to standard output, irrespective of any PSR3 logger. Each message is prefixed `xdebug-handler[pid]`, where pid is the process identifier.
+
+* `XDEBUG_HANDLER_DEBUG=2` As above, but additionally saves the temporary ini file and reports its location in a status message.
 
 ## License
 composer/xdebug-handler is licensed under the MIT License, see the LICENSE file for details.

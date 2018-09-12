@@ -19,37 +19,20 @@ class Symfony_DI_PhpDumper_Test_Uninitialized_Reference extends Container
     private $parameters;
     private $targetDirs = array();
 
-    /**
-     * @internal but protected for BC on cache:clear
-     */
-    protected $privates = array();
-
     public function __construct()
     {
-        $this->services = $this->privates = array();
+        $this->services = array();
         $this->methodMap = array(
             'bar' => 'getBarService',
             'baz' => 'getBazService',
             'foo1' => 'getFoo1Service',
+            'foo3' => 'getFoo3Service',
+        );
+        $this->privates = array(
+            'foo3' => true,
         );
 
         $this->aliases = array();
-    }
-
-    public function reset()
-    {
-        $this->privates = array();
-        parent::reset();
-    }
-
-    public function compile()
-    {
-        throw new LogicException('You cannot compile a dumped container that was already compiled.');
-    }
-
-    public function isCompiled()
-    {
-        return true;
     }
 
     public function getRemovedIds()
@@ -62,6 +45,23 @@ class Symfony_DI_PhpDumper_Test_Uninitialized_Reference extends Container
         );
     }
 
+    public function compile()
+    {
+        throw new LogicException('You cannot compile a dumped container that was already compiled.');
+    }
+
+    public function isCompiled()
+    {
+        return true;
+    }
+
+    public function isFrozen()
+    {
+        @trigger_error(sprintf('The %s() method is deprecated since Symfony 3.3 and will be removed in 4.0. Use the isCompiled() method instead.', __METHOD__), E_USER_DEPRECATED);
+
+        return true;
+    }
+
     /**
      * Gets the public 'bar' shared service.
      *
@@ -71,28 +71,28 @@ class Symfony_DI_PhpDumper_Test_Uninitialized_Reference extends Container
     {
         $this->services['bar'] = $instance = new \stdClass();
 
-        $instance->foo1 = ($this->services['foo1'] ?? null);
+        $instance->foo1 = ${($_ = isset($this->services['foo1']) ? $this->services['foo1'] : null) && false ?: '_'};
         $instance->foo2 = null;
-        $instance->foo3 = ($this->privates['foo3'] ?? null);
+        $instance->foo3 = ${($_ = isset($this->services['foo3']) ? $this->services['foo3'] : null) && false ?: '_'};
         $instance->closures = array(0 => function () {
-            return ($this->services['foo1'] ?? null);
+            return ${($_ = isset($this->services['foo1']) ? $this->services['foo1'] : null) && false ?: '_'};
         }, 1 => function () {
             return null;
         }, 2 => function () {
-            return ($this->privates['foo3'] ?? null);
+            return ${($_ = isset($this->services['foo3']) ? $this->services['foo3'] : null) && false ?: '_'};
         });
         $instance->iter = new RewindableGenerator(function () {
             if (isset($this->services['foo1'])) {
-                yield 'foo1' => ($this->services['foo1'] ?? null);
+                yield 'foo1' => ${($_ = isset($this->services['foo1']) ? $this->services['foo1'] : null) && false ?: '_'};
             }
             if (false) {
                 yield 'foo2' => null;
             }
-            if (isset($this->privates['foo3'])) {
-                yield 'foo3' => ($this->privates['foo3'] ?? null);
+            if (isset($this->services['foo3'])) {
+                yield 'foo3' => ${($_ = isset($this->services['foo3']) ? $this->services['foo3'] : null) && false ?: '_'};
             }
         }, function () {
-            return 0 + (int) (isset($this->services['foo1'])) + (int) (false) + (int) (isset($this->privates['foo3']));
+            return 0 + (int) (isset($this->services['foo1'])) + (int) (false) + (int) (isset($this->services['foo3']));
         });
 
         return $instance;
@@ -107,7 +107,7 @@ class Symfony_DI_PhpDumper_Test_Uninitialized_Reference extends Container
     {
         $this->services['baz'] = $instance = new \stdClass();
 
-        $instance->foo3 = ($this->privates['foo3'] ?? $this->privates['foo3'] = new \stdClass());
+        $instance->foo3 = ${($_ = isset($this->services['foo3']) ? $this->services['foo3'] : $this->services['foo3'] = new \stdClass()) && false ?: '_'};
 
         return $instance;
     }
@@ -120,5 +120,15 @@ class Symfony_DI_PhpDumper_Test_Uninitialized_Reference extends Container
     protected function getFoo1Service()
     {
         return $this->services['foo1'] = new \stdClass();
+    }
+
+    /**
+     * Gets the private 'foo3' shared service.
+     *
+     * @return \stdClass
+     */
+    protected function getFoo3Service()
+    {
+        return $this->services['foo3'] = new \stdClass();
     }
 }

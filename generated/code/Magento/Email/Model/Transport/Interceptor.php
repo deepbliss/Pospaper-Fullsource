@@ -26,4 +26,17 @@ class Interceptor extends \Magento\Email\Model\Transport implements \Magento\Fra
             return $this->___callPlugins('sendMessage', func_get_args(), $pluginInfo);
         }
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getMessage()
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getMessage');
+        if (!$pluginInfo) {
+            return parent::getMessage();
+        } else {
+            return $this->___callPlugins('getMessage', func_get_args(), $pluginInfo);
+        }
+    }
 }

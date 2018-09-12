@@ -26,4 +26,17 @@ class Interceptor extends \Magento\Config\App\Config\Source\DumpConfigSourceAggr
             return $this->___callPlugins('get', func_get_args(), $pluginInfo);
         }
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getExcludedFields()
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getExcludedFields');
+        if (!$pluginInfo) {
+            return parent::getExcludedFields();
+        } else {
+            return $this->___callPlugins('getExcludedFields', func_get_args(), $pluginInfo);
+        }
+    }
 }

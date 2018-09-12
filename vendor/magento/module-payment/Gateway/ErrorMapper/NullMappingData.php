@@ -4,7 +4,9 @@
  * See COPYING.txt for license details.
  */
 namespace Magento\Payment\Gateway\ErrorMapper;
+
 use Magento\Framework\Config\DataInterface;
+
 /**
  * Stub implementation of DataInterface which is used by default for ErrorMessageMapper, because
  * each payment method should provide own mapping data source.
@@ -19,6 +21,7 @@ class NullMappingData implements DataInterface
     {
         return null;
     }
+
     /**
      * @inheritdoc
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)

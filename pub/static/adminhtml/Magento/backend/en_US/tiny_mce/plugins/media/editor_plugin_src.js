@@ -1,0 +1,1 @@
+/chroot/home/pospaper/pospaper.com/html/lib/web/tiny_mce/plugins/media/editor_plugin_src.js

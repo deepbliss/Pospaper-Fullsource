@@ -17,6 +17,19 @@ class Interceptor extends \Magento\Framework\View\Asset\MergeService implements 
     /**
      * {@inheritdoc}
      */
+    public function getMergedAssets(array $assets, $contentType)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getMergedAssets');
+        if (!$pluginInfo) {
+            return parent::getMergedAssets($assets, $contentType);
+        } else {
+            return $this->___callPlugins('getMergedAssets', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function cleanMergedJsCss()
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'cleanMergedJsCss');

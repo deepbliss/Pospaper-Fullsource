@@ -4,7 +4,9 @@
  * See COPYING.txt for license details.
  */
 namespace Magento\Payment\Gateway\ErrorMapper;
+
 use Magento\Framework\Config\DataInterface;
+
 /**
  * This class can be used for payment integrations which can validate different type of
  * error messages per one request.
@@ -18,6 +20,7 @@ class ErrorMessageMapper implements ErrorMessageMapperInterface
      * @var DataInterface
      */
     private $messageMapping;
+
     /**
      * @param DataInterface $messageMapping
      */
@@ -25,6 +28,7 @@ class ErrorMessageMapper implements ErrorMessageMapperInterface
     {
         $this->messageMapping = $messageMapping;
     }
+
     /**
      * @inheritdoc
      */

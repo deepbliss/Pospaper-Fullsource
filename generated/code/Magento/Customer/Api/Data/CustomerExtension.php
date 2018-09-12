@@ -7,6 +7,24 @@ namespace Magento\Customer\Api\Data;
 class CustomerExtension extends \Magento\Framework\Api\AbstractSimpleObject implements CustomerExtensionInterface
 {
     /**
+     * @return string|null
+     */
+    public function getAmazonId()
+    {
+        return $this->_get('amazon_id');
+    }
+
+    /**
+     * @param string $amazonId
+     * @return $this
+     */
+    public function setAmazonId($amazonId)
+    {
+        $this->setData('amazon_id', $amazonId);
+        return $this;
+    }
+
+    /**
      * @return boolean|null
      */
     public function getIsSubscribed()
@@ -21,6 +39,24 @@ class CustomerExtension extends \Magento\Framework\Api\AbstractSimpleObject impl
     public function setIsSubscribed($isSubscribed)
     {
         $this->setData('is_subscribed', $isSubscribed);
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getVertexCustomerCode()
+    {
+        return $this->_get('vertex_customer_code');
+    }
+
+    /**
+     * @param string $vertexCustomerCode
+     * @return $this
+     */
+    public function setVertexCustomerCode($vertexCustomerCode)
+    {
+        $this->setData('vertex_customer_code', $vertexCustomerCode);
         return $this;
     }
 }

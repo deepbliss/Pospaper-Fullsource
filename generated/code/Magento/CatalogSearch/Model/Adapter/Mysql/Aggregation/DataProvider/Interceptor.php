@@ -8,10 +8,10 @@ class Interceptor extends \Magento\CatalogSearch\Model\Adapter\Mysql\Aggregation
 {
     use \Magento\Framework\Interception\Interceptor;
 
-    public function __construct(\Magento\Eav\Model\Config $eavConfig, \Magento\Framework\App\ResourceConnection $resource, \Magento\Framework\App\ScopeResolverInterface $scopeResolver, \Magento\Customer\Model\Session $customerSession)
+    public function __construct(\Magento\Eav\Model\Config $eavConfig, \Magento\Framework\App\ResourceConnection $resource, \Magento\Framework\App\ScopeResolverInterface $scopeResolver, \Magento\Customer\Model\Session $customerSession, \Magento\CatalogSearch\Model\Adapter\Mysql\Aggregation\DataProvider\QueryBuilder $queryBuilder = null)
     {
         $this->___init();
-        parent::__construct($eavConfig, $resource, $scopeResolver, $customerSession);
+        parent::__construct($eavConfig, $resource, $scopeResolver, $customerSession, $queryBuilder);
     }
 
     /**
@@ -24,6 +24,19 @@ class Interceptor extends \Magento\CatalogSearch\Model\Adapter\Mysql\Aggregation
             return parent::getDataSet($bucket, $dimensions, $entityIdsTable);
         } else {
             return $this->___callPlugins('getDataSet', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function execute(\Magento\Framework\DB\Select $select)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'execute');
+        if (!$pluginInfo) {
+            return parent::execute($select);
+        } else {
+            return $this->___callPlugins('execute', func_get_args(), $pluginInfo);
         }
     }
 }

@@ -1,25 +1,4 @@
 ############################################
-<IfModule mod_expires.c>
-# First of all enable expirations
-ExpiresActive On
-# Default expiration
-ExpiresDefault "access plus 1 month"
-# For favicon
-ExpiresByType image/x-icon "access plus 1 year"
-# Set Images Expiry
-ExpiresByType image/x-icon "access plus 1 year"
-ExpiresByType image/gif "access plus 1 month"
-ExpiresByType image/png "access plus 1 month"
-ExpiresByType image/jpg "access plus 1 month"
-ExpiresByType image/jpeg "access plus 1 month"
-# Set CSS Expiry
-ExpiresByType text/css "access 1 month"
-# For JavaScript Expiry
-ExpiresByType application/javascript "access plus 1 year"
-</IfModule>
-############################################
-
-############################################
 ## overrides deployment configuration mode value
 ## use command bin/magento deploy:mode:set to switch modes
 
@@ -287,15 +266,6 @@ ExpiresByType application/javascript "access plus 1 year"
         </IfVersion>
     </Files>
     <Files CHANGELOG.md>
-        <IfVersion < 2.4>
-            order allow,deny
-            deny from all
-        </IfVersion>
-        <IfVersion >= 2.4>
-            Require all denied
-        </IfVersion>
-    </Files>
-    <Files CONTRIBUTING.md>
         <IfVersion < 2.4>
             order allow,deny
             deny from all

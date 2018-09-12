@@ -26,4 +26,17 @@ class Interceptor extends \Magento\CatalogInventory\Model\Quote\Item\QuantityVal
             return $this->___callPlugins('getStockItem', func_get_args(), $pluginInfo);
         }
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function initialize(\Magento\Quote\Model\Quote\Item\Option $option, \Magento\Quote\Model\Quote\Item $quoteItem, $qty)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'initialize');
+        if (!$pluginInfo) {
+            return parent::initialize($option, $quoteItem, $qty);
+        } else {
+            return $this->___callPlugins('initialize', func_get_args(), $pluginInfo);
+        }
+    }
 }

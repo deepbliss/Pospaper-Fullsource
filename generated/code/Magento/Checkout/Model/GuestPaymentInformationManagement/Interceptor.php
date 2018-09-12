@@ -8,10 +8,10 @@ class Interceptor extends \Magento\Checkout\Model\GuestPaymentInformationManagem
 {
     use \Magento\Framework\Interception\Interceptor;
 
-    public function __construct(\Magento\Quote\Api\GuestBillingAddressManagementInterface $billingAddressManagement, \Magento\Quote\Api\GuestPaymentMethodManagementInterface $paymentMethodManagement, \Magento\Quote\Api\GuestCartManagementInterface $cartManagement, \Magento\Checkout\Api\PaymentInformationManagementInterface $paymentInformationManagement, \Magento\Quote\Model\QuoteIdMaskFactory $quoteIdMaskFactory, \Magento\Quote\Api\CartRepositoryInterface $cartRepository)
+    public function __construct(\Magento\Quote\Api\GuestBillingAddressManagementInterface $billingAddressManagement, \Magento\Quote\Api\GuestPaymentMethodManagementInterface $paymentMethodManagement, \Magento\Quote\Api\GuestCartManagementInterface $cartManagement, \Magento\Checkout\Api\PaymentInformationManagementInterface $paymentInformationManagement, \Magento\Quote\Model\QuoteIdMaskFactory $quoteIdMaskFactory, \Magento\Quote\Api\CartRepositoryInterface $cartRepository, \Magento\Framework\App\ResourceConnection $connectionPull = null)
     {
         $this->___init();
-        parent::__construct($billingAddressManagement, $paymentMethodManagement, $cartManagement, $paymentInformationManagement, $quoteIdMaskFactory, $cartRepository);
+        parent::__construct($billingAddressManagement, $paymentMethodManagement, $cartManagement, $paymentInformationManagement, $quoteIdMaskFactory, $cartRepository, $connectionPull);
     }
 
     /**
@@ -37,6 +37,19 @@ class Interceptor extends \Magento\Checkout\Model\GuestPaymentInformationManagem
             return parent::savePaymentInformation($cartId, $email, $paymentMethod, $billingAddress);
         } else {
             return $this->___callPlugins('savePaymentInformation', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPaymentInformation($cartId)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getPaymentInformation');
+        if (!$pluginInfo) {
+            return parent::getPaymentInformation($cartId);
+        } else {
+            return $this->___callPlugins('getPaymentInformation', func_get_args(), $pluginInfo);
         }
     }
 }

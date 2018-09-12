@@ -17,6 +17,19 @@ class Interceptor extends \Magento\Framework\App\PageCache\Cache implements \Mag
     /**
      * {@inheritdoc}
      */
+    public function getFrontend()
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getFrontend');
+        if (!$pluginInfo) {
+            return parent::getFrontend();
+        } else {
+            return $this->___callPlugins('getFrontend', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function load($identifier)
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'load');
@@ -37,6 +50,32 @@ class Interceptor extends \Magento\Framework\App\PageCache\Cache implements \Mag
             return parent::save($data, $identifier, $tags, $lifeTime);
         } else {
             return $this->___callPlugins('save', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function remove($identifier)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'remove');
+        if (!$pluginInfo) {
+            return parent::remove($identifier);
+        } else {
+            return $this->___callPlugins('remove', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function clean($tags = array())
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'clean');
+        if (!$pluginInfo) {
+            return parent::clean($tags);
+        } else {
+            return $this->___callPlugins('clean', func_get_args(), $pluginInfo);
         }
     }
 }

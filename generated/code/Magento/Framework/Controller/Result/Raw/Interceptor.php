@@ -16,6 +16,58 @@ class Interceptor extends \Magento\Framework\Controller\Result\Raw implements \M
     /**
      * {@inheritdoc}
      */
+    public function setContents($contents)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'setContents');
+        if (!$pluginInfo) {
+            return parent::setContents($contents);
+        } else {
+            return $this->___callPlugins('setContents', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setHttpResponseCode($httpCode)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'setHttpResponseCode');
+        if (!$pluginInfo) {
+            return parent::setHttpResponseCode($httpCode);
+        } else {
+            return $this->___callPlugins('setHttpResponseCode', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setHeader($name, $value, $replace = false)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'setHeader');
+        if (!$pluginInfo) {
+            return parent::setHeader($name, $value, $replace);
+        } else {
+            return $this->___callPlugins('setHeader', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setStatusHeader($httpCode, $version = null, $phrase = null)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'setStatusHeader');
+        if (!$pluginInfo) {
+            return parent::setStatusHeader($httpCode, $version, $phrase);
+        } else {
+            return $this->___callPlugins('setStatusHeader', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function renderResult(\Magento\Framework\App\ResponseInterface $response)
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'renderResult');

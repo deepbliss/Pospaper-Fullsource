@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2018 MageModule, LLC: All rights reserved
+  ~
+  ~ LICENSE: This source file is subject to our standard End User License
+  ~ Agreeement (EULA) that is available through the world-wide-web at the
+  ~ following URI: http://www.magemodule.com/magento2-ext-license.html.
+  ~
+  ~ If you did not receive a copy of the EULA and are unable to obtain it through
+  ~ the web, please send a note to admin@magemodule.com so that we can mail
+  ~ you a copy immediately.
+  ~
+  ~ @author       MageModule, LLC admin@magemodule.com
+  ~ @copyright   2018 MageModule, LLC
+  ~ @license       http://www.magemodule.com/magento2-ext-license.html
+  ~
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::system">
+                    <resource id="Magento_Backend::convert">
+                        <resource id="MageModule_OrderImportExport::import_export" title="Import/Export Orders" sortOrder="30">
+                            <resource id="MageModule_OrderImportExport::import" title="Import Orders" sortOrder="10"/>
+                            <resource id="MageModule_OrderImportExport::export" title="Export Orders" sortOrder="20"/>
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

@@ -40,6 +40,7 @@
             <action method="setTemplate">
                 <argument name="template" xsi:type="string">WeltPixel_Quickview::product/view/addtocart.phtml</argument>
             </action>
+            <block class="Amazon\Payment\Block\ProductPagePaymentLink" name="amazon.pay.button.product" after="-" template="Amazon_Payment::payment-link-product-page.phtml" ifconfig="payment/amazon_payment/active" />
         </referenceBlock>
         <referenceBlock name="product.info.addtocart.additional">
             <action method="setTemplate">

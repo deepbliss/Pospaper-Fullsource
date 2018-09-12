@@ -1,0 +1,20 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_Base
+ */
+?>
+<?php
+/** @var \Amasty\Base\Block\Adminhtml\Messages $block */
+$messages = $block->getMessages();
+?>
+<?php if (!empty($messages)) : ?>
+    <?php foreach ($messages as $message) : ?>
+        <div class="messages ambase-unsubscribe">
+            <div class="message message-success success">
+                <div data-ui-id="messages-message-success"><?= $message;?></div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+<?php endif; ?>

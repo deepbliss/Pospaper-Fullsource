@@ -19,30 +19,45 @@ class Symfony_DI_PhpDumper_Test_Almost_Circular_Private extends Container
     private $parameters;
     private $targetDirs = array();
 
-    /**
-     * @internal but protected for BC on cache:clear
-     */
-    protected $privates = array();
-
     public function __construct()
     {
-        $this->services = $this->privates = array();
+        $this->services = array();
         $this->methodMap = array(
             'bar2' => 'getBar2Service',
             'bar3' => 'getBar3Service',
+            'connection' => 'getConnectionService',
+            'connection2' => 'getConnection2Service',
             'foo' => 'getFooService',
             'foo2' => 'getFoo2Service',
             'foo5' => 'getFoo5Service',
             'foobar4' => 'getFoobar4Service',
+            'logger' => 'getLoggerService',
+            'manager' => 'getManagerService',
+            'manager2' => 'getManager2Service',
+            'subscriber' => 'getSubscriberService',
         );
 
         $this->aliases = array();
     }
 
-    public function reset()
+    public function getRemovedIds()
     {
-        $this->privates = array();
-        parent::reset();
+        return array(
+            'Psr\\Container\\ContainerInterface' => true,
+            'Symfony\\Component\\DependencyInjection\\ContainerInterface' => true,
+            'bar' => true,
+            'bar5' => true,
+            'config' => true,
+            'config2' => true,
+            'dispatcher' => true,
+            'dispatcher2' => true,
+            'foo4' => true,
+            'foobar' => true,
+            'foobar2' => true,
+            'foobar3' => true,
+            'logger2' => true,
+            'subscriber2' => true,
+        );
     }
 
     public function compile()
@@ -55,18 +70,11 @@ class Symfony_DI_PhpDumper_Test_Almost_Circular_Private extends Container
         return true;
     }
 
-    public function getRemovedIds()
+    public function isFrozen()
     {
-        return array(
-            'Psr\\Container\\ContainerInterface' => true,
-            'Symfony\\Component\\DependencyInjection\\ContainerInterface' => true,
-            'bar' => true,
-            'bar5' => true,
-            'foo4' => true,
-            'foobar' => true,
-            'foobar2' => true,
-            'foobar3' => true,
-        );
+        @trigger_error(sprintf('The %s() method is deprecated since Symfony 3.3 and will be removed in 4.0. Use the isCompiled() method instead.', __METHOD__), E_USER_DEPRECATED);
+
+        return true;
     }
 
     /**
@@ -78,7 +86,7 @@ class Symfony_DI_PhpDumper_Test_Almost_Circular_Private extends Container
     {
         $this->services['bar2'] = $instance = new \BarCircular();
 
-        $instance->addFoobar(new \FoobarCircular(($this->services['foo2'] ?? $this->getFoo2Service())));
+        $instance->addFoobar(new \FoobarCircular(${($_ = isset($this->services['foo2']) ? $this->services['foo2'] : $this->getFoo2Service()) && false ?: '_'}));
 
         return $instance;
     }
@@ -95,6 +103,49 @@ class Symfony_DI_PhpDumper_Test_Almost_Circular_Private extends Container
         $a = new \FoobarCircular();
 
         $instance->addFoobar($a, $a);
+
+        return $instance;
+    }
+
+    /**
+     * Gets the public 'connection' shared service.
+     *
+     * @return \stdClass
+     */
+    protected function getConnectionService()
+    {
+        $a = new \stdClass();
+
+        $b = new \stdClass();
+
+        $this->services['connection'] = $instance = new \stdClass($a, $b);
+
+        $a->subscriber = ${($_ = isset($this->services['subscriber']) ? $this->services['subscriber'] : $this->getSubscriberService()) && false ?: '_'};
+        $b->logger = ${($_ = isset($this->services['logger']) ? $this->services['logger'] : $this->getLoggerService()) && false ?: '_'};
+
+        return $instance;
+    }
+
+    /**
+     * Gets the public 'connection2' shared service.
+     *
+     * @return \stdClass
+     */
+    protected function getConnection2Service()
+    {
+        $a = new \stdClass();
+
+        $b = new \stdClass();
+
+        $this->services['connection2'] = $instance = new \stdClass($a, $b);
+
+        $c = ${($_ = isset($this->services['manager2']) ? $this->services['manager2'] : $this->getManager2Service()) && false ?: '_'};
+
+        $d = new \stdClass($instance);
+
+        $a->subscriber2 = new \stdClass($c);
+        $d->handler2 = new \stdClass($c);
+        $b->logger2 = $d;
 
         return $instance;
     }
@@ -122,7 +173,7 @@ class Symfony_DI_PhpDumper_Test_Almost_Circular_Private extends Container
      */
     protected function getFoo2Service()
     {
-        $a = ($this->services['bar2'] ?? $this->getBar2Service());
+        $a = ${($_ = isset($this->services['bar2']) ? $this->services['bar2'] : $this->getBar2Service()) && false ?: '_'};
 
         if (isset($this->services['foo2'])) {
             return $this->services['foo2'];
@@ -140,7 +191,7 @@ class Symfony_DI_PhpDumper_Test_Almost_Circular_Private extends Container
     {
         $this->services['foo5'] = $instance = new \stdClass();
 
-        $a = new \stdClass(($this->services['foo5'] ?? $this->getFoo5Service()));
+        $a = new \stdClass($instance);
 
         $a->foo = $instance;
 
@@ -163,5 +214,73 @@ class Symfony_DI_PhpDumper_Test_Almost_Circular_Private extends Container
         $a->foobar = $instance;
 
         return $instance;
+    }
+
+    /**
+     * Gets the public 'logger' shared service.
+     *
+     * @return \stdClass
+     */
+    protected function getLoggerService()
+    {
+        $a = ${($_ = isset($this->services['connection']) ? $this->services['connection'] : $this->getConnectionService()) && false ?: '_'};
+
+        if (isset($this->services['logger'])) {
+            return $this->services['logger'];
+        }
+
+        $this->services['logger'] = $instance = new \stdClass($a);
+
+        $instance->handler = new \stdClass(${($_ = isset($this->services['manager']) ? $this->services['manager'] : $this->getManagerService()) && false ?: '_'});
+
+        return $instance;
+    }
+
+    /**
+     * Gets the public 'manager' shared service.
+     *
+     * @return \stdClass
+     */
+    protected function getManagerService()
+    {
+        $a = ${($_ = isset($this->services['connection']) ? $this->services['connection'] : $this->getConnectionService()) && false ?: '_'};
+
+        if (isset($this->services['manager'])) {
+            return $this->services['manager'];
+        }
+
+        return $this->services['manager'] = new \stdClass($a);
+    }
+
+    /**
+     * Gets the public 'manager2' shared service.
+     *
+     * @return \stdClass
+     */
+    protected function getManager2Service()
+    {
+        $a = ${($_ = isset($this->services['connection2']) ? $this->services['connection2'] : $this->getConnection2Service()) && false ?: '_'};
+
+        if (isset($this->services['manager2'])) {
+            return $this->services['manager2'];
+        }
+
+        return $this->services['manager2'] = new \stdClass($a);
+    }
+
+    /**
+     * Gets the public 'subscriber' shared service.
+     *
+     * @return \stdClass
+     */
+    protected function getSubscriberService()
+    {
+        $a = ${($_ = isset($this->services['manager']) ? $this->services['manager'] : $this->getManagerService()) && false ?: '_'};
+
+        if (isset($this->services['subscriber'])) {
+            return $this->services['subscriber'];
+        }
+
+        return $this->services['subscriber'] = new \stdClass($a);
     }
 }

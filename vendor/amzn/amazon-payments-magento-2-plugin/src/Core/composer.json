@@ -1,0 +1,23 @@
+{
+  "name": "amzn/amazon-pay-and-login-with-amazon-core-module",
+  "description": "Shared functionality for Amazon Pay and Login with Amazon modules",
+  "type": "magento2-module",
+  "version": "1.2.7",
+  "license": [
+    "Apache-2.0"
+  ],
+  "require": {
+    "magento/framework": "^100.1.0|^101.0.0",
+    "magento/module-config": "^100.1.0|^101.0.0",
+    "magento/module-store": "^100.1.0|^100.2.0",
+    "magento/module-developer": "^100.1.0|^100.2.0",
+    "magento/module-quote": "^100.1.0|^101.0.0",
+    "amzn/amazon-pay-sdk-php": "^3.2.0"
+  },
+  "autoload": {
+    "files": ["registration.php"],
+    "psr-4": {
+      "Amazon\\Core\\": ""
+    }
+  }
+}

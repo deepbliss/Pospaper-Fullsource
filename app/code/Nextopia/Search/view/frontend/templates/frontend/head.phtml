@@ -1,14 +1,17 @@
 <?php
 $helper = $this->helper('Nextopia\Search\Helper\Data');
-$id = $helper->getNxtId();
-if ($id && (($this->getIsSearchPage() && $helper->showInNxtSearchPage()) //for demo mode only
-        || (!$this->getIsSearchPage() && $helper->showEverywhere())) //if the module is enabled
-        && $helper->isClientOneLineCodeAvailable() //if one line code available for the current client
-) :
+$storeId = $helper->getCurrentStoreId();
+$id = $helper->getNxtId($storeId);
+
+if ( $id && (
+    $helper->isEnabled($storeId) //if the module is enabled 
+        || ( $helper->isEnabled($storeId) === false && $helper->isDemo($storeId) && $this->getIsSearchPage() ) //for demo mode only
+    ) 
+) {
     ?>
     <!-- nextopia ajax initializer -->
     <script type="text/javascript">
-        //Nxt version : 2.2.1
+        //Nxt version : 2.4.1
         //Unfortunate our 1.5.1 js depends on this method, due to it's global nature, it cannot be inside require.
         function getCookie(cname) {
             var name = cname + "=";
@@ -37,7 +40,7 @@ if ($id && (($this->getIsSearchPage() && $helper->showInNxtSearchPage()) //for d
         //following is group code, not id, this is to maintain previous name for backwards compatibility.
         nxtOptions.customOptions.groupId = '<?php echo $helper->getGroupCode(); ?>';
 
-        <?php if ($helper->isPersonasEnabled()) : ?>
+        <?php if ($helper->isPersonasEnabled($storeId)) : ?>
         // code snipet to avoid 'npo' undefined
         window.npo = window.npo || function () {
             (npo.q = npo.q || []).push(arguments);
@@ -46,24 +49,20 @@ if ($id && (($this->getIsSearchPage() && $helper->showInNxtSearchPage()) //for d
             
         require.config({
             paths: {
-                nextopiaSearch: "//cdn.nextopia.net/<?php echo $helper->getAjaxVersion(); ?>/<?Php echo $id; ?>"
-            },
-            shim: {
-                'nextopiaSearch': ['jquery']
+                nextopiaSearch: "<?php echo $helper->isStoreOnSsl($storeId) ? "https:" : ""; ?>//cdn.nextopia.net/nxt-app/<?Php echo $id; ?>"
             }
         });
         require(['jquery', 'nextopiaSearch'], function (jqnxt) {
-            jqnxt("#search_mini_form").prop("action", "<?php echo $helper->getResultUrl(); ?>");
+            jqnxt("#search_mini_form").prop("action", "<?php echo $helper->getResultUrl($storeId); ?>");
             //Type custom code here
-            var target = jqNxt("#<?php echo $helper->getContentDivId(); ?>")[0];
+            var target = jqNxt(".column.main")[0];
             var config = {
                 attributes: true,
                 childList: true,
                 characterData: true
             };
-
             
-            <?php if ($helper->isPersonasEnabled()) : ?>
+            <?php if ($helper->isPersonasEnabled($storeId)) : ?>
                 <?php
                     $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
                     $product = $objectManager->get('Magento\Framework\Registry')->registry('current_product'); //get current product
@@ -130,4 +129,10 @@ if ($id && (($this->getIsSearchPage() && $helper->showInNxtSearchPage()) //for d
         });
     </script>
     <!-- nextopia ajax  initializer end -->
-<?php endif; ?>
+<?php } else { ?>
+    <!-- nextopia ajax initializer -->
+    <script type="text/javascript">
+        //Nxt version : 2.4.1
+    </script>
+    <!-- nextopia ajax  initializer end -->
+<?php } ?>

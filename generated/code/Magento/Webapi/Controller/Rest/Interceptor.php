@@ -17,6 +17,19 @@ class Interceptor extends \Magento\Webapi\Controller\Rest implements \Magento\Fr
     /**
      * {@inheritdoc}
      */
+    public function setDeploymentConfig(\Magento\Framework\App\DeploymentConfig $deploymentConfig)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'setDeploymentConfig');
+        if (!$pluginInfo) {
+            return parent::setDeploymentConfig($deploymentConfig);
+        } else {
+            return $this->___callPlugins('setDeploymentConfig', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function dispatch(\Magento\Framework\App\RequestInterface $request)
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'dispatch');

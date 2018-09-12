@@ -50,8 +50,6 @@ class Address extends AbstractHelper
             $this->storeManager->getStore()->getId()
         );
 
-        $fieldConfig['region_id'] = $fieldConfig['region'];
-
         $requiredFields = [
             'firstname',
             'lastname',
@@ -60,7 +58,6 @@ class Address extends AbstractHelper
             'telephone',
             'postcode',
             'country_id',
-            'region_id'
         ];
 
         foreach ($requiredFields as $code) {

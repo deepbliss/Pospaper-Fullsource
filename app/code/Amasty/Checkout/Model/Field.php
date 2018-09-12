@@ -57,7 +57,6 @@ class Field extends AbstractModel
     public function getInheritedAttributes()
     {
         return [
-            'region_id' => 'region',
             'vat_is_valid' => 'vat_id',
             'vat_request_id' => 'vat_id',
             'vat_request_date' => 'vat_id',

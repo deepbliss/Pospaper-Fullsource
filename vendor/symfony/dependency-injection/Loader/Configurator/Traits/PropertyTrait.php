@@ -16,9 +16,12 @@ trait PropertyTrait
     /**
      * Sets a specific property.
      *
+     * @param string $name
+     * @param mixed  $value
+     *
      * @return $this
      */
-    final public function property(string $name, $value)
+    final public function property($name, $value)
     {
         $this->definition->setProperty($name, static::processValue($value, true));
 

@@ -1,1 +1,0 @@
-/chroot/home/pospaper/pospaper.com/html/app/code/Mconnectsolutions/Trackorder/view/frontend/web/js/mcs_track.js

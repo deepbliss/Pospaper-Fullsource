@@ -12,7 +12,8 @@
     <default>
         <amasty_base>
             <notifications>
-                <type>INFO,PROMO,NEW_RELEASE/INSTALLED_UPDATE</type>
+                <type>INFO,PROMO,INSTALLED_UPDATE,TIPS_TRICKS</type>
+                <frequency>5</frequency>
             </notifications>
         </amasty_base>
     </default>

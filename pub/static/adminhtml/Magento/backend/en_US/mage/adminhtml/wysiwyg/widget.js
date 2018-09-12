@@ -1,0 +1,1 @@
+/chroot/home/pospaper/pospaper.com/html/lib/web/mage/adminhtml/wysiwyg/widget.js

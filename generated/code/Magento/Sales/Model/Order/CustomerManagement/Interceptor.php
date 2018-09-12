@@ -8,10 +8,10 @@ class Interceptor extends \Magento\Sales\Model\Order\CustomerManagement implemen
 {
     use \Magento\Framework\Interception\Interceptor;
 
-    public function __construct(\Magento\Framework\DataObject\Copy $objectCopyService, \Magento\Customer\Api\AccountManagementInterface $accountManagement, \Magento\Customer\Api\Data\CustomerInterfaceFactory $customerFactory, \Magento\Customer\Api\Data\AddressInterfaceFactory $addressFactory, \Magento\Customer\Api\Data\RegionInterfaceFactory $regionFactory, \Magento\Sales\Api\OrderRepositoryInterface $orderRepository)
+    public function __construct(\Magento\Framework\DataObject\Copy $objectCopyService, \Magento\Customer\Api\AccountManagementInterface $accountManagement, \Magento\Customer\Api\Data\CustomerInterfaceFactory $customerFactory, \Magento\Customer\Api\Data\AddressInterfaceFactory $addressFactory, \Magento\Customer\Api\Data\RegionInterfaceFactory $regionFactory, \Magento\Sales\Api\OrderRepositoryInterface $orderRepository, \Magento\Quote\Model\Quote\AddressFactory $quoteAddressFactory = null, \Magento\Sales\Model\Order\OrderCustomerExtractor $orderCustomerExtractor = null)
     {
         $this->___init();
-        parent::__construct($objectCopyService, $accountManagement, $customerFactory, $addressFactory, $regionFactory, $orderRepository);
+        parent::__construct($objectCopyService, $accountManagement, $customerFactory, $addressFactory, $regionFactory, $orderRepository, $quoteAddressFactory, $orderCustomerExtractor);
     }
 
     /**

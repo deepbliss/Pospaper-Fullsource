@@ -17,6 +17,19 @@ class Interceptor extends \Magento\Catalog\Controller\Adminhtml\Product\Initiali
     /**
      * {@inheritdoc}
      */
+    public function initializeFromData(\Magento\Catalog\Model\Product $product, array $productData)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'initializeFromData');
+        if (!$pluginInfo) {
+            return parent::initializeFromData($product, $productData);
+        } else {
+            return $this->___callPlugins('initializeFromData', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function initialize(\Magento\Catalog\Model\Product $product)
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'initialize');
@@ -24,6 +37,19 @@ class Interceptor extends \Magento\Catalog\Controller\Adminhtml\Product\Initiali
             return parent::initialize($product);
         } else {
             return $this->___callPlugins('initialize', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function mergeProductOptions($productOptions, $overwriteOptions)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'mergeProductOptions');
+        if (!$pluginInfo) {
+            return parent::mergeProductOptions($productOptions, $overwriteOptions);
+        } else {
+            return $this->___callPlugins('mergeProductOptions', func_get_args(), $pluginInfo);
         }
     }
 }

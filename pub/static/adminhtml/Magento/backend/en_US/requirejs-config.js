@@ -41,71 +41,6 @@ require.config(config);
  */
 
 var config = {
-    'shim': {
-        'extjs/ext-tree': [
-            'prototype'
-        ],
-        'extjs/ext-tree-checkbox': [
-            'extjs/ext-tree',
-            'extjs/defaults'
-        ],
-        'jquery/editableMultiselect/js/jquery.editable': [
-            'jquery'
-        ]
-    },
-    'bundles': {
-        'js/theme': [
-            'globalNavigation',
-            'globalSearch',
-            'modalPopup',
-            'useDefault',
-            'loadingPopup',
-            'collapsable'
-        ]
-    },
-    'map': {
-        '*': {
-            'translateInline':      'mage/translate-inline',
-            'form':                 'mage/backend/form',
-            'button':               'mage/backend/button',
-            'accordion':            'mage/accordion',
-            'actionLink':           'mage/backend/action-link',
-            'validation':           'mage/backend/validation',
-            'notification':         'mage/backend/notification',
-            'loader':               'mage/loader_old',
-            'loaderAjax':           'mage/loader_old',
-            'floatingHeader':       'mage/backend/floating-header',
-            'suggest':              'mage/backend/suggest',
-            'mediabrowser':         'jquery/jstree/jquery.jstree',
-            'tabs':                 'mage/backend/tabs',
-            'treeSuggest':          'mage/backend/tree-suggest',
-            'calendar':             'mage/calendar',
-            'dropdown':             'mage/dropdown_old',
-            'collapsible':          'mage/collapsible',
-            'menu':                 'mage/backend/menu',
-            'jstree':               'jquery/jstree/jquery.jstree',
-            'details':              'jquery/jquery.details'
-        }
-    },
-    'deps': [
-        'js/theme',
-        'mage/backend/bootstrap',
-        'mage/adminhtml/globals'
-    ],
-    'paths': {
-        'jquery/ui': 'jquery/jquery-ui-1.9.2'
-    }
-};
-
-require.config(config);
-})();
-(function() {
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-
-var config = {
     'waitSeconds': 0,
     'map': {
         '*': {
@@ -183,6 +118,71 @@ require.config(config);
  */
 
 var config = {
+    'shim': {
+        'extjs/ext-tree': [
+            'prototype'
+        ],
+        'extjs/ext-tree-checkbox': [
+            'extjs/ext-tree',
+            'extjs/defaults'
+        ],
+        'jquery/editableMultiselect/js/jquery.editable': [
+            'jquery'
+        ]
+    },
+    'bundles': {
+        'js/theme': [
+            'globalNavigation',
+            'globalSearch',
+            'modalPopup',
+            'useDefault',
+            'loadingPopup',
+            'collapsable'
+        ]
+    },
+    'map': {
+        '*': {
+            'translateInline':      'mage/translate-inline',
+            'form':                 'mage/backend/form',
+            'button':               'mage/backend/button',
+            'accordion':            'mage/accordion',
+            'actionLink':           'mage/backend/action-link',
+            'validation':           'mage/backend/validation',
+            'notification':         'mage/backend/notification',
+            'loader':               'mage/loader_old',
+            'loaderAjax':           'mage/loader_old',
+            'floatingHeader':       'mage/backend/floating-header',
+            'suggest':              'mage/backend/suggest',
+            'mediabrowser':         'jquery/jstree/jquery.jstree',
+            'tabs':                 'mage/backend/tabs',
+            'treeSuggest':          'mage/backend/tree-suggest',
+            'calendar':             'mage/calendar',
+            'dropdown':             'mage/dropdown_old',
+            'collapsible':          'mage/collapsible',
+            'menu':                 'mage/backend/menu',
+            'jstree':               'jquery/jstree/jquery.jstree',
+            'details':              'jquery/jquery.details'
+        }
+    },
+    'deps': [
+        'js/theme',
+        'mage/backend/bootstrap',
+        'mage/adminhtml/globals'
+    ],
+    'paths': {
+        'jquery/ui': 'jquery/jquery-ui-1.9.2'
+    }
+};
+
+require.config(config);
+})();
+(function() {
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+var config = {
     paths: {
         'customer/template': 'Magento_Customer/templates'
     },
@@ -222,23 +222,6 @@ require.config(config);
 var config = {
     map: {
         '*': {
-            popupWindow:            'mage/popup-window',
-            confirmRedirect:        'Magento_Security/js/confirm-redirect'
-        }
-    }
-};
-
-require.config(config);
-})();
-(function() {
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-
-var config = {
-    map: {
-        '*': {
             folderTree: 'Magento_Cms/js/folder-tree'
         }
     }
@@ -255,12 +238,13 @@ require.config(config);
 var config = {
     map: {
         '*': {
-            categoryForm:       'Magento_Catalog/catalog/category/form',
-            newCategoryDialog:  'Magento_Catalog/js/new-category-dialog',
-            categoryTree:       'Magento_Catalog/js/category-tree',
-            productGallery:     'Magento_Catalog/js/product-gallery',
-            baseImage:          'Magento_Catalog/catalog/base-image-uploader',
-            productAttributes:  'Magento_Catalog/catalog/product-attributes'
+            categoryForm:         'Magento_Catalog/catalog/category/form',
+            newCategoryDialog:    'Magento_Catalog/js/new-category-dialog',
+            categoryTree:         'Magento_Catalog/js/category-tree',
+            productGallery:       'Magento_Catalog/js/product-gallery',
+            baseImage:            'Magento_Catalog/catalog/base-image-uploader',
+            productAttributes:    'Magento_Catalog/catalog/product-attributes',
+            categoryCheckboxTree: 'Magento_Catalog/js/category-checkbox-tree'
         }
     },
     deps: [
@@ -279,8 +263,8 @@ require.config(config);
 var config = {
     map: {
         '*': {
-            rolesTree: 'Magento_User/js/roles-tree',
-            deleteUserAccount: 'Magento_User/js/delete-user-account'
+            popupWindow:            'mage/popup-window',
+            confirmRedirect:        'Magento_Security/js/confirm-redirect'
         }
     }
 };
@@ -312,7 +296,40 @@ require.config(config);
 var config = {
     map: {
         '*': {
+            rolesTree: 'Magento_User/js/roles-tree',
+            deleteUserAccount: 'Magento_User/js/delete-user-account'
+        }
+    }
+};
+
+require.config(config);
+})();
+(function() {
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+var config = {
+    map: {
+        '*': {
             integration: 'Magento_Integration/js/integration'
+        }
+    }
+};
+
+require.config(config);
+})();
+(function() {
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+var config = {
+    map: {
+        '*': {
+            transparent: 'Magento_Payment/transparent'
         }
     }
 };
@@ -364,18 +381,17 @@ require.config(config);
 })();
 (function() {
 /**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
 
 var config = {
     map: {
         '*': {
-            transparent: 'Magento_Payment/transparent'
+            awRewardPointsRates: 'Aheadworks_RewardPoints/js/rates'
         }
     }
 };
-
 require.config(config);
 })();
 (function() {

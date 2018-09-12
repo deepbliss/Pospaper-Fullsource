@@ -5,6 +5,7 @@ jQuery(document).ready(function() {
     jQuery('.menu-div .ms-megamenu .ms-topmenu #submenu-7.ms-submenu li').has('.col-sub').addClass('hassub');
   //jQuery('.menu-div .ms-megamenu .ms-topmenu #submenu-7.ms-submenu li.hassub .col-xs-12.col-level').append('<i class="arrow"></i>'); 
 
+ 
   jQuery(".menu-div .ms-megamenu .ms-topmenu #submenu-7.ms-submenu .col-xs-12.col-level .form-group").click(function(){  
        jQuery(this).toggleClass('minus'); 
        jQuery(this).parent().parent().siblings().find('.col-sub').hide();                        
@@ -18,6 +19,16 @@ jQuery(document).ready(function() {
       jQuery(this).parent().parent().siblings().find('.col-sub').hide();                                
       jQuery(this).parent().children('.col-sub').slideToggle('slow');            
 });
+jQuery("li.has-sub").removeClass('minus');  
+jQuery(".sitelist .sitemap-list li ul .sitemap-list li a").click(function(){
+      jQuery(this).parent().toggleClass('minus');                  
+       jQuery(this).parent().parent().siblings().find('ul').hide();       
+       jQuery(this).parent().parent().parent().parent().parent().siblings().find('li.has-sub ul').hide();
+      jQuery(this).parent().parent().siblings().find('.minus').removeClass('minus');                                                        
+      jQuery(this).parent().parent().parent().parent().parent().siblings().find('.minus').removeClass('minus');                                                        
+      jQuery(this).parent().children('ul').slideToggle('slow');            
+});  
+
 
 if (jQuery(window).innerWidth() <= 770) {
 jQuery(".left-category-div h2").click(function(){  

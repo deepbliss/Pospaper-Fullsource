@@ -1,1 +1,0 @@
-/chroot/home/pospaper/pospaper.com/html/vendor/magento/module-payment/view/frontend/web/js/view/payment/iframe.js

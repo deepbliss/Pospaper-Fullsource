@@ -534,7 +534,13 @@ class Rule extends \Magento\Rule\Model\AbstractModel implements RuleInterface, I
      */
     public function reindex()
     {
-        $this->_ruleProductProcessor->reindexList($this->_productIds);
+        $productIds = $this->_productIds ? array_keys(array_filter($this->_productIds, function (array $data) {
+            return array_filter($data);
+        })) : [];
+
+        if (!empty($productIds)) {
+            $this->_ruleProductProcessor->reindexList($productIds);
+        }
     }
 
     /**

@@ -3,10 +3,20 @@
     <referenceBlock name="head.additional">
         <block template="Nextopia_Search::frontend/head.phtml"
                class="Magento\Framework\View\Element\Template"
-               name="nextopia.search.nsearch.head">
+               name="nextopia.search.nsearch.head"
+               after="-">
             <arguments>
                 <argument name="is_search_page" xsi:type="boolean">false</argument>
             </arguments>
         </block>
     </referenceBlock>
+    <!-- Those blocks need to be moved from content(.column.main) to somewhere because they contain all functionalities of 'Cutomer data' -->
+    <move element="formkey" destination="head.additional" />
+    <move element="customer.section.config" destination="head.additional" />
+    <move element="customer.customer.data" destination="head.additional" />
+    <move element="customer.data.invalidation.rules" destination="head.additional" />
+    <move element="catalogsearch.product.addto" destination="head.additional" />
+    <move element="banner.data" destination="head.additional" />
+    <move element="authentication-popup" destination="head.additional" />
+    <move element="product.tooltip" destination="head.additional" />
 </page>

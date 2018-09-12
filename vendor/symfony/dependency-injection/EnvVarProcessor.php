@@ -36,7 +36,6 @@ class EnvVarProcessor implements EnvVarProcessorInterface
             'base64' => 'string',
             'bool' => 'bool',
             'const' => 'bool|int|float|string|array',
-            'csv' => 'array',
             'file' => 'string',
             'float' => 'float',
             'int' => 'int',
@@ -129,8 +128,8 @@ class EnvVarProcessor implements EnvVarProcessorInterface
                 throw new RuntimeException(sprintf('Invalid JSON in env var "%s": '.json_last_error_msg(), $name));
             }
 
-            if (null !== $env && !\is_array($env)) {
-                throw new RuntimeException(sprintf('Invalid JSON env var "%s": array or null expected, %s given.', $name, \gettype($env)));
+            if (!\is_array($env)) {
+                throw new RuntimeException(sprintf('Invalid JSON env var "%s": array expected, %s given.', $name, \gettype($env)));
             }
 
             return $env;
@@ -148,10 +147,6 @@ class EnvVarProcessor implements EnvVarProcessorInterface
 
                 return $value;
             }, $env);
-        }
-
-        if ('csv' === $prefix) {
-            return str_getcsv($env);
         }
 
         throw new RuntimeException(sprintf('Unsupported env var prefix "%s".', $prefix));

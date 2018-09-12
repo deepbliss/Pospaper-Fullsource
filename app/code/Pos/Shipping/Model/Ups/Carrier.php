@@ -350,7 +350,7 @@ class Carrier extends \Magento\Ups\Model\Carrier
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response  = curl_exec($ch);
         $object = json_decode($response,true);
-        if(is_array($object) && isset($object['distances'])) {
+        if(is_array($object) && isset($object['distances']) && count($object['distances']) > 0) {
             $zip = array_search(min($object['distances']),$object['distances']);
         }
 

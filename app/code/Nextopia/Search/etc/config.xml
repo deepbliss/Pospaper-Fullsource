@@ -9,11 +9,7 @@
     <default>
         <nextopia_search>
             <general>
-                <selected_layout>2columns-left</selected_layout>
                 <default_content>&lt;img src="/skin/frontend/base/default/images/ajax-loader-c.gif" /&gt;</default_content>
-                <ajax_version>nxt-app</ajax_version>
-                <content_div_id>nxt-content</content_div_id>
-                <refinement_div_id>nxt-refine</refinement_div_id>
                 <label_search_result_page>Search results for</label_search_result_page>
             </general>
         </nextopia_search>

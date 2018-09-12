@@ -1,4 +1,3 @@
-
 define([
     'jquery',
     'mage/utils/wrapper',
@@ -13,9 +12,7 @@ define([
 ], function ($, wrapper, quote, urlBuilder, storage, url, errorProcessor, customer, fullScreenLoader, amazonStorage) {
     'use strict';
 
-    function amazonOriginalAction(paymentData, redirectOnSuccess, messageContainer, amastyCheckoutData)
-    {
-
+    function amazonOriginalAction(paymentData, redirectOnSuccess, messageContainer, amastyCheckoutData) {
         var serviceUrl,
             payload,
             agreements = [],
@@ -45,14 +42,13 @@ define([
 
         payload.amcheckout = amastyCheckoutData;
 
-        amastyCheckoutData.forEach(function (item) {
-            data[item.name] = item.value;
+        Object.keys(amastyCheckoutData).forEach(function (item) {
             if (re.test(item.name)) {
                 agreements.push(item.value);
             }
         });
 
-        if (agreements.length) {
+        if (agreements.length && payload.paymentMethod) {
             var extensionAttribute = payload.paymentMethod.extension_attributes;
             if (extensionAttribute.hasOwnProperty('agreement_ids')) {
                 extensionAttribute.agreement_ids = agreements;

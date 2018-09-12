@@ -36,7 +36,7 @@ class ReplaceAliasByActualDefinitionPass extends AbstractRecursivePass
         $seenAliasTargets = array();
         $replacements = array();
         foreach ($container->getAliases() as $definitionId => $target) {
-            $targetId = (string) $target;
+            $targetId = $container->normalizeId($target);
             // Special case: leave this target alone
             if ('service_container' === $targetId) {
                 continue;
@@ -56,7 +56,7 @@ class ReplaceAliasByActualDefinitionPass extends AbstractRecursivePass
             } catch (InvalidArgumentException $e) {
                 throw new InvalidArgumentException(sprintf('Unable to replace alias "%s" with actual definition "%s".', $definitionId, $targetId), null, $e);
             }
-            if ($definition->isPublic()) {
+            if ($definition->isPublic() || $definition->isPrivate()) {
                 continue;
             }
             // Remove private definition and schedule for replacement
@@ -77,7 +77,7 @@ class ReplaceAliasByActualDefinitionPass extends AbstractRecursivePass
      */
     protected function processValue($value, $isRoot = false)
     {
-        if ($value instanceof Reference && isset($this->replacements[$referenceId = (string) $value])) {
+        if ($value instanceof Reference && isset($this->replacements[$referenceId = $this->container->normalizeId($value)])) {
             // Perform the replacement
             $newId = $this->replacements[$referenceId];
             $value = new Reference($newId, $value->getInvalidBehavior());

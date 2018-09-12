@@ -1,0 +1,1 @@
+/chroot/home/pospaper/pospaper.com/html/vendor/amzn/amazon-pay-and-login-magento-2-module/src/Login/view/frontend/web/js/amazon-csrf.js

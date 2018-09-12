@@ -17,6 +17,19 @@ class Interceptor extends \Magento\Sales\Model\Order\ShippingBuilder implements 
     /**
      * {@inheritdoc}
      */
+    public function setOrderId($orderId)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'setOrderId');
+        if (!$pluginInfo) {
+            return parent::setOrderId($orderId);
+        } else {
+            return $this->___callPlugins('setOrderId', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function create()
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'create');

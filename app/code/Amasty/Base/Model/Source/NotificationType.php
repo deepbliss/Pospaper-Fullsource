@@ -12,15 +12,16 @@ class NotificationType implements \Magento\Framework\Option\ArrayInterface
 {
     const GENERAL = 'INFO';
     const SPECIAL_DEALS = 'PROMO';
-    const AVAILABLE_UPDATE = 'NEW_RELEASE/INSTALLED_UPDATE';
+    const AVAILABLE_UPDATE = 'INSTALLED_UPDATE';
     const UNSUBSCRIBE_ALL = 'UNSUBSCRIBE_ALL';
+    const TIPS_TRICKS = 'TIPS_TRICKS';
 
     public function toOptionArray()
     {
         $types = [
             [
                 'value' => self::GENERAL,
-                'label' => __('General')
+                'label' => __('General Info')
             ],
             [
                 'value' => self::SPECIAL_DEALS,
@@ -29,6 +30,10 @@ class NotificationType implements \Magento\Framework\Option\ArrayInterface
             [
                 'value' => self::AVAILABLE_UPDATE,
                 'label' => __('Available Updates')
+            ],
+            [
+                'value' => self::TIPS_TRICKS,
+                'label' => __('Magento Tips & Tricks')
             ],
             [
                 'value' => self::UNSUBSCRIBE_ALL,

@@ -11,14 +11,19 @@
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
 
+/**
+ * @method $this class(string $class)
+ */
 trait ClassTrait
 {
     /**
      * Sets the service class.
      *
+     * @param string $class The service class
+     *
      * @return $this
      */
-    final public function class($class)
+    final protected function setClass($class)
     {
         $this->definition->setClass($class);
 

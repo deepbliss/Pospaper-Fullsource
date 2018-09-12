@@ -7,6 +7,7 @@ use \Magento\Framework\App\Action\Context;
 use \Magento\Framework\View\Result\PageFactory;
 use \Nextopia\Search\Helper\Data as NsearchHelperData;
 use Magento\Framework\App\Request\Http;
+use Magento\Framework\App\ObjectManager;
 
 class Index extends Action {
 
@@ -58,7 +59,11 @@ class Index extends Action {
                 $this->_request->__get('PHP_AUTH_PW') === $sAuthPassword)
         ) {
 
-            $fileName = dirname(__FILE__) . "/../../nextopia-export-$storeId.csv";
+            $om = ObjectManager::getInstance();
+            $oDir = $om->get('Magento\Framework\App\Filesystem\DirectoryList');
+            $baseDir = $oDir->getRoot();
+            $varDir = $oDir->getPath($oDir::VAR_DIR);
+            $fileName = $varDir . "/nextopia-exporter-files/nextopia-export-$storeId.csv";
 
             if (!file_exists($fileName)) {
                 $this->_response->setHttpResponseCode(404)

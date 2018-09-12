@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2018 MageModule, LLC: All rights reserved
+  ~
+  ~ LICENSE: This source file is subject to our standard End User License
+  ~ Agreeement (EULA) that is available through the world-wide-web at the
+  ~ following URI: http://www.magemodule.com/magento2-ext-license.html.
+  ~
+  ~ If you did not receive a copy of the EULA and are unable to obtain it through
+  ~ the web, please send a note to admin@magemodule.com so that we can mail
+  ~ you a copy immediately.
+  ~
+  ~ @author       MageModule, LLC admin@magemodule.com
+  ~ @copyright   2018 MageModule, LLC
+  ~ @license       http://www.magemodule.com/magento2-ext-license.html
+  ~
+  -->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="MageModule\OrderImportExport\Block\Adminhtml\Actions" name="actions"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Magento\Backend\Block\Widget\Tabs" name="import_export_tabs">
+                <action method="setId">
+                    <argument name="id" xsi:type="string">import_export_tabs</argument>
+                </action>
+                <action method="setDestElementId">
+                    <argument name="id" xsi:type="string">actions_form_placeholder</argument>
+                </action>
+                <action method="setTitle">
+                    <argument name="title" xsi:type="string"><![CDATA[Actions]]></argument>
+                </action>
+                <block class="MageModule\Core\Block\Adminhtml\Backend\Widget\Tab" name="import_tab" template="MageModule_Core::widget/tab/content.phtml">
+                    <action method="setTitle">
+                        <argument name="title" xsi:type="string"><![CDATA[Import]]></argument>
+                    </action>
+                    <action method="setLabel">
+                        <argument name="label" xsi:type="string"><![CDATA[Import]]></argument>
+                    </action>
+                    <action method="setAclResources">
+                        <argument name="resources" xsi:type="string">MageModule_OrderImportExport::import</argument>
+                    </action>
+                    <block class="MageModule\OrderImportExport\Block\Adminhtml\Actions\Import\Form" name="import_form" cacheable="false"/>
+                </block>
+                <block class="MageModule\Core\Block\Adminhtml\Backend\Widget\Tab" name="export_tab" template="MageModule_Core::widget/tab/content.phtml">
+                    <action method="setTitle">
+                        <argument name="title" xsi:type="string"><![CDATA[Export]]></argument>
+                    </action>
+                    <action method="setLabel">
+                        <argument name="label" xsi:type="string"><![CDATA[Export]]></argument>
+                    </action>
+                    <action method="setAclResources">
+                        <argument name="resources" xsi:type="string">MageModule_OrderImportExport::export</argument>
+                    </action>
+                    <block class="MageModule\OrderImportExport\Block\Adminhtml\Actions\Export\Form" name="export_form" cacheable="false"/>
+                </block>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">import_tab</argument>
+                    <argument name="block" xsi:type="string">import_tab</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">export_tab</argument>
+                    <argument name="block" xsi:type="string">export_tab</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

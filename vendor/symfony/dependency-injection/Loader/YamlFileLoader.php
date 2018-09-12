@@ -22,7 +22,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 use Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\Yaml\Exception\ParseException;
@@ -58,6 +57,7 @@ class YamlFileLoader extends FileLoader
         'decoration_inner_name' => 'decoration_inner_name',
         'decoration_priority' => 'decoration_priority',
         'autowire' => 'autowire',
+        'autowiring_types' => 'autowiring_types',
         'autoconfigure' => 'autoconfigure',
         'bind' => 'bind',
     );
@@ -167,7 +167,13 @@ class YamlFileLoader extends FileLoader
         return \in_array($type, array('yaml', 'yml'), true);
     }
 
-    private function parseImports(array $content, string $file)
+    /**
+     * Parses all imports.
+     *
+     * @param array  $content
+     * @param string $file
+     */
+    private function parseImports(array $content, $file)
     {
         if (!isset($content['imports'])) {
             return;
@@ -191,7 +197,13 @@ class YamlFileLoader extends FileLoader
         }
     }
 
-    private function parseDefinitions(array $content, string $file)
+    /**
+     * Parses definitions.
+     *
+     * @param array  $content
+     * @param string $file
+     */
+    private function parseDefinitions(array $content, $file)
     {
         if (!isset($content['services'])) {
             return;
@@ -229,9 +241,14 @@ class YamlFileLoader extends FileLoader
     }
 
     /**
+     * @param array  $content
+     * @param string $file
+     *
+     * @return array
+     *
      * @throws InvalidArgumentException
      */
-    private function parseDefaults(array &$content, string $file): array
+    private function parseDefaults(array &$content, $file)
     {
         if (!array_key_exists('_defaults', $content['services'])) {
             return array();
@@ -288,7 +305,12 @@ class YamlFileLoader extends FileLoader
         return $defaults;
     }
 
-    private function isUsingShortSyntax(array $service): bool
+    /**
+     * @param array $service
+     *
+     * @return bool
+     */
+    private function isUsingShortSyntax(array $service)
     {
         foreach ($service as $key => $value) {
             if (\is_string($key) && ('' === $key || '$' !== $key[0])) {
@@ -312,9 +334,8 @@ class YamlFileLoader extends FileLoader
     private function parseDefinition($id, $service, $file, array $defaults)
     {
         if (preg_match('/^_[a-zA-Z0-9_]*$/', $id)) {
-            throw new InvalidArgumentException(sprintf('Service names that start with an underscore are reserved. Rename the "%s" service or define it in XML instead.', $id));
+            @trigger_error(sprintf('Service names that start with an underscore are deprecated since Symfony 3.3 and will be reserved in 4.0. Rename the "%s" service or define it in XML instead.', $id), E_USER_DEPRECATED);
         }
-
         if (\is_string($service) && 0 === strpos($service, '@')) {
             $this->container->setAlias($id, $alias = new Alias(substr($service, 1)));
             if (isset($defaults['public'])) {
@@ -348,7 +369,7 @@ class YamlFileLoader extends FileLoader
 
             foreach ($service as $key => $value) {
                 if (!\in_array($key, array('alias', 'public'))) {
-                    throw new InvalidArgumentException(sprintf('The configuration key "%s" is unsupported for the service "%s" which is defined as an alias in "%s". Allowed configuration keys for service aliases are "alias" and "public".', $key, $id, $file));
+                    @trigger_error(sprintf('The configuration key "%s" is unsupported for the service "%s" which is defined as an alias in "%s". Allowed configuration keys for service aliases are "alias" and "public". The YamlFileLoader will raise an exception in Symfony 4.0, instead of silently ignoring unsupported attributes.', $key, $id, $file), E_USER_DEPRECATED);
                 }
             }
 
@@ -509,6 +530,24 @@ class YamlFileLoader extends FileLoader
             $definition->setAutowired($service['autowire']);
         }
 
+        if (isset($service['autowiring_types'])) {
+            if (\is_string($service['autowiring_types'])) {
+                $definition->addAutowiringType($service['autowiring_types']);
+            } else {
+                if (!\is_array($service['autowiring_types'])) {
+                    throw new InvalidArgumentException(sprintf('Parameter "autowiring_types" must be a string or an array for service "%s" in %s. Check your YAML syntax.', $id, $file));
+                }
+
+                foreach ($service['autowiring_types'] as $autowiringType) {
+                    if (!\is_string($autowiringType)) {
+                        throw new InvalidArgumentException(sprintf('A "autowiring_types" attribute must be of type string for service "%s" in %s. Check your YAML syntax.', $id, $file));
+                    }
+
+                    $definition->addAutowiringType($autowiringType);
+                }
+            }
+        }
+
         if (isset($defaults['bind']) || isset($service['bind'])) {
             // deep clone, to avoid multiple process of the same instance in the passes
             $bindings = isset($defaults['bind']) ? unserialize(serialize($defaults['bind'])) : array();
@@ -618,10 +657,18 @@ class YamlFileLoader extends FileLoader
             $this->yamlParser = new YamlParser();
         }
 
+        $prevErrorHandler = set_error_handler(function ($level, $message, $script, $line) use ($file, &$prevErrorHandler) {
+            $message = E_USER_DEPRECATED === $level ? preg_replace('/ on line \d+/', ' in "'.$file.'"$0', $message) : $message;
+
+            return $prevErrorHandler ? $prevErrorHandler($level, $message, $script, $line) : false;
+        });
+
         try {
             $configuration = $this->yamlParser->parseFile($file, Yaml::PARSE_CONSTANT | Yaml::PARSE_CUSTOM_TAGS);
         } catch (ParseException $e) {
             throw new InvalidArgumentException(sprintf('The file "%s" does not contain valid YAML.', $file), 0, $e);
+        } finally {
+            restore_error_handler();
         }
 
         return $this->validate($configuration, $file);
@@ -653,7 +700,7 @@ class YamlFileLoader extends FileLoader
             }
 
             if (!$this->container->hasExtension($namespace)) {
-                $extensionNamespaces = array_filter(array_map(function (ExtensionInterface $ext) { return $ext->getAlias(); }, $this->container->getExtensions()));
+                $extensionNamespaces = array_filter(array_map(function ($ext) { return $ext->getAlias(); }, $this->container->getExtensions()));
                 throw new InvalidArgumentException(sprintf(
                     'There is no extension able to load the configuration for "%s" (in %s). Looked for namespace "%s", found %s',
                     $namespace,
@@ -708,7 +755,7 @@ class YamlFileLoader extends FileLoader
                 $instanceof = $this->instanceof;
                 $this->instanceof = array();
 
-                $id = sprintf('.%d_%s', ++$this->anonymousServicesCount, preg_replace('/^.*\\\\/', '', isset($argument['class']) ? $argument['class'] : '').$this->anonymousServicesSuffix);
+                $id = sprintf('%d_%s', ++$this->anonymousServicesCount, preg_replace('/^.*\\\\/', '', isset($argument['class']) ? $argument['class'] : '').$this->anonymousServicesSuffix);
                 $this->parseDefinition($id, $argument, $file, array());
 
                 if (!$this->container->hasDefinition($id)) {
@@ -751,6 +798,11 @@ class YamlFileLoader extends FileLoader
                 $invalidBehavior = ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
             }
 
+            if ('=' === substr($value, -1)) {
+                @trigger_error(sprintf('The "=" suffix that used to disable strict references in Symfony 2.x is deprecated since Symfony 3.3 and will be unsupported in 4.0. Remove it in "%s".', $value), E_USER_DEPRECATED);
+                $value = substr($value, 0, -1);
+            }
+
             if (null !== $invalidBehavior) {
                 $value = new Reference($value, $invalidBehavior);
             }
@@ -786,7 +838,7 @@ class YamlFileLoader extends FileLoader
      */
     private function checkDefinition($id, array $definition, $file)
     {
-        if ($this->isLoadingInstanceof) {
+        if ($throw = $this->isLoadingInstanceof) {
             $keywords = self::$instanceofKeywords;
         } elseif ($throw = (isset($definition['resource']) || isset($definition['namespace']))) {
             $keywords = self::$prototypeKeywords;
@@ -796,7 +848,11 @@ class YamlFileLoader extends FileLoader
 
         foreach ($definition as $key => $value) {
             if (!isset($keywords[$key])) {
-                throw new InvalidArgumentException(sprintf('The configuration key "%s" is unsupported for definition "%s" in "%s". Allowed configuration keys are "%s".', $key, $id, $file, implode('", "', $keywords)));
+                if ($throw) {
+                    throw new InvalidArgumentException(sprintf('The configuration key "%s" is unsupported for definition "%s" in "%s". Allowed configuration keys are "%s".', $key, $id, $file, implode('", "', $keywords)));
+                }
+
+                @trigger_error(sprintf('The configuration key "%s" is unsupported for service definition "%s" in "%s". Allowed configuration keys are "%s". The YamlFileLoader object will raise an exception instead in Symfony 4.0 when detecting an unsupported service configuration key.', $key, $id, $file, implode('", "', $keywords)), E_USER_DEPRECATED);
             }
         }
     }

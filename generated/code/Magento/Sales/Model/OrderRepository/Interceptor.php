@@ -8,10 +8,10 @@ class Interceptor extends \Magento\Sales\Model\OrderRepository implements \Magen
 {
     use \Magento\Framework\Interception\Interceptor;
 
-    public function __construct(\Magento\Sales\Model\ResourceModel\Metadata $metadata, \Magento\Sales\Api\Data\OrderSearchResultInterfaceFactory $searchResultFactory, \Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface $collectionProcessor = null, \Magento\Sales\Api\Data\OrderExtensionFactory $orderExtensionFactory = null)
+    public function __construct(\Magento\Sales\Model\ResourceModel\Metadata $metadata, \Magento\Sales\Api\Data\OrderSearchResultInterfaceFactory $searchResultFactory, \Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface $collectionProcessor = null, \Magento\Sales\Api\Data\OrderExtensionFactory $orderExtensionFactory = null, \Magento\Framework\Api\ExtensionAttribute\JoinProcessorInterface $extensionAttributesJoinProcessor = null)
     {
         $this->___init();
-        parent::__construct($metadata, $searchResultFactory, $collectionProcessor, $orderExtensionFactory);
+        parent::__construct($metadata, $searchResultFactory, $collectionProcessor, $orderExtensionFactory, $extensionAttributesJoinProcessor);
     }
 
     /**
@@ -37,6 +37,32 @@ class Interceptor extends \Magento\Sales\Model\OrderRepository implements \Magen
             return parent::getList($searchCriteria);
         } else {
             return $this->___callPlugins('getList', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function delete(\Magento\Sales\Api\Data\OrderInterface $entity)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'delete');
+        if (!$pluginInfo) {
+            return parent::delete($entity);
+        } else {
+            return $this->___callPlugins('delete', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function deleteById($id)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'deleteById');
+        if (!$pluginInfo) {
+            return parent::deleteById($id);
+        } else {
+            return $this->___callPlugins('deleteById', func_get_args(), $pluginInfo);
         }
     }
 

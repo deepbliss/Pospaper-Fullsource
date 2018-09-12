@@ -54,7 +54,15 @@ class YamlDumper extends Dumper
         return $this->container->resolveEnvPlaceholders($this->addParameters()."\n".$this->addServices());
     }
 
-    private function addService(string $id, Definition $definition): string
+    /**
+     * Adds a service.
+     *
+     * @param string     $id
+     * @param Definition $definition
+     *
+     * @return string
+     */
+    private function addService($id, Definition $definition)
     {
         $code = "    $id:\n";
         if ($class = $definition->getClass()) {
@@ -99,6 +107,14 @@ class YamlDumper extends Dumper
 
         if ($definition->isAutowired()) {
             $code .= "        autowire: true\n";
+        }
+
+        $autowiringTypesCode = '';
+        foreach ($definition->getAutowiringTypes(false) as $autowiringType) {
+            $autowiringTypesCode .= sprintf("            - %s\n", $this->dumper->dump($autowiringType));
+        }
+        if ($autowiringTypesCode) {
+            $code .= sprintf("        autowiring_types:\n%s", $autowiringTypesCode);
         }
 
         if ($definition->isAutoconfigured()) {
@@ -151,7 +167,15 @@ class YamlDumper extends Dumper
         return $code;
     }
 
-    private function addServiceAlias(string $alias, Alias $id): string
+    /**
+     * Adds a service alias.
+     *
+     * @param string $alias
+     * @param Alias  $id
+     *
+     * @return string
+     */
+    private function addServiceAlias($alias, Alias $id)
     {
         if ($id->isPrivate()) {
             return sprintf("    %s: '@%s'\n", $alias, $id);
@@ -160,7 +184,12 @@ class YamlDumper extends Dumper
         return sprintf("    %s:\n        alias: %s\n        public: %s\n", $alias, $id, $id->isPublic() ? 'true' : 'false');
     }
 
-    private function addServices(): string
+    /**
+     * Adds services.
+     *
+     * @return string
+     */
+    private function addServices()
     {
         if (!$this->container->getDefinitions()) {
             return '';
@@ -182,7 +211,12 @@ class YamlDumper extends Dumper
         return $code;
     }
 
-    private function addParameters(): string
+    /**
+     * Adds parameters.
+     *
+     * @return string
+     */
+    private function addParameters()
     {
         if (!$this->container->getParameterBag()->all()) {
             return '';
@@ -262,11 +296,18 @@ class YamlDumper extends Dumper
         return $value;
     }
 
-    private function getServiceCall(string $id, Reference $reference = null): string
+    /**
+     * Gets the service call.
+     *
+     * @param string    $id
+     * @param Reference $reference
+     *
+     * @return string
+     */
+    private function getServiceCall($id, Reference $reference = null)
     {
         if (null !== $reference) {
             switch ($reference->getInvalidBehavior()) {
-                case ContainerInterface::RUNTIME_EXCEPTION_ON_INVALID_REFERENCE: break;
                 case ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE: break;
                 case ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE: return sprintf('@!%s', $id);
                 default: return sprintf('@?%s', $id);
@@ -276,7 +317,14 @@ class YamlDumper extends Dumper
         return sprintf('@%s', $id);
     }
 
-    private function getParameterCall(string $id): string
+    /**
+     * Gets parameter call.
+     *
+     * @param string $id
+     *
+     * @return string
+     */
+    private function getParameterCall($id)
     {
         return sprintf('%%%s%%', $id);
     }
@@ -286,7 +334,15 @@ class YamlDumper extends Dumper
         return sprintf('@=%s', $expression);
     }
 
-    private function prepareParameters(array $parameters, bool $escape = true): array
+    /**
+     * Prepares parameters.
+     *
+     * @param array $parameters
+     * @param bool  $escape
+     *
+     * @return array
+     */
+    private function prepareParameters(array $parameters, $escape = true)
     {
         $filtered = array();
         foreach ($parameters as $key => $value) {
@@ -302,7 +358,12 @@ class YamlDumper extends Dumper
         return $escape ? $this->escape($filtered) : $filtered;
     }
 
-    private function escape(array $arguments): array
+    /**
+     * Escapes arguments.
+     *
+     * @return array
+     */
+    private function escape(array $arguments)
     {
         $args = array();
         foreach ($arguments as $k => $v) {

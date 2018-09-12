@@ -4,7 +4,9 @@
  * See COPYING.txt for license details.
  */
 namespace Magento\Payment\Gateway\ErrorMapper;
+
 use Magento\Framework\Config\Data\Scoped;
+
 /**
  * Extends Scoped class to override `_scopePriorityScheme` property.
  * It allows to load and merge config files from `global` scope and current scope to a single structure.

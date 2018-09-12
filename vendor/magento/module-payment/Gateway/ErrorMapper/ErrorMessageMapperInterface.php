@@ -4,7 +4,9 @@
  * See COPYING.txt for license details.
  */
 namespace Magento\Payment\Gateway\ErrorMapper;
+
 use Magento\Framework\Phrase;
+
 /**
  * Interface to provide customization for payment validation errors.
  */

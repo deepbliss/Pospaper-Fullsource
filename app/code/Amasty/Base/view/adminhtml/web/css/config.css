@@ -53,3 +53,20 @@ tr[id*="amasty_not_instaled"] .value{
 tr[id*="amasty_is_instaled"] .value{
     color: #00f702;
 }
+
+.ambase-unsubscribe .message-success:before {
+    display: none;
+}
+
+.ambase-unsubscribe img {
+    margin-right: 10px;
+    max-width: 20px;
+}
+
+.ambase-unsubscribe .message-success {
+    padding: 1.8rem 4rem 1.8rem 2rem;
+}
+
+.ambase-unsubscribe .message-success span {
+    vertical-align: top;
+}

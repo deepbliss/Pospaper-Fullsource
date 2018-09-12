@@ -1,1 +1,0 @@
-/chroot/home/pospaper/pospaper.com/html/vendor/magento/module-authorizenet/view/frontend/web/js/view/payment/method-renderer/authorizenet-directpost.js

@@ -19,10 +19,16 @@
             <group id="notifications" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="0"
                    showInStore="0">
                 <label>Notifications</label>
-                <field id="type" translate="label comment" type="multiselect" sortOrder="10" showInDefault="1"
+                <field id="frequency" translate="label" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Update Frequency</label>
+                    <source_model>Amasty\Base\Model\Source\Frequency</source_model>
+                </field>
+                <field id="type" translate="label" type="multiselect" sortOrder="20" showInDefault="1"
                        showInWebsite="1" showInStore="1">
                     <label>I want to Receive Notifications about:</label>
                     <source_model>Amasty\Base\Model\Source\NotificationType</source_model>
+                    <backend_model>Amasty\Base\Model\Config\Backend\Unsubscribe</backend_model>
                 </field>
             </group>
 

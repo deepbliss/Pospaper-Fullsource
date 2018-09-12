@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2018 MageModule, LLC: All rights reserved
+  ~
+  ~ LICENSE: This source file is subject to our standard End User License
+  ~ Agreeement (EULA) that is available through the world-wide-web at the
+  ~ following URI: http://www.magemodule.com/magento2-ext-license.html.
+  ~
+  ~ If you did not receive a copy of the EULA and are unable to obtain it through
+  ~ the web, please send a note to admin@magemodule.com so that we can mail
+  ~ you a copy immediately.
+  ~
+  ~ @author       MageModule, LLC admin@magemodule.com
+  ~ @copyright   2018 MageModule, LLC
+  ~ @license       http://www.magemodule.com/magento2-ext-license.html
+  ~
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <orderimportexport>
+            <settings>
+                <export><![CDATA[a:4:{s:4:"from";s:0:"";s:2:"to";s:0:"";s:9:"delimiter";s:1:",";s:9:"enclosure";s:1:""";}]]></export>
+                <import><![CDATA[a:7:{s:9:"delimiter";s:1:",";s:9:"enclosure";s:1:""";s:19:"import_order_number";i:1;s:14:"create_invoice";i:0;s:15:"create_shipment";i:0;s:18:"create_credit_memo";i:0;s:11:"error_limit";i:5;}]]></import>
+            </settings>
+        </orderimportexport>
+    </default>
+</config>

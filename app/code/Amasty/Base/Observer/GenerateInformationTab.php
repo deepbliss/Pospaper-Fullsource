@@ -107,10 +107,11 @@ class GenerateInformationTab implements ObserverInterface
         $content = $this->getBlock()->getAdditionalModuleContent();
         if ($content) {
             if (!is_array($content)) {
-                $content = [];
-                $content[] = [
-                    'type' => 'success',
-                    'text' => $content
+                $content = [
+                    [
+                        'type' => 'success',
+                        'text' => $content
+                    ]
                 ];
             }
 
@@ -243,7 +244,10 @@ class GenerateInformationTab implements ObserverInterface
         $result = true;
 
         $module = $this->getFeedModuleData();
-        if ($module && isset($module['version']) && $module['version'] > (string)$currentVer) {
+        if ($module
+            && isset($module['version'])
+            && version_compare($module['version'], (string)$currentVer, '>')
+        ) {
             $result = false;
         }
 

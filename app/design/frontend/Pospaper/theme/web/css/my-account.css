@@ -39,11 +39,11 @@
 .account .column.main .block.block-reviews-dashboard,.account .column.main .block.block-dashboard-info,.account .column.main .block.block-dashboard-addresses{float: left; width: 100%;}
 .block.block-dashboard-info .block-content,.block.block-dashboard-addresses .block-content{float: left; width: 100%;}
 
-.block.block-addresses-default .block-content .box{background: #fafafa; padding:10px; min-height:190px; box-sizing: border-box; -webkit- box-sizing: border-box; -moz-box-sizing: border-box; border: 1px solid #ccc;}
-.block.block-dashboard-info .block-content .box{background: #fafafa; padding:10px; min-height:150px; box-sizing: border-box; -webkit- box-sizing: border-box; -moz-box-sizing: border-box; border: 1px solid #ccc;}
+.block.block-addresses-default .block-content .box{background: #fafafa; padding:10px; min-height:190px; box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; border: 1px solid #ccc;}
+.block.block-dashboard-info .block-content .box{background: #fafafa; padding:10px; min-height:150px; box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; border: 1px solid #ccc;}
 .block.block-addresses-list .block-content ol{width: 100%; float: left;}
-.block.block-addresses-list .block-content ol li{background: #fafafa; padding:10px; min-height:167px; box-sizing: border-box; -webkit- box-sizing: border-box; -moz-box-sizing: border-box; border: 1px solid #ccc; width: 50%; float: left;}
-.block.block-dashboard-addresses .block-content .box{background: #fafafa; padding:10px; min-height:200px; box-sizing: border-box; -webkit- box-sizing: border-box; -moz-box-sizing: border-box; border: 1px solid #ccc;}}
+.block.block-addresses-list .block-content ol li{background: #fafafa; padding:10px; min-height:167px; box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; border: 1px solid #ccc; width: 50%; float: left;}
+.block.block-dashboard-addresses .block-content .box{background: #fafafa; padding:10px; min-height:200px; box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; border: 1px solid #ccc;}
 
 .account .column.main .block.block-dashboard-info,.account .column.main .block.block-dashboard-addresses{position: relative;}
 .account .column.main .block.block-dashboard-addresses .block-title .action.edit{position: absolute; right: 0; color:#61499d; right: 0; top: 0;}
@@ -74,6 +74,21 @@ body.account.page-layout-2columns-left .column.main {width: 74.7%;}
 .account input{border-color: #d1d1d1; background: transparent;font-weight: 400;font-size: 16px;color: #929292;padding: 0 15px;box-sizing: border-box;
 -webkit-box-sizing: border-box;-moz-box-sizing: border-box;text-align: left;}
 .customer-account-login .fieldset.login{width: 100%;}
+.customer-account-login .fieldset.login .info-note {
+ color: #856404;
+ background-color: #fff3cd;
+ padding: .75rem 1.25rem;
+ margin-bottom: 1rem;
+ border: 1px solid #ffeeba;
+ line-height: 1.46;
+}
+.customer-account-login .fieldset.login .info-note strong {
+ font-weight: 700;
+}
+.login-container .block-amazon-login {
+ clear: left;
+ margin: 30px 0 0;
+}
 .account .table-wrapper.orders-history .table.table-order-items thead,.account .table-wrapper.orders-recent .table-order-items thead,.account .table.table-reviews thead {background:#f9f8f8;}
 .account .table-wrapper.orders-history .table.table-order-items,.account .table-wrapper.orders-recent .table.table-order-items{border: 1px solid #dbdbdb;}
 .account .table-wrapper.orders-history .table.table-order-items td,.account .table-wrapper.orders-recent .table.table-order-items td{border-bottom: 1px solid #dbdbdb !important; border-right: 1px solid #dbdbdb !important; font-size: 13px;}
@@ -134,7 +149,7 @@ body.account.sales-order-view #my-orders-table span.price{color: #333;}
 .order-details-items .table-order-items{border: 1px solid #dbdbdb !important;}
 .order-details-items .table-order-items thead{background:#f9f8f8;}
 .order-details-items .table-order-items thead th{color: #4a4a4a; font-weight: 600; font-size: 13px;}
-.block-order-details-view .block-content .box{background: #f0f0f0; padding:10px; min-height:150px; box-sizing: border-box; -webkit- box-sizing: border-box; -moz-box-sizing: border-box; 
+.block-order-details-view .block-content .box{background: #f0f0f0; padding:10px; min-height:150px; box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box;
 border: 1px solid #dbdbdb; }
 .block-order-details-view .block-content .box .box-content{font-size: 14px; line-height: 20px;}
 

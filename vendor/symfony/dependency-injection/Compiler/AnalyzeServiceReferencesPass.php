@@ -34,15 +34,17 @@ class AnalyzeServiceReferencesPass extends AbstractRecursivePass implements Repe
     private $graph;
     private $currentDefinition;
     private $onlyConstructorArguments;
+    private $hasProxyDumper;
     private $lazy;
     private $expressionLanguage;
 
     /**
      * @param bool $onlyConstructorArguments Sets this Service Reference pass to ignore method calls
      */
-    public function __construct(bool $onlyConstructorArguments = false)
+    public function __construct($onlyConstructorArguments = false, $hasProxyDumper = true)
     {
-        $this->onlyConstructorArguments = $onlyConstructorArguments;
+        $this->onlyConstructorArguments = (bool) $onlyConstructorArguments;
+        $this->hasProxyDumper = (bool) $hasProxyDumper;
     }
 
     /**
@@ -97,7 +99,7 @@ class AnalyzeServiceReferencesPass extends AbstractRecursivePass implements Repe
                 $targetId,
                 $targetDefinition,
                 $value,
-                $this->lazy || ($targetDefinition && $targetDefinition->isLazy()),
+                $this->lazy || ($this->hasProxyDumper && $targetDefinition && $targetDefinition->isLazy()),
                 ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE === $value->getInvalidBehavior()
             );
 
@@ -127,22 +129,29 @@ class AnalyzeServiceReferencesPass extends AbstractRecursivePass implements Repe
         return $value;
     }
 
-    private function getDefinition(?string $id): ?Definition
+    /**
+     * Returns a service definition given the full name or an alias.
+     *
+     * @param string $id A full id or alias for a service definition
+     *
+     * @return Definition|null The definition related to the supplied id
+     */
+    private function getDefinition($id)
     {
         return null === $id ? null : $this->container->getDefinition($id);
     }
 
-    private function getDefinitionId(string $id): ?string
+    private function getDefinitionId($id)
     {
         while ($this->container->hasAlias($id)) {
             $id = (string) $this->container->getAlias($id);
         }
 
         if (!$this->container->hasDefinition($id)) {
-            return null;
+            return;
         }
 
-        return $id;
+        return $this->container->normalizeId($id);
     }
 
     private function getExpressionLanguage()

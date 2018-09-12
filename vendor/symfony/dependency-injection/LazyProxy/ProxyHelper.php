@@ -24,15 +24,23 @@ class ProxyHelper
     public static function getTypeHint(\ReflectionFunctionAbstract $r, \ReflectionParameter $p = null, $noBuiltin = false)
     {
         if ($p instanceof \ReflectionParameter) {
-            $type = $p->getType();
+            if (method_exists($p, 'getType')) {
+                $type = $p->getType();
+            } elseif (preg_match('/^(?:[^ ]++ ){4}([a-zA-Z_\x7F-\xFF][^ ]++)/', $p, $type)) {
+                $name = $type = $type[1];
+
+                if ('callable' === $name || 'array' === $name) {
+                    return $noBuiltin ? null : $name;
+                }
+            }
         } else {
-            $type = $r->getReturnType();
+            $type = method_exists($r, 'getReturnType') ? $r->getReturnType() : null;
         }
         if (!$type) {
             return;
         }
         if (!\is_string($type)) {
-            $name = $type->getName();
+            $name = $type instanceof \ReflectionNamedType ? $type->getName() : $type->__toString();
 
             if ($type->isBuiltin()) {
                 return $noBuiltin ? null : $name;

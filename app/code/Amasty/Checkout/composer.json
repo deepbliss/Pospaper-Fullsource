@@ -7,7 +7,7 @@
         "amasty/geoip": "*"
     },
     "type": "magento2-module",
-    "version": "1.8.6",
+    "version": "1.8.9",
     "license": [
         "Commercial"
     ],

@@ -54,7 +54,7 @@ class Cryptographer
     {
         if (!is_string($source)) {
             try {
-                $source = $source;
+                $source = (string)$source;
             } catch (\Exception $e) {
                 throw new LocalizedException(__('Input data must be string or convertible into string.'));
             }

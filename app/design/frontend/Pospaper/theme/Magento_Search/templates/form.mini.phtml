@@ -23,8 +23,7 @@ $helper = $this->helper(\Magento\Search\Helper\Data::class);
                     <input id="search"
                            data-mage-init='{"quickSearch":{
                                 "formSelector":"#search_mini_form",
-                                "url":"<?= /* @escapeNotVerified */ $helper->getSuggestUrl()?>",
-                                "destinationSelector":"#search_autocomplete"}
+                                "url":"<?= /* @escapeNotVerified */ $helper->getSuggestUrl()?>"}
                            }'
                            type="text"
                            name="<?= /* @escapeNotVerified */ $helper->getQueryParamName() ?>"

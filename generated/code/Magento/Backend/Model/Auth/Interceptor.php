@@ -17,6 +17,58 @@ class Interceptor extends \Magento\Backend\Model\Auth implements \Magento\Framew
     /**
      * {@inheritdoc}
      */
+    public function setAuthStorage($storage)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'setAuthStorage');
+        if (!$pluginInfo) {
+            return parent::setAuthStorage($storage);
+        } else {
+            return $this->___callPlugins('setAuthStorage', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAuthStorage()
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getAuthStorage');
+        if (!$pluginInfo) {
+            return parent::getAuthStorage();
+        } else {
+            return $this->___callPlugins('getAuthStorage', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getUser()
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getUser');
+        if (!$pluginInfo) {
+            return parent::getUser();
+        } else {
+            return $this->___callPlugins('getUser', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCredentialStorage()
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getCredentialStorage');
+        if (!$pluginInfo) {
+            return parent::getCredentialStorage();
+        } else {
+            return $this->___callPlugins('getCredentialStorage', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function login($username, $password)
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'login');
@@ -37,6 +89,19 @@ class Interceptor extends \Magento\Backend\Model\Auth implements \Magento\Framew
             return parent::logout();
         } else {
             return $this->___callPlugins('logout', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isLoggedIn()
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'isLoggedIn');
+        if (!$pluginInfo) {
+            return parent::isLoggedIn();
+        } else {
+            return $this->___callPlugins('isLoggedIn', func_get_args(), $pluginInfo);
         }
     }
 }

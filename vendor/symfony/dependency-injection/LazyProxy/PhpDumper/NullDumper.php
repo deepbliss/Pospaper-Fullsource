@@ -18,7 +18,7 @@ use Symfony\Component\DependencyInjection\Definition;
  *
  * @author Marco Pivetta <ocramius@gmail.com>
  *
- * @final
+ * @final since version 3.3
  */
 class NullDumper implements DumperInterface
 {

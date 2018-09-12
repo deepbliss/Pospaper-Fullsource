@@ -4,6 +4,11 @@
         <resources>
             <resource id="Magento_Backend::admin">
                 <resource id="Pos_Custommodule::custommodule" title="custommodule" sortOrder="100"/>
+                <resource id="Magento_Catalog::catalog">
+                    <resource id="Pos_Custommodule::pricing_tiers" title="Pricing Tiers" sortOrder="100">
+                        <resource id="Audioadvice_Mods::remove_pricing_tiers" title="Remove Pricing Tiers" sortOrder="10"/>
+                    </resource>
+                </resource>
             </resource>
         </resources>
     </acl>

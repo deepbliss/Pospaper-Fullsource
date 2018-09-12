@@ -16,4 +16,15 @@ interface CartExtensionInterface extends \Magento\Framework\Api\ExtensionAttribu
      * @return $this
      */
     public function setShippingAssignments($shippingAssignments);
+
+    /**
+     * @return string|null
+     */
+    public function getAmazonOrderReferenceId();
+
+    /**
+     * @param string $amazonOrderReferenceId
+     * @return $this
+     */
+    public function setAmazonOrderReferenceId($amazonOrderReferenceId);
 }

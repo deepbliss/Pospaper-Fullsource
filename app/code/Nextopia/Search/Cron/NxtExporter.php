@@ -38,13 +38,18 @@ class NxtExporter {
     private $_csvFileName;
 
     // Initialize the Mage application
-    public function __construct($publicDir, $logger) {
+    public function __construct($publicDir, $logger, $varDir) {
 
         ini_set('max_execution_time', '-1');
         // Make files written by the profile world-writable/readable
         umask(0);
         // Final csv export file
-        $this->_csvFileName = dirname(__FILE__) . "/../nextopia-export-%s.csv";
+        $this->_csvFileName = $varDir . "/nextopia-exporter-files/nextopia-export-%s.csv";
+        $dirname = dirname($this->_csvFileName);
+        
+        if (!is_dir($dirname)) {
+            mkdir($dirname, 0755, true);
+        } 
 
         // Create bootstrap object
         $this->_logger = $logger;
@@ -686,8 +691,8 @@ class NxtExporter {
 
             // Update MultiValue Fields
             $product = $this->updateMultiValueFields($product, $multivalueFields);
-            $product["description"] = str_replace("\n", "", $product["description"]);
-            $product["short_description"] = str_replace("\n", "", $product["short_description"]);
+            $product["description"] = str_replace(array("\n", "\t", "\x0D"), " ", $product["description"]);
+            $product["short_description"] = str_replace(array("\n", "\t", "\x0D"), " ", $product["short_description"]);
 
             // Add currency on prices 
             $product = $this->updatePriceCurrency($product, $currency);
@@ -860,5 +865,4 @@ class NxtExporter {
 
         return $text;
     }
-
 }

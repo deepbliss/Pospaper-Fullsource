@@ -43,7 +43,7 @@ class PhpFileLoader extends FileLoader
 
         $callback = $load($path);
 
-        if (\is_object($callback) && \is_callable($callback)) {
+        if ($callback instanceof \Closure) {
             $callback(new ContainerConfigurator($this->container, $this, $this->instanceof, $path, $resource), $this->container, $this);
         }
     }

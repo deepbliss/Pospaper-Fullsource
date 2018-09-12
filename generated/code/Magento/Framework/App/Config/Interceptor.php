@@ -26,4 +26,43 @@ class Interceptor extends \Magento\Framework\App\Config implements \Magento\Fram
             return $this->___callPlugins('getValue', func_get_args(), $pluginInfo);
         }
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isSetFlag($path, $scope = 'default', $scopeCode = null)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'isSetFlag');
+        if (!$pluginInfo) {
+            return parent::isSetFlag($path, $scope, $scopeCode);
+        } else {
+            return $this->___callPlugins('isSetFlag', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function clean()
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'clean');
+        if (!$pluginInfo) {
+            return parent::clean();
+        } else {
+            return $this->___callPlugins('clean', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function get($configType, $path = '', $default = null)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'get');
+        if (!$pluginInfo) {
+            return parent::get($configType, $path, $default);
+        } else {
+            return $this->___callPlugins('get', func_get_args(), $pluginInfo);
+        }
+    }
 }

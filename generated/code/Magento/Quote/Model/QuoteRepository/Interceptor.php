@@ -17,6 +17,32 @@ class Interceptor extends \Magento\Quote\Model\QuoteRepository implements \Magen
     /**
      * {@inheritdoc}
      */
+    public function get($cartId, array $sharedStoreIds = array())
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'get');
+        if (!$pluginInfo) {
+            return parent::get($cartId, $sharedStoreIds);
+        } else {
+            return $this->___callPlugins('get', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getForCustomer($customerId, array $sharedStoreIds = array())
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getForCustomer');
+        if (!$pluginInfo) {
+            return parent::getForCustomer($customerId, $sharedStoreIds);
+        } else {
+            return $this->___callPlugins('getForCustomer', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getActive($cartId, array $sharedStoreIds = array())
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getActive');
@@ -50,6 +76,32 @@ class Interceptor extends \Magento\Quote\Model\QuoteRepository implements \Magen
             return parent::save($quote);
         } else {
             return $this->___callPlugins('save', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function delete(\Magento\Quote\Api\Data\CartInterface $quote)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'delete');
+        if (!$pluginInfo) {
+            return parent::delete($quote);
+        } else {
+            return $this->___callPlugins('delete', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getList(\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getList');
+        if (!$pluginInfo) {
+            return parent::getList($searchCriteria);
+        } else {
+            return $this->___callPlugins('getList', func_get_args(), $pluginInfo);
         }
     }
 }

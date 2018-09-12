@@ -8,10 +8,10 @@ class Interceptor extends \Magento\Catalog\Model\Indexer\Category\Product\Action
 {
     use \Magento\Framework\Interception\Interceptor;
 
-    public function __construct(\Magento\Framework\App\ResourceConnection $resource, \Magento\Store\Model\StoreManagerInterface $storeManager, \Magento\Catalog\Model\Config $config, \Magento\Framework\DB\Query\Generator $queryGenerator = null, \Magento\Framework\Indexer\BatchSizeManagementInterface $batchSizeManagement = null, \Magento\Framework\Indexer\BatchProviderInterface $batchProvider = null, \Magento\Framework\EntityManager\MetadataPool $metadataPool = null, $batchRowsCount = null, \Magento\Catalog\Model\ResourceModel\Indexer\ActiveTableSwitcher $activeTableSwitcher = null)
+    public function __construct(\Magento\Framework\App\ResourceConnection $resource, \Magento\Store\Model\StoreManagerInterface $storeManager, \Magento\Catalog\Model\Config $config, \Magento\Framework\DB\Query\Generator $queryGenerator = null, \Magento\Framework\Indexer\BatchSizeManagementInterface $batchSizeManagement = null, \Magento\Framework\Indexer\BatchProviderInterface $batchProvider = null, \Magento\Framework\EntityManager\MetadataPool $metadataPool = null, $batchRowsCount = null, \Magento\Catalog\Model\ResourceModel\Indexer\ActiveTableSwitcher $activeTableSwitcher = null, \Magento\Indexer\Model\ProcessManager $processManager = null)
     {
         $this->___init();
-        parent::__construct($resource, $storeManager, $config, $queryGenerator, $batchSizeManagement, $batchProvider, $metadataPool, $batchRowsCount, $activeTableSwitcher);
+        parent::__construct($resource, $storeManager, $config, $queryGenerator, $batchSizeManagement, $batchProvider, $metadataPool, $batchRowsCount, $activeTableSwitcher, $processManager);
     }
 
     /**

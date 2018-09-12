@@ -17,6 +17,19 @@ class Interceptor extends \Magento\Catalog\Helper\Product\Configuration implemen
     /**
      * {@inheritdoc}
      */
+    public function getCustomOptions(\Magento\Catalog\Model\Product\Configuration\Item\ItemInterface $item)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getCustomOptions');
+        if (!$pluginInfo) {
+            return parent::getCustomOptions($item);
+        } else {
+            return $this->___callPlugins('getCustomOptions', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getOptions(\Magento\Catalog\Model\Product\Configuration\Item\ItemInterface $item)
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getOptions');
@@ -24,6 +37,32 @@ class Interceptor extends \Magento\Catalog\Helper\Product\Configuration implemen
             return parent::getOptions($item);
         } else {
             return $this->___callPlugins('getOptions', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getFormattedOptionValue($optionValue, $params = null)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getFormattedOptionValue');
+        if (!$pluginInfo) {
+            return parent::getFormattedOptionValue($optionValue, $params);
+        } else {
+            return $this->___callPlugins('getFormattedOptionValue', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isModuleOutputEnabled($moduleName = null)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'isModuleOutputEnabled');
+        if (!$pluginInfo) {
+            return parent::isModuleOutputEnabled($moduleName);
+        } else {
+            return $this->___callPlugins('isModuleOutputEnabled', func_get_args(), $pluginInfo);
         }
     }
 }

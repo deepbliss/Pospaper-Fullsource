@@ -16,9 +16,11 @@ trait LazyTrait
     /**
      * Sets the lazy flag of this service.
      *
+     * @param bool $lazy
+     *
      * @return $this
      */
-    final public function lazy(bool $lazy = true)
+    final public function lazy($lazy = true)
     {
         $this->definition->setLazy($lazy);
 

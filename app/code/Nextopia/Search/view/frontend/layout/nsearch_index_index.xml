@@ -1,28 +1,14 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-    <body>
-        <referenceContainer name="content">
-            <block class="Nextopia\Search\Block\Main"
-                   name="nextopia.search.nsearch.main"
-                   template="frontend/nsearch/index/index/body.phtml" />
-        </referenceContainer>
-        <referenceContainer name="sidebar.additional">
-            <block template="Nextopia_Search::frontend/nsearch/index/index/refinements.phtml"
-                   class="Magento\Framework\View\Element\Template"
-                   name="nextopia.search.nsearch.refinements"
-                   before="-" />
-        </referenceContainer>
-        <referenceBlock name="catalog.compare.sidebar" remove="true" />
-        <referenceBlock name="wishlist_sidebar" remove="true" />
-        <referenceContainer name="category.view.container" remove="true" />
-    </body>
     <referenceBlock name="head.additional">
         <block template="Nextopia_Search::frontend/head.phtml"
                class="Magento\Framework\View\Element\Template"
-               name="nextopia.search.nsearch.head">
+               name="nextopia.search.nsearch.head"
+               after="-">
             <arguments>
                 <argument name="is_search_page" xsi:type="boolean">true</argument>
             </arguments>
         </block>
     </referenceBlock>
+   
 </page>

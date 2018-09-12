@@ -77,6 +77,14 @@
 .checkout-index-index .opc-wrapper.am-opc-wrapper .discount-code .payment-option-title {
   border: none;
 }
+.checkout-index-index .opc-wrapper.am-opc-wrapper .checkout-agreement {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.checkout-index-index .opc-wrapper.am-opc-wrapper .checkout-agreement .action-show {
+  text-align: left;
+}
 .checkout-index-index .checkout-block {
   margin: 7px 9px 32px;
   padding: 24px 12px;

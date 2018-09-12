@@ -23,4 +23,22 @@ class CartExtension extends \Magento\Framework\Api\AbstractSimpleObject implemen
         $this->setData('shipping_assignments', $shippingAssignments);
         return $this;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getAmazonOrderReferenceId()
+    {
+        return $this->_get('amazon_order_reference_id');
+    }
+
+    /**
+     * @param string $amazonOrderReferenceId
+     * @return $this
+     */
+    public function setAmazonOrderReferenceId($amazonOrderReferenceId)
+    {
+        $this->setData('amazon_order_reference_id', $amazonOrderReferenceId);
+        return $this;
+    }
 }

@@ -26,4 +26,17 @@ class Interceptor extends \Magento\Customer\Model\Authorization\CustomerSessionU
             return $this->___callPlugins('getUserId', func_get_args(), $pluginInfo);
         }
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getUserType()
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getUserType');
+        if (!$pluginInfo) {
+            return parent::getUserType();
+        } else {
+            return $this->___callPlugins('getUserType', func_get_args(), $pluginInfo);
+        }
+    }
 }

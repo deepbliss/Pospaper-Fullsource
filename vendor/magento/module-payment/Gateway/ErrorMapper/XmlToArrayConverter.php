@@ -4,7 +4,9 @@
  * See COPYING.txt for license details.
  */
 namespace Magento\Payment\Gateway\ErrorMapper;
+
 use Magento\Framework\Config\ConverterInterface;
+
 /**
  * Reads xml in `<message code="code">message</message>` format and converts it to [code => message] array format.
  */

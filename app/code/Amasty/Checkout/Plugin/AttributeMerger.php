@@ -134,7 +134,6 @@ class AttributeMerger
         
         $defaultData = $this->getDefaultData();
         $fieldConfig = $this->getFieldConfig();
-        $fieldConfig['region_id'] = $fieldConfig['region'];
         $inheritedAttributes = $this->fieldSingleton->getInheritedAttributes();
 
         foreach ($elements as $attributeCode => &$attributeConfig) {

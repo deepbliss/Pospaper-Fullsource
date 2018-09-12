@@ -32,6 +32,18 @@ class Actions
         if ($row->getData('is_amasty')) {
             $result .= sprintf(
                 '<a class="action" href="%s" title="%s">%s</a>',
+                $this->urlBuilder->getUrl('ambase/notification/frequency/'). 'action/less',
+                __('Show less of these messages'),
+                __('Show less of these messages')
+            );
+            $result .= sprintf(
+                '<a class="action" href="%s" title="%s">%s</a>',
+                $this->urlBuilder->getUrl('ambase/notification/frequency/'). 'action/more',
+                __('Show more of these messages'),
+                __('Show more of these messages')
+            );
+            $result .= sprintf(
+                '<a class="action" href="%s" title="%s">%s</a>',
                 $this->urlBuilder->getUrl('adminhtml/system_config/edit/'). 'section/amasty_base',
                 __('Unsubscribe'),
                 __('Unsubscribe')

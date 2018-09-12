@@ -7,6 +7,17 @@ namespace Magento\Customer\Api\Data;
 interface CustomerExtensionInterface extends \Magento\Framework\Api\ExtensionAttributesInterface
 {
     /**
+     * @return string|null
+     */
+    public function getAmazonId();
+
+    /**
+     * @param string $amazonId
+     * @return $this
+     */
+    public function setAmazonId($amazonId);
+
+    /**
      * @return boolean|null
      */
     public function getIsSubscribed();
@@ -16,4 +27,15 @@ interface CustomerExtensionInterface extends \Magento\Framework\Api\ExtensionAtt
      * @return $this
      */
     public function setIsSubscribed($isSubscribed);
+
+    /**
+     * @return string|null
+     */
+    public function getVertexCustomerCode();
+
+    /**
+     * @param string $vertexCustomerCode
+     * @return $this
+     */
+    public function setVertexCustomerCode($vertexCustomerCode);
 }

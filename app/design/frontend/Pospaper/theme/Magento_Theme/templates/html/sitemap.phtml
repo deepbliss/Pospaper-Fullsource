@@ -2,9 +2,11 @@
 $objectManagerr = \Magento\Framework\App\ObjectManager::getInstance();
 $categoryFactory = $objectManagerr->create('Magento\Catalog\Model\ResourceModel\Category\CollectionFactory');
 $categoryy = $categoryFactory->create()   
-        ->addAttributeToSelect('*');
-//->addAttributeToFilter('is_active',1)
-//->addAttributeToFilter('is_anchor',1);
+        ->addAttributeToSelect('*')
+->addAttributeToFilter('is_active',1)
+->addAttributeToFilter('is_anchor',1)->addAttributeToSort('position');
+//$categoryy->setOrder('position');
+
 $excludedCategory = array(0);
 
 ?>
@@ -12,8 +14,9 @@ $excludedCategory = array(0);
 <ul class="sitelist">
 <?php foreach ($categoryy as $cc): ?>
     <?php if(!in_array($cc->getId(), $excludedCategory)):?>
-        <div class = "sitemap-list" style="float:left;">
+        
         <?php if ($cc->getLevel()==2):?>
+            <div class = "sitemap-list 1" style="float:left;">
             <li>
                 <h3><a href="<?php echo $cc->getUrl(); ?>"><?php echo $cc->getName(); ?></a></h3>
                 <?php
@@ -22,7 +25,7 @@ $excludedCategory = array(0);
                         $sub = explode(",", $cc->getChildren());
                         $categoryFactorysub = $objectManagerr->create('Magento\Catalog\Model\ResourceModel\Category\CollectionFactory');
                         $categoryysub = $categoryFactorysub->create()   
-                        ->addAttributeToSelect('*');
+                        ->addAttributeToSelect('*')->addAttributeToFilter('is_active',1)->addAttributeToSort('position');
                         $subcat=$categoryysub->addFieldToFilter('entity_id', array('in' =>$sub));
 
                         //$subcat->printlogquery(true);exit;
@@ -30,23 +33,31 @@ $excludedCategory = array(0);
                             <ul style="margin-left:15px;"> 
                         <?php foreach ($subcat as $subcategories){ ?>
                             <?php if ($subcategories->getLevel()==3):?>
-                                <div class = "sitemap-list">
-                                    <li>
-                                        
+                                <div class = "sitemap-list 2">
+                                    
+                                        <?php
+                                            if($subcategories->getChildren())
+                                            {?>
+                                        <li class="has-sub">
+                                        <a><?php echo $subcategories->getName(); ?></a>
+                                    <?php } else {?>
 
-                                        <a href="<?php echo $subcategories->getUrl(); ?>"><?php echo $subcategories->getName(); ?></a>
+                                            <li>
+                                                <a href="<?php echo $subcategories->getUrl(); ?>"><?php echo $subcategories->getName(); ?></a>
+                                        <?php } ?>
+                                        
                                         <?php
                                             if($subcategories->getChildren())
                                             {
                                                 $subSubCat = explode(",", $subcategories->getChildren());
                                                 $subsubCatFactory = $objectManagerr->create('Magento\Catalog\Model\ResourceModel\Category\CollectionFactory');
                                                 $subSubCatCollection = $subsubCatFactory->create()
-                                                ->addAttributeToSelect('*');
+                                                ->addAttributeToSelect('*')->addAttributeToFilter('is_active',1)->addAttributeToSort('position');
                                                 $subSubCollection=$subSubCatCollection->addFieldToFilter('entity_id', array('in' =>$subSubCat));
                                                 ?>
                                                     <ul style="margin-left:20px;">
                                                 <?php foreach ($subSubCollection as $subSubcategories){ ?>
-                                                        <div class = "sitemap-list">
+                                                        <div class = "sitemap-list 3">
                                                             <li>
                                                               <a href="<?php echo $subSubcategories->getUrl(); ?>"><?php echo $subSubcategories->getName()?></a>
                                                             </li>
@@ -63,8 +74,9 @@ $excludedCategory = array(0);
                 <?php   } ?>
 
             </li>
+            </div>
         <?php endif;?>
-        </div>
+        
     <?php endif;?>
     <?php endforeach; ?>
     </ul>

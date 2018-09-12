@@ -1,173 +1,170 @@
-Manage Checkout Fields,Manage Checkout Fields
-Enabled Checkout Fields,Enabled Checkout Fields
-Disabled Checkout Fields,Disabled Checkout Fields
-Please update Amasty Base module. Re-upload it and replace all the files.,Please update Amasty Base module. Re-upload it and replace all the files.
+"Manage Checkout Fields","Manage Checkout Fields"
+"Enabled Checkout Fields","Enabled Checkout Fields"
+"Disabled Checkout Fields","Disabled Checkout Fields"
+"Please update Amasty Base module. Re-upload it and replace all the files.","Please update Amasty Base module. Re-upload it and replace all the files."
 "The default Magento LESS functionality is missing for the following website(s): %1. To add CSS please set ""Include CSS"" setting to ""Yes"".","The default Magento LESS functionality is missing for the following website(s): %1. To add CSS please set ""Include CSS"" setting to ""Yes""."
-Gift wrap %1,Gift wrap %1
-Gift Wrap,Gift Wrap
-Delivery Date,Delivery Date
-Delivery Time,Delivery Time
-Delivery Comment,Delivery Comment
+"Gift wrap %1","Gift wrap %1"
+"Gift Wrap","Gift Wrap"
+"Delivery Date","Delivery Date"
+"Delivery Time","Delivery Time"
+"Delivery Comment","Delivery Comment"
 System,System
-One Step Checkout,One Step Checkout
-Fields information has been successfully updated,Fields information has been successfully updated
-One-page checkout is turned off.,One-page checkout is turned off.
-Guest checkout is disabled.,Guest checkout is disabled.
+"One Step Checkout","One Step Checkout"
+"Fields information has been successfully updated","Fields information has been successfully updated"
+"One-page checkout is turned off.","One-page checkout is turned off."
+"Guest checkout is disabled.","Guest checkout is disabled."
 Checkout,Checkout
-Customer is already registered,Customer is already registered
-Your session has expired,Your session has expired
-Registration: A letter with further instructions will be sent to your email.,Registration: A letter with further instructions will be sent to your email.
-Something went wrong with the registration.,Something went wrong with the registration.
+"Customer is already registered","Customer is already registered"
+"Your session has expired","Your session has expired"
+"Registration: A letter with further instructions will be sent to your email.","Registration: A letter with further instructions will be sent to your email."
+"Something went wrong with the registration.","Something went wrong with the registration."
 "Please, select a static block","Please, select a static block"
-Below the selected payment method,Below the selected payment method
-Below the Order Total,Below the Order Total
-Could not save the fee: %1,Could not save the fee: %1
+"Below the selected payment method","Below the selected payment method"
+"Below the Order Total","Below the Order Total"
+"Could not save the fee: %1","Could not save the fee: %1"
 "Fee with id ""%1"" does not exist.","Fee with id ""%1"" does not exist."
-Could not delete the fee: %1,Could not delete the fee: %1
-To configure which customer attributes will be required to checkout please check settings at Stores > Configuration > Customers > Customer Configuration > Name and Address Options,To configure which customer attributes will be required to checkout please check settings at Stores > Configuration > Customers > Customer Configuration > Name and Address Options
-To configure Postcode requirement for certain countries please check settings at Stores > Configuration > General > General > Country Options,To configure Postcode requirement for certain countries please check settings at Stores > Configuration > General > General > Country Options
-To configure State requirement for certain countries please check settings at Stores > Configuration > General > General > State Options,To configure State requirement for certain countries please check settings at Stores > Configuration > General > General > State Options
-Whole Order,Whole Order
-Gift Message for %1 (optional),Gift Message for %1 (optional)
-We can't find the quote item.,We can't find the quote item.
+"Could not delete the fee: %1","Could not delete the fee: %1"
+"To configure which customer attributes will be required to checkout please check settings at Stores > Configuration > Customers > Customer Configuration > Name and Address Options","To configure which customer attributes will be required to checkout please check settings at Stores > Configuration > Customers > Customer Configuration > Name and Address Options"
+"To configure Postcode requirement for certain countries please check settings at Stores > Configuration > General > General > Country Options","To configure Postcode requirement for certain countries please check settings at Stores > Configuration > General > General > Country Options"
+"To configure State requirement for certain countries please check settings at Stores > Configuration > General > General > State Options","To configure State requirement for certain countries please check settings at Stores > Configuration > General > General > State Options"
+"Whole Order","Whole Order"
+"Gift Message for %1 (optional)","Gift Message for %1 (optional)"
+"We can't find the quote item.","We can't find the quote item."
 Additional,Additional
-The confirmation request has been sent.,The confirmation request has been sent.
-Thank you for your subscription.,Thank you for your subscription.
-There was a problem with the subscription: %1,There was a problem with the subscription: %1
-Something went wrong with the subscription.,Something went wrong with the subscription.
+"The confirmation request has been sent.","The confirmation request has been sent."
+"Thank you for your subscription.","Thank you for your subscription."
+"There was a problem with the subscription: %1","There was a problem with the subscription: %1"
+"Something went wrong with the subscription.","Something went wrong with the subscription."
 "Need more custom fields? Please consider 
     <a href=""https://amasty.com/order-attributes-for-magento-2.html"" target=""_blank"">Order Attributes</a> extension","Need more custom fields? Please consider 
     <a href=""https://amasty.com/order-attributes-for-magento-2.html"" target=""_blank"">Order Attributes</a> extension"
-Delivery Information,Delivery Information
+"Delivery Information","Delivery Information"
 Field,Field
 Label,Label
-Default Value,Default Value
+"Default Value","Default Value"
 Width,Width
 Required,Required
-Drop fields here,Drop fields here
+"Drop fields here","Drop fields here"
 label,label
 Loading...,Loading...
-Order details:,Order details:
-Order Date:,Order Date:
+"Order details:","Order details:"
+"Order Date:","Order Date:"
 Comments,Comments
-Items Ordered,Items Ordered
-Gift Message for This Order,Gift Message for This Order
+"Items Ordered","Items Ordered"
+"Gift Message for This Order","Gift Message for This Order"
 From,From
 To,To
-Your order number is: %1.,Your order number is: %1.
-Your order # is: <span>%1</span>.,Your order # is: <span>%1</span>.
-We'll email you an order confirmation with details and tracking info.,We'll email you an order confirmation with details and tracking info.
-Continue Shopping,Continue Shopping
-Choose an Option...,Choose an Option...
-Delivery Date Info,Delivery Date Info
-My billing and shipping address are the same,My billing and shipping address are the same
+"Your order number is: %1.","Your order number is: %1."
+"Your order # is: <span>%1</span>.","Your order # is: <span>%1</span>."
+"We'll email you an order confirmation with details and tracking info.","We'll email you an order confirmation with details and tracking info."
+"Continue Shopping","Continue Shopping"
+"Choose an Option...","Choose an Option..."
+"Delivery Date Info","Delivery Date Info"
+"My billing and shipping address are the same","My billing and shipping address are the same"
 Update,Update
 Cancel,Cancel
 Edit,Edit
-Item in Cart,Item in Cart
-Items in Cart,Items in Cart
+"Item in Cart","Item in Cart"
+"Items in Cart","Items in Cart"
 Qty,Qty
-View Details,View Details
-Options Details,Options Details
+"View Details","View Details"
+"Options Details","Options Details"
 [edit],[edit]
 To:,To:
 From:,From:
 Message:,Message:
-Place Order,Place Order
-New Address,New Address
-Select Method,Select Method
+"Place Order","Place Order"
+"New Address","New Address"
+"Select Method","Select Method"
 Price,Price
-Method Title,Method Title
-Carrier Title,Carrier Title
+"Method Title","Method Title"
+"Carrier Title","Carrier Title"
 Next,Next
-"Sorry, no quotes are available for this order at this time",To see available shipping options and rates please enter your zip code in the Zip/Postal Code field above
-Gift messages has been successfully updated,Gift messages has been successfully updated
+"Sorry, no quotes are available for this order at this time","Please enter your zip code in the zip code field above to see available shipping methods"
+"Gift messages has been successfully updated","Gift messages has been successfully updated"
 Close,Close
-This is a required field.,This is a required field.
+"This is a required field.","This is a required field."
 Attention,Attention
 OK,OK
-Select Date,Select Date
-Are you sure you would like to remove this item from the shopping cart?,Are you sure you would like to remove this item from the shopping cart?
-Amasty One Step Checkout,Amasty One Step Checkout
+"Select Date","Select Date"
+"Are you sure you would like to remove this item from the shopping cart?","Are you sure you would like to remove this item from the shopping cart?"
+"Amasty One Step Checkout","Amasty One Step Checkout"
 Information,Information
-Include CSS,Include CSS
+"Include CSS","Include CSS"
 General,General
-Enable One Step Checkout,Enable One Step Checkout
-Checkout Page Title,Checkout Page Title
-Checkout Page Description,Checkout Page Description
-Provide customers with important info about taxes (e.g. VAT) or any other payment specifics.<br/>HTML is allowed,Provide customers with important info about taxes (e.g. VAT) or any other payment specifics.<br/>HTML is allowed
-Allow to edit products in the Order Summary,Allow to edit products in the Order Summary
-Reload Shipping methods when coupon code is applied,Reload Shipping methods when coupon code is applied
-Refresh payment methods & total upon the shipping address change,Refresh payment methods & total upon the shipping address change
-Useful when the payment methods & taxes depend on the shipping address,Useful when the payment methods & taxes depend on the shipping address
+"Enable One Step Checkout","Enable One Step Checkout"
+"Checkout Page Title","Checkout Page Title"
+"Checkout Page Description","Checkout Page Description"
+"Provide customers with important info about taxes (e.g. VAT) or any other payment specifics.<br/>HTML is allowed","Provide customers with important info about taxes (e.g. VAT) or any other payment specifics.<br/>HTML is allowed"
+"Allow to edit products in the Order Summary","Allow to edit products in the Order Summary"
+"Reload Shipping methods when coupon code is applied","Reload Shipping methods when coupon code is applied"
+"Refresh payment methods & total upon the shipping address change","Refresh payment methods & total upon the shipping address change"
+"Useful when the payment methods & taxes depend on the shipping address","Useful when the payment methods & taxes depend on the shipping address"
 Geolocation,Geolocation
-Geo IP Location,Geo IP Location
-Detect user country based on the IP address and automatically fills it in at checkout,Detect user country based on the IP address and automatically fills it in at checkout
-Google Address Suggestion,Google Address Suggestion
+"Geo IP Location","Geo IP Location"
+"Detect user country based on the IP address and automatically fills it in at checkout","Detect user country based on the IP address and automatically fills it in at checkout"
+"Google Address Suggestion","Google Address Suggestion"
 "Address auto complete while user is typing, using geolocation Google technology","Address auto complete while user is typing, using geolocation Google technology"
-Google API Key,Google API Key
+"Google API Key","Google API Key"
 "Click <a href=""https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform"" target=""_blank"">here</a> to get API key","Click <a href=""https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform"" target=""_blank"">here</a> to get API key"
-Default Values,Default Values
-Default Shipping Method,Default Shipping Method
-Default Payment Method,Default Payment Method
-Default Country,Default Country
-Default Region/State,Default Region/State
-Default Zip/Postal Code,Default Zip/Postal Code
-Default City,Default City
-Block Names,Block Names
-Shipping Address,Shipping Address
-Shipping Method,Shipping Method
+"Default Values","Default Values"
+"Default Shipping Method","Default Shipping Method"
+"Default Payment Method","Default Payment Method"
+"Default Country","Default Country"
+"Default Region/State","Default Region/State"
+"Default Zip/Postal Code","Default Zip/Postal Code"
+"Default City","Default City"
+"Block Names","Block Names"
+"Shipping Address","Shipping Address"
+"Shipping Method","Shipping Method"
 Delivery,Delivery
-Payment Method,Payment Method
-Order Summary,Order Summary
-Design Settings,Design Settings
-Display header and footer,Display header and footer
-Checkout Page Layout,Checkout Page Layout
+"Payment Method","Payment Method"
+"Order Summary","Order Summary"
+"Design Settings","Design Settings"
+"Display header and footer","Display header and footer"
+"Checkout Page Layout","Checkout Page Layout"
 "Please keep in mind that, for 3 Columns layout, third column will be displayed only if Customer's Order may require shipping (contains non-Virtual products, in most cases).","Please keep in mind that, for 3 Columns layout, third column will be displayed only if Customer's Order may require shipping (contains non-Virtual products, in most cases)."
-Checkout text font,Checkout text font
+"Checkout text font","Checkout text font"
 "Specify the <a href=""https://fonts.google.com/"" target=""_blank"">Google font</a> name. For example <strong>Roboto</strong>, <strong>Open Sans</strong> or <strong>Indie Flower</strong>
                     <br/>Some fonts use extra parameters e.g. <strong>Molle:400i</strong> where 400 = regular, i = Italic (100 = thin, 700 = bold)","Specify the <a href=""https://fonts.google.com/"" target=""_blank"">Google font</a> name. For example <strong>Roboto</strong>, <strong>Open Sans</strong> or <strong>Indie Flower</strong>
                     <br/>Some fonts use extra parameters e.g. <strong>Molle:400i</strong> where 400 = regular, i = Italic (100 = thin, 700 = bold)"
-Heading Text Color,Heading Text Color
-Order Summary Background,Order Summary Background
-Place Order Button Color,Place Order Button Color
-Checkout Background Color,Checkout Background Color
-Additional Options,Additional Options
-Order Comment,Order Comment
-Discount Field,Discount Field
-Newsletter Checkbox,Newsletter Checkbox
-Newsletter is Checked by Default,Newsletter is Checked by Default
-Display 'Create an account' checkbox on checkout,Display 'Create an account' checkbox on checkout
-'Create an account' checkbox is Checked by Default,'Create an account' checkbox is Checked by Default
-Display Terms and Conditions checkbox,Display Terms and Conditions checkbox
+"Heading Text Color","Heading Text Color"
+"Order Summary Background","Order Summary Background"
+"Place Order Button Color","Place Order Button Color"
+"Checkout Background Color","Checkout Background Color"
+"Additional Options","Additional Options"
+"Order Comment","Order Comment"
+"Discount Field","Discount Field"
+"Newsletter Checkbox","Newsletter Checkbox"
+"Newsletter is Checked by Default","Newsletter is Checked by Default"
+"Display 'Create an account' checkbox on checkout","Display 'Create an account' checkbox on checkout"
+"'Create an account' checkbox is Checked by Default","'Create an account' checkbox is Checked by Default"
+"Display Terms and Conditions checkbox","Display Terms and Conditions checkbox"
 Gifts,Gifts
-Allow Gift Messages on Order Level,Allow Gift Messages on Order Level
-Allow Gift Messages for Order Items,Allow Gift Messages for Order Items
-Gift Wrap Fee,Gift Wrap Fee
+"Allow Gift Messages on Order Level","Allow Gift Messages on Order Level"
+"Allow Gift Messages for Order Items","Allow Gift Messages for Order Items"
+"Gift Wrap Fee","Gift Wrap Fee"
 Enabled,Enabled
-Delivery Date field is mandatory,Delivery Date field is mandatory
-Available Days,Available Days
-Available Hours,Available Hours
+"Delivery Date field is mandatory","Delivery Date field is mandatory"
+"Available Days","Available Days"
+"Available Hours","Available Hours"
 "Please specify the timeframe available for delivery. Example: 8-12, 14-18, 20-24<br/>
                     Use <a target=""_blank"" href=""https://amasty.com/delivery-date-for-magento-2.html"">Amasty Delivery Date</a> to limit or restrict delivery for the same or next day the order was placed.","Please specify the timeframe available for delivery. Example: 8-12, 14-18, 20-24<br/>
                     Use <a target=""_blank"" href=""https://amasty.com/delivery-date-for-magento-2.html"">Amasty Delivery Date</a> to limit or restrict delivery for the same or next day the order was placed."
-Enable Delivery Comment,Enable Delivery Comment
-Delivery Comment Default Text,Delivery Comment Default Text
-Specify default text example for delivery comment.,Specify default text example for delivery comment.
-Success Page,Success Page
-Custom Block,Custom Block
-Specify the ID of custom CMS block to be displayed on the checkout success page,Specify the ID of custom CMS block to be displayed on the checkout success page
-Top and Bottom Custom Blocks,Top and Bottom Custom Blocks
-To configure Top and Bottom custom blocks go <i>Content -> Blocks</i>,To configure Top and Bottom custom blocks go <i>Content -> Blocks</i>
-Top Block,Top Block
-Select custom CMS block name to be displayed above the checkout,Select custom CMS block name to be displayed above the checkout
-Bottom Block,Bottom Block
-Select custom CMS block name to be displayed below the checkout,Select custom CMS block name to be displayed below the checkout
-Gift Messages,Gift Messages
-Add a gift message,Add a gift message
-Sign Up for Our Newsletter,Sign Up for Our Newsletter
-Create an Account,Create an Account
-Delivery Time Interval,Delivery Time Interval
-Apply Coupon Code,Apply Coupon Code
-Enter discount code,Enter coupon code
-Apply Coupon,Apply Coupon
+"Enable Delivery Comment","Enable Delivery Comment"
+"Delivery Comment Default Text","Delivery Comment Default Text"
+"Specify default text example for delivery comment.","Specify default text example for delivery comment."
+"Success Page","Success Page"
+"Custom Block","Custom Block"
+"Specify the ID of custom CMS block to be displayed on the checkout success page","Specify the ID of custom CMS block to be displayed on the checkout success page"
+"Top and Bottom Custom Blocks","Top and Bottom Custom Blocks"
+"To configure Top and Bottom custom blocks go <i>Content -> Blocks</i>","To configure Top and Bottom custom blocks go <i>Content -> Blocks</i>"
+"Top Block","Top Block"
+"Select custom CMS block name to be displayed above the checkout","Select custom CMS block name to be displayed above the checkout"
+"Bottom Block","Bottom Block"
+"Select custom CMS block name to be displayed below the checkout","Select custom CMS block name to be displayed below the checkout"
+"Gift Messages","Gift Messages"
+"Add a gift message","Add a gift message"
+"Sign Up for Our Newsletter","Sign Up for Our Newsletter"
+"Create an Account","Create an Account"
+"Delivery Time Interval","Delivery Time Interval"

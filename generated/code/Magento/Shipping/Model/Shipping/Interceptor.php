@@ -17,6 +17,58 @@ class Interceptor extends \Magento\Shipping\Model\Shipping implements \Magento\F
     /**
      * {@inheritdoc}
      */
+    public function getResult()
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getResult');
+        if (!$pluginInfo) {
+            return parent::getResult();
+        } else {
+            return $this->___callPlugins('getResult', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setOrigData($data)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'setOrigData');
+        if (!$pluginInfo) {
+            return parent::setOrigData($data);
+        } else {
+            return $this->___callPlugins('setOrigData', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function resetResult()
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'resetResult');
+        if (!$pluginInfo) {
+            return parent::resetResult();
+        } else {
+            return $this->___callPlugins('resetResult', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getConfig()
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getConfig');
+        if (!$pluginInfo) {
+            return parent::getConfig();
+        } else {
+            return $this->___callPlugins('getConfig', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function collectRates(\Magento\Quote\Model\Quote\Address\RateRequest $request)
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'collectRates');
@@ -24,6 +76,58 @@ class Interceptor extends \Magento\Shipping\Model\Shipping implements \Magento\F
             return parent::collectRates($request);
         } else {
             return $this->___callPlugins('collectRates', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function collectCarrierRates($carrierCode, $request)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'collectCarrierRates');
+        if (!$pluginInfo) {
+            return parent::collectCarrierRates($carrierCode, $request);
+        } else {
+            return $this->___callPlugins('collectCarrierRates', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function composePackagesForCarrier($carrier, $request)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'composePackagesForCarrier');
+        if (!$pluginInfo) {
+            return parent::composePackagesForCarrier($carrier, $request);
+        } else {
+            return $this->___callPlugins('composePackagesForCarrier', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function collectRatesByAddress(\Magento\Framework\DataObject $address, $limitCarrier = null)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'collectRatesByAddress');
+        if (!$pluginInfo) {
+            return parent::collectRatesByAddress($address, $limitCarrier);
+        } else {
+            return $this->___callPlugins('collectRatesByAddress', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setCarrierAvailabilityConfigField($code = 'active')
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'setCarrierAvailabilityConfigField');
+        if (!$pluginInfo) {
+            return parent::setCarrierAvailabilityConfigField($code);
+        } else {
+            return $this->___callPlugins('setCarrierAvailabilityConfigField', func_get_args(), $pluginInfo);
         }
     }
 }

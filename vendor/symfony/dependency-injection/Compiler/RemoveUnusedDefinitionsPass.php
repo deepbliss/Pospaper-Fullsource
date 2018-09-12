@@ -39,7 +39,7 @@ class RemoveUnusedDefinitionsPass implements RepeatablePassInterface
 
         $hasChanged = false;
         foreach ($container->getDefinitions() as $id => $definition) {
-            if ($definition->isPublic()) {
+            if ($definition->isPublic() || $definition->isPrivate()) {
                 continue;
             }
 
