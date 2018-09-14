@@ -1,0 +1,1 @@
+/chroot/home/pospaper/pospaper.com/html/app/code/Aheadworks/RewardPoints/view/adminhtml/web/js/rates.js
