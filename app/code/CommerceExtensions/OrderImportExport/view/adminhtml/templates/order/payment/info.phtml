@@ -1,0 +1,31 @@
+<?php /** @var $this \CommerceExtensions\OrderImportExport\Block\Adminhtml\Payment\Info */ ?>
+<table>
+    <?php if ($this->getPaymentMethod() != '') { ?>
+        <tr>
+            <td style="width: 200px;">
+                <label>Payment Method:</label>
+            </td>
+            <td>
+                <strong><?php echo $this->escapeHtml($this->getPaymentMethod()); ?></strong>
+            </td>
+        </tr>
+    <?php } ?>
+    <?php $transactions = $this->getTransactions(); if (!empty($transactions)) { ?>
+        <tr>
+            <td class="grid" colspan="2">
+                <br/>
+                <h4>Additional Data</h4>
+                <table class="data" cellpadding="0" cellspacing="0">
+                    <tbody>                 
+						<?php 
+						$transactionArray = unserialize($transactions);
+						foreach ($transactionArray as $key => $transaction) { 
+						 	if($transactionArray[$key] !="") { echo "<tr><td>".$key."</td><td>&nbsp;</td><td>".$transaction."</td></tr>"; } 
+						} 
+						?>  
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    <?php } ?>
+</table>

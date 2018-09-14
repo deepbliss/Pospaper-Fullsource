@@ -1,0 +1,11 @@
+<?php
+namespace CommerceExtensions\OrderImportExport\Model\Backend\Session;
+class Quote extends \Magento\Backend\Model\Session\Quote {
+    public function unsetQuote()
+    {
+        if ($this->_quote !== null) {
+            $this->_quote = null;
+        }
+        return $this->_quote;
+    }
+}

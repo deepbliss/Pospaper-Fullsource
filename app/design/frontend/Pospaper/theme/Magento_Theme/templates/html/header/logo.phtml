@@ -11,7 +11,7 @@
  */
 ?>
 <?php $storeName = $block->getThemeName() ? $block->getThemeName() : $block->getLogoAlt();?>
-<a href="#menu" class="nav_btn">menu</a>
+<span data-action="toggle-nav" class="action nav-toggle nav_btn"><span>Toggle Nav</span></span>
 <?php if ($block->isHomePage()):?>
     <strong class="logo"><a href="<?= $block->getUrl('') ?>" title="<?= /* @escapeNotVerified */ $storeName ?>">
 <?php else: ?>

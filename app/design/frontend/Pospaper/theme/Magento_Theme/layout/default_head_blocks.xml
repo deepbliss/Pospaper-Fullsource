@@ -13,7 +13,8 @@
         <css src="mage/calendar.css"/>    
         <css src="css/styles.css"/>   
         <css src="css/my-account.css"/>  
-        <css src="css/mediaquery.css"/> 
+        <css src="css/mediaquery.css"/>
+        <css src="css/topmenu.css"/>
         <css src="css/animate.css"/> 
         <css src="css/jquery.mmenu.all.css"/>  
         <css src="css/easy-responsive-tabs.css"/>

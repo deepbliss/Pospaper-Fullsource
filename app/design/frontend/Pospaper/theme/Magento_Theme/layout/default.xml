@@ -20,11 +20,7 @@
             <container name="head-middle" as="head-middle" label="Header Middle Section" htmlTag="div" htmlClass="head-middle">
                     <container name="container3" as="container3" label="Container 3 Section" htmlTag="div" htmlClass="container">   
                     </container>
-            </container> 
-            <container name="menu-sec" as="menu-sec" label="Menu Section" htmlTag="div" htmlClass="menu-div">
-                    <container name="container4" as="container4" label="Container 4 Section" htmlTag="div" htmlClass="container">   
-                    </container>
-            </container>                                  
+            </container>
        </referenceBlock>
        <block class="Magento\Cms\Block\Block" name="head_top_section">
          <arguments>
@@ -41,7 +37,6 @@
        <move element="top.search" destination="container3" after="logo"/> 
        <move element="head_call_section" destination="container3" after="top.search"/> 
        <move element="minicart" destination="container3" after="head_call_section"/>
-       <move element="navigation.sections" destination="container4"/>  
        <referenceBlock name="report.bugs" remove="true" />
        <referenceContainer name="header.panel.wrapper" remove="true" /> 
        

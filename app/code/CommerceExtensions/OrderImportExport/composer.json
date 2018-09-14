@@ -1,0 +1,17 @@
+{
+    "name": "commerceextensions/orderimportexport",
+    "type": "magento2-module",
+    "description": "Order Import / Export Extension",
+    "version": "1.0.4",
+    "license": [
+        "Commercial"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "CommerceExtensions\\OrderImportExport\\": ""
+        }
+    }
+}
