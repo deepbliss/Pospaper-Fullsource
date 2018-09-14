@@ -1,4 +1,14 @@
 jQuery(document).ready(function () {
+    jQuery("li.has-sub").removeClass('minus');
+    jQuery(".sitelist .sitemap-list li ul .sitemap-list li a").click(function(){
+        jQuery(this).parent().toggleClass('minus');
+        jQuery(this).parent().parent().siblings().find('ul').hide();
+        jQuery(this).parent().parent().parent().parent().parent().siblings().find('li.has-sub ul').hide();
+        jQuery(this).parent().parent().siblings().find('.minus').removeClass('minus');
+        jQuery(this).parent().parent().parent().parent().parent().siblings().find('.minus').removeClass('minus');
+        jQuery(this).parent().children('ul').slideToggle('slow');
+    });
+
     jQuery(".nav-sections .level-two > .parent > a").on('click', function (e) {
         e.preventDefault();
         jQuery(this).toggleClass('minus');
