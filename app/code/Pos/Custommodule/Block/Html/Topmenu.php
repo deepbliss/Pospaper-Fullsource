@@ -296,6 +296,9 @@ class Topmenu extends \Magento\Theme\Block\Html\Topmenu
             if($child->getLevel() === 0) {
                 $parentData = $this->getCategoryData($menuId);
             }
+            if(!isset($parentData['include_top_menu']) || !$parentData['include_top_menu']) {
+                continue;
+            }
             if($this->isCategory($menuId) && $child->getLevel() == 1 && isset($parentData['show_children_images']) && $parentData['show_children_images'] == 1) {
                 $data = $this->getCategoryData($menuId);
                 if (isset($data['image']) && is_string($data['image'])) {

@@ -87,5 +87,21 @@ class UpgradeData implements UpgradeDataInterface
                 'group' => 'General Information',
             ]);
         }
+
+        if (version_compare($context->getVersion(), '2.0.4', '<')) {
+            $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
+            $eavSetup->addAttribute(\Magento\Catalog\Model\Category::ENTITY, 'include_top_menu', [
+                'type' => 'int',
+                'label' => 'Include in Top Menu',
+                'input' => 'select',
+                'required' => false,
+                'sort_order' => 159,
+                'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_STORE,
+                'group' => 'General Information',
+                'is_used_in_grid' => false,
+                'is_visible_in_grid' => false,
+                'is_filterable_in_grid' => false,
+            ]);
+        }
     }
 }
