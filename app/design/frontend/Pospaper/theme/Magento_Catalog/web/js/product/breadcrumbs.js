@@ -24,6 +24,7 @@ define([
                 var menu;
 
                 // render breadcrumbs after navigation menu is loaded.
+                /*
                 menu = $(this.options.menuContainer).data('mageMenu');
 
                 if (typeof menu === 'undefined') {
@@ -33,6 +34,8 @@ define([
                 } else {
                     this._super();
                 }
+                */
+                this._super();
             },
 
             /** @inheritdoc */
