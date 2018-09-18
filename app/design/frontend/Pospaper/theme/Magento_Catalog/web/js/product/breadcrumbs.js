@@ -24,7 +24,7 @@ define([
                 var menu;
 
                 // render breadcrumbs after navigation menu is loaded.
-                /*
+
                 menu = $(this.options.menuContainer).data('mageMenu');
 
                 if (typeof menu === 'undefined') {
@@ -34,7 +34,7 @@ define([
                 } else {
                     this._super();
                 }
-                */
+
                 this._super();
             },
 
@@ -169,7 +169,7 @@ define([
                     categoryMenuItem = null;
 
                 if (categoryUrl && menu.length) {
-                    categoryMenuItem = menu.find('a[href="' + categoryUrl + '"]');
+                    categoryMenuItem = menu.find('a[href="' + categoryUrl + '"]').not('.product-item-link, .product-item-photo').first();
                 }
 
                 return categoryMenuItem;
