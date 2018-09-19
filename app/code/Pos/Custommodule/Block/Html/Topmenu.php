@@ -214,7 +214,7 @@ class Topmenu extends \Magento\Theme\Block\Html\Topmenu
             }
 
             $html .= '<div ' . $this->_getRenderedMenuItemAttributes($child) . $data . '>';
-            $html .= '<a href="' . $child->getUrl() . '" ' . $outermostClassCode . '><span>' . $this->escapeHtml(
+            $html .= '<a href="' . $child->getUrl() . '" ' . $outermostClassCode . ' id="category-id-'.$menuId.'"><span>' . $this->escapeHtml(
                     $child->getName()
                 ) . '</span></a>' . $this->_addLevelTwoSubMenu(
                     $child,
@@ -309,9 +309,9 @@ class Topmenu extends \Magento\Theme\Block\Html\Topmenu
             }
             $html .= '<li ' . $this->_getRenderedMenuItemAttributes($child) . '>';
             if($image) {
-                $html .= '<a href="' . $child->getUrl() . '" class="image-link"><img src="'.$image.'" alt="'.$child->getName().'"/></a>';
+                $html .= '<a href="' . $child->getUrl() . '" class="image-link" id="image-link-id-'.$menuId.'" data-title="'.htmlspecialchars($child->getName()).'"><img src="'.$image.'" alt="'.addslashes($child->getName()).'"/></a>';
             }
-            $html .= '<a href="' . $child->getUrl() . '" ' . $outermostClassCode . '><span>' . $this->escapeHtml(
+            $html .= '<a href="' . $child->getUrl() . '" ' . $outermostClassCode . ' id="category-id-'.$menuId.'"><span>' . $this->escapeHtml(
                     $child->getName()
                 ) . '</span></a>' . $this->_addSubMenu(
                     $child,

@@ -10,9 +10,8 @@
     <body>
         <!--<referenceBlock name="breadcrumbs" remove="true" />-->
         <referenceBlock name="amazon.pay.button.product" remove="true" />
-        <referenceContainer name="header.container">
-            <block class="Pos\Custommodule\Block\Searchbybrand" name="searchbybrand"
-                   template="Pos_Custommodule::searchbybrand.phtml" before="product.shop"/>
+        <referenceContainer name="page.top">
+            <block class="Pos\Custommodule\Block\Searchbybrand" name="searchbybrand" template="Pos_Custommodule::searchbybrand.phtml" after="navigation.sections" />
         </referenceContainer>
 
         <referenceContainer name="content">

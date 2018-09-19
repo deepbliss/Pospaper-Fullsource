@@ -96,6 +96,9 @@ define([
 
                 categoryId = /(\d+)/i.exec(menuItem.attr('id'))[0];
                 categoryName = menuItem.text();
+                if(!categoryName) {
+                    categoryName = menuItem.data('title');
+                }
                 categoryUrl = menuItem.attr('href');
 
                 return {
