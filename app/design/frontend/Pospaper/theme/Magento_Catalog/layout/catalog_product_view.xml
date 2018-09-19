@@ -14,6 +14,8 @@
             <block class="Pos\Custommodule\Block\Searchbybrand" name="searchbybrand" template="Pos_Custommodule::searchbybrand.phtml" after="navigation.sections" />
         </referenceContainer>
 
+        <referenceBlock name="breadcrumbs" template="Magento_Theme::html/breadcrumbs.phtml"/>
+
         <referenceContainer name="content">
 
             <!--<block class="Magento\Catalog\Block\Product\View" name="social.share" template="product/view/wdm-social.phtml" after="view.addto.compare" /> -->
