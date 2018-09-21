@@ -23,7 +23,7 @@ if (isset($category)) {
     $all_filter_attributes = explode(',', $enable_filter);
     $orderedFilters = array();
     $categoryFilter = null;
-    if(!empty($all_filter_attributes)) {
+    if($enable_filter && !empty($all_filter_attributes)) {
         foreach($filters as $filter) {
             if($filter->getName() == "Category") {
                 $categoryFilter = $filter;
@@ -65,7 +65,7 @@ if (isset($category)) {
                     <?php $wrapOptions = true;
                         } ?>
                     <?php if ($enable_filter) { ?>
-                        <?php if (in_array($filter->getId(), $all_filter_attributes) || $filter->getName() == "Category") { ?>
+                        <?php if (in_array($filter->getId(), $all_filter_attributes) || $filter->getName() == 'Category') { ?>
                             <div data-role="collapsible" class="filter-options-item">
                                 <div data-role="title" class="filter-options-title"><?php echo __($filter->getName()) ?></div>
                                 <div data-role="content" class="filter-options-content"><?php echo $block->getChildBlock('renderer')->render($filter); ?></div>
