@@ -22,8 +22,13 @@ if (isset($category)) {
     $showfilter = $category->getData('com_model_display');
     $all_filter_attributes = explode(',', $enable_filter);
     $orderedFilters = array();
+    $categoryFilter = null;
     if(!empty($all_filter_attributes)) {
         foreach($filters as $filter) {
+            if($filter->getName() == "Category") {
+                $categoryFilter = $filter;
+                continue;
+            }
             $key = array_search($filter->getId(), $all_filter_attributes);
             if($key !== false) {
                 $orderedFilters[$key] = $filter;
@@ -32,6 +37,9 @@ if (isset($category)) {
         if(!empty($orderedFilters)) {
             ksort($orderedFilters);
             $filters = $orderedFilters;
+        }
+        if($categoryFilter) {
+            array_unshift($filters, $categoryFilter);
         }
     }
 }
