@@ -4,7 +4,9 @@ $categoryFactory = $objectManagerr->create('Magento\Catalog\Model\ResourceModel\
 $categoryy = $categoryFactory->create()   
         ->addAttributeToSelect('*')
 ->addAttributeToFilter('is_active',1)
-->addAttributeToFilter('is_anchor',1)->addAttributeToSort('position');
+->addAttributeToFilter('is_anchor',1)
+    ->addAttributeToFilter('include_top_menu',1)
+    ->addAttributeToSort('position');
 //$categoryy->setOrder('position');
 
 $excludedCategory = array(0);
