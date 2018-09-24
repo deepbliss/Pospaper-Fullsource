@@ -80,10 +80,9 @@ public function getRatingSummary($product)
         }
         $porIds = explode(",",$productSkuString);
 
-
         $collection = $this->_productCollectionFactory->create();
         $collection = $this->_productCollectionFactory->create()->addAttributeToSelect('*')->addAttributeToFilter('status', '1')
-                        ->addAttributeToFilter('is_featured', '1')
+                        //->addAttributeToFilter('is_featured', '1')
                         ->addAttributeToSort('sku', 'ASC')
                         ->addAttributeToFilter('sku', array('in' => $porIds));
                       // ->addAttributeToFilter('manufacturer',array('finset' => $manufacturer))
