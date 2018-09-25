@@ -22,22 +22,17 @@ class Getbrand extends \Magento\Framework\App\Action\Action
         
         $getOptionValue = $objectManager->create('Pos\Manufacturer\Model\Manufacturer')->getCollection();
         $getOptionValue->addFieldToFilter('manufacturer', $manufacturer);
+        $mod = [];
+        $html = '';
+        foreach($getOptionValue as $value){
+            $mod[$value->getData('model')] = $value->getData('model');
+        }
+        asort($mod);
 
-            $mod = [];
-            foreach($getOptionValue as $value){
-              $mod[$value->getData('model')] = $value->getData('model');
-            }
- 
-        asort($mod); 
-        echo '<option value="-1" >Select a Model</option>';
-        foreach ($mod as  $value){
-
-         ?>
-        <option value="<?php echo $value;?>" ><?php echo  $value;?></option>
-        
-
-        <?php }
-     
-            
+        $html .= '<option value="-1" >Select a Model</option>';
+        foreach ($mod as $value){
+            $html .= '<option value="'.$value.'" >'.$value.'</option>';
+        }
+        echo $html;
     }
 }
