@@ -3,7 +3,7 @@
 		$products_collection = $this->getProducts();
 		foreach ($products_collection as $product): 
 			echo "<li>";
-			echo "<div class='main_featured_div slider-section' id='main_featured_div'>";
+			echo "<div class='main_featured_div slider-section' id='main_featured_div' data-sku='".$product->getId()."'>";
 				echo "<div class='main_featured_img slider-pro-img' id='main_featured_img'>"; ?>
                 <a href="<?= /* @escapeNotVerified */ $product->getProductUrl() ?>">
                 <?php 

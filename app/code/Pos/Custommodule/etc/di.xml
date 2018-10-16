@@ -2,4 +2,8 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Magento\Theme\Block\Html\Topmenu" type="Pos\Custommodule\Block\Html\Topmenu" />
     <preference for="Magento\Catalog\Block\Product\View" type="Pos\Custommodule\Block\Product\View" />
+
+    <type name="Magento\Sales\Api\OrderRepositoryInterface">
+        <plugin name="get_customer_notes" type="Pos\Custommodule\Plugin\Model\Sales\Order" />
+    </type>
 </config>

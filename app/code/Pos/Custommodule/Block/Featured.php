@@ -59,11 +59,11 @@ public function getRatingSummary($product)
         
     public function getProducts()
     {
-        $collection = $this->_productCollectionFactory->create();
-        $collection = $this->_productCollectionFactory->create()->addAttributeToSelect('*')->addAttributeToFilter('status', '1')
-                        ->addAttributeToFilter('is_featured', '1')
-                        ->setPageSize(10);
-
+        $collection = $this->_productCollectionFactory->create()
+            ->addAttributeToSelect('*')
+            ->addAttributeToFilter('status', '1')
+            ->addAttributeToFilter('is_featured', '1')
+            ->setPageSize(10);
         $collection->setVisibility($this->catalogProductVisibility->getVisibleInCatalogIds());
         return $collection;
     }   
