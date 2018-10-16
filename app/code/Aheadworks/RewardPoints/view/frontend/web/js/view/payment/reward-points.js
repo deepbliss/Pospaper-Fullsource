@@ -119,7 +119,8 @@ define(
              * @return {String}
              */
             getAvailablePointsText: function() {
-                return rewardPointsBalance.customerRewardPointsBalance()
+                return $t('Balance of ')
+                    + rewardPointsBalance.customerRewardPointsBalance()
                     + $t(' store reward points available ') 
                     + '(' 
                     + this.getFormattedPrice(rewardPointsBalance.customerRewardPointsBalanceCurrency()) 

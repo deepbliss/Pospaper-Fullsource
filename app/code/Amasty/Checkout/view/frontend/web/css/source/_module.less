@@ -294,20 +294,43 @@
         //Override PostNL styles - End
     }
 
-    .checkout-payment-method .payment-methods {
-        & {
-            margin: 0;
-        }
+    .checkout-payment-method {
+        .payment-methods {
+            & {
+                margin: 0;
+            }
 
-        .actions-toolbar .primary {
-            padding: 14px 17px;
-            font-size: 1.8rem;
-            line-height: 2.2rem;
+            .actions-toolbar .primary {
+                padding: 14px 17px;
+                font-size: 1.8rem;
+                line-height: 2.2rem;
+            }
+        }
+        .payment-method-content {
+            .fieldset {
+                >.sorter {
+                    margin: 0 0 20px;
+                }
+            }
         }
     }
 
     .checkout-payment-method.submit .payment-methods {
         margin: 0;
+    }
+
+    .form-reward-points {
+        .actions-toolbar .primary {
+            float: none !important;
+            margin: 20px 0 0 !important;
+            display: block;
+            text-align: left;
+
+            .action {
+                font-size: 1rem;
+                font-weight: 400;
+            }
+        }
     }
 
     .fieldset.address {
@@ -395,11 +418,54 @@
 }
 
 //
+//  Mobile
+//  _____________________________________________
+
+@media only screen and (max-width: 767px) {
+
+}
+
+//
 //  Desktop
 //  ----------------------------------------------
 
-.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
     .checkout-index-index .opc-wrapper.am-opc-wrapper .shipping-address-item {
         width:50%;
     }
+
+    .checkout-payment-method {
+        .payment-method-content {
+            .fieldset {
+                >.field {
+                    margin: 0 0 20px;
+                    display: -webkit-box;
+                    display: -ms-flexbox;
+                    display: flex;
+                    -webkit-box-align: center;
+                    -ms-flex-align: center;
+                    align-items: center;
+
+                    > .label {
+                        width: 40% !important;
+                        -webkit-box-flex: 1;
+                        -ms-flex: 1 0 auto;
+                        flex: 1 0 auto;
+                        padding: 0;
+                    }
+
+                    > .control {
+                        margin-left: 0 !important;
+                    }
+                }
+                > .field._required {
+                    > label:after {
+                        top: initial;
+                        font-size: 1rem;
+                    }
+                }
+            }
+        }
+    }
 }
+

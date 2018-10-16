@@ -1498,7 +1498,11 @@ class CustomerRewardPointsService implements CustomerRewardPointsManagementInter
     private function getCustomerTransactions($customerId, $websiteId = null, $additionalFilters = [])
     {
         $expirationDateSort = $this->sortOrderBuilder
-            ->setField('ISNULL(expiration_date), expiration_date, transaction_id')
+            ->setField('expiration_date')
+            ->setDirection(SortOrder::SORT_ASC)
+            ->create();
+        $transactionDateSort = $this->sortOrderBuilder
+            ->setField('transaction_id')
             ->setDirection(SortOrder::SORT_ASC)
             ->create();
         $balanceSort = $this->sortOrderBuilder
@@ -1511,6 +1515,7 @@ class CustomerRewardPointsService implements CustomerRewardPointsManagementInter
             ->addFilter(TransactionInterface::CUSTOMER_ID, $customerId)
             ->addFilter(TransactionInterface::WEBSITE_ID, $websiteId)
             ->addSortOrder($expirationDateSort)
+            ->addSortOrder($transactionDateSort)
             ->addSortOrder($balanceSort);
 
         foreach ($additionalFilters as $filter) {
