@@ -121,10 +121,7 @@ define(
             getAvailablePointsText: function() {
                 return $t('Balance of ')
                     + rewardPointsBalance.customerRewardPointsBalance()
-                    + $t(' store reward points available ') 
-                    + '(' 
-                    + this.getFormattedPrice(rewardPointsBalance.customerRewardPointsBalanceCurrency()) 
-                    + ')';
+                    + $t(' store reward points available.');
             },
             
             /**
