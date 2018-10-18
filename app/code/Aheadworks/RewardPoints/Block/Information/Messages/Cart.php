@@ -40,14 +40,14 @@ class Cart extends AbstractMessages
             $this->getEarnMoneyByPoints($earnPoints),
             $this->getFrontendExplainerPageLink()
         );
-
+        /*
         if (!$this->isCustomerLoggedIn()) {
             $message .= ' ' . __(
                 'This amount can vary after logging in. <a href="%1">Learn more</a>.',
                 $this->getFrontendExplainerPageLink()
             );
         }
-
+        */
         return $message;
     }
 
