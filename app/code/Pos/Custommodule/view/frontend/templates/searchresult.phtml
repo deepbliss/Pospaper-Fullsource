@@ -1,24 +1,19 @@
 <div class="home-tabing-div">
 <ol class="products list items product-items">
-
-
-		<?php 
+		<?php
 		$manufacturer = $_GET['manufacturer'];
         $model = $_GET['brand'];
 		$products_collection = $this->getProducts($manufacturer,$model);
-		foreach ($products_collection as $product): 
+		//var_dump($products_collection->getSize());
+		foreach ($products_collection as $product):
+            $imageUrl = $this->getMediaUrl(). 'catalog/product' . $product->getImage();
+            $productImage = $block->getImage($product, 'category_page_grid');
 			echo "<li>";
 			echo "<div class='main_featured_div slider-section' id='main_featured_div'>";
 				echo "<div class='main_featured_img slider-pro-img' id='main_featured_img'>"; ?>
-                <a href="<?= /* @escapeNotVerified */ $product->getProductUrl() ?>">
+                <a href="<?= /* @escapeNotVerified */ $product->getProductUrl() ?>" data-image="<?php echo $productImage->getImageUrl() ?>">
                 <?php 
-					$imageUrl = $this->getMediaUrl(). 'catalog/product' . $product->getImage();
-                    if (@getimagesize($imageUrl)) {
-                        //echo  “image exists “;
-                    } else {
-                        $imageUrl = $this->getMediaUrl(). 'catalog/product/No_Image_Available.jpg';
-                    }
-					echo "<img src='".$imageUrl."' alt='".$product->getName()."' class='".$product->getName()."' />";
+                    echo $productImage->toHtml();
                 echo "</a>";
 				echo "</div>";
                 echo "<div class='slider-produc-info'>";

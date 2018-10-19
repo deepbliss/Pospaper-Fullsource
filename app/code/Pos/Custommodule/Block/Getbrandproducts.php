@@ -9,6 +9,7 @@ class Getbrandproducts extends \Magento\Framework\View\Element\Template
      protected $objectManager;
      protected $_reviewFactory;
      protected $_storeManager;
+     protected $imageBuilder;
 
     public function __construct(
         \Magento\Catalog\Block\Product\Context $context, 
@@ -19,11 +20,12 @@ class Getbrandproducts extends \Magento\Framework\View\Element\Template
         \Magento\Catalog\Model\Product\Visibility $catalogProductVisibility,
         array $data = []
     ) {
-        $this->_productCollectionFactory = $productCollectionFactory;    
+        $this->_productCollectionFactory = $productCollectionFactory;
         $this->objectManager = $objectManager;
         $this->_storeManager = $storeManager;    
         $this->catalogProductVisibility = $catalogProductVisibility;
         $this->_reviewFactory = $reviewFactory;
+        $this->imageBuilder = $context->getImageBuilder();
         parent::__construct(
             $context,
             $data
@@ -91,6 +93,14 @@ public function getRatingSummary($product)
         $collection->setVisibility($this->catalogProductVisibility->getVisibleInCatalogIds());
         $collection->addAttributeToSort('sku', 'ASC');
         return $collection;
-    }   
+    }
 
+
+    public function getImage($product, $imageId, $attributes = [])
+    {
+        return $this->imageBuilder->setProduct($product)
+            ->setImageId($imageId)
+            ->setAttributes($attributes)
+            ->create();
+    }
 }
