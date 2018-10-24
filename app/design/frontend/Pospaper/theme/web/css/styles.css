@@ -2088,7 +2088,13 @@ body.checkout-index-index .fancybox-container{display: none !important;}
     clear: both !important;
     margin-top: 5px !important;
 }
-
+.header-new-promo {
+    color: #fff;
+    background: #8fcc05;
+}
+.header-new-promo a {
+    color: #fff;
+}
 .nxt-ac-main {z-index: 99 !important;}
 .nxt-ac-main .nxt-ac-item .nxt-item-txt{color: #000}
 .nxt-ac-main .nxt-ac-item .nxt-item-txt:hover{color: #624a9e}

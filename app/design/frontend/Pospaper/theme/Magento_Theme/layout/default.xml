@@ -9,8 +9,13 @@
     <update handle="default_head_blocks"/>
     <body>       
        <referenceBlock name="header.container">
+           <container name="header-new-promo" label="Header Top Promo" htmlTag="div" htmlClass="header-new-promo">
+               <container name="header-new-promo-container" label="Header Top Promo Container" htmlTag="div" htmlClass="container">
+                   <block class="Magento\Framework\View\Element\Template" name="old.site.promo" template="Magento_Theme::html/old-site.phtml"/>
+               </container>
+           </container>
             <container name="head-top" as="head-top" label="Header Top Section" htmlTag="div" htmlClass="head-top">
-                <container name="container1" as="container1" label="Container 1 Section" htmlTag="div" htmlClass="container"></container>
+                <container name="container1" as="container1" label="Container 1 Section" htmlTag="div" htmlClass="container"/>
             </container>           
             <container name="head-account-link" as="head-account-link" label="Header Account Link Section" htmlTag="div" htmlClass="head-account-div">
                 <container name="container2" as="container2" label="Container 2 Section" htmlTag="div" htmlClass="container">   
