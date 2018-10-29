@@ -2098,7 +2098,9 @@ body.checkout-index-index .fancybox-container{display: none !important;}
 .nxt-ac-main {z-index: 99 !important;}
 .nxt-ac-main .nxt-ac-item .nxt-item-txt{color: #000}
 .nxt-ac-main .nxt-ac-item .nxt-item-txt:hover{color: #624a9e}
-
+.cart-summary div[name="shippingAddress.country_id"] {
+    display: none;
+}
 
 
 
