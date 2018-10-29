@@ -2101,7 +2101,9 @@ body.checkout-index-index .fancybox-container{display: none !important;}
 .cart-summary div[name="shippingAddress.country_id"] {
     display: none;
 }
-
+.opc-wrapper div[name="shippingAddress.country_id"] {
+    display: none !important;
+}
 
 
 .sitelist{float:left; width:100%; margin-bottom: 50px;}
