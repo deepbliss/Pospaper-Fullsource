@@ -80,12 +80,16 @@ class Label extends AbstractModel implements LabelInterface
         $leftToGoal = $goal;
         $quote = $this->checkoutSession->getQuote();
         if ($quote && $quote->getItemsCount()) {
-            if ($goal > $quote->getGrandTotal()) {
+            $total = $quote->getGrandTotal();
+            if($shippingAddress = $quote->getShippingAddress()) {
+                $total = $total - $shippingAddress->getShippingAmount();
+            }
+            if ($goal > $total) {
                 $messageType = ContentType::NOT_EMPTY_CART;
-                $leftToGoal = $goal - $quote->getGrandTotal();
+                $leftToGoal = $goal - $total;
             } else {
                 $messageType = ContentType::GOAL_REACHED;
-                $leftToGoal = $goal - $quote->getGrandTotal();
+                $leftToGoal = $goal - $total;
             }
         }
         $storeId = $this->storeResolver->getCurrentStoreId();
