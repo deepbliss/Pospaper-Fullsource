@@ -85,21 +85,18 @@ class Order
      */
     private function setCustomerNote(OrderInterface $resultOrder, OrderExtension $orderExtension)
     {
-        $text = '';
-        $comment = $resultOrder->getStatusHistoryCollection()
-            ->getLastItem();
-        if($comment) {
-            if(!$comment->getIsVisibleOnFront()) {
-                $text = '';
-            } else {
-                if(!$comment->getComment()) {
-                    $text = '';
-                } else {
-                    $text = $comment->getComment();
+        $text = array();
+        $comments = $resultOrder->getStatusHistoryCollection();
+        foreach ($comments as $comment) {
+            if($comment) {
+                if($comment->getIsVisibleOnFront()) {
+                    if($comment->getComment()) {
+                        $text[] = $comment->getComment();
+                    }
                 }
             }
         }
 
-        $orderExtension->setCustomerNote($text);
+        $orderExtension->setCustomerNote(implode('. ',$text));
     }
 }
