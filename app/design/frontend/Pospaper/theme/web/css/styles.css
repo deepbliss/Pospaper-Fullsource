@@ -2137,7 +2137,11 @@ body.checkout-index-index .fancybox-container{display: none !important;}
     text-transform: uppercase;
     font-weight: 500;
 }
-
+.edit-cart-link {
+    display: block;
+    text-align: center;
+    padding: 15px 0 0;
+}
 .sitelist{float:left; width:100%; margin-bottom: 50px;}
 .sitelist .sitemap-list{float:left; width:15%; padding-right: 0; margin-bottom: 0px; margin-right: 23px;}
 .sitelist .sitemap-list:last-child{margin-right: 0}
