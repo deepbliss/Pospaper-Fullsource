@@ -59,9 +59,6 @@
 .checkout-index-index .opc-wrapper.am-opc-wrapper #shipping-method-buttons-container {
   display: none;
 }
-.checkout-index-index .opc-wrapper.am-opc-wrapper #checkout-payment-method-load .actions-toolbar {
-  display: none;
-}
 .checkout-index-index .opc-wrapper.am-opc-wrapper #checkout-payment-method-load .payment-method-billing-address .actions-toolbar {
   display: block;
 }
