@@ -677,7 +677,7 @@ border: 0px solid transparent;transition: all 0.5s ease 0s;-webkit-transition: a
 
 .product.attribute.overview{display: none;}
 
-.page-layout-1column .columns .product.media {width: 559px; float: left; margin: 0;}
+.page-layout-1column .columns .product.media {width: 559px; float: left; margin: 0;position: relative;}
 .page-layout-1column .columns .product-info-main{width: 551px; float: right; position: relative;}
 .product.media .action.mailto.friend{float: none; margin: 23px 0 0 0; background: url(../images/mailto-icn.png) no-repeat left center; font-size: 12px; color: #827f8c; padding-left: 35px; line-height: 25px; letter-spacing: 0.05em;}
 .product.media .action.mailto.friend:hover{background: url(../images/mailto-icn-hover.png) no-repeat left center;color: #61499d;}
@@ -2104,7 +2104,39 @@ body.checkout-index-index .fancybox-container{display: none !important;}
 .opc-wrapper div[name="shippingAddress.country_id"] {
     display: none !important;
 }
-
+.product.media > .free-shipping-icon {
+    background: url(../images/free-shipping-media.png) top left no-repeat;
+    display: block;
+    height: 65px;
+    width: 65px;
+}
+.product.media > .free-shipping-icon span {
+    display: none;
+}
+.product-info-price .free-shipping-icon {
+    display: block;
+}
+.product-info-price .free-shipping-icon:before {
+    content: '';
+    background: url(../images/free-shipping-check-mark.jpg) center left no-repeat;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-size: contain;
+    vertical-align: middle;
+    line-height: 24px;
+    margin-right: 5px;
+}
+.product-info-price .free-shipping-icon {
+    color: #e1222a;
+}
+.product-info-price .free-shipping-icon span {
+    line-height: 21px;
+    vertical-align: middle;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
 
 .sitelist{float:left; width:100%; margin-bottom: 50px;}
 .sitelist .sitemap-list{float:left; width:15%; padding-right: 0; margin-bottom: 0px; margin-right: 23px;}
@@ -2158,3 +2190,9 @@ body.checkout-index-index .fancybox-container{display: none !important;}
     position: absolute;
     left: 0;
     top: 1px;}
+
+@media screen and (min-width: 768px) {
+    .product-info-price .free-shipping-icon {
+        margin: -20px 0 20px;
+    }
+}

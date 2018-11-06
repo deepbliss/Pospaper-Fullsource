@@ -71,6 +71,14 @@
             </block>
         </referenceContainer>
 
+        <referenceContainer name="product.info.media">
+            <block class="Magento\Catalog\Block\Product\View" name="free.shipping.media.icon" template="Magento_Catalog::product/view/free_shipping.phtml" before="-" />
+        </referenceContainer>
+
+        <referenceContainer name="product.info.price">
+            <block class="Magento\Catalog\Block\Product\View" name="free.shipping.price.icon" template="Magento_Catalog::product/view/free_shipping.phtml" before="-" />
+        </referenceContainer>
+
         <referenceBlock name="product.info.addtocart">
             <block class="Amazon\Payment\Block\ProductPagePaymentLink" name="amazon.pay.button.product.addtocart" after="-" template="Amazon_Payment::payment-link-product-page.phtml" ifconfig="payment/amazon_payment/active" />
         </referenceBlock>
@@ -93,7 +101,7 @@
         </block>
 
         <block class="Magento\Catalog\Block\Product\View" name="deliveryinfo.tab" as="deliveryinfo"
-               template="product/view/delivery_info.phtml" group="detailed_info" before="reviews.tab">
+               template="Magento_Catalog::product/view/delivery_info.phtml" group="detailed_info" before="reviews.tab">
             <arguments>
                 <argument translate="true" name="title" xsi:type="string">Shipping Info</argument>
             </arguments>
