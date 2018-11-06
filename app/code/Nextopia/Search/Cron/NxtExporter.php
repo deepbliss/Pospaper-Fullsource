@@ -44,7 +44,8 @@ class NxtExporter {
         // Make files written by the profile world-writable/readable
         umask(0);
         // Final csv export file
-        $this->_csvFileName = $varDir . "/nextopia-exporter-files/nextopia-export-%s.csv";
+        //$this->_csvFileName = $varDir . "/nextopia-exporter-files/nextopia-export-%s.csv";
+        $this->_csvFileName = $publicDir . "/nextopia-exporter-files/nextopia-export-%s.csv";
         $dirname = dirname($this->_csvFileName);
         
         if (!is_dir($dirname)) {
