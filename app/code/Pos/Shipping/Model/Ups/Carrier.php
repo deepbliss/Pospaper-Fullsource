@@ -311,6 +311,9 @@ class Carrier extends \Magento\Ups\Model\Carrier
                 $rate->setCarrierTitle($this->getConfigData('title'));
                 $rate->setMethod($method);
                 $methodArr = $this->getShipmentByCode($method);
+                if($methodArr == 'UPS Ground') {
+                    $methodArr = 'Ground';
+                }
                 $rate->setMethodTitle($methodArr);
                 $rate->setCost($costArr[$method]);
                 $rate->setPrice($price);
