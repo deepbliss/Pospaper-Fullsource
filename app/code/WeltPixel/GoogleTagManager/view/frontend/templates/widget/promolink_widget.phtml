@@ -1,0 +1,18 @@
+<?php
+// @codingStandardsIgnoreFile
+
+$promoId = $this->getData('promo_id');
+$promoName = $this->getData('promo_name');
+$promoCreative = $this->getData('promo_creative');
+$promoPosition = $this->getData('promo_position');
+$linkDestination = trim($this->getData('link_destination'));
+$linkDestination = ($linkDestination) ? $linkDestination : '#';
+$linkContent = $this->getData('link_content');
+$linkInNewTab = $this->getData('link_in_new_tab');
+$linkTarget = ($linkInNewTab) ? 'target="_blank"' : '';
+?>
+<a href="<?php echo $linkDestination ?>" <?php echo $linkTarget ?> data-track-promo-id="<?php echo $promoId ?>"
+   data-track-promo-name="<?php echo $promoName ?>"
+   data-track-promo-creative="<?php echo $promoCreative ?>"
+   data-track-promo-position="<?php echo $promoPosition ?>"
+><?php echo html_entity_decode($linkContent) ?></a>

@@ -1,0 +1,29 @@
+<?php
+// @codingStandardsIgnoreFile
+?>
+<?php if ($this->isEnabled()) : ?>
+    <?php $dataLayerObject = $this->getDataLayerAsJson(); ?>
+    <script>
+        window.getWpCookie = function(name) {
+            match = document.cookie.match(new RegExp(name + '=([^;]+)'));
+            if (match) return decodeURIComponent(match[1].replace(/\+/g, ' ')) ;
+        };
+
+        window.dataLayer = window.dataLayer || [];
+        <?php if ($dataLayerObject != '[[]]') : ?>
+        var dlObjects = <?php echo $dataLayerObject; ?>;
+        for (var i in dlObjects) {
+            window.dataLayer.push(dlObjects[i]);
+        }
+        <?php endif; ?>
+        var wpCookies = [<?php echo $this->getWpCookiesForJs(); ?>];
+        wpCookies.map(function(cookieName) {
+            var cookieValue = window.getWpCookie(cookieName);
+            if (cookieValue) {
+                var dlObject = {};
+                dlObject[cookieName.replace('wp_', '')] = cookieValue;
+                window.dataLayer.push(dlObject);
+            }
+        });
+    </script>
+<?php endif; ?>

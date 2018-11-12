@@ -1,0 +1,20 @@
+<?php
+// @codingStandardsIgnoreFile
+?>
+<?php if($this->isEnabled()) : ?>
+    <?php $helper = $this->helper('WeltPixel\GoogleTagManager\Helper\Data'); ?>
+    <?php $products = $this->getProducts(); ?>
+
+    <?php
+    $checkoutData = [];
+    $checkoutData['actionField'] = [
+        'step' => '1',
+        'option' => '' // @TODO Some value can be added
+    ];
+    $checkoutData['products'] = $products;
+    $checkoutData['currencyCode'] = $this->getCurrencyCode();
+
+    $this->setDataLayerOption('event', 'checkout');
+    $this->setEcommerceData('checkout', $checkoutData);
+    ?>
+<?php endif; ?>

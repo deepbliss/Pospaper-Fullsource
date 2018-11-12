@@ -20,5 +20,31 @@
                 <frontend_model>WeltPixel\Backend\Block\Adminhtml\System\Config\Extensions</frontend_model>
             </group>
         </section>
+        <section id="weltpixel_backend_developer" translate="label" type="text" sortOrder="1000" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Developer</label>
+            <tab>weltpixel</tab>
+            <resource>WeltPixel_Backend::DeveloperSettings</resource>
+            <group id="system_information" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>System Information</label>
+                <field id="infromation_details" translate="button_label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>WeltPixel\Backend\Block\Adminhtml\System\Config\SystemInformation</frontend_model>
+                </field>
+            </group>
+            <group id="logging" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Logs</label>
+                <field id="disable_broken_reference" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable broken reference logs</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable/Disable Broken reference warning and info logs from system.log file.</comment>
+                </field>
+            </group>
+            <group id="notifications" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Notifications</label>
+                <field id="enable_admin_notification" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable WeltPixel Admin Notifications</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
     </system>
 </config>

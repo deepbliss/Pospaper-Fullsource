@@ -1,0 +1,227 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="weltpixel_googletagmanager" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Google Analytics Enhanced Ecommerce</label>
+            <tab>weltpixel</tab>
+            <resource>WeltPixel_GoogleTagManager::GoogleTagManagerSettings</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Configuration</label>
+                <field id="enable" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable GoogleTagManager</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="gtm_code" translate="label" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Google Tag Manager Javascript Code</label>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+                <field id="gtm_nonjs_code" translate="label" type="textarea" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Google Tag Manager Non-Js Code</label>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+                <field id="impression_chunk_size" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Impression Chunks Size</label>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <validate>required number</validate>
+                    <comment>The impressions will be sent in separate chunks limited to this number.</comment>
+                </field>
+                <field id="id_selection" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Identifier</label>
+                    <source_model>WeltPixel\GoogleTagManager\Model\Config\Source\Id</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+                <field id="enable_brand" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Brand</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+                <field id="brand_attribute" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Brand Attribute</label>
+                    <comment>Only attributes with Used in Product Listing set to Yes are availble here.</comment>
+                    <source_model>WeltPixel\GoogleTagManager\Model\Config\Source\AttributeCollection</source_model>
+                    <depends>
+                        <field id="enable_brand">1</field>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+                <field id="order_total_calculation" translate="label" type="select" sortOrder="65" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Order Success Page Total Calculation</label>
+                    <source_model>WeltPixel\GoogleTagManager\Model\Config\Source\OrderTotalCalculation</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+                <field id="product_click_tracking" translate="label" type="select" sortOrder="68" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Measure Product Clicks</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[This option allows ‘Product Click’ tracking on Category Page , Search results page and Related/Cross-sell/Up-sell product grids. <br/>
+If Product Click Tracking is enabled this option rewrites Magento_Catalog::product/list.phtml and Magento_Catalog::product/list/list.phtml. <br/> If you are using a custom theme/extension already re-writing this templates check here how you can make the necessary compatibility adjustments: <br/> <a target="_blank" href="https://support.weltpixel.com/hc/en-us/articles/115006195028-How-to-solve-compatibility-issues-Google-Tag-Manager-Enhanced-Ecommerce">How to solve GTM compatibility issues</a>]]></comment>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+                <field id="promotion_tracking" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Promotion Tracking</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[<b>Example of usage:</b> &#60;a href="#" data-track-promo-id="PROMOID" data-track-promo-name="PROMONAME" data-track-promo-creative="PROMOCREATIVE" data-track-promo-position="PROMOPOSITION" &#62;Content&#60;/a&#62;]]></comment>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+                <field id="persistentlayer_expiry" translate="label" type="text" sortOrder="72" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Persistent datalayer expiry time</label>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <validate>required number</validate>
+                    <comment>The specified value represents minutes.</comment>
+                </field>
+                <field id="exclude_tax_from_transaction" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Exclude Tax From Transaction</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+                <field id="exclude_shipping_from_transaction" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Exclude Shipping From Transaction</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+                <field id="parent_vs_child" translate="label" type="select" sortOrder="105" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Child vs Parent</label>
+                    <source_model>WeltPixel\GoogleTagManager\Model\Config\Source\ParentVsChild</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <comment>Send Parent Id or Child id cart, checkout and thank you page</comment>
+                </field>
+                <field id="custom_dimension_customerid" translate="label" type="select" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Custom Dimension - Customer ID</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+                <field id="custom_dimension_customergroup" translate="label" type="select" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Custom Dimension - Customer Group</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="api" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>GTM API Configuration</label>
+                <field id="account_id" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Account ID</label>
+                    <validate>required</validate>
+                    <comment><![CDATA[<b>Ex:</b> 600354931. Check usage <a target="_blank" href="http://oauth.weltpixel.com/demo-image.png">here</a>]]></comment>
+                </field>
+                <field id="container_id" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Container ID</label>
+                    <validate>required</validate>
+                    <comment><![CDATA[<b>Ex:</b> 2293419. Check usage <a target="_blank" href="http://oauth.weltpixel.com/demo-image.png">here</a>]]></comment>
+                </field>
+                <field id="ua_tracking_id" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Universal Analytics Tracking ID</label>
+                    <validate>required</validate>
+                    <comment><![CDATA[<b>Ex:</b> UA-12345678-9 ]]></comment>
+                </field>
+                <field id="ip_anonymization" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>I.P Anonymization</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="display_advertising" translate="label" type="select" sortOrder="45" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Display Advertising Features</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="api_container" translate="label" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>WeltPixel\GoogleTagManager\Block\System\Config\Api</frontend_model>
+                </field>
+            </group>
+            <group id="adwords_conversion_tracking" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Google AdWords conversion tracking</label>
+                <field id="enable" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="google_conversion_id" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Google Conversion Id</label>
+                    <validate>required</validate>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <comment><![CDATA[<b>Ex:</b> 12324325 ]]></comment>
+                </field>
+                <field id="google_conversion_label" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Google Conversion Label</label>
+                    <validate>required</validate>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <comment><![CDATA[<b>Ex:</b> Label value ]]></comment>
+                </field>
+                <field id="google_conversion_currency_code" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Google Conversion Currency Code</label>
+                    <validate>required</validate>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <comment><![CDATA[<b>Ex:</b> usd ]]></comment>
+                </field>
+                <field id="api_container" translate="label" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>WeltPixel\GoogleTagManager\Block\System\Config\Api\ConversionTracking</frontend_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="adwords_remarketing" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Google AdWords Remarketing</label>
+                <field id="enable" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="conversion_code" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Conversion Code</label>
+                    <validate>required</validate>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+                <field id="conversion_label" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Conversion Label</label>
+                    <comment>You can leave the Conversion Label field blank if there is no google_conversion_label in the code box.</comment>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+                <field id="api_container" translate="label" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>WeltPixel\GoogleTagManager\Block\System\Config\Api\Remarketing</frontend_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="pro_version"  translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Get Pro version for additional features</label>
+                <field id="pro_version_message" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>WeltPixel\GoogleTagManager\Block\Adminhtml\System\Config\ProVersion</frontend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

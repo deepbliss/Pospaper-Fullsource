@@ -1,0 +1,9 @@
+<?php
+// @codingStandardsIgnoreFile
+?>
+<?php
+$_helper = $this->helper('WeltPixel\GoogleTagManager\Helper\Data');
+?>
+<?php if ($_helper->isEnabled()) : ?>
+<?php echo $_helper->getGtmNonJsCodeSnippet(); ?>
+<?php endif; ?>

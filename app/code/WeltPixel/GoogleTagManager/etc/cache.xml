@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Cache/etc/cache.xsd">
+    <type name="wp_gtm_categories" translate="label,description" instance="WeltPixel\GoogleTagManager\Model\Cache\Type">
+        <label>WeltPixel GoogleTagManager Categories Cache </label>
+        <description>Categories used with Product Events</description>
+    </type>
+</config>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Checkout\Model\ShippingInformationManagement">
+        <plugin name="weltpixel-googletagmanager-checkout-shippinginformation"
+                type="WeltPixel\GoogleTagManager\Plugin\ShippingInformation" sortOrder="10"/>
+    </type>
+    <type name="Magento\Checkout\Model\PaymentInformationManagement">
+        <plugin name="weltpixel-googletagmanager-checkout-paymentinformation"
+                type="WeltPixel\GoogleTagManager\Plugin\PaymentInformation" sortOrder="10"/>
+    </type>
+    <type name="Magento\Checkout\Model\GuestPaymentInformationManagement">
+        <plugin name="weltpixel-googletagmanager-checkout-guestpaymentinformation"
+                type="WeltPixel\GoogleTagManager\Plugin\GuestPaymentInformation" sortOrder="10"/>
+    </type>
+    <type name="Magento\Wishlist\Model\Item">
+        <plugin name="weltpixel-googletagmanager-wishlist-addtocart"
+                type="WeltPixel\GoogleTagManager\Plugin\WishlistAddToCart" sortOrder="10"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Config">
+        <plugin name="weltpixel-googletagmanager-quote-config"
+                type="WeltPixel\GoogleTagManager\Plugin\QuoteConfig" sortOrder="10"/>
+    </type>
+    <type name="Magento\Framework\App\Http\Context">
+        <plugin name="weltpixel-googletagmanager-context"
+                type="WeltPixel\GoogleTagManager\Plugin\HttpContext" sortOrder="1"/>
+    </type>
+</config>

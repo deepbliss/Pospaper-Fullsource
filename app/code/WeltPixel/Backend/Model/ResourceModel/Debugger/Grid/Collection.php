@@ -200,7 +200,7 @@ class Collection extends \Magento\Framework\Data\Collection implements SearchRes
                  * Exceptions
                  * Magento\Catalog\Block\Product\ImageBuilder class we rewrite in LazyLoading, OwlCarousel modules as well
                  * these modules are sold as standalone ones, so we rewrite the class also in CategoryPage module
-                 * where we merge the functionalities from those 2 modules, in this case this rewite is marked as Ok,
+                 * where we merge the functionalities from those 2 modules, in this case this rewrite is marked as Ok,
                  */
                 if (($originalClass == 'Magento\Catalog\Block\Product\ImageBuilder') &&
                     ($areaCode == 'frontend') &&

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="weltpixel_googletagmanager_promo" class="WeltPixel\GoogleTagManager\Block\Widget\Promo" is_email_compatible="true" placeholder_image="WeltPixel_GoogleTagManager::images/widget_linkpromo.png">
+        <label translate="true">WeltPixel GoogleTagManager PromoLinkWidget</label>
+        <description>Adds GTM Promo Link</description>
+        <parameters>
+            <parameter name="promo_id" xsi:type="text" visible="true" required="true" sort_order="10" >
+                <label translate="true">Promo Id</label>
+            </parameter>
+            <parameter name="promo_name" xsi:type="text" visible="true" required="true" sort_order="20" >
+                <label translate="true">Promo Name</label>
+            </parameter>
+            <parameter name="promo_creative" xsi:type="text" visible="true" sort_order="30" >
+                <label translate="true">Promo Creative</label>
+            </parameter>
+            <parameter name="promo_position" xsi:type="text" visible="true" sort_order="40" >
+                <label translate="true">Promo Position</label>
+            </parameter>
+            <parameter name="link_destination" xsi:type="text" visible="true" sort_order="50" >
+                <label translate="true">Link Destination</label>
+            </parameter>
+            <parameter name="link_in_new_tab" xsi:type="select" visible="true" sort_order="60"  source_model="WeltPixel\GoogleTagManager\Model\Config\Source\YesNo" >
+                <label translate="true">Open link in new tab</label>
+            </parameter>
+            <parameter name="link_content" xsi:type="block" visible="true" sort_order="70" >
+                <label translate="true">Link Content</label>
+                <description><![CDATA[Html content can be added here: Ex.: &lt;img src=&quot;https://www.weltpixel.com/pub/media/logo/stores/1/weltpixel_line.svg&quot; alt=&quot;image text&quot; /&gt;]]></description>
+                <block class="WeltPixel\GoogleTagManager\Block\Adminhtml\Widget\TextArea" />
+            </parameter>
+            <parameter name="info_messsage"  xsi:type="block" visible="true" sort_order="80" >
+                <block class="WeltPixel\GoogleTagManager\Block\Adminhtml\Widget\InfoMessage" />
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

@@ -1,0 +1,41 @@
+<?php
+// @codingStandardsIgnoreFile
+?>
+<?php if($this->isEnabled()) : ?>
+    <?php $helper = $this->helper('WeltPixel\GoogleTagManager\Helper\Data'); ?>
+    <?php $category = $this->getCurrentCategory(); ?>
+    <?php $productCollection = $this->getProductCollection(); ?>
+    <?php if (count($productCollection)) : ?>
+        <?php $categoryProducts = array(); ?>
+        <?php $i = 1; ?>
+        <?php foreach($productCollection as $product) : ?>
+            <?php $categoryProduct = array(); ?>
+            <?php $categoryProduct['name'] = html_entity_decode($product->getName()); ?>
+            <?php $categoryProduct['id'] = $helper->getGtmProductId($product); ?>
+            <?php $categoryProduct['price'] = number_format($product->getPriceInfo()->getPrice('final_price')->getValue(), 2, '.', ''); ?>
+            <?php if ($helper->isBrandEnabled()) : ?>
+            <?php $categoryProduct['brand'] = $helper->getGtmBrand($product); ?>
+            <?php endif;?>
+            <?php $categoryProduct['category'] = $helper->getGtmCategory($category); ?>
+            <?php $categoryProduct['list'] = $helper->getGtmCategory($category); ?>
+            <?php $categoryProduct['position'] = $i; ?>
+            <?php $categoryProducts[] = $categoryProduct; ?>
+            <?php $i++ ; ?>
+        <?php endforeach; ?>
+        <?php $this->setEcommerceData('currencyCode', $this->getCurrencyCode()); ?>
+        <?php $this->setEcommerceData('impressions', $categoryProducts); ?>
+        <?php $this->setDataLayerOption('event', 'impression'); ?>
+        <?php $this->setDataLayerOption('eventCategory', 'Ecommerce'); ?>
+        <?php $this->setDataLayerOption('eventAction', 'Impression'); ?>
+        <?php $this->setDataLayerOption('eventLabel',  \WeltPixel\GoogleTagManager\Model\Api\Remarketing::ECOMM_PAGETYPE_CATEGORY . ' ' . $helper->getGtmCategory($category)); ?>
+    <?php endif; ?>
+
+    <?php if ($helper->isAdWordsRemarketingEnabled()): ?>
+        <?php
+            $remarketingData = [];
+            $remarketingData['ecomm_pagetype'] = \WeltPixel\GoogleTagManager\Model\Api\Remarketing::ECOMM_PAGETYPE_CATEGORY;
+            $remarketingData['ecomm_category'] = $helper->getGtmCategory($category);
+        ?>
+        <?php $this->setDataLayerOption('google_tag_params', $remarketingData); ?>
+    <?php endif; ?>
+<?php endif; ?>

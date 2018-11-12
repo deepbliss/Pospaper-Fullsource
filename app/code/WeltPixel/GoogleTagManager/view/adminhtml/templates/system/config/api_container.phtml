@@ -1,0 +1,24 @@
+<?php if ($this->getApiModel()->getClient() && $this->getApiModel()->getClient()->isAccessTokenExpired()):?>
+    <a class="action-default scalable save primary ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" href="<?php echo $this->getApiModel()->getClient()->createAuthUrl()?>">
+        <?php echo __("Sign in to Google"); ?>
+    </a>
+<?php else: ?>
+<div>
+    <?php echo __("<p>Please click <b>Save Config</b> button to save the entered API data, otherwise they will be lost.</p>"); ?>
+    <hr/><br/>
+    <p><b><?php echo __("Create all your tags, variables and triggers automatically in Google Tag Manager."); ?></b></p>
+    <input type="hidden" value="<?php echo $block->getFormKey(); ?>" name="api_form_key" id="api_form_key" />
+    <hr/>
+    <button id="save_gtm_api" title="<?php echo __("Create Variables, Triggers and Tags") ?>" type="button" class="action-default scalable save primary ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
+        <span class="ui-button-text"><span><?php echo __("Create Variables, Triggers and Tags") ?></span></span>
+    </button>
+</div>
+<script>
+    requirejs(['jquery', 'WeltPixel_GoogleTagManager/js/gtmApi' ],
+        function   ($, gtmApi) {
+            $(document).ready(function() {
+                gtmApi.initialize('<?php echo $this->getUrlForItemsCreation() ?>');
+            });
+        });
+</script>
+<?php endif; ?>

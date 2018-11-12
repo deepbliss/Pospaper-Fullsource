@@ -1,0 +1,38 @@
+<?php
+// @codingStandardsIgnoreFile
+/**
+ * Usage $this->helper('WeltPixel\GoogleTagManager\Helper\Data')->addProductClick($_product, $index, 'List Value');
+ */
+?>
+<?php if($this->isEnabled()) : ?>
+    <?php $product = $this->getProduct(); ?>
+    <?php $helper = $this->helper('WeltPixel\GoogleTagManager\Helper\Data'); ?>
+    <?php if (isset($product)) : ?>
+        <?php
+        $list = $this->getList();
+        $index = $this->getIndex();
+        $data = array(
+            'event' => 'productClick',
+            'eventLabel' => html_entity_decode($product->getName()),
+            'ecommerce' => array(
+                'click' => array(
+                    'actionField'   => array('list' => ($list) ? $list : ''),
+                    'products' => array(
+                        array(
+                            'name'  => html_entity_decode($product->getName()),
+                            'id'    => $helper->getGtmProductId($product),
+                            'price' => number_format($product->getPriceInfo()->getPrice('final_price')->getValue(), 2, '.', ''),
+                            'category'  =>  $helper->getGtmCategoryFromCategoryIds($product->getCategoryIds()),
+                            'position'  => $index
+                        )
+                    )
+                )
+            )
+        );
+        if ($helper->isBrandEnabled()) :
+            $data['ecommerce']['click']['products'][0]['brand'] = $helper->getGtmBrand($product);
+        endif;
+        ?>
+        window.dataLayer.push(<?php echo $this->escapeHtml($this->helper('Magento\Framework\Json\Helper\Data')->jsonEncode($data)); ?>);
+    <?php endif; ?>
+<?php endif; ?>

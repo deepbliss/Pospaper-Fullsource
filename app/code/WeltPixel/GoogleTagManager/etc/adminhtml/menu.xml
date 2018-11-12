@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add
+                id="WeltPixel_GoogleTagManager::GoogleTagManager_Label"
+                title="Google Analytics Enhanced Ecommerce"
+                module="WeltPixel_GoogleTagManager"
+                sortOrder="60"
+                parent="WeltPixel_Backend::WeltPixel"
+                resource="WeltPixel_GoogleTagManager::GoogleTagManager_Label"
+        />
+        <add
+                id="WeltPixel_GoogleTagManager::GoogleTagManager"
+                title="Enhanced Ecommerce GTM Settings"
+                module="WeltPixel_GoogleTagManager"
+                action="adminhtml/system_config/edit/section/weltpixel_googletagmanager/"
+                sortOrder="10"
+                parent="WeltPixel_GoogleTagManager::GoogleTagManager_Label"
+                resource="WeltPixel_GoogleTagManager::GoogleTagManager"
+        />
+    </menu>
+</config>

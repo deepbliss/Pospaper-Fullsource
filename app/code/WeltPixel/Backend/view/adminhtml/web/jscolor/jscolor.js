@@ -44,6 +44,9 @@ var jscolor = {
 
 
 	detectDir : function() {
+
+		return document.getElementById('wp_base_url_jscolor').value + '/';
+
 		var base = location.href;
 
 		var e = document.getElementsByTagName('base');

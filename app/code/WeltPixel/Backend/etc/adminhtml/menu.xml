@@ -27,10 +27,27 @@
                 resource="WeltPixel_Backend::WeltPixel_HelpCenter"
         />
         <add
+                id="WeltPixel_Backend::WeltPixel_Licenses"
+                title="WeltPixel Licenses"
+                module="WeltPixel_Backend"
+                sortOrder="2"
+                parent="WeltPixel_Backend::WeltPixel"
+                resource="WeltPixel_Backend::WeltPixel_Licenses"
+        />
+        <add
+                id="WeltPixel_Backend::Modules_License"
+                title="Modules Licenses"
+                module="WeltPixel_Backend"
+                action="weltpixel_backend/licenses/index"
+                sortOrder="2"
+                parent="WeltPixel_Backend::WeltPixel_Licenses"
+                resource="WeltPixel_Backend::Modules_License"
+        />
+        <add
                 id="WeltPixel_Backend::WeltPixel_Debugger"
                 title="WeltPixel Debugger"
                 module="WeltPixel_Backend"
-                sortOrder="2"
+                sortOrder="3"
                 parent="WeltPixel_Backend::WeltPixel"
                 resource="WeltPixel_Backend::WeltPixel_Debugger"
         />
@@ -51,6 +68,15 @@
                 sortOrder="5"
                 parent="WeltPixel_Backend::WeltPixel_Debugger"
                 resource="WeltPixel_Backend::WeltPixel_Debugger_Modules"
+        />z
+        <add
+                id="WeltPixel_Backend::WeltPixel_Debugger_Developer"
+                title="Developer"
+                module="WeltPixel_Backend"
+                action="adminhtml/system_config/edit/section/weltpixel_backend_developer/"
+                sortOrder="25"
+                parent="WeltPixel_Backend::WeltPixel_Debugger"
+                resource="WeltPixel_Backend::WeltPixel_Debugger_Developer"
         />
         <add
                 id="WeltPixel_Backend::Pearl_Theme_Options"

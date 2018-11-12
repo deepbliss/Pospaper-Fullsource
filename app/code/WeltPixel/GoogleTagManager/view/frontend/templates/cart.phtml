@@ -1,0 +1,46 @@
+<?php
+// @codingStandardsIgnoreFile
+?>
+<?php if($this->isEnabled()) : ?>
+    <?php $helper = $this->helper('WeltPixel\GoogleTagManager\Helper\Data'); ?>
+        <?php
+        $crosselProductsCollection = $this->getCrosselProductCollection();
+        $productImpressions = [];
+
+        if (count($crosselProductsCollection)) :
+            $i = 1;
+            foreach($crosselProductsCollection as $_product) :
+                $crosselProduct = array();
+                $crosselProduct['name'] = html_entity_decode($_product->getName());
+                $crosselProduct['id'] = $helper->getGtmProductId($_product);
+                $crosselProduct['price'] = number_format($_product->getPriceInfo()->getPrice('final_price')->getValue(), 2, '.', '');
+                if ($helper->isBrandEnabled()) :
+                    $crosselProduct['brand'] = $helper->getGtmBrand($_product);
+                endif;
+                $crosselProduct['category'] = $helper->getGtmCategoryFromCategoryIds($_product->getCategoryIds());
+                $crosselProduct['list'] = __('Crossel Products');
+                $crosselProduct['position'] = $i;
+                $productImpressions[] = $crosselProduct;
+                $i++ ;
+            endforeach;
+        endif;
+
+        if (count($productImpressions)) :
+            $this->setEcommerceData('currencyCode', $this->getCurrencyCode());
+            $this->setEcommerceData('impressions', $productImpressions);
+            $this->setDataLayerOption('event', 'impression');
+            $this->setDataLayerOption('eventCategory', 'Ecommerce');
+            $this->setDataLayerOption('eventAction', 'Impression');
+            $this->setDataLayerOption('eventLabel',  \WeltPixel\GoogleTagManager\Model\Api\Remarketing::ECOMM_PAGETYPE_CART);
+        endif;
+
+        if ($helper->isAdWordsRemarketingEnabled()):
+            $remarketingData = [];
+            $remarketingData['ecomm_pagetype'] = \WeltPixel\GoogleTagManager\Model\Api\Remarketing::ECOMM_PAGETYPE_CART;
+            $remarketingData['ecomm_prodid'] = $this->getProductIds();
+            $remarketingData['ecomm_totalvalue'] = number_format($this->getCartTotal(), 2, '.', '');
+            $this->setDataLayerOption('google_tag_params', $remarketingData);
+        endif;
+
+        ?>
+<?php endif; ?>
