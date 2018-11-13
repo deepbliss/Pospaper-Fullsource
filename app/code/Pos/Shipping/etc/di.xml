@@ -6,7 +6,4 @@
             <argument name="pattern" xsi:type="string">%s%'.06d%s</argument>
         </arguments>
     </type>
-    <type name="Magento\Directory\Model\ResourceModel\Region\Collection">
-        <plugin name="Pos_Shipping_Limit_State_Filter_Plugin" type="Pos\Shipping\Plugin\PosStateFilter"/>
-    </type>
 </config>
