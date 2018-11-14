@@ -339,12 +339,16 @@ class Spending
         } else {
             $itemPrice = $itemPrice * $qty - $item->getDiscountAmount();
             $baseItemPrice = $baseItemPrice * $qty - $item->getBaseDiscountAmount();
-        } 
+        }
 
         if ($this->rewardPointsData->getItemsCount() > 1) {
-            $itemBaseRewardPointsAmount = $this->rewardPointsData->getBaseAvailablePointsAmount();
-            $itemRewardPointsAmount = $this->rewardPointsData->getAvailablePointsAmount();
-            $this->rewardPointsData->setItemsCount(0);
+            $rateForItem = $baseItemPrice / $this->rewardPointsData->getBaseItemsTotal();
+            $itemBaseRewardPointsAmount = $this->rewardPointsData->getBaseAvailablePointsAmount() * $rateForItem;
+
+            $rateForItem = $itemPrice / $this->rewardPointsData->getItemsTotal();
+            $itemRewardPointsAmount = $this->rewardPointsData->getAvailablePointsAmount() * $rateForItem;
+
+            $this->rewardPointsData->setItemsCount($this->rewardPointsData->getItemsCount() - 1);
         }
 
         $rewardPointsAmount = min($itemRewardPointsAmount, $itemPrice);
