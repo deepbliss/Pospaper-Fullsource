@@ -53,7 +53,7 @@ define([
                             self.fillInAddress(autocomplete, rootComponent);
                         });
 
-                        self.geolocate(autocomplete);
+                        //self.geolocate(autocomplete);
                     });
                 });
             });
