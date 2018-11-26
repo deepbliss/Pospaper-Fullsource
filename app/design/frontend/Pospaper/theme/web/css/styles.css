@@ -1193,6 +1193,9 @@ body .opc-block-shipping-information .shipping-information-title .action-edit{to
 padding: 0 10px;margin-right: 0;color: #fff;box-shadow: none;}
 .checkout-container .checkout-payment-method .payment-method-content > .actions-toolbar > .primary .action.primary:hover,.checkout-payment-method .checkout-billing-address .actions-toolbar > .primary .action.action-update:hover{background: #8fcc05; border-color: #8fcc05;}
 .checkout-payment-method .checkout-billing-address .actions-toolbar > .primary .action.action-cancel{margin: 0 15px 0 0; color: #000; text-transform: uppercase; line-height: 40px; font-size: 18px;}
+.checkout-payment-method .payment-method-content.authorize-net-action {
+    display: none !important;
+}
 .checkout-payment-method .checkout-billing-address .actions-toolbar > .primary .action.action-cancel:hover{color: #8fcc05; text-decoration: none;}
 .checkout-container .form-discount > .actions-toolbar > .primary button.action.action-apply {height: 40px;width: auto;background: #4d485b;padding: 0;text-transform: uppercase;font-size: 15px;border-color: #4d485b;font-weight: 600;border-radius: 0;line-height: 30px;padding: 0 10px;margin-right: 0;color: #fff;box-shadow: none;}
 .checkout-container .form-discount > .actions-toolbar > .primary button.action.action-apply:hover{background: #8fcc05; border-color: #8fcc05;}
