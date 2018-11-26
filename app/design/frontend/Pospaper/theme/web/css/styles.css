@@ -2203,3 +2203,25 @@ body.checkout-index-index .fancybox-container{display: none !important;}
         margin: -20px 0 20px;
     }
 }
+
+
+/*------------------------- start 11/14/18 --------------------------------*/
+.product-add-form .detail-shipping-div {float: left;width: auto;margin: 11px 0;}
+.product-add-form .detail-shipping-div .metric-div {float: left;width: 100%;border-bottom: 0;}
+.product-add-form .metric-div ul {float: left;width: auto;text-align: left;padding: 0;}
+.product-add-form .metric-div ul li.price {border-right: 0;padding-left: 43px;padding-right: 0;margin-right: 0;}
+.product-add-form .metric-div ul li a {font-size: 15px;}
+.product-add-form .metric-div ul li a span {font-size: 12px;}
+.columns .product-shop .product-info-main .box-tocart .action.tocart{width:200px;}
+.columns .product-shop .product-info-main .box-tocart .actions, .columns .product-shop .product-options-bottom .box-tocart .actions {margin-right: 15px;}
+.detail-shipping-section .metric-div .social{border-right: 1px solid #dbdbdb;padding-right: 18px;margin-right: 16px;}
+.catalog-product-view .amazon-button-container{display:inline-block;}
+.catalog-product-view .amazon-button-container .amazon-button-container__cell{position: static;}
+.catalog-product-view .amazon-button-container .field-tooltip {margin: -17px 0 0 0;}
+.customer-account-login .fieldset.login .info-note {float: left;width: 100%;}
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+	.catalog-product-view .amazon-button-container .field-tooltip {right: -10px;}
+}
+
+/*------------------------- end 11/14/18 --------------------------------*/
