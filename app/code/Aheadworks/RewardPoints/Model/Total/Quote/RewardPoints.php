@@ -79,12 +79,14 @@ class RewardPoints extends AbstractTotal
         $customerId = $quote->getCustomerId();
         $address = $shippingAssignment->getShipping()->getAddress();
         $items = $shippingAssignment->getItems();
+        $couponCode = $quote->getCouponCode();
+        $discountAmount = $quote->getDiscountAmount();
         $this->reset($total, $quote, $address, $items);
 
         if (!count($items)) {
             return $this;
         }
-        if (!$customerId || !$quote->getAwUseRewardPoints()) {
+        if (!$customerId || !$quote->getAwUseRewardPoints() || $couponCode != '') {
             $quote->setAwUseRewardPoints(false);
             $this->reset($total, $quote, $address, $items, true);
             return $this;
@@ -97,6 +99,7 @@ class RewardPoints extends AbstractTotal
             $customerId,
             $websiteId
         );
+
         if (!$rewardPointsData->getAvailablePoints()) {
             $quote->setAwUseRewardPoints(false);
             $this->reset($total, $quote, $address, $items, true);
