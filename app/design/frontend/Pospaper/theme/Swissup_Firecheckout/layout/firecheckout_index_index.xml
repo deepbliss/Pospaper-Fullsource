@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <remove src="Aheadworks_Freeshippinglabel::css/styles.css"/>
+    </head>
+    <body>
+        <referenceBlock name="aw_fslabel_page_top_fixed" remove="true"/>
+        <referenceBlock name="aw_fslabel_page_top" remove="true"/>
+        <referenceBlock name="aw_fslabel_content_top" remove="true"/>
+        <referenceBlock name="aw_fslabel_content_bottom" remove="true"/>
+        <referenceBlock name="aw_fslabel_page_bottom" remove="true"/>
+        <referenceBlock name="aw_fslabel_page_bottom_fixed" remove="true"/>
+    </body>
+</page>

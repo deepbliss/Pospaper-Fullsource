@@ -6,7 +6,6 @@ class PosStateFilter
 {
     protected $disallowed = array(
         'Guam',
-        'Puerto Rico',
         'Palau',
         'Virgin Islands',
         'Northern Mariana Islands',
