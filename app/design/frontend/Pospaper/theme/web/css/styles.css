@@ -91,7 +91,7 @@ input[type=checkbox]{ -webkit-appearance:checkbox; }
 .head-account-div ul{width: auto; float: right;}
 .head-account-div ul li{float: left; width: auto; color: #108bb5; font-size: 13px; font-weight: 400; line-height: 25px; letter-spacing: 0.05em; margin: 0; cursor: pointer; position: relative;}
 .head-account-div ul li:after{display: inline-block; width: 1px; height: 9px; content: ""; background: #7f7f7f; margin: 0 10px;}
-.head-account-div ul li a{color: #606060;}
+.head-account-div ul li:first-child a{color: #606060;}
 .head-account-div ul li:hover a{color: #2c116f;}
 .head-account-div ul li .login-poup {position: absolute;top: 100%;left: -9999px; padding: 7px 0 0 0;z-index: 9;opacity: 0;
 filter: alpha(opacity=0);

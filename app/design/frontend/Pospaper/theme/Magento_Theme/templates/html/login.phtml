@@ -6,27 +6,14 @@
 ?>  
 <ul id="desktop-links">
     <li><a href="<?php echo $baseurl .'trackorder'; ?>">Track Your Shipment</a></li>
-    <li><span class="login-click"><?php echo __('My Account') ?></span>
-        <div class="login-poup">
-            <ul>
-            <?php if($customerSession->isLoggedIn()): ?>
-                <li>
-                    <a href="<?php echo $baseurl .'customer/account/index'; ?>"><?php echo __('My Account') ?></a>
-                </li>
-                <li>
-                    <a href="<?php echo $baseurl .'customer/account/logout'; ?>"><?php echo __('Sign Out') ?></a>
-                </li>
-            <?php else: ?>
-                <li>
-                    <a href="<?php echo $baseurl .'customer/account/login'; ?>"><?php echo __('Sign In') ?></a>
-                </li>
-                <li>
-                    <a href="<?php echo $baseurl .'customer/account/create'; ?>"><?php echo __('Register') ?></a>
-                </li>
-            <?php endif; ?>
-            </ul>
-        </div>
+    <li>
+        <a href="<?php echo $baseurl .'customer/account/index'; ?>"><?php echo __('My Account') ?></a>
     </li>
+    <?php if($customerSession->isLoggedIn()): ?>
+        <li>
+            <a href="<?php echo $baseurl .'customer/account/logout'; ?>"><?php echo __('Sign Out') ?></a>
+        </li>
+    <?php endif; ?>
 </ul>
 <ul id="mobile-links" class="mobile-header-links">
     <li><a href="<?php echo $baseurl .'trackorder'; ?>">Track Your Shipment</a></li>
