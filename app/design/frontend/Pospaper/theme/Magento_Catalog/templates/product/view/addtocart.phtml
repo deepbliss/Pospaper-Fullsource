@@ -106,26 +106,21 @@
 
 
 </script> -->
-<div class="product-social-links">
-<div class="product-addto-links">
-<!-- <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5b3f1828c5ed960011521b1f&product=inline-share-buttons' async='async'></script>
 
-<div class="sharethis-inline-share-buttons"></div> -->
-
-
-<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5b3f1828c5ed960011521b1f&product=custom-share-buttons"></script>
-<div id="st-1">
-<div data-network="sharethis" class="st-btn st-custom-button" title="Sharethis" style="display: inline-block;">sharethis</div>
-<div data-network="facebook" class="st-btn st-custom-button" title="Facebook" style="display: inline-block;">Facebook</div>
-<div data-network="twitter" class="st-btn st-custom-button" title="Twitter" style="display: inline-block;">Twitter</div>
-<div data-network="email" class="st-btn st-custom-button" title="Email" style="display: inline-block;">Email</div>
-
-</div>
-
-
-
+<div class="detail-shipping-div">
+<div class="metric-div">
+<ul>
+<li class="price"><a id="price-match" href="/price-match/price-match.php"> Low Price Guarantee <span>We won't be beat on price</span> </a></li>
+</ul>
 </div>
 </div>
+<script type="text/javascript" xml="space">// <![CDATA[
+    jQuery("#price-match").fancybox({
+        'type' : 'iframe'        
+});
+// ]]></script>
+
+
 
 
 <style type="text/css">
@@ -187,7 +182,7 @@ function pdUpdateQty(mod,setQty){
 }
 function pdUpdatePriceDisplay(qty){
 
-    var pdprice = jQuery(".price-wrapper").attr("data-price-amount");
+    var pdprice = jQuery(".price-wrapper.pdPriceDisplay").attr("data-price-amount");
     
     if(pdQtyHasPriceBreak){
     //*** IF QTY PRICE BREAKS EXISTS CALCULATION***

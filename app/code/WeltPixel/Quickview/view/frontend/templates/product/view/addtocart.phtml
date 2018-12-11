@@ -172,7 +172,7 @@ function pdUpdateQty(mod,setQty){
 }
 function pdUpdatePriceDisplay(qty){
 
-    var pdprice = jQuery(".price-wrapper").attr("data-price-amount");
+    var pdprice = jQuery(".price-wrapper.pdPriceDisplay").attr("data-price-amount");
     
     if(pdQtyHasPriceBreak){
     //*** IF QTY PRICE BREAKS EXISTS CALCULATION***
