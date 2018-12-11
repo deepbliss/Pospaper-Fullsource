@@ -11,5 +11,64 @@
         <referenceBlock name="aw_fslabel_content_bottom" remove="true"/>
         <referenceBlock name="aw_fslabel_page_bottom" remove="true"/>
         <referenceBlock name="aw_fslabel_page_bottom_fixed" remove="true"/>
+
+        <referenceBlock name="checkout.root">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="checkout" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="steps" xsi:type="array">
+                                        <item name="children" xsi:type="array">
+                                            <item name="billing-step" xsi:type="array">
+                                                <item name="children" xsi:type="array">
+                                                    <item name="payment" xsi:type="array">
+                                                        <item name="children" xsi:type="array">
+                                                            <item name="beforeMethods" xsi:type="array">
+                                                                <item name="componentDisabled" xsi:type="boolean">true</item>
+                                                            </item>
+                                                            <item name="afterMethods" xsi:type="array">
+                                                                <item name="children" xsi:type="array">
+                                                                    <item name="swissup-checkout-fields-title" xsi:type="array">
+                                                                        <item name="component" xsi:type="string">Magento_Ui/js/form/element/abstract</item>
+                                                                        <item name="visible" xsi:type="boolean">true</item>
+                                                                        <item name="sortOrder" xsi:type="string">998</item>
+                                                                        <item name="config" xsi:type="array">
+                                                                            <item name="id" xsi:type="string">swissup_checkout_fields_title</item>
+                                                                            <item name="additionalClasses" xsi:type="string">swissup-checkout-fields__title</item>
+                                                                            <item name="template" xsi:type="string">ui/form/field</item>
+                                                                            <item name="customScope" xsi:type="string">swissupCheckoutFields</item>
+                                                                            <item name="elementTmpl" xsi:type="string">Swissup_CheckoutFields/form/title</item>
+                                                                        </item>
+                                                                    </item>
+                                                                    <item name="comments" xsi:type="array">
+                                                                        <item name="component" xsi:type="string">Magento_Ui/js/form/element/textarea</item>
+                                                                        <item name="visible" xsi:type="boolean">true</item>
+                                                                        <item name="sortOrder" xsi:type="string">999</item>
+                                                                        <item name="label" xsi:type="string">Comments</item>
+                                                                        <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                                        <item name="dataScope" xsi:type="string">swissupCheckoutFields.swissup_checkout_field[comments]</item>
+                                                                        <item name="config" xsi:type="array">
+                                                                            <item name="id" xsi:type="string">comments</item>
+                                                                            <item name="additionalClasses" xsi:type="string">swissup-checkout-fields__field</item>
+                                                                            <item name="template" xsi:type="string">ui/form/field</item>
+                                                                            <item name="customScope" xsi:type="string">swissupCheckoutFields</item>
+                                                                            <item name="elementTmpl" xsi:type="string">ui/form/element/textarea</item>
+                                                                        </item>
+                                                                    </item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
     </body>
 </page>

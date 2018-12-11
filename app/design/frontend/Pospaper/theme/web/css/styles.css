@@ -2373,7 +2373,7 @@ body.checkout-index-index .fancybox-container{display: none !important;}
 }
 .firecheckout #checkout .step-title,
 .firecheckout #checkout .opc-block-summary > .title {
-    font-size: 24px !important;
+    font-size: 22px !important;
 }
 .firecheckout .checkout-payment-method .ccard {
     max-width: none !important;
@@ -2393,6 +2393,26 @@ body.checkout-index-index .fancybox-container{display: none !important;}
 .firecheckout .opc-sidebar .opc-block-summary {
     float: none;
 }
+.firecheckout #checkout .fieldset div.swissup-checkout-fields__title {
+    margin-top: 30px;
+    float: left;
+}
+.firecheckout #checkout .fieldset div.swissup-checkout-fields__title .control {
+    width: 100% !important;
+}
+.firecheckout #checkout .fieldset div.swissup-checkout-fields__title .control .step-title:after {
+    content: '(not required)';
+    font-size: 12px;
+    height: auto;
+    width: auto;
+    position: static;
+    background: none;
+    float: right;
+    text-transform: none;
+    line-height: 1;
+    white-space: nowrap;
+}
+
 @media (min-width: 1024px) {
     .firecheckout:not(.page-layout-checkout) .page-title-wrapper {
         margin: -65px 0 35px  !important;
