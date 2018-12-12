@@ -3,6 +3,7 @@
 namespace Pos\Custommodule\Plugin\Model\Sales;
 
 use Magento\Sales\Api\Data\OrderExtensionFactory;
+use Swissup\CheckoutFields\Model\ResourceModel\Field\Value\CollectionFactory as FieldValueCollectionFactory;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use Magento\Sales\Model\ResourceModel\Order\Collection as OrderCollection;
 use Magento\Sales\Api\Data\OrderInterface;
@@ -13,14 +14,17 @@ use Magento\Framework\App\State;
 class Order
 {
     private $orderExtensionFactory;
+    public $fieldValueCollectionFactory;
 
     private $state;
 
     public function __construct(
         OrderExtensionFactory $orderExtensionFactory,
+        FieldValueCollectionFactory $fieldValueCollectionFactory,
         State $state
     ) {
         $this->orderExtensionFactory = $orderExtensionFactory;
+        $this->fieldValueCollectionFactory = $fieldValueCollectionFactory;
         $this->state = $state;
     }
 
@@ -85,7 +89,8 @@ class Order
      */
     private function setCustomerNote(OrderInterface $resultOrder, OrderExtension $orderExtension)
     {
-        $text = array();
+        $text = '';
+        /*
         $comments = $resultOrder->getStatusHistoryCollection();
         foreach ($comments as $comment) {
             if($comment) {
@@ -96,7 +101,21 @@ class Order
                 }
             }
         }
+        */
+        $storeId = $resultOrder->getStore()->getId();
 
-        $orderExtension->setCustomerNote(implode('. ',$text));
+        $fields = $this->fieldValueCollectionFactory
+            ->create()
+            ->addEmptyValueFilter()
+            ->addOrderFilter($resultOrder->getId())
+            ->addStoreLabel($storeId);
+
+        foreach($fields as $field) {
+            if(strpos(strtolower($field->getStoreLabel()),'comment') !== false) {
+                $text = $field->getValue();
+            }
+        }
+
+        $orderExtension->setCustomerNote($text);
     }
 }
