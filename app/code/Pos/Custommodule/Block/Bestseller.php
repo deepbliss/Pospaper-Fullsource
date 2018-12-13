@@ -23,7 +23,7 @@ class Bestseller extends \Magento\Framework\View\Element\Template
         \Magento\Wishlist\Helper\Data $wishListHelper,
         array $data = []
     ) {
-        $this->bestSellerCollection = $bestSellerCollectionFactory->create();
+        $this->bestSellerCollection = $bestSellerCollectionFactory;
         $this->mostViewedCollection = $mostViewedCollectionFactory->create();
         $this->wishListHelper = $wishListHelper;
          $this->_storeManager = $storeManager;  
@@ -34,10 +34,9 @@ class Bestseller extends \Magento\Framework\View\Element\Template
 
     public function getBestSellers()
     {
-        $productcollection = $this->bestSellerCollection->setModel('Magento\Catalog\Model\Product')
-            ->addStoreFilter($this->_storeManager->getStore()->getId())
-            ->setPageSize(6);
-
+        $productcollection = $this->bestSellerCollection->create();
+        $productcollection->setPeriod('year');
+        $productcollection->setDateRange('2018-12-01',null);
         return $productcollection;
     }
 
