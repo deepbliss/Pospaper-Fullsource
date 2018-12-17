@@ -241,7 +241,6 @@ foreach ($orderDatamodel as $collection)
     //echo "Order #:" .$collection->getIncrementId().'<br/>';
     $ordervar1 = $collection->getShippingAddress();
     //echo $ordervar1->getShippingMethod();
-    
     ?>
     
     <div class="order-status-number">
@@ -256,7 +255,7 @@ foreach ($orderDatamodel as $collection)
             <tr>
                 <th>Name:</th>
                 <td>
-                    <?php echo $ordervar->getFirstname().' '.$ordervar->getFirstname();  ?>
+                    <?php echo $ordervar1->getFirstname().' '.$ordervar1->getLastname();  ?>
                 </td>
             </tr>
             <tr>
@@ -278,7 +277,7 @@ foreach ($orderDatamodel as $collection)
             <?php if($ordervar1['street'] != NULL) { ?>
             <tr>
                 <th>Address:</th>
-                <td><?php echo $ordervar1['street']; ?></td>
+                <td><?php echo $ordervar1['street'].', '.$ordervar1->getCity().', '.$ordervar1->getRegion().' '.$ordervar1->getPostcode(); ?></td>
             </tr>
             <?php } ?>
         </tbody>
@@ -295,7 +294,7 @@ foreach ($orderDatamodel as $collection)
             <tr>
                 <th>Name:</th>
                 <td>
-                    <?php echo $ordervar1->getFirstname().' '.$ordervar->getFirstname();  ?>
+                    <?php echo $ordervar1->getFirstname().' '.$ordervar->getLastname();  ?>
                 </td>
             </tr>
             <tr>
@@ -317,7 +316,7 @@ foreach ($orderDatamodel as $collection)
             <?php if($ordervar['street'] != NULL) { ?>
             <tr>
                 <th>Address:</th>
-                <td><?php echo $ordervar['street']; ?></td>
+                <td><?php echo $ordervar['street'].', '.$ordervar->getCity().', '.$ordervar->getRegion().' '.$ordervar->getPostcode(); ?></td>
             </tr>
             <?php } ?>
         </tbody>
