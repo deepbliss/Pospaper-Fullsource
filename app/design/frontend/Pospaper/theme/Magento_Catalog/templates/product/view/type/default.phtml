@@ -21,11 +21,10 @@
       </div>
     <?php else: ?>
         <div class="stock unavailable">
-<div class="tooltip">More Info...
-<span class="tooltiptext"><?php /* @escapeNotVerified */ echo $_product->getResource()->getAttribute('out_of_stock_label')->getFrontend()->getValue($_product);?>
-</span>
-</div>
-</div>
+            <div class="tooltip">More Info...
+                <span class="tooltiptext"><?php /* @escapeNotVerified */ //echo $_product->getResource()->getAttribute('out_of_stock_label')->getFrontend()->getValue($_product);?></span>
+            </div>
+        </div>
     <?php endif; ?>
 <?php endif; ?>
 
