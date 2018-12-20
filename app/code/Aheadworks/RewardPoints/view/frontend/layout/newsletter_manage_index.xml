@@ -9,7 +9,7 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="customer_newsletter">
-            <container name="customer.form.newsletter.extra" label="Newsletter Subscription Form" htmlTag="" htmlClass=""/>
+            <container name="customer.form.newsletter.extra" label="Newsletter Subscription Form" htmlTag="div"/>
         </referenceContainer>
         <referenceContainer name="customer.form.newsletter.extra">
             <block class="Aheadworks\RewardPoints\Block\Customer\Subscribe" name="aw_rewardpoints.subscribe" />
