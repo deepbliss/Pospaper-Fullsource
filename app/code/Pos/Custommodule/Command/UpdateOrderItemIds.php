@@ -61,7 +61,8 @@ class UpdateOrderItemIds extends Command
         foreach($results as $result) {
             if(isset($products[$result['sku']])) {
                 $sql = "UPDATE {$orderItemsTableName} SET product_id = {$products[$result['sku']]} WHERE item_id = {$result['item_id']};";
-                var_dump($sql);
+                $connection->query($sql);
+                $this->output->writeln("Updated order ".$result['increment_id']);
             }
         }
 
