@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="3columns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <attribute name="class" value="metrodiner-pospaper"/>
+        <referenceBlock name="top.search" remove="true"/>
+        <referenceBlock name="head_top_section" remove="true"/>
+        <referenceContainer name="header-new-promo" remove="true"/>
+        <referenceContainer name="newsletter-sec" remove="true"/>
+        <referenceContainer name="before.body.end">
+            <block class="Magento\Framework\View\Element\Template" name="login.overlay" after="-" template="Magento_Theme::html/login-overlay.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

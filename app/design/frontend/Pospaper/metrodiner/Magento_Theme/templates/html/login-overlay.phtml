@@ -1,0 +1,5 @@
+<?php
+$objectManagerlogin = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManagerlogin->get('Magento\Customer\Model\Session');
+?>
+<div class="login-overlay<?php echo (!$customerSession->isLoggedIn()) ? ' login-open':''; ?>"></div>

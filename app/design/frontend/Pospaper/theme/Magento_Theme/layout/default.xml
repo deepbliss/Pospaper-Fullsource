@@ -19,7 +19,7 @@
             </container>           
             <container name="head-account-link" as="head-account-link" label="Header Account Link Section" htmlTag="div" htmlClass="head-account-div">
                 <container name="container2" as="container2" label="Container 2 Section" htmlTag="div" htmlClass="container">   
-                    <block class="Magento\Framework\View\Element\Template" name="login_file" template="Magento_Theme::html/login.phtml" cacheable="false"/>  
+                    <block class="Pos\Custommodule\Block\Html\Login" name="login_file" template="Magento_Theme::html/login.phtml" cacheable="false"/>
                 </container>
             </container>
             <container name="head-middle" as="head-middle" label="Header Middle Section" htmlTag="div" htmlClass="head-middle">

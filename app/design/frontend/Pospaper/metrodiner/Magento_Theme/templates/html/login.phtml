@@ -1,0 +1,77 @@
+<?php
+    $objectManagerlogin = \Magento\Framework\App\ObjectManager::getInstance();
+    $customerSession = $objectManagerlogin->get('Magento\Customer\Model\Session');
+    //$baseurl = $objectManagerlogin->get('Magento\Store\Model\StoreManagerInterface')->getStore(0)->getBaseUrl();
+    $baseurl = '/';
+?>  
+<ul id="desktop-links">
+    <li><a href="<?php echo $baseurl .'trackorder'; ?>">Track Your Shipment</a></li>
+    <li<?php echo (!$customerSession->isLoggedIn()) ? ' class="login-open"':''; ?>><span class="login-click"><?php echo __('My Account') ?></span>
+        <div class="login-poup">
+            <?php if($customerSession->isLoggedIn()): ?>
+            <ul>
+                <li>
+                    <a href="<?php echo $baseurl .'customer/account/index'; ?>"><?php echo __('My Account') ?></a>
+                </li>
+                <li>
+                    <a href="<?php echo $baseurl .'customer/account/logout'; ?>"><?php echo __('Sign Out') ?></a>
+                </li>
+            </ul>
+            <?php else: ?>
+            <ul>
+                <li>
+                    <div class="login-container">
+                        <form class="form form-login"
+                                action="<?= $block->escapeUrl($block->getPostActionUrl()) ?>"
+                                method="post"
+                                id="login-form"
+                                data-mage-init='{"validation":{}}'>
+                            <?= $block->getBlockHtml('formkey') ?>
+                            <fieldset class="fieldset login" data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>">
+                                <p><?= $block->escapeHtml(__('Please enter your email address and password.')) ?></p>
+                                <div class="field email required">
+                                    <div class="control">
+                                        <div class="bar-line">
+                                            <input name="login[username]" type="email" class="input-text" data-validate="{required:true, 'validate-email':true}" placeholder="Email *">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field password required">
+                                    <div class="control">
+                                        <div class="bar-line">
+                                            <input name="login[password]" type="password" autocomplete="off" class="input-text" data-validate="{required:true}" placeholder="Password *">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="actions-toolbar">
+                                    <div class="primary"><button type="submit" class="action login primary" name="send" id="send2"><span><?= $block->escapeHtml(__('Sign In')) ?></span></button></div>
+                                    <div class="secondary"><a class="action remind" href="/customer/account/forgotpassword/"><span><?= $block->escapeHtml(__('Forgot Your Password?')) ?></span></a></div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+            <?php endif; ?>
+        </div>
+    </li>
+</ul>
+<ul id="mobile-links" class="mobile-header-links">
+    <li><a href="<?php echo $baseurl .'trackorder'; ?>">Track Your Shipment</a></li>
+<?php if($customerSession->isLoggedIn()): ?>
+    <li>
+        <a href="<?php echo $baseurl .'customer/account/index'; ?>"><?php echo __('My Account') ?></a>
+    </li>
+    <li>
+        <a href="<?php echo $baseurl .'customer/account/logout'; ?>"><?php echo __('Sign Out') ?></a>
+    </li>
+<?php else: ?>
+    <li>
+        <a href="<?php echo $baseurl .'customer/account/login'; ?>"><?php echo __('Sign In') ?></a>
+    </li>
+    <li>
+        <a href="<?php echo $baseurl .'customer/account/create'; ?>"><?php echo __('Register') ?></a>
+    </li>
+<?php endif; ?>
+</ul>
+

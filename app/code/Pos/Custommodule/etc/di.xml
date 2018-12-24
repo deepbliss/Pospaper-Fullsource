@@ -6,4 +6,12 @@
     <type name="Magento\Sales\Api\OrderRepositoryInterface">
         <plugin name="get_customer_notes" type="Pos\Custommodule\Plugin\Model\Sales\Order" />
     </type>
+
+    <type name="Magento\Catalog\Controller\Product\View">
+        <plugin name="MagentoCatalogControllerProductView" type="Pos\Custommodule\Plugin\Controller\Product\View" sortOrder="10" disabled="false"/>
+    </type>
+
+    <type name="Magento\Catalog\Controller\Category\View">
+        <plugin name="MagentoCatalogControllerCategoryView" type="Pos\Custommodule\Plugin\Controller\Category\View" sortOrder="10" disabled="false"/>
+    </type>
 </config>

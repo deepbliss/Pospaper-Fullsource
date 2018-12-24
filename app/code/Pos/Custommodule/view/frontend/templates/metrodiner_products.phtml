@@ -1,0 +1,89 @@
+<?php
+use Magento\Framework\App\Action\Action;
+$products = $block->getProducts();
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
+?>
+<?php if(count($products)): ?>
+<div class="bootstrap-container homepage-products">
+    <div class="bootstrap-row">
+        <?php foreach ($products as $product): ?>
+            <?php $productImage = $block->getImage($product, 'review_page_product_image'); ?>
+            <div class="col-sm-4">
+                <div class="product">
+                    <?php if($product->getProductHeader()): ?>
+                    <p class="product-header"><?php echo $block->stripTags($product->getProductHeader(), null, true); ?></p>
+                    <?php endif; ?>
+                    <p class="product-name"><?php echo $block->stripTags($product->getName(), null, true); ?></p>
+                    <div>
+                        <div class="product-image">
+                            <p data-image="<?php echo $productImage->getImageUrl() ?>"><?php echo $productImage->toHtml(); ?></p>
+                        </div>
+                        <div class="product-details">
+                            <p class="sku">Item Code: <?php echo $product->getSku() ?></p>
+                            <div class="pro-price">
+                            <?php
+                            $bsprice = $product->getFormatedPrice($product->getFinalPrice());
+                            if($tierPrices = $product->getTierPrice())
+                            {
+                                $tier_prices = array();
+                                foreach ($tierPrices as $tierPrice) {
+                                    $tier_prices[] = $tierPrice;
+                                }
+                                $i = 1;
+                                foreach ($tier_prices as $price) {
+                                    if($i == 1) {
+                                        echo '<p>1 - '.($price['price_qty'] - 1).' <span class="price">'.$priceHelper->currency($product->getPrice(), true, false).'</span> / ' . $product->getData('unit_of_measure').'</p>';
+                                        if($i == count($tier_prices)) {
+                                            echo '<p>'.number_format($price['price_qty'],0,'.','').' + <span class="price">'.$priceHelper->currency($price['website_price'], true, false).'</span> / ' . $product->getData('unit_of_measure').'</p>';
+                                        } else {
+                                            echo '<p>' . number_format($price['price_qty'], 0, '.', '') . ' - ' . ($tier_prices[$i]['price_qty'] - 1) . ' <span class="price">' . $priceHelper->currency($price['website_price'], true, false) . '</span> / ' . $product->getData('unit_of_measure') . '</p>';
+                                        }
+                                    } else {
+                                        if($i == count($tier_prices)) {
+                                            echo '<p>'.number_format($price['price_qty'],0,'.','').' + <span class="price">'.$priceHelper->currency($price['website_price'], true, false).'</span> / ' . $product->getData('unit_of_measure').'</p>';
+                                        } else {
+                                            echo '<p>'.number_format($price['price_qty'],0,'.','').' - '.($tier_prices[$i]['price_qty'] - 1).' <span class="price">'.$priceHelper->currency($price['website_price'], true, false).'</span> / ' . $product->getData('unit_of_measure').'</p>';
+                                        }
+                                    }
+                                    $i++;
+                                };
+
+
+                            } else {
+                                echo $bsprice;
+                                echo ' / ' . $product->getData('unit_of_measure');
+                            }
+                            ?>
+                            </div>
+
+                            <?php if ($product->isSaleable()): ?>
+                                <?php $postParams = $block->getAddToCartPostParams($product); ?>
+                                <form data-role="tocart-form" data-product-sku="<?= $block->escapeHtml($product->getSku()) ?>" action="<?= /* @NoEscape */ $postParams['action'] ?>" method="post">
+                                    <input type="hidden" name="product" value="<?= /* @escapeNotVerified */ $postParams['data']['product'] ?>">
+                                    <input type="hidden" name="<?= /* @escapeNotVerified */ Action::PARAM_NAME_URL_ENCODED ?>" value="<?= /* @escapeNotVerified */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>">
+                                    <?= $block->getBlockHtml('formkey') ?>
+                                    <div class="qty-container">
+                                        <input type="text" class="qty input-text" value="1" name="qty" />
+                                        <button type="submit"
+                                                title="<?= $block->escapeHtml(__('Add to Cart')) ?>"
+                                                class="action tocart primary">
+                                            <span><?= /* @escapeNotVerified */ __('Add to Cart') ?></span>
+                                        </button>
+                                    </div>
+                                </form>
+                            <?php else: ?>
+                                <?php if ($product->isAvailable()): ?>
+                                    <div class="stock available"><span><?= /* @escapeNotVerified */ __('In stock') ?></span></div>
+                                <?php else: ?>
+                                    <div class="stock unavailable"><span><?= /* @escapeNotVerified */ __('Out of stock') ?></span></div>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+<?php endif; ?>

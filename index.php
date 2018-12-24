@@ -33,7 +33,22 @@ HTML;
     exit(1);
 }
 
-$bootstrap = \Magento\Framework\App\Bootstrap::create(BP, $_SERVER);
-/** @var \Magento\Framework\App\Http $app */
+//$bootstrap = \Magento\Framework\App\Bootstrap::create(BP, $_SERVER);
+switch ($_SERVER['HTTP_HOST']) {
+    case 'www.pospaper.com':
+    case 'pospaper.com':
+        $params = $_SERVER;
+		$params[\Magento\Store\Model\StoreManager::PARAM_RUN_CODE] = 'base'; 
+        $params[\Magento\Store\Model\StoreManager::PARAM_RUN_TYPE] = 'website'; 
+        $bootstrap = \Magento\Framework\App\Bootstrap::create(BP, $params); 
+        break; 
+    case 'www.metrodiner.pospaper.com':
+    case 'metrodiner.pospaper.com':
+        $params = $_SERVER;
+		$params[\Magento\Store\Model\StoreManager::PARAM_RUN_CODE] = 'metrodiner'; 
+        $params[\Magento\Store\Model\StoreManager::PARAM_RUN_TYPE] = 'website'; 
+        $bootstrap = \Magento\Framework\App\Bootstrap::create(BP, $params); 
+    break; 
+}
 $app = $bootstrap->createApplication(\Magento\Framework\App\Http::class);
 $bootstrap->run($app);
