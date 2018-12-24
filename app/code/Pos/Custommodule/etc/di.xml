@@ -14,4 +14,12 @@
     <type name="Magento\Catalog\Controller\Category\View">
         <plugin name="MagentoCatalogControllerCategoryView" type="Pos\Custommodule\Plugin\Controller\Category\View" sortOrder="10" disabled="false"/>
     </type>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="update_order_item_ids" xsi:type="object">Pos\Custommodule\Command\UpdateOrderItemIds</item>
+            </argument>
+        </arguments>
+    </type>
 </config>
