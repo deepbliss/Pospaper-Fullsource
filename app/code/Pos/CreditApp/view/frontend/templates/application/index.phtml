@@ -1,0 +1,550 @@
+<?php $helper = $this->helper('Pos\CreditApp\Helper\Data'); ?>
+<div class="new-acc-credit-form">
+    <div class="heading">
+        <h2>New Account<br>Secure Credit Application</h2>
+    </div>
+    <div class="flex-table">
+        <div class="left"><p>6740 Broadway Avenue, Suite D<br>Jacksonville, FL 32254</p></div>
+        <div class="center"><p>ALL INFORMATION CONTAINED BELOW IS CONFIDENTIAL</p></div>
+        <div class="right"><p>Phone: 904-737-9989<br>Fax: 904-737-9022 </p></div>
+    </div>
+    <form action="/credit/application/submit" data-mage-init='{"validation": {}}' method="post" id="credit-application-form" class="form create account form-create-account" enctype="multipart/form-data">
+        <div class="table-div border-ddd">
+            <div class="table-row-div">
+                <div class="table-cell-div width50 padding0 border0">
+                    <div class="table-div">
+                        <div class="table-row-div">
+                            <div class="table-cell-div width50">
+                                <div class="inputDiv required">
+                                    <label for="federal">Federal Tax I.D. <em>*</em></label>
+                                    <input type="text" id="federal" name="federal" class="input-inputfield" data-validate="{required:true}" aria-required="true" value="<?= $block->escapeHtmlAttr($helper->getPostValue('federal')) ?>">
+                                </div>
+
+                            </div>
+                            <div class="table-cell-div width50">
+                                <div class="inputDiv">
+                                    <label for="resale_certificate">State Resale Certificate (Attach Copy if Applicable)</label>
+                                    <input type="file" id="resale_certificate" name="resale_certificate" class="input-inputfield">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-row-div">
+                <div class="table-cell-div width50 padding0 border0">
+                    <div class="table-div">
+                        <div class="table-row-div">
+                            <div class="table-cell-div"><p>NOTICE In accordance with the provision of the State of Sales & Use Tax Act we are required to collect tax on sales of taxable property or service unless the purchaser gives us a properly completed Resale Certificate or Exemption Certificate</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-row-div">
+                <div class="table-cell-div width50 padding0 border0">
+                    <div class="table-div">
+                        <div class="table-row-div">
+                            <div class="table-cell-div width50 padding0 border0">
+                                <div class="table-div">
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div center strong">
+                                            <strong>BILLING ADDRESS</strong>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div">
+                                            <div class="inputDiv required">
+                                                <label for="billingcompany">Company Name <em>*</em></label>
+                                                <input type="text" id="billingcompany" name="billingcompany" class="input-inputfield" data-validate="{required:true}" aria-required="true" value="<?= $block->escapeHtmlAttr($helper->getPostValue('billingcompany')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div">
+                                            <div class="inputDiv required">
+                                                <label for="billingaddress">Address <em>*</em></label>
+                                                <textarea class="input-inputfield" rows="5" id="billingaddress" name="billingaddress" data-validate="{required:true}" aria-required="true"><?= $block->escapeHtmlAttr($helper->getPostValue('billingaddress')) ?></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div">
+                                            <div class="inputDiv required">
+                                                <label for="billingcity">City <em>*</em></label>
+                                                <input type="text" id="billingcity" name="billingcity" class="input-inputfield" data-validate="{required:true}" aria-required="true" value="<?= $block->escapeHtmlAttr($helper->getPostValue('billingcity')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div">
+                                            <div class="inputDiv required">
+                                                <label for="billingstate">State <em>*</em></label>
+                                                <input type="text" id="billingstate" name="billingstate" class="input-inputfield" data-validate="{required:true}" aria-required="true" value="<?= $block->escapeHtmlAttr($helper->getPostValue('billingstate')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div">
+                                            <div class="inputDiv required">
+                                                <label for="billingzipcode">Zip <em>*</em></label>
+                                                <input type="text" id="billingzipcode" name="billingzipcode" class="input-inputfield" data-validate="{required:true}" aria-required="true" value="<?= $block->escapeHtmlAttr($helper->getPostValue('billingzipcode')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div">
+                                            <div class="inputDiv required">
+                                                <label for="billingaccountname">Accounting Contact (Name) <em>*</em></label>
+                                                <input type="text" id="billingaccountname" name="billingaccountname" class="input-inputfield" data-validate="{required:true}" aria-required="true" value="<?= $block->escapeHtmlAttr($helper->getPostValue('billingaccountname')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div">
+                                            <div class="inputDiv required">
+                                                <label for="billingphoneno">Phone <em>*</em></label>
+                                                <input type="text" id="billingphoneno" name="billingphoneno" class="input-inputfield" data-validate="{required:true}" aria-required="true" value="<?= $block->escapeHtmlAttr($helper->getPostValue('billingphoneno')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div">
+                                            <div class="inputDiv">
+                                                <label for="billingfax">Fax</label>
+                                                <input type="text" id="billingfax" name="billingfax" class="input-inputfield" value="<?= $block->escapeHtmlAttr($helper->getPostValue('billingfax')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div">
+                                            <div class="inputDiv required">
+                                                <label for="billingemail">Email <em>*</em></label>
+                                                <input type="email" id="billingemail" name="billingemail" class="input-inputfield" data-validate="{required:true}" aria-required="true" value="<?= $block->escapeHtmlAttr($helper->getPostValue('billingemail')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-cell-div width50 padding0 border0">
+                                <div class="table-div">
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div center strong">
+                                            <strong>SHIPPING ADDRESS</strong>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div">
+                                            <div class="inputDiv required">
+                                                <label for="shippingcompany">Company Name <em>*</em></label>
+                                                <input type="text" id="shippingcompany" name="shippingcompany" class="input-inputfield" data-validate="{required:true}" aria-required="true" value="<?= $block->escapeHtmlAttr($helper->getPostValue('shippingcompany')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div">
+                                            <div class="inputDiv required">
+                                                <label for="shippingaddress">Address <em>*</em></label>
+                                                <textarea class="input-inputfield" rows="5" id="shippingaddress" name="shippingaddress" data-validate="{required:true}" aria-required="true"><?= $block->escapeHtmlAttr($helper->getPostValue('shippingaddress')) ?></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div">
+                                            <div class="inputDiv required">
+                                                <label for="shippingcity">City <em>*</em></label>
+                                                <input type="text" id="shippingcity" name="shippingcity" class="input-inputfield" data-validate="{required:true}" aria-required="true" value="<?= $block->escapeHtmlAttr($helper->getPostValue('shippingcity')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div">
+                                            <div class="inputDiv required">
+                                                <label for="shippingstate">State <em>*</em></label>
+                                                <input type="text" id="shippingstate" name="shippingstate" class="input-inputfield" data-validate="{required:true}" aria-required="true" value="<?= $block->escapeHtmlAttr($helper->getPostValue('shippingstate')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div">
+                                            <div class="inputDiv required">
+                                                <label for="shippingzipcode">Zip <em>*</em></label>
+                                                <input type="text" id="shippingzipcode" name="shippingzipcode" class="input-inputfield" data-validate="{required:true}" aria-required="true" value="<?= $block->escapeHtmlAttr($helper->getPostValue('shippingzipcode')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div">
+                                            <div class="inputDiv required">
+                                                <label for="shippingaccountname">Shipping Contact (Name) <em>*</em></label>
+                                                <input type="text" id="shippingaccountname" name="shippingaccountname" class="input-inputfield" data-validate="{required:true}" aria-required="true" value="<?= $block->escapeHtmlAttr($helper->getPostValue('shippingaccountname')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div">
+                                            <div class="inputDiv required">
+                                                <label for="shippingphoneno">Phone <em>*</em></label>
+                                                <input type="text" id="shippingphoneno" name="shippingphoneno" class="input-inputfield" data-validate="{required:true}" aria-required="true" value="<?= $block->escapeHtmlAttr($helper->getPostValue('shippingphoneno')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div">
+                                            <div class="inputDiv">
+                                                <label for="shippingfax">Fax</label>
+                                                <input type="text" id="shippingfax" name="shippingfax" class="input-inputfield" value="<?= $block->escapeHtmlAttr($helper->getPostValue('shippingfax')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div">
+                                            <div class="inputDiv required">
+                                                <label for="shippingemail">Email <em>*</em></label>
+                                                <input type="email" id="shippingemail" name="shippingemail" class="input-inputfield" data-validate="{required:true}" aria-required="true" value="<?= $block->escapeHtmlAttr($helper->getPostValue('shippingemail')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-row-div">
+                <div class="table-cell-div padding0 border0">
+                    <div class="table-div">
+                        <div class="table-row-div">
+                            <div class="table-cell-div width33">
+                                <div class="inputDiv required">
+                                    <label for="owner">Owner / Principal <em>*</em></label>
+                                    <input type="text" id="owner" name="owner" class="input-inputfield" data-validate="{required:true}" aria-required="true" value="<?= $block->escapeHtmlAttr($helper->getPostValue('owner')) ?>">
+                                </div>
+                            </div>
+                            <div class="table-cell-div width33">
+                                <div class="inputDiv">
+                                    <input type="radio" id="ownerprincipal-1" name="ownerprincipal" value="Incorporated"<?php echo ($block->escapeHtmlAttr($helper->getPostValue('ownerprincipal')) == 'Incorporated') ? ' checked="checked"':'' ?>> <label for="ownerprincipal-1">Incorporated</label><br>
+                                    <input type="radio" id="ownerprincipal-2" name="ownerprincipal" value="Partnership"<?php echo ($block->escapeHtmlAttr($helper->getPostValue('ownerprincipal')) == 'Partnership') ? ' checked="checked"':'' ?>> <label for="ownerprincipal-2">Partnership</label><br>
+                                    <input type="radio" id="ownerprincipal-3" name="ownerprincipal" value="Sole Proprietorship"<?php echo ($block->escapeHtmlAttr($helper->getPostValue('ownerprincipal')) == 'Sole Proprietorship') ? ' checked="checked"':'' ?>> <label for="ownerprincipal-3">Sole Proprietorship</label><br>
+                                    <input type="radio" id="ownerprincipal-4" name="ownerprincipal" value="Other"<?php echo ($block->escapeHtmlAttr($helper->getPostValue('ownerprincipal')) == 'Other') ? ' checked="checked"':'' ?>> <label for="ownerprincipal-4">Other</label><br>
+                                </div>
+                            </div>
+                            <div class="table-cell-div width33">
+                                <div class="inputDiv">
+                                    <label for="salesvolume">Estimated Annual Order Volume ($)</label>
+                                    <input type="text" id="salesvolume" name="salesvolume" class="input-inputfield" value="<?= $block->escapeHtmlAttr($helper->getPostValue('salesvolume')) ?>">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-row-div">
+                            <div class="table-cell-div width33">
+                                <div class="inputDiv">
+                                    <label for="openingorderamount">Opening Order Amount</label>
+                                    <input type="text" id="openingorderamount" name="openingorderamount" class="input-inputfield" value="<?= $block->escapeHtmlAttr($helper->getPostValue('openingorderamount')) ?>">
+                                </div>
+                            </div>
+                            <div class="table-cell-div width33">
+                                <div class="inputDiv required">
+                                    <label for="creditline">Credit Line Requested <em>*</em></label>
+                                    <input type="text" id="creditline" name="creditline" class="input-inputfield" data-validate="{required:true}" aria-required="true" value="<?= $block->escapeHtmlAttr($helper->getPostValue('creditline')) ?>">
+                                </div>
+                            </div>
+                            <div class="table-cell-div width33">
+                                <div class="inputDiv">
+                                    <label for="business">Type of Business</label>
+                                    <input type="text" id="business" name="business" class="input-inputfield" value="<?= $block->escapeHtmlAttr($helper->getPostValue('business')) ?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-div">
+                        <div class="table-row-div">
+                            <div class="table-cell-div width33 strong">
+                                <strong>Trade Reference Name</strong>
+                            </div>
+                            <div class="table-cell-div width33 strong">
+                                <strong>Trade Reference Mailing Address</strong>
+                            </div>
+                            <div class="table-cell-div width33 strong">
+                                <strong>Trade Reference (Phone, Fax, Email)</strong>
+                            </div>
+                        </div>
+                        <div class="table-row-div">
+                            <div class="table-cell-div width33 vtop">
+                                <div class="inputDiv">
+                                    <label for="tradereferenceone">Trade Reference 1</label>
+                                    <input type="text" id="tradereferenceone" name="tradereferenceone" class="input-inputfield" value="<?= $block->escapeHtmlAttr($helper->getPostValue('tradereferenceone')) ?>">
+                                </div>
+                            </div>
+                            <div class="table-cell-div width33 vtop padding0">
+                                <div class="table-div">
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div border0">
+                                            <div class="inputDiv">
+                                                <label for="tradereferenceoneaddress">Mailing Address 1</label>
+                                                <textarea class="input-inputfield" rows="5" id="tradereferenceoneaddress" name="tradereferenceoneaddress"><?= $block->escapeHtmlAttr($helper->getPostValue('tradereferenceoneaddress')) ?></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div border0">
+                                            <div class="inputDiv">
+                                                <label for="tradereferenceonecity">City 1</label>
+                                                <input type="text" id="tradereferenceonecity" name="tradereferenceonecity" class="input-inputfield" value="<?= $block->escapeHtmlAttr($helper->getPostValue('tradereferenceonecity')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div border0">
+                                            <div class="inputDiv">
+                                                <label for="tradereferenceonestate">State/Zipcode 1</label>
+                                                <input type="text" id="tradereferenceonestate" name="tradereferenceonestate" class="input-inputfield" value="<?= $block->escapeHtmlAttr($helper->getPostValue('tradereferenceonestate')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-cell-div width33 vtop padding0">
+                                <div class="table-div">
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div border0">
+                                            <div class="inputDiv">
+                                                <label for="tradereferenceonephoneno">Phone 1</label>
+                                                <input type="text" id="tradereferenceonephoneno" name="tradereferenceonephoneno" class="input-inputfield" value="<?= $block->escapeHtmlAttr($helper->getPostValue('tradereferenceonephoneno')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div border0">
+                                            <div class="inputDiv">
+                                                <label for="tradereferenceonefax">Fax 1</label>
+                                                <input type="text" id="tradereferenceonefax" name="tradereferenceonefax" class="input-inputfield" value="<?= $block->escapeHtmlAttr($helper->getPostValue('tradereferenceonefax')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div border0">
+                                            <div class="inputDiv">
+                                                <label for="tradereferenceoneemail">Email 1</label>
+                                                <input type="email" id="tradereferenceoneemail" name="tradereferenceoneemail" class="input-inputfield" value="<?= $block->escapeHtmlAttr($helper->getPostValue('tradereferenceoneemail')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-row-div">
+                            <div class="table-cell-div width33 vtop">
+                                <div class="inputDiv">
+                                    <label for="tradereferencetwo">Trade Reference 2</label>
+                                    <input type="text" id="tradereferencetwo" name="tradereferencetwo" class="input-inputfield" value="<?= $block->escapeHtmlAttr($helper->getPostValue('tradereferencetwo')) ?>">
+                                </div>
+                            </div>
+                            <div class="table-cell-div width33 vtop padding0">
+                                <div class="table-div">
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div border0">
+                                            <div class="inputDiv">
+                                                <label for="tradereferencetwoaddress">Mailing Address 2</label>
+                                                <textarea class="input-inputfield" id="tradereferencetwoaddress" name="tradereferencetwoaddress" rows="5"><?= $block->escapeHtmlAttr($helper->getPostValue('tradereferencetwoaddress')) ?></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div border0">
+                                            <div class="inputDiv">
+                                                <label for="tradereferencetwocity">City 2</label>
+                                                <input type="text" id="tradereferencetwocity" name="tradereferencetwocity" class="input-inputfield" value="<?= $block->escapeHtmlAttr($helper->getPostValue('tradereferencetwocity')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div border0">
+                                            <div class="inputDiv">
+                                                <label for="tradereferencetwostate">State/Zipcode 2</label>
+                                                <input type="text" id="tradereferencetwostate" name="tradereferencetwostate" class="input-inputfield" value="<?= $block->escapeHtmlAttr($helper->getPostValue('tradereferencetwostate')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-cell-div width33 vtop padding0">
+                                <div class="table-div">
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div border0">
+                                            <div class="inputDiv">
+                                                <label for="tradereferencetwophoneno">Phone 2</label>
+                                                <input type="text" id="tradereferencetwophoneno" name="tradereferencetwophoneno" class="input-inputfield" value="<?= $block->escapeHtmlAttr($helper->getPostValue('tradereferencetwophoneno')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div border0">
+                                            <div class="inputDiv">
+                                                <label for="tradereferencetwofax">Fax 2</label>
+                                                <input type="text" id="tradereferencetwofax" name="tradereferencetwofax" class="input-inputfield" value="<?= $block->escapeHtmlAttr($helper->getPostValue('tradereferencetwofax')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div border0">
+                                            <div class="inputDiv">
+                                                <label for="tradereferencetwoemail">Email 2</label>
+                                                <input type="email" id="tradereferencetwoemail" name="tradereferencetwoemail" class="input-inputfield" value="<?= $block->escapeHtmlAttr($helper->getPostValue('tradereferencetwoemail')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-row-div">
+                            <div class="table-cell-div width33 vtop">
+                                <div class="inputDiv">
+                                    <label for="tradereferencethree">Trade Reference 3</label>
+                                    <input type="text" id="tradereferencethree" name="tradereferencethree" class="input-inputfield" value="<?= $block->escapeHtmlAttr($helper->getPostValue('tradereferencethree')) ?>">
+                                </div>
+                            </div>
+                            <div class="table-cell-div width33 vtop padding0">
+                                <div class="table-div">
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div border0">
+                                            <div class="inputDiv">
+                                                <label for="tradereferencethreeaddress">Mailing Address 3</label>
+                                                <textarea class="input-inputfield" id="tradereferencethreeaddress" name="tradereferencethreeaddress" rows="5"><?= $block->escapeHtmlAttr($helper->getPostValue('tradereferencethreeaddress')) ?></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div border0">
+                                            <div class="inputDiv">
+                                                <label for="tradereferencethreecity">City 3</label>
+                                                <input type="text" id="tradereferencethreecity" name="tradereferencethreecity" class="input-inputfield" value="<?= $block->escapeHtmlAttr($helper->getPostValue('tradereferencethreecity')) ?>">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div border0">
+                                            <div class="inputDiv">
+                                                <label for="tradereferencethreestate">State/Zipcode 3</label>
+                                                <input type="text" id="tradereferencethreestate" name="tradereferencethreestate" class="input-inputfield" value="<?= $block->escapeHtmlAttr($helper->getPostValue('tradereferencethreestate')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-cell-div width33 vtop padding0">
+                                <div class="table-div">
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div border0">
+                                            <div class="inputDiv">
+                                                <label for="tradereferencethreephoneno">Phone 3</label>
+                                                <input type="text" id="tradereferencethreephoneno" name="tradereferencethreephoneno" class="input-inputfield" value="<?= $block->escapeHtmlAttr($helper->getPostValue('tradereferencethreephoneno')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div border0">
+                                            <div class="inputDiv">
+                                                <label for="tradereferencethreefax">Fax 3</label>
+                                                <input type="text" id="tradereferencethreefax" name="tradereferencethreefax" class="input-inputfield" value="<?= $block->escapeHtmlAttr($helper->getPostValue('tradereferencethreefax')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div border0">
+                                            <div class="inputDiv">
+                                                <label for="tradereferencethreeemail">Email 3</label>
+                                                <input type="email" id="tradereferencethreeemail" name="tradereferencethreeemail" class="input-inputfield" value="<?= $block->escapeHtmlAttr($helper->getPostValue('tradereferencethreeemail')) ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-row-div">
+                <div class="table-cell-div">
+                    <div class="table-div">
+                        <div class="table-row-div">
+                            <div class="table-cell-div border0 padding0">
+                                <p>The above/attached  information is for the purpose of obtaining credit and is warranted to be true.  We hereby authorize POSPaper.com to investigate the references listed pertaining to my/our credit and financial responsibility  and authorizing my/our bank to release the information requested in conjunction with establishing this credit.  *Applicants signature attests The Company's financial responsibility and willingness to pay our invoices in accordance with set terms.  Past due accounts are subject to a charge of 1.5% per month, 18% per Annum or the maximum permitted by law.  Any exception must have written authorization from POSPaper.com.  In the event any third parties are involved to collect any outstanding monies owed by said business, the customer agrees to pay any reasonable collection fees, including attorney fees whether litigation has commenced, and all cost of litigation.</p>
+                            </div>
+                        </div>
+                        <div class="table-row-div">
+                            <div class="table-cell-div border0 padding0">
+                                <div class="table-div">
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div width33 border0">
+                                            <div class="inputDiv required">
+                                                <label for="fullname">Name <em>*</em></label>
+                                                <input type="text" id="fullname" name="fullname" class="input-inputfield font-input" data-validate="{required:true}" aria-required="true" value="<?= $block->escapeHtmlAttr($helper->getPostValue('fullname')) ?>">
+                                            </div>
+                                        </div>
+                                        <div class="table-cell-div width33 border0">
+                                            <div class="inputDiv required">
+                                                <label for="title">Title <em>*</em></label>
+                                                <input type="text" id="title" name="title" class="input-inputfield" data-validate="{required:true}" aria-required="true" value="<?= $block->escapeHtmlAttr($helper->getPostValue('title')) ?>">
+                                            </div>
+                                        </div>
+                                        <div class="table-cell-div width33 border0">
+                                            <div class="inputDiv">
+                                                <label>Date</label>
+                                                <p><?php echo $block->getDate() ?></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-row-div">
+                <div class="table-cell-div strong">
+                    <strong>TO BE COMPLETED  BY CREDIT DEPARTMENT</strong>
+                </div>
+            </div>
+            <div class="table-row-div">
+                <div class="table-cell-div border0 padding0">
+                    <div class="table-div">
+                        <div class="table-row-div">
+                            <div class="table-cell-div width25">
+                                <div class="inputDiv">
+                                    <label for="datereviewed">Date Reviewed</label>
+                                    <input type="text" id="datereviewed" name="datereviewed" class="input-inputfield" value="" disabled="disabled">
+                                </div>
+                            </div>
+                            <div class="table-cell-div width25">
+                                <div class="inputDiv">
+                                    <label for="credtlimits">Terms/Credit Limit</label>
+                                    <input type="text" id="credtlimits" name="credtlimits" class="input-inputfield" value="" disabled="disabled">
+                                </div>
+                            </div>
+                            <div class="table-cell-div width25">
+                                <div class="inputDiv">
+                                    <label for="approvedby">Approved By</label>
+                                    <input type="text" id="approvedby" name="approvedby" class="input-inputfield" value="" disabled="disabled">
+                                </div>
+                            </div>
+                            <div class="table-cell-div width25">
+                                <div class="inputDiv">
+                                    <label for="customerservice">Customer Service Rep.</label>
+                                    <input type="text" id="customerservice" name="customerservice" class="input-inputfield" value="" disabled="disabled">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-row-div">
+                <div class="table-cell-div center">
+                    <input type="hidden" name="hideit" id="hideit" value="" />
+                    <input type="submit" value="Submit" name="Submit"class="action submit primary">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

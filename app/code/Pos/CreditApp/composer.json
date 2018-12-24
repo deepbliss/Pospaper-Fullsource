@@ -1,0 +1,22 @@
+{
+    "name": "pos/module-creditapp",
+    "description": "",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "authors": [
+        {
+            "email": "info@mage2gen.com",
+            "name": "Mage2Gen"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Pos\\CreditApp\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    }
+}

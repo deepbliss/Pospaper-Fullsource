@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Pos\CreditApp\Api\CreditAppRepositoryInterface" type="Pos\CreditApp\Model\CreditAppRepository"/>
+	<preference for="Pos\CreditApp\Api\Data\CreditAppInterface" type="Pos\CreditApp\Model\Data\CreditApp"/>
+	<preference for="Pos\CreditApp\Api\Data\CreditAppSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="Pos\CreditApp\Model\ResourceModel\CreditApp\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">pos_creditapp_creditapp</argument>
+			<argument name="resourceModel" xsi:type="string">Pos\CreditApp\Model\ResourceModel\CreditApp\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="pos_creditapp_creditapp_listing_data_source" xsi:type="string">Pos\CreditApp\Model\ResourceModel\CreditApp\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+	<preference for="Pos\CreditApp\Model\CreditAppMailInterface" type="Pos\CreditApp\Model\Mail" />
+</config>

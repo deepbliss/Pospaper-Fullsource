@@ -1,0 +1,234 @@
+<!--@subject {{trans "Credit Application Form"}} @-->
+<!--@vars {
+"var data.billingemail":"Sender Email",
+"var data.fullname":"Sender Name",
+"var data.billingphoneno":"Sender Telephone"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<table class="message-details">
+    <tr>
+        <td><b>{{trans "Federal Tax I.D."}}</b></td>
+        <td>{{var data.federal}}</td>
+    </tr>
+    <tr>
+        <td colspan="2"><b>{{trans "--------------------- BILLING ADDRESS ---------------------"}}</b></td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Company Name"}}</b></td>
+        <td>{{var data.billingcompany}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Address"}}</b></td>
+        <td>{{var data.billingaddress}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "City"}}</b></td>
+        <td>{{var data.billingcity}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "State"}}</b></td>
+        <td>{{var data.billingstate}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Zip"}}</b></td>
+        <td>{{var data.billingzipcode}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Accounting Contact (Name)"}}</b></td>
+        <td>{{var data.billingaccountname}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Phone"}}</b></td>
+        <td>{{var data.billingphoneno}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Fax"}}</b></td>
+        <td>{{var data.billingfax}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Email"}}</b></td>
+        <td>{{var data.billingemail}}</td>
+    </tr>
+    <tr>
+        <td colspan="2"><b>{{trans "--------------------- SHIPPING ADDRESS ---------------------"}}</b></td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Company Name"}}</b></td>
+        <td>{{var data.shippingcompany}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Address"}}</b></td>
+        <td>{{var data.shippingaddress}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "City"}}</b></td>
+        <td>{{var data.shippingcity}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "State"}}</b></td>
+        <td>{{var data.shippingstate}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Zip"}}</b></td>
+        <td>{{var data.shippingzipcode}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Accounting Contact (Name)"}}</b></td>
+        <td>{{var data.shippingaccountname}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Phone"}}</b></td>
+        <td>{{var data.shippingphoneno}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Fax"}}</b></td>
+        <td>{{var data.shippingfax}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Email"}}</b></td>
+        <td>{{var data.shippingemail}}</td>
+    </tr>
+    <tr>
+        <td colspan="2">------------------------------------------------------------------------------------</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Owner / Principal"}}</b></td>
+        <td>{{var data.owner}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Business Type"}}</b></td>
+        <td>{{var data.ownerprincipal}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Estimated Annual Order Volume ($)"}}</b></td>
+        <td>{{var data.salesvolume}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Opening Order Amount"}}</b></td>
+        <td>{{var data.openingorderamount}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Credit Line Requested"}}</b></td>
+        <td>{{var data.creditline}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Type of Business"}}</b></td>
+        <td>{{var data.business}}</td>
+    </tr>
+    <tr>
+    <td colspan="2"><b>{{trans "--------------------- Trade Reference 1 ---------------------"}}</b></td>
+</tr>
+    <tr>
+        <td><b>{{trans "Trade Reference"}}</b></td>
+        <td>{{var data.tradereferenceone}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Mailing Address"}}</b></td>
+        <td>{{var data.tradereferenceoneaddress}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "City"}}</b></td>
+        <td>{{var data.tradereferenceonecity}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "State/Zipcode"}}</b></td>
+        <td>{{var data.tradereferenceonestate}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Phone"}}</b></td>
+        <td>{{var data.tradereferenceonephoneno}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Fax"}}</b></td>
+        <td>{{var data.tradereferenceonefax}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Email"}}</b></td>
+        <td>{{var data.tradereferenceoneemail}}</td>
+    </tr>
+    <tr>
+        <td colspan="2"><b>{{trans "--------------------- Trade Reference 2 ---------------------"}}</b></td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Trade Reference"}}</b></td>
+        <td>{{var data.tradereferencetwo}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Mailing Address"}}</b></td>
+        <td>{{var data.tradereferencetwoaddress}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "City"}}</b></td>
+        <td>{{var data.tradereferencetwocity}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "State/Zipcode"}}</b></td>
+        <td>{{var data.tradereferencetwostate}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Phone"}}</b></td>
+        <td>{{var data.tradereferencetwophoneno}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Fax"}}</b></td>
+        <td>{{var data.tradereferencetwofax}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Email"}}</b></td>
+        <td>{{var data.tradereferencetwoemail}}</td>
+    </tr>
+    <tr>
+        <td colspan="2"><b>{{trans "--------------------- Trade Reference 3 ---------------------"}}</b></td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Trade Reference"}}</b></td>
+        <td>{{var data.tradereferencethree}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Mailing Address"}}</b></td>
+        <td>{{var data.tradereferencethreeaddress}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "City"}}</b></td>
+        <td>{{var data.tradereferencethreecity}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "State/Zipcode"}}</b></td>
+        <td>{{var data.tradereferencethreestate}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Phone"}}</b></td>
+        <td>{{var data.tradereferencethreephoneno}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Fax"}}</b></td>
+        <td>{{var data.tradereferencethreefax}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Email"}}</b></td>
+        <td>{{var data.tradereferencethreeemail}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Name"}}</b></td>
+        <td>{{var data.fullname}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Title"}}</b></td>
+        <td>{{var data.title}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Date"}}</b></td>
+        <td>{{var data.dateinsert}}</td>
+    </tr>
+    {{depend data.link}}
+    <tr>
+        <td><b>{{trans "Resale Certificate"}}</b></td>
+        <td><a href="{{var data.link}}">View Resale Certificate</a></td>
+    </tr>
+    {{/depend}}
+</table>
+
+
+{{template config_path="design/email/footer_template"}}

@@ -1,0 +1,8 @@
+<?php
+$file = $block->getFile();
+?>
+<?php if($file): ?>
+    <a href="<?php echo $file ?>" target="_blank">Click to open the file in new window</a>
+<?php else: ?>
+    <p>No files found</p>
+<?php endif; ?>

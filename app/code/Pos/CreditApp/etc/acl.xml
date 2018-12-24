@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+	<acl>
+		<resources>
+			<resource id="Magento_Backend::admin">
+				<resource id="Pos_CreditApp::CreditApp" sortOrder="10" title="CreditApp">
+					<resource id="Pos_CreditApp::CreditApp_save" sortOrder="10" title="Save CreditApp"/>
+					<resource id="Pos_CreditApp::CreditApp_delete" sortOrder="20" title="Delete CreditApp"/>
+					<resource id="Pos_CreditApp::CreditApp_update" sortOrder="30" title="Update CreditApp"/>
+					<resource id="Pos_CreditApp::CreditApp_view" sortOrder="40" title="View CreditApp"/>
+				</resource>
+			</resource>
+		</resources>
+	</acl>
+</config>
