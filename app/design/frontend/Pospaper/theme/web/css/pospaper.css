@@ -1,0 +1,217 @@
+@font-face {
+    font-family: 'Brush Script Std';
+    src: url('../fonts/BrushScriptStd.eot');
+    src: url('../fonts/BrushScriptStd.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/BrushScriptStd.woff2') format('woff2'),
+    url('../fonts/BrushScriptStd.woff') format('woff'),
+    url('../fonts/BrushScriptStd.ttf') format('truetype'),
+    url('../fonts/BrushScriptStd.svg#BrushScriptStd') format('svg');
+    font-weight: 500;
+    font-style: italic;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: arial;
+    float: left;
+    width: 100%;
+    margin: 0px;
+    padding-bottom: 100px;
+}
+
+.new-acc-credit-form .table-div .table-row-div .table-cell-div .inputDiv label {
+}
+
+.new-acc-credit-form .table-div .table-row-div .table-cell-div .inputDiv label {
+    display: block;
+    margin: 0px 0px 5px 0px;
+    color: #333;
+}
+.new-acc-credit-form .table-div .table-row-div .table-cell-div .inputDiv input[type="radio"] + label {
+    display: inline-block;
+    margin: 2px 0 8px;
+    vertical-align: middle;
+}
+
+.table-cell-div.width50 label {
+    width: 100% !important;
+}
+
+.table-cell-div.width33 .inputDiv.required label {
+    width: 100% !important;
+}
+
+.new-acc-credit-form .required label em {
+    color: red;
+}
+
+.new-acc-credit-form {
+    width: 100%;
+    padding: 0px 15px;
+}
+
+.new-acc-credit-form .heading {
+    text-align: center;
+    float: left;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.new-acc-credit-form .heading img {
+    margin: 0px 0px 15px;
+}
+
+.new-acc-credit-form .heading h2 {
+    margin: 0px;
+    font-size: 21px;
+}
+
+.new-acc-credit-form .flex-table {
+    display: table;
+    float: left;
+    margin-bottom: 10px;
+    width: 100%;
+    font-size: 12px;
+}
+
+.new-acc-credit-form .flex-table .left {
+    text-align: left;
+    width: 33.33%;
+    display: table-cell;
+    font-weight: bold;
+    vertical-align: bottom;
+}
+
+.new-acc-credit-form .flex-table .center {
+    text-align: center;
+    width: 33.33%;
+    vertical-align: bottom;
+    display: table-cell;
+}
+
+.new-acc-credit-form .flex-table .right {
+    text-align: right;
+    width: 33.33%;
+    font-weight: bold;
+    display: table-cell;
+    vertical-align: bottom;
+}
+
+.new-acc-credit-form .flex-table p {
+    margin: 0px;
+}
+
+.new-acc-credit-form .table-div {
+    display: table;
+    width: 100%;
+    font-size: 13px;
+}
+
+.new-acc-credit-form .table-div.border-ddd {
+    border: 1px solid #ddd;
+}
+
+.new-acc-credit-form .table-div p {
+    margin: 0px 0px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.new-acc-credit-form .table-div .table-row-div {
+    display: table-row;
+}
+
+.new-acc-credit-form .table-div .table-row-div .table-cell-div {
+    display: table-cell;
+    padding: 10px;
+    border: 1px solid #ddd;
+    vertical-align: top;
+}
+
+.new-acc-credit-form .table-div .table-row-div .table-cell-div.strong {
+    background: #e0e0e0cf;
+}
+
+.new-acc-credit-form .table-div .table-row-div .table-cell-div .inputDiv {
+    float: left;
+    width: 100%;
+}
+
+.new-acc-credit-form .table-div .table-row-div .table-cell-div .inputDiv p {
+    line-height: 40px;
+    margin: 0;
+    font-size: 1rem;
+}
+
+.new-acc-credit-form .table-div .table-row-div .table-cell-div .inputDiv .input-inputfield {
+    color: #000;
+    float: left;
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #b1b1b1;
+    border-radius: 3px;
+    background: #efefefa8;
+    resize: none;
+}
+
+.new-acc-credit-form .table-div .table-row-div .table-cell-div .inputDiv input.input-inputfield {
+    min-height: 34px;
+}
+
+.new-acc-credit-form .table-div .table-row-div .table-cell-div.width50 {
+    width: 50%;
+}
+
+.new-acc-credit-form .table-div .table-row-div .table-cell-div.width33 {
+    width: 33.33%;
+}
+
+.new-acc-credit-form .table-div .table-row-div .table-cell-div.width25 {
+    width: 25%;
+}
+
+.new-acc-credit-form .table-div .table-row-div .table-cell-div.width20 {
+    width: 20%;
+}
+
+.new-acc-credit-form .table-div .table-row-div .table-cell-div.width30 {
+    width: 30%;
+}
+
+.new-acc-credit-form .table-div .table-row-div .table-cell-div.center {
+    text-align: center;
+}
+
+.new-acc-credit-form .table-div .table-row-div .table-cell-div.vtop {
+    vertical-align: top;
+}
+
+.new-acc-credit-form .table-div .table-row-div .table-cell-div.padding0 {
+    padding: 0px;
+}
+
+.new-acc-credit-form .table-div .table-row-div .table-cell-div.border0 {
+    border: 0px none;
+}
+
+.new-acc-credit-form .table-div .table-row-div .table-cell-div .inputDiv input.input-inputfield.font-input {
+    font-family: Brush Script Std;
+    font-size: 24px;
+}
+
+@media screen and (max-width: 768px) {
+    .new-acc-credit-form .table-div,
+    .new-acc-credit-form .table-div .table-row-div,
+    .new-acc-credit-form .table-div .table-row-div .table-cell-div {
+        display: block;
+        overflow: hidden;
+        width: 100% !important;
+    }
+
+    .new-acc-credit-form .table-div .table-row-div .table-cell-div.mob-padding0 {
+        padding: 10px 0px;
+    }
+}
