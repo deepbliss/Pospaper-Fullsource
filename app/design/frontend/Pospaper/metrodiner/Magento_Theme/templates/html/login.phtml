@@ -6,7 +6,7 @@
 ?>  
 <ul id="desktop-links">
     <li><a href="<?php echo $baseurl .'trackorder'; ?>">Track Your Shipment</a></li>
-    <li<?php echo (!$customerSession->isLoggedIn()) ? ' class="login-open"':''; ?>><span class="login-click"><?php echo __('My Account') ?></span>
+    <li<?php // echo (!$customerSession->isLoggedIn()) ? ' class="login-open"':''; ?>><span class="login-click"><?php echo __('My Account') ?></span>
         <div class="login-poup">
             <?php if($customerSession->isLoggedIn()): ?>
             <ul>
