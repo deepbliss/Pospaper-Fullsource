@@ -80,12 +80,13 @@
   backface-visibility: visible;
   right: 0; }
 
+.aw_fslabel_label,
 .cart-container .block.discount,
 .cart-container .form-cart .cart-summary,
 .nav-sections .section-items,
 .firecheckout .checkout-payment-method .payment-option.discount-code,
 .minicart-items .action.edit {
-  display: none; }
+  display: none !important; }
 
 .cms-home .page-main {
   display: block;
