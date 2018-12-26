@@ -115,6 +115,7 @@ class Submit extends \Magento\Framework\App\Action\Action
             $data['customerid'] = $customer->getId();
             $data['customername'] = $customer->getName();
             $data['customeremail'] = $customer->getEmail();
+            $data['copyto'] = (isset($data['emailcopy']) && $data['emailcopy'] == 1) ? 1:0;
             $this->logger->debug(print_r($data,true));
             $model->setData($data)->save();
             $data['link'] = $this->_url->getUrl('credit/application/view', ['file' => $hash]);

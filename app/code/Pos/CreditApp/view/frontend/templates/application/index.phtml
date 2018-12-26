@@ -53,6 +53,9 @@
                                         </div>
                                     </div>
                                     <div class="table-row-div">
+                                        <div class="table-cell-div empty-table-cell-div"></div>
+                                    </div>
+                                    <div class="table-row-div">
                                         <div class="table-cell-div">
                                             <div class="inputDiv required">
                                                 <label for="billingcompany">Company Name <em>*</em></label>
@@ -131,6 +134,12 @@
                                     <div class="table-row-div">
                                         <div class="table-cell-div center strong">
                                             <strong>SHIPPING ADDRESS</strong>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-div">
+                                        <div class="table-cell-div empty-table-cell-div">
+                                            <input type="checkbox" name="same_as_billing" value="1" id="same_as_billing" />
+                                            <label for="same_as_billing">Same as Billing Address</label>
                                         </div>
                                     </div>
                                     <div class="table-row-div">
@@ -542,9 +551,54 @@
             <div class="table-row-div">
                 <div class="table-cell-div center">
                     <input type="hidden" name="hideit" id="hideit" value="" />
+                    <p class="normal-text"><input type="checkbox" name="emailcopy" id="emailcopy" value="1" /> <label for="emailcopy">Email me a copy of my credit application</label></p>
                     <input type="submit" value="Submit" name="Submit"class="action submit primary">
                 </div>
             </div>
         </div>
     </form>
 </div>
+<script type="text/javascript">
+    require([
+        'jquery'
+    ], function($){
+        $(document).ready(function() {
+            var billingFields = {
+                billingcompany: 'shippingcompany',
+                billingaddress: 'shippingaddress',
+                billingcity: 'shippingcity',
+                billingstate: 'shippingstate',
+                billingzipcode: 'shippingzipcode',
+                billingaccountname: 'shippingaccountname',
+                billingphoneno: 'shippingphoneno',
+                billingfax: 'shippingfax',
+                billingemail: 'shippingemail'
+            };
+
+            var fieldIds = '#billingcompany, #billingaddress, #billingcity, #billingstate, #billingzipcode, #billingaccountname, #billingphoneno, #billingfax, #billingemail';
+
+            $('#credit-application-form').on('change','#same_as_billing',function (e) {
+                if($(this).is(':checked')) {
+                    $.each(billingFields,function (i,field) {
+                        var value = $('#'+i).val();
+                        $('#'+field).val(value);
+                    })
+                } else {
+                    $.each(billingFields,function (i,field) {
+                        $('#'+field).val('');
+                    })
+                }
+            });
+
+            $('#credit-application-form').on('change',fieldIds,function (e) {
+                var sameAsBilling = $('#credit-application-form #same_as_billing');
+                if(sameAsBilling.is(':checked')) {
+                    var value = $(this).val();
+                    var id = $(this).attr('id');
+                    var field = billingFields[id];
+                    $('#'+field).val(value);
+                }
+            });
+        });
+    });
+</script>

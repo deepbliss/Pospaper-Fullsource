@@ -61,6 +61,10 @@ class Mail implements CreditAppMailInterface
     {
         /** @see \Magento\Contact\Controller\Index\Post::validatedParams() */
         $replyToName = !empty($variables['data']['fullname']) ? $variables['data']['fullname'] : null;
+        $copyTo = null;
+        if($variables['data']['copyto']) {
+            $copyTo = $variables['data']['billingemail'];
+        }
 
         $this->inlineTranslation->suspend();
         try {
@@ -80,6 +84,24 @@ class Mail implements CreditAppMailInterface
                 ->getTransport();
 
             $transport->sendMessage();
+
+            if($copyTo) {
+                $transport = $this->transportBuilder
+                    ->setTemplateIdentifier('creditapp_email_template')
+                    ->setTemplateOptions(
+                        [
+                            'area' => Area::AREA_FRONTEND,
+                            'store' => $this->storeManager->getStore()->getId()
+                        ]
+                    )
+                    ->setTemplateVars($variables)
+                    ->setFrom($this->contactsConfig->emailSender())
+                    ->addTo($copyTo)
+                    ->setReplyTo($replyTo, $replyToName)
+                    ->getTransport();
+
+                $transport->sendMessage();
+            }
         } finally {
             $this->inlineTranslation->resume();
         }

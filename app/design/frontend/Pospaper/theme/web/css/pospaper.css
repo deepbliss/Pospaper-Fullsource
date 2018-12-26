@@ -120,6 +120,10 @@ body {
     line-height: 1.5;
 }
 
+.new-acc-credit-form .table-div p.normal-text {
+    font-size: 14px;
+}
+
 .new-acc-credit-form .table-div .table-row-div {
     display: table-row;
 }
@@ -200,6 +204,16 @@ body {
 .new-acc-credit-form .table-div .table-row-div .table-cell-div .inputDiv input.input-inputfield.font-input {
     font-family: Brush Script Std;
     font-size: 24px;
+}
+.new-acc-credit-form input[type=checkbox] {
+    vertical-align: middle;
+    margin: 0 5px 0;
+}
+.new-acc-credit-form input[type=checkbox] + label {
+    vertical-align: middle;
+}
+.new-acc-credit-form .empty-table-cell-div {
+    height: 36px;
 }
 
 @media screen and (max-width: 768px) {
