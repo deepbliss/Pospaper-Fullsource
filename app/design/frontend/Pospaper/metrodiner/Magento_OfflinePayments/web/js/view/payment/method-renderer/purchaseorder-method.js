@@ -25,7 +25,7 @@ define([
         initObservable: function () {
             this._super()
                 .observe('purchaseOrderNumber');
-
+            this.selectPaymentMethod();
             return this;
         },
 
