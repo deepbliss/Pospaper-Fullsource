@@ -16,12 +16,7 @@ class Exists extends \Magento\AdminNotification\Model\ResourceModel\Inbox\Collec
      */
     public function execute(\SimpleXMLElement $item)
     {
-        $this->addFieldToFilter('title', $this->convertString($item->title));
-
-        $url = (string)$item->link;
-        if ($url) {
-            $this->addFieldToFilter('url', $url);
-        }
+        $this->addFieldToFilter('url', (string)$item->link);
 
         return $this->getSize() > 0;
     }

@@ -22,12 +22,19 @@ class PreDispatchAdminActionController implements ObserverInterface
      */
     private $backendSession;
 
+    /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    private $logger;
+
     public function __construct(
         \Amasty\Base\Model\FeedFactory $feedFactory,
-        \Magento\Backend\Model\Auth\Session $backendAuthSession
+        \Magento\Backend\Model\Auth\Session $backendAuthSession,
+        \Psr\Log\LoggerInterface $logger
     ) {
         $this->feedFactory = $feedFactory;
         $this->backendSession = $backendAuthSession;
+        $this->logger = $logger;
     }
 
     /**
@@ -36,10 +43,15 @@ class PreDispatchAdminActionController implements ObserverInterface
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
         if ($this->backendSession->isLoggedIn()) {
-            /** @var \Amasty\Base\Model\Feed $feedModel */
-            $feedModel = $this->feedFactory->create();
-            $feedModel->checkUpdate();
-            $feedModel->removeExpiredItems();
+            try {
+                /** @var \Amasty\Base\Model\Feed $feedModel */
+                $feedModel = $this->feedFactory->create();
+
+                $feedModel->checkUpdate();
+                $feedModel->removeExpiredItems();
+            } catch (\Exception $exception) {
+                $this->logger->critical($exception);
+            }
         }
     }
 }

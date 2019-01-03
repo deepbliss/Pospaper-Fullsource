@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_InvisibleCaptcha
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/system_file.xsd">
+    <system>
+        <section id="aminvisiblecaptcha" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Google Invisible Captcha</label>
+            <tab>amasty</tab>
+            <resource>Amasty_InvisibleCaptcha::aminvisiblecaptcha</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <field id="enabledCaptcha" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable invisible captcha</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="captchaKey" translate="label comment" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Site key</label>
+                    <comment><![CDATA[You can generate site key <a href="https://www.google.com/recaptcha/admin" target="_blank">here</a>]]></comment>
+                    <depends>
+                        <field id="*/*/enabledCaptcha">1</field>
+                    </depends>
+                </field>
+                <field id="captchaSecret" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Secret key</label>
+                    <comment><![CDATA[You can generate secret key <a href="https://www.google.com/recaptcha/admin" target="_blank">here</a>]]></comment>
+                    <depends>
+                        <field id="*/*/enabledCaptcha">1</field>
+                    </depends>
+                </field>
+                <field id="captchaLanguage" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Language</label>
+                    <comment><![CDATA[Please leave empty to allow Google to detect a language of user agent or please set needed value from the following list of <a href="https://developers.google.com/recaptcha/docs/language" target="_blank">languages</a>]]></comment>
+                    <validate>validate-length maximum-length-6</validate>
+                    <depends>
+                        <field id="*/*/enabledCaptcha">1</field>
+                    </depends>
+                </field>
+                <field id="badgeTheme" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Theme of Captcha Badge</label>
+                    <comment><![CDATA[Provided by Google]]></comment>
+                    <source_model>Amasty\InvisibleCaptcha\Model\Config\Source\BadgeTheme</source_model>
+                    <depends>
+                        <field id="*/*/enabledCaptcha">1</field>
+                    </depends>
+                </field>
+                <field id="badgePosition" translate="label tooltip" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Position for Captcha Badge</label>
+                    <tooltip>The extension does not support the inline position for the Captcha Badge, because  explicitly renders the reCAPTCHA widget.</tooltip>
+                    <source_model>Amasty\InvisibleCaptcha\Model\Config\Source\BadgePosition</source_model>
+                    <depends>
+                        <field id="*/*/enabledCaptcha">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="amasty" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Invisible Captcha for Amasty Extensions</label>
+                <field id="customForm" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Custom Form</label>
+                    <comment><![CDATA[Create customizable forms to collect additional information about your customers and view the received data from the admin panel. <a href="https://amasty.com/custom-form-for-magento-2.html?utm_source=extension&utm_medium=link&utm_campaign=captcham2-cform2" target="_blank">Learn more.</a>]]></comment>
+                    <source_model>AmastyCustomForm</source_model>
+                </field>
+                <field id="Faq" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>FAQ and Product Questions</label>
+                    <comment><![CDATA[Let users ask questions on product pages and use this content to widen your store semantic core. Organize questions into seo optimized, responsive and easy to navigate knowledge base. <a href="https://amasty.com/faq-and-product-questions-for-magento-2.html?utm_source=extension&utm_medium=link&utm_campaign=captcham2-faqm2" target="_blank">Learn more.</a>]]></comment>
+                    <source_model>AmastyFaq</source_model>
+                </field>
+            </group>
+            <group id="advanced" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Advanced Settings</label>
+                <field id="captchaUrls" translate="label comment" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Urls to enable</label>
+                    <comment><![CDATA[For example: <strong>customer/account/createpost</strong> </br>Each url must be on a new line </br> <a href="https://amasty.com/docs/doku.php?id=magento_2:google_invisible-recaptcha-m2#advanced_settings" target="_blank">How to choose URL</a>]]></comment>
+                </field>
+                <field id="captchaSelectors" translate="label comment" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Selectors for forms</label>
+                    <comment><![CDATA[For example: <strong>form[action*="customer/account/createpost"]</strong> </br>Each selector must be on a new line]]></comment>
+                </field>
+                <field id="enabledCaptchaForGuestsOnly" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Invisible Captcha for guests only</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="ipWhiteList" translate="label comment" type="textarea" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>IP whitelist</label>
+                    <comment><![CDATA[Invisible Captcha will be disabled for the following IP addresses </br>For example: <strong>192.168.1.2</strong> </br>Each IP must be on a new line]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

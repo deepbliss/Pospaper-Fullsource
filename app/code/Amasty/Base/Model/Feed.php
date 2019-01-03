@@ -15,6 +15,7 @@ use Magento\Framework\Notification\MessageInterface;
 use Magento\Store\Model\ScopeInterface;
 use Amasty\Base\Model\AdminNotification\Model\ResourceModel\Inbox\Collection\Expired;
 use Amasty\Base\Model\AdminNotification\Model\ResourceModel\Inbox\Collection\ExpiredFactory;
+use Amasty\Base\Helper\Module;
 
 class Feed
 {
@@ -30,7 +31,7 @@ class Feed
 
     const XML_LAST_REMOVMENT = 'amasty_base/system_value/remove_date';
 
-    const URL_NEWS = 'amasty.com/feed-news.xml';//do not use https:// or http
+    const URL_NEWS = 'amasty.com/feed-news-segments.xml';//do not use https:// or http
 
     /**
      * @var array
@@ -92,6 +93,11 @@ class Feed
      */
     private $storeManager;
 
+    /**
+     * @var Module
+     */
+    private $moduleHelper;
+
     public function __construct(
         \Magento\Backend\App\ConfigInterface $config,
         \Magento\Framework\App\Config\ReinitableConfigInterface $reinitableConfig,
@@ -103,7 +109,8 @@ class Feed
         ExpiredFactory $expiredFactory,
         \Magento\Framework\Module\ModuleListInterface $moduleList,
         ExistsFactory $inboxExistsFactory,
-        \Magento\Store\Model\StoreManagerInterface $storeManager
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        Module $moduleHelper
     ) {
         $this->config = $config;
         $this->reinitableConfig = $reinitableConfig;
@@ -116,6 +123,7 @@ class Feed
         $this->moduleList = $moduleList;
         $this->inboxExistsFactory = $inboxExistsFactory;
         $this->storeManager = $storeManager;
+        $this->moduleHelper = $moduleHelper;
     }
 
     /**
@@ -521,10 +529,15 @@ class Feed
 
             $counts = $this->convertToArray($counts);
             $amastyModules = $this->getInstalledAmastyExtensions();
-            $amastyCount = count($amastyModules) - 1;//except Amasty_Base
+            $dependModules = $this->getDependModules($amastyModules);
+            $amastyModules = array_diff($amastyModules, $dependModules);
 
-            if (in_array($amastyCount, $counts)
-                || ($moreThan && $amastyCount >= $moreThan)
+            $amastyCount = count($amastyModules);
+
+            if ($amastyCount
+                && (in_array($amastyCount, $counts)
+                    || ($moreThan && $amastyCount >= $moreThan)
+                )
             ) {
                 $result = true;
             }
@@ -582,5 +595,40 @@ class Feed
         }
 
         return $scheme;
+    }
+
+    /**
+     * @param $amastyModules
+     *
+     * @return array
+     */
+    private function getDependModules($amastyModules)
+    {
+        $depend = [];
+        $result = [];
+        $dataName = [];
+        foreach ($amastyModules as $module) {
+            $data = $this->moduleHelper->getModuleInfo($module);
+            if (isset($data['name'])) {
+                $dataName[$data['name']] = $module;
+            }
+
+            if (isset($data['require']) and is_array($data['require'])) {
+                foreach ($data['require'] as $requireItem => $version) {
+                    if (strpos($requireItem, 'amasty') !== false) {
+                        $depend[] = $requireItem;
+                    }
+                }
+            }
+        }
+
+        $depend = array_unique($depend);
+        foreach ($depend as $item) {
+            if (isset($dataName[$item])) {
+                $result[] = $dataName[$item];
+            }
+        }
+
+        return $result;
     }
 }

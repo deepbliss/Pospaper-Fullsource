@@ -9,6 +9,7 @@ namespace Amasty\Base\Model;
 
 /**
  * Wrapper for Serialize
+ * @since 1.1.0
  */
 class Serializer
 {

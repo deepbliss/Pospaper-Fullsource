@@ -24,4 +24,15 @@
         <plugin name="Amasty_Base::add-amasty-class-logo"
                 type="Amasty\Base\Plugin\AdminNotification\Block\ToolbarEntry"/>
     </type>
+
+
+    <type name="Magento\Config\Block\System\Config\Form\Field">
+        <plugin name="Amasty_Base::replace-image-path"
+                type="Amasty\Base\Plugin\Config\Block\System\Config\Form\Field"/>
+    </type>
+
+    <type name="Magento\Backend\Block\Widget\Form\Element\Dependence">
+        <plugin name="Amasty_Base::fix-dependence"
+                type="Amasty\Base\Plugin\Adminhtml\Block\Widget\Form\Element\Dependence" />
+    </type>
 </config>

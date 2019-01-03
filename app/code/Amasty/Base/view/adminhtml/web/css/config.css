@@ -51,7 +51,7 @@ tr[id*="amasty_not_instaled"] .value{
 }
 
 tr[id*="amasty_is_instaled"] .value{
-    color: #00f702;
+    color: #0a820b;
 }
 
 .ambase-unsubscribe .message-success:before {
@@ -69,4 +69,8 @@ tr[id*="amasty_is_instaled"] .value{
 
 .ambase-unsubscribe .message-success span {
     vertical-align: top;
+}
+
+.accordion .config .value.with-tooltip div.tooltip {
+    margin: -23px -28px 0 0;
 }

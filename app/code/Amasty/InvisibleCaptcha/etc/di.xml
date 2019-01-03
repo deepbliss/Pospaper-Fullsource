@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_InvisibleCaptcha
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="AmastyCustomForm" type="\Amasty\InvisibleCaptcha\Model\Config\Source\Extension">
+        <arguments>
+            <argument name="moduleName" xsi:type="string">Amasty_Customform</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AmastyFaq" type="\Amasty\InvisibleCaptcha\Model\Config\Source\Extension">
+        <arguments>
+            <argument name="moduleName" xsi:type="string">Amasty_Faq</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AmastyExtensionsData" type="Magento\Framework\DataObject">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="customForm" xsi:type="array">
+                    <item name="name" xsi:type="string">Amasty_Customform</item>
+                    <item name="url" xsi:type="string">amasty_customform/form/submit</item>
+                    <item name="selector" xsi:type="string">form[action*="amasty_customform/form/submit"]</item>
+                </item>
+                <item name="Faq" xsi:type="array">
+                    <item name="name" xsi:type="string">Amasty_Faq</item>
+                    <item name="url" xsi:type="string">faq/index/save</item>
+                    <item name="selector" xsi:type="string">form[action*="faq/index/save"]</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Amasty\InvisibleCaptcha\Model\Captcha">
+        <arguments>
+            <argument name="extensionsData" xsi:type="object">AmastyExtensionsData</argument>
+        </arguments>
+    </type>
+</config>

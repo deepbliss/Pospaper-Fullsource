@@ -13,7 +13,7 @@ use Amasty\Base\Model\Source\NotificationType;
 class Unsubscribe extends \Magento\Framework\App\Config\Value implements
     \Magento\Framework\App\Config\Data\ProcessorInterface
 {
-    const PATH_TO_FEED_IMAGES = 'https://amasty.com/frontend/base/default/images/amasty/notifeed/';
+    const PATH_TO_FEED_IMAGES = 'https://notification.amasty.com/';
 
     /**
      * @var \Amasty\Base\Model\AdminNotification\Messages

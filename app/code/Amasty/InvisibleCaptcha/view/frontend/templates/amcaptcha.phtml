@@ -1,0 +1,95 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_InvisibleCaptcha
+ */
+?>
+<?php
+/**
+ * Captcha block template
+ *
+ * @see \Amasty\InvisibleCaptcha\Block\Captcha
+ * @var \Amasty\InvisibleCaptcha\Block\Captcha $block
+ */
+?>
+<?php /** @var \Amasty\InvisibleCaptcha\Model\Captcha */?>
+<?php $captcha = $block->getCaptcha(); ?>
+<?php if ($captcha->isNeedToShowCaptcha()) : ?>
+    <script type="text/javascript">
+        require(['jquery'], function ($) {
+            var recaptcha = [],
+                formsToProtect = '<?= $captcha->getSelectors() ?>';
+
+            window.formToProtectOnPage = [];
+            $.each($(formsToProtect), function (index, formToProtect) {
+                window.formToProtectOnPage.push(formToProtect);
+            });
+
+            if (window.formToProtectOnPage.length) {
+                var recaptchaScript = document.createElement('script');
+                recaptchaScript.src = 'https://www.google.com/recaptcha/api.js?onload=amInvisibleCaptchaOnloadCallback&render=explicit<?= $captcha->getLanguage(); ?>';
+                recaptchaScript.attributes = 'async defer';
+                document.body.appendChild(recaptchaScript);
+            }
+
+            window.amInvisibleCaptchaOnloadCallback = function () {
+                for (var i = 0; i < window.formToProtectOnPage.length; i++) {
+                    var tokenInput = document.createElement('input');
+                    tokenInput.type = 'hidden';
+                    tokenInput.name = 'amasty_invisible_token';
+                    window.formToProtectOnPage[i].appendChild(tokenInput);
+                }
+
+                var id = "<?= $block->getData('id'); ?>";
+                if (id) {
+                    var additionalForm = document.getElementById(id).form;
+                    if (additionalForm) {
+                        window.formToProtectOnPage.push(additionalForm);
+                    }
+                }
+
+                var renderCaptcha = function(event, form, id) {
+                    recaptcha[i] = grecaptcha.render(id, {
+                        'theme': '<?= $captcha->getBadgeTheme(); ?>',
+                        'badge': '<?= $captcha->getBadgePosition(); ?>',
+                        'sitekey': '<?= $captcha->getSiteKey(); ?>',
+                        'callback': function(token) {
+                            if ($(form).valid()) {
+                                form.querySelector("[name='amasty_invisible_token']").setAttribute('value', token);
+                                $(form).submit();
+                            }
+                            for (var j = 0; j < recaptcha.length; j++) {
+                                grecaptcha.reset(recaptcha[j]);
+                            }
+                        }
+                    });
+                };
+
+                for (var i = 0; i < window.formToProtectOnPage.length; i++) {
+                    var form = window.formToProtectOnPage[i];
+                    if (form.tagName.toLowerCase() != 'form') {
+                        continue;
+                    }
+
+                    id = form.querySelector("[type='submit']");
+                    if (null == id) {
+                        if (form.classList.contains('amform-form')) {
+                            $(window).on(form.getAttribute('id'), renderCaptcha);
+                        } else {
+                            console.log(
+                                'Amsty Google Invisible reCaptcha: can not protect form with id = '
+                                + form.id
+                                + ', please remove appropriate URL and Selector in the configuration of the extension.'
+                            );
+                        }
+                        continue;
+                    }
+
+                    renderCaptcha(null, form, id);
+                }
+            };
+        });
+    </script>
+<?php endif; ?>
+
