@@ -36,20 +36,30 @@ class ProductList extends \Magento\Framework\View\Element\Template
 
     public function getProducts()
     {
-        $skus = explode(',',$this->getSkus());
+        $skus = array();
         $collection = $this->productCollectionFactory->create()
             ->addAttributeToSelect('*')
             ->addAttributeToFilter('status', '1')
-            ->addAttributeToFilter('sku', array('in' => $skus));
+            ->addStoreFilter();
+        if($this->getSkus() != '') {
+            $skus = explode(',',$this->getSkus());
+        }
 
         $collection->setVisibility($this->catalogProductVisibility->getVisibleInCatalogIds());
 
+        $products = $collection;
+        /*
         $products = array();
         foreach($collection as $product) {
-            $key = array_search($product->getSku(),$skus);
-            $products[$key] = $product;
+            if($key = array_search($product->getSku(),$skus)) {
+                $products[$key] = $product;
+            } else {
+                $products[] = $product;
+            }
+
         }
         ksort($products);
+        */
 
         return $products;
     }
