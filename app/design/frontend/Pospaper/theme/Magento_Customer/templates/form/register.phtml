@@ -20,8 +20,8 @@
         <?= $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Name')->setObject($block->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
         <?php if ($block->isNewsletterEnabled()): ?>
             <div class="field choice newsletter">
-                <input type="checkbox" name="is_subscribed" title="<?= $block->escapeHtmlAttr(__('Sign Up for Newsletter')) ?>" value="1" id="is_subscribed"<?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox">
-                <label for="is_subscribed" class="label"><span><?= $block->escapeHtml(__('Sign Up for Newsletter')) ?></span></label>
+                <input type="checkbox" name="is_subscribed" title="<?= $block->escapeHtmlAttr(__('Sign Up for Coupons and Promotions')) ?>" value="1" id="is_subscribed"<?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox">
+                <label for="is_subscribed" class="label"><span><?= $block->escapeHtml(__('Sign Up for Coupons and Promotions')) ?></span></label>
             </div>
             <?php /* Extensions placeholder */ ?>
             <?= $block->getChildHtml('customer.form.register.newsletter') ?>
