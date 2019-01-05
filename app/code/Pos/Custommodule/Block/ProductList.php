@@ -47,20 +47,17 @@ class ProductList extends \Magento\Framework\View\Element\Template
 
         $collection->setVisibility($this->catalogProductVisibility->getVisibleInCatalogIds());
 
-        $products = $collection;
-        /*
         $products = array();
+        $i = 999;
         foreach($collection as $product) {
-            if($key = array_search($product->getSku(),$skus)) {
-                $products[$key] = $product;
+            if(array_search($product->getSku(),$skus) !== false) {
+                $products[array_search($product->getSku(),$skus)] = $product;
             } else {
-                $products[] = $product;
+                $products[$i] = $product;
             }
-
+            $i++;
         }
         ksort($products);
-        */
-
         return $products;
     }
 
