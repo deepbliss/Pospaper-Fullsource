@@ -30,7 +30,7 @@ class PaymentMethodIsActive implements ObserverInterface
     {
         $enabled = false;
         $enabledGroups = array('Approved Credit Customer','Metro Diner');
-        $enabledStores = array('metrodiner');
+        $enabledStores = array('metrodiner','redrobin');
 
         $currentStore = $this->_storeManager->getStore();
         if(in_array($currentStore->getCode(),$enabledStores)) {

@@ -19,8 +19,9 @@ class View
 
     public function afterExecute($subject,$result)
     {
+        $enabledStores = array('metrodiner','redrobin');
         $currentStore = $this->_storeManager->getStore();
-        if($currentStore->getCode() == 'metrodiner') {
+        if(in_array($currentStore->getCode(),$enabledStores)) {
             return $this->_resultRedirectFactory->create()->setPath('/');
         }
 
