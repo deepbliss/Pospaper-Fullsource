@@ -9,6 +9,13 @@
                         <resource id="Audioadvice_Mods::remove_pricing_tiers" title="Remove Pricing Tiers" sortOrder="10"/>
                     </resource>
                 </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Pos_Custommodule::custommodule_settings" title="POS Paper Settings" />
+                        </resource>
+                    </resource>
+                </resource>
             </resource>
         </resources>
     </acl>

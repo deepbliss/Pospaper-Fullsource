@@ -36,13 +36,13 @@ class ProductList extends \Magento\Framework\View\Element\Template
 
     public function getProducts()
     {
-        $skus = array();
+        $skus = $this->_scopeConfig->getValue('pospaper_settings/homepage/products', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         $collection = $this->productCollectionFactory->create()
             ->addAttributeToSelect('*')
             ->addAttributeToFilter('status', '1')
             ->addStoreFilter();
-        if($this->getSkus() != '') {
-            $skus = explode(',',$this->getSkus());
+        if($skus != '') {
+            $skus = explode(',',$skus);
         }
 
         $collection->setVisibility($this->catalogProductVisibility->getVisibleInCatalogIds());

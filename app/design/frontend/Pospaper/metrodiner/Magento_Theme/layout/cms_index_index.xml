@@ -2,11 +2,7 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceBlock name="test_file">
-            <block class="Pos\Custommodule\Block\ProductList" name="product.list" template="Pos_Custommodule::metrodiner_products.phtml">
-                <arguments>
-                    <argument name="skus" xsi:type="string">19000DT,19021B,62245R,NB109,52-8902,51-2048,MS214170X2,S-11736</argument>
-                </arguments>
-            </block>
+            <block class="Pos\Custommodule\Block\ProductList" name="product.list" template="Pos_Custommodule::metrodiner_products.phtml"/>
         </referenceBlock>
     </body>
 </page>
