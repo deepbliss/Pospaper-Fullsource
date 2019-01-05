@@ -2,8 +2,8 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceBlock name="page.main.title">
-            <action method="setPageTitle">
-                <argument translate="true" name="title" xsi:type="string">Metro Diner Login</argument>
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Magento_Theme::html/login-title.phtml</argument>
             </action>
         </referenceBlock>
     </body>

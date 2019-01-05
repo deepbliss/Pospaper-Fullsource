@@ -7,11 +7,12 @@
 // @codingStandardsIgnoreFile
 
 /** @var \Magento\Customer\Block\Form\Login\Info $block */
+$storeName = $this->helper('\Pos\Custommodule\Helper\Data')->getStore()->getName();
 ?>
 <?php if ($block->getRegistration()->isAllowed()): ?>
 <div class="block block-new-customer">
     <div class="block-title">
-        <strong id="block-new-customer-heading" role="heading" aria-level="2"><?= $block->escapeHtml(__('New Metro Diner Locations')) ?></strong>
+        <strong id="block-new-customer-heading" role="heading" aria-level="2"><?= $block->escapeHtml(__('New '.$storeName.' Locations')) ?></strong>
     </div>
     <div class="block-content" aria-labelledby="block-new-customer-heading">
         <div class="actions-toolbar">

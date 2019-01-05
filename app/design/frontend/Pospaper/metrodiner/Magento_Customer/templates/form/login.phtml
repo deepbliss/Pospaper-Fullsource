@@ -7,10 +7,11 @@
 // @codingStandardsIgnoreFile
 
 /** @var \Magento\Customer\Block\Form\Login $block */
+$storeName = $this->helper('\Pos\Custommodule\Helper\Data')->getStore()->getName();
 ?>
 <div class="block block-customer-login">
     <div class="block-title">
-        <strong id="block-customer-login-heading" role="heading" aria-level="2"><?= $block->escapeHtml(__('Existing Metro Diner Accounts')) ?></strong>
+        <strong id="block-customer-login-heading" role="heading" aria-level="2"><?= $block->escapeHtml(__('Existing '.$storeName.' Accounts')) ?></strong>
     </div>
     <div class="block-content" aria-labelledby="block-customer-login-heading">
         <form class="form form-login"
