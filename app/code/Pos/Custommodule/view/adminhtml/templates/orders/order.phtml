@@ -1,0 +1,54 @@
+<?php
+$order = $block->getOrder();
+$customer = $block->getCustomer();
+$rewards = $block->getRewards();
+$noRewards = $block->getNoRewards();
+?>
+<?php if($order && $customer): ?>
+<form id="transfer-order-form" action="<?php echo $block->getSubmitUrl() ?>" method="post" enctype="multipart/form-data">
+    <div class="fieldset-wrapper-content admin__fieldset-wrapper-content">
+        <fieldset class="fieldset admin__fieldset user-defined">
+            <input name="form_key" type="hidden" value="<?php echo $block->getFormKey() ?>" />
+            <input name="customer_id" type="hidden" value="<?php echo $customer->getId() ?>" />
+            <input name="rewards_amount" type="hidden" value="<?php echo $rewards ?>" />
+            <input name="real_order_id" type="hidden" value="<?php echo $order->getId() ?>" />
+            <div class="field">
+                <label class="label admin__field-label" for="customer_email"><span><?php echo __('Customer Email') ?></span></label>
+                <div class="control">
+                    <p id="customer_email"><?php echo $customer->getEmail() ?></p>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label admin__field-label" for="customer_name"><span><?php echo __('Customer Name') ?></span></label>
+                <div class="control">
+                    <p id="customer_name"><?php echo $customer->getFirstname().' '.$customer->getLastname() ?></p>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label admin__field-label" for="subtotal"><span><?php echo __('Order Subtotal') ?></span></label>
+                <div class="control">
+                    <p id="subtotal"><?php echo $this->helper('Magento\Framework\Pricing\Helper\Data')->currency($block->getSubtotal()) ?></p>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label admin__field-label" for="reward_points"><span><?php echo __('Reward Points') ?></span></label>
+                <div class="control">
+                    <p id="reward_points">
+                        <?php if($rewards): ?>
+                            <?php echo $rewards ?>
+                        <?php elseif($noRewards): ?>
+                            <?php echo $noRewards ?>
+                        <?php endif; ?>
+                    </p>
+                </div>
+            </div>
+            <div class="actions">
+                <div class="action">
+                    <button type="submit" class="save submit" name="submit"><span><?php echo __('Transfer Order') ?></span></button>
+                </div>
+            </div>
+
+        </fieldset>
+    </div>
+</form>
+<?php endif; ?>

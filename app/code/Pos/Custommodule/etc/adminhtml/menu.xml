@@ -7,5 +7,7 @@
         <add id="Pos_Custommodule::remove_pricing_tiers" title="Remove Pricing Tiers" module="Pos_Custommodule"
              sortOrder="10" action="pospaper/tiers/index" resource="Pos_Custommodule::remove_pricing_tiers"
              parent="Pos_Custommodule::pricing_tiers"/>
+
+        <add id="Pos_Custommodule::link_orders_to_customers" title="Transfer Order to Customer Account" module="Pos_Custommodule" sortOrder="10001" parent="Magento_Customer::customer" action="pospaper/orders/index" resource="Magento_Backend::content"/>
     </menu>
 </config>

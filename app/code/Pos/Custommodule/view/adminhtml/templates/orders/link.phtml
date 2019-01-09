@@ -1,0 +1,145 @@
+<div class="link-orders-form">
+    <form id="link-orders-form" action="<?php echo $block->getSearchFormUrl() ?>" method="post" enctype="multipart/form-data">
+        <div class="fieldset-wrapper-content admin__fieldset-wrapper-content">
+            <fieldset class="fieldset admin__fieldset user-defined">
+                <input name="form_key" type="hidden" value="<?php echo $block->getFormKey() ?>" />
+                <div id="link-messages" class="messages"></div>
+
+                <div class="field field-name required">
+                    <label class="label admin__field-label" for="order_number"><span><?php echo __('Order # to Transfer') ?></span></label>
+                    <div class="control">
+                        <input id="order_number" name="order_number" type="text" class="input-text required-entry">
+                    </div>
+                    <div class="action">
+                        <button type="submit" class="save submit" name="submit"><span><?php echo __('Search') ?></span></button>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </form>
+    <div id="order-form"></div>
+</div>
+<script>
+    require(['jquery', "mage/mage", "loadingPopup"], function($){
+        $('#link-orders-form').mage('form').mage('validation', {
+            submitHandler: function(form)
+            {
+                var messageHolder = $('#link-messages');
+                var orderHolder = $('#order-form');
+                var order = $('#order_number').val();
+                var commitUrl = $(form).attr('action');
+                var formKey = $(form).find('input[name="form_key"]').val();
+                messageHolder.html('');
+                orderHolder.html('');
+                if(order) {
+                    console.log(order);
+                    $('body').loadingPopup();
+                    $.ajax({
+                        url     : commitUrl,
+                        type    : 'POST',
+                        dataType: 'json',
+                        data: {form_key: formKey, order_number: order}
+                    }).done($.proxy(function(response) {
+                        if (response.status == 'done'){
+                            console.log(response);
+                            if(response.message) {
+                                messageHolder.html('<div class="message message-success success"><div data-ui-id="messages-message-success">'+response.message+'</div></div>');
+                            }
+                            if(response.html) {
+                                orderHolder.html(response.html);
+                            }
+                        } else if (response.error){
+                            messageHolder.html('<div class="message message-error error"><div data-ui-id="messages-message-error">'+response.error+'</div></div>');
+                        }
+                        $('body').trigger('hideLoadingPopup');
+                    }));
+
+                }
+
+            }
+        });
+
+        $('.link-orders-form').on('submit','#transfer-order-form',function (e) {
+            e.preventDefault();
+            var form = $(this);
+            var messageHolder = $('#link-messages');
+            var orderHolder = $('#order-form');
+            var commitUrl = $(form).attr('action');
+            var formKey = $(form).find('input[name="form_key"]').val();
+            var customerId = $(form).find('input[name="customer_id"]').val();
+            var rewardsAmount = $(form).find('input[name="rewards_amount"]').val();
+            var order = $(form).find('input[name="real_order_id"]').val();
+            var orderNumber = $('#order_number').val();
+            messageHolder.html('');
+            orderHolder.html('');
+            if(customerId) {
+                $('body').loadingPopup();
+                $.ajax({
+                    url     : commitUrl,
+                    type    : 'POST',
+                    dataType: 'json',
+                    data: {form_key: formKey, customer_id: customerId, rewards_amount: rewardsAmount, real_order_number: order, order_number: orderNumber}
+                }).done($.proxy(function(response) {
+                    if (response.status == 'done'){
+                        console.log(response);
+                        if(response.message) {
+                            messageHolder.html('<div class="message message-success success"><div data-ui-id="messages-message-success">'+response.message+'</div></div>');
+                        }
+                        if(response.html) {
+                            orderHolder.html(response.html);
+                        }
+                    } else if (response.error){
+                        messageHolder.html('<div class="message message-error error"><div data-ui-id="messages-message-error">'+response.error+'</div></div>');
+                    }
+                    $('body').trigger('hideLoadingPopup');
+                }));
+            }
+        })
+    });
+</script>
+<style>
+    .link-orders-form form .label {
+        width:20%;
+        font-size:14px;
+        font-weight:600;
+        padding:0 30px 0 0;
+        line-height: 33px;
+        white-space: nowrap;
+    }
+    .link-orders-form form .label > span:after {
+        line-height: 33px;
+        margin-top: 0;
+    }
+    .link-orders-form form .control {
+        font-size:14px;
+        min-width: 240px;
+        padding: 0 10px;
+    }
+    .link-orders-form form .control input {
+        width: 100%;
+        height: 33px;
+        padding: 0 10px;
+        vertical-align: middle;
+    }
+    .link-orders-form form .control p {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        margin: 0;
+        height: 100%;
+    }
+    .link-orders-form form .actions {
+        padding-left: calc(20% + 10px);
+    }
+    .link-orders-form form label.error {border:1px solid #e22626; display:block; margin:2px 0 15px 0; padding:6px 10px 10px; background:#fff8d6; color:#555; font-size:12px; font-weight:500; box-sizing:border-box;}
+    .link-orders-form form .fieldset .field {
+        margin: 0 0 20px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+    }
+    .link-orders-form form .fieldset .field:after {clear:both;display: table;content: ''}
+</style>
