@@ -9,6 +9,7 @@ $priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
     <div class="bootstrap-row">
         <?php foreach ($products as $product): ?>
             <?php $productImage = $block->getImage($product, 'review_page_product_image'); ?>
+            <?php $minQty = $product->getMinOrderQty() ?>
             <div class="col-sm-4">
                 <div class="product">
                     <?php if($product->getProductHeader()): ?>
@@ -64,7 +65,7 @@ $priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
                                     <input type="hidden" name="<?= /* @escapeNotVerified */ Action::PARAM_NAME_URL_ENCODED ?>" value="<?= /* @escapeNotVerified */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>">
                                     <?= $block->getBlockHtml('formkey') ?>
                                     <div class="qty-container">
-                                        <input type="text" class="qty input-text" value="1" name="qty" />
+                                        <input type="text" class="qty input-text" value="<?php echo (is_numeric($minQty) && $minQty > 0) ? $minQty : 1 ?>" name="qty" />
                                         <button type="submit"
                                                 title="<?= $block->escapeHtml(__('Add to Cart')) ?>"
                                                 class="action tocart primary">
