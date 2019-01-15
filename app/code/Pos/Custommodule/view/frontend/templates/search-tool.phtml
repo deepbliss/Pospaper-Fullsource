@@ -1,0 +1,58 @@
+<div class="manufacturer-name">
+    <div class="container">
+        <div class="search-sec">
+            <div class="tool-text"><h2><img src="<?php echo $block->getViewFileUrl('images/tool-search-icn.png'); ?>">Paper Roll Search Tool</h2></div>
+            <form action="<?php echo $block->GetBaseUrl()?>custommodule/brand/showbrand" method="GET" id="submit-form">
+                <select id="manufacturer" name="manufacturer">
+                    <option selected>Select a Manufacturer</option>
+                    <?php $getOptionValue = $this->getAllBrand();?>
+                    <?php
+                    $man = [];
+                    foreach($getOptionValue as $value){
+                        $man[$value->getData('manufacturer')] = $value->getData('manufacturer');
+                    }
+                    ?>
+                    <?php ksort($man); ?>
+                    <?php foreach($man as $value): ?>
+                        <option value="<?php echo  $value;?>"><?php echo  $value;?></option>
+                    <?php endforeach; ?>
+                </select>
+                <select id="brand" class="brand" name="brand">
+                    <option selected>Select a Model</option>
+                </select>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    require([
+        'jquery'
+    ], function($){
+        $(document).ready(function() {
+            $('.brand').attr("disabled","disabled").addClass('disable');
+            $("#manufacturer").on("change", function() {
+                var body = $('body').loader();
+                body.loader('show');
+                var manufacturer = $(this).val();
+                $.ajax({
+                    type: "POST",
+                    url: "<?php  echo $block->getBaseUrl() ?>custommodule/brand/getbrand",
+                    data: {manufacturer : manufacturer},
+                    success: function(result){
+                        var body = $('body').loader();
+                        body.loader('hide');
+                        $('.brand').removeClass('disable').removeAttr('disabled').html(result);
+                    }
+                });
+            });
+
+            $('.brand').on('change', function(e) {
+                $(this).closest('form').trigger('submit');
+            });
+
+            $("#brand").val($("#brand option:first").val());
+            $("#manufacturer").val($("#manufacturer option:first").val());
+        });
+    });
+</script>

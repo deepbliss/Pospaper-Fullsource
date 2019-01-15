@@ -1,9 +1,9 @@
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd" layout="1column">
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd"
+      layout="1column">
     <body>
-
-
- <referenceBlock name="breadcrumbs">
-    <action method="addCrumb">
+        <referenceBlock name="breadcrumbs">
+            <action method="addCrumb">
                 <argument name="crumbName" xsi:type="string">home</argument>
                 <argument name="crumbInfo" xsi:type="array">
                     <item name="title" xsi:type="string">Home</item>
@@ -16,20 +16,21 @@
                 <argument name="crumbInfo" xsi:type="array">
                     <item name="title" xsi:type="string">Paper Roll Search Tool</item>
                     <item name="label" xsi:type="string">Paper Roll Search Tool</item>
-                    
+
                 </argument>
             </action>
-</referenceBlock>
+        </referenceBlock>
 
-    <referenceContainer name="content">
-      <block class="Pos\Custommodule\Block\Getbrandproducts" name="searchresult" template="Pos_Custommodule::searchresult.phtml" />
-    </referenceContainer>
-    <!-- <referenceBlock name="page.main.title">
-           <action method="setPageTitle">
-              <argument translate="true" name="title" xsi:type="string">Paper Roll Search</argument>
-           </action>
-    </referenceBlock> -->
-    <referenceBlock name="catalog.compare.sidebar" remove="true" />      
-        <referenceBlock name="wishlist_sidebar" remove="true" />
+        <referenceContainer name="page.top">
+            <block class="Pos\Custommodule\Block\Searchbybrand" name="searchbybrand" template="Pos_Custommodule::search-tool.phtml" after="-" />
+        </referenceContainer>
+
+        <referenceContainer name="content">
+            <block class="Pos\Custommodule\Block\Getbrandproducts" name="searchresult"
+                   template="Pos_Custommodule::searchresult.phtml"/>
+        </referenceContainer>
+
+        <referenceBlock name="catalog.compare.sidebar" remove="true"/>
+        <referenceBlock name="wishlist_sidebar" remove="true"/>
     </body>
 </page>

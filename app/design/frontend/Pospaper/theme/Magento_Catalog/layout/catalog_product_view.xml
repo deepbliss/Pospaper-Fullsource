@@ -10,8 +10,8 @@
     <body>
         <!--<referenceBlock name="breadcrumbs" remove="true" />-->
         <referenceBlock name="amazon.pay.button.product" remove="true" />
-        <referenceContainer name="page.top">
-            <block class="Pos\Custommodule\Block\Searchbybrand" name="searchbybrand" template="Pos_Custommodule::searchbybrand.phtml" after="navigation.sections" />
+        <referenceContainer name="search-tool-container">
+            <block class="Magento\Framework\View\Element\Template" name="searchbybrand" template="Pos_Custommodule::searchbybrand.phtml" after="-" />
         </referenceContainer>
 
         <referenceBlock name="breadcrumbs" template="Magento_Theme::html/breadcrumbs.phtml"/>
@@ -52,6 +52,8 @@
 
         <move element="product.price.tier" destination="product.info.main" after="product.info"/>
         <move element="product.info" destination="product.info.main" after="product.info.price"/>
+        <move element="aw_fslabel_content_top" destination="product.info.media" before="-" />
+
 
         <container name="product.info.instock" label="Product info instock" htmlTag="div" htmlClass="product-info-instock"/>
 

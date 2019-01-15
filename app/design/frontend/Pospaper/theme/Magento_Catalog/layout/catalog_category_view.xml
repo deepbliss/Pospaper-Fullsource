@@ -7,12 +7,13 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-        <referenceContainer name="page.top">
-            <block class="Pos\Custommodule\Block\Searchbybrand" name="searchbybrand" template="Pos_Custommodule::searchbybrand.phtml" after="navigation.sections" />
+        <referenceContainer name="search-tool-container">
+            <block class="Magento\Framework\View\Element\Template" name="searchbybrand" template="Pos_Custommodule::searchbybrand.phtml" after="-" />
         </referenceContainer>
          
         <referenceBlock name="catalog.compare.sidebar" remove="true" />      
         <referenceBlock name="wishlist_sidebar" remove="true" />
         <move element="category.view.container" destination="content" after="-" />
+        <move element="page.main.title" destination="div.sidebar.main" before="-" />
     </body>
 </page>
