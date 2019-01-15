@@ -86,11 +86,14 @@ class Submit extends \Magento\Framework\App\Action\Action
      */
     public function execute()
     {
+        /*
         if (!$this->customerSession->isLoggedIn()) {
             $this->customerSession->setBeforeAuthUrl($this->_url->getUrl('credit/application', ['_current' => true]));
             $resultRedirect = $this->resultRedirectFactory->create();
             return $resultRedirect->setPath('customer/account/login');
         }
+        */
+        $customer = false;
 
         if (!$this->isPostRequest()) {
             return $this->resultRedirectFactory->create()->setPath('*/*/');
@@ -103,7 +106,9 @@ class Submit extends \Magento\Framework\App\Action\Action
             }
             $hash = $this->mathRandom->getUniqueHash();
             $model = $this->creditAppFactory->create();
-            $customer = $this->customerSession->getCustomer();
+            if ($this->customerSession->isLoggedIn()) {
+                $customer = $this->customerSession->getCustomer();
+            }
             $data = $this->validatedParams();
             $data['hash'] = $hash;
             $data['filename'] = $certificate;
@@ -112,9 +117,15 @@ class Submit extends \Magento\Framework\App\Action\Action
             $data['credtlimits'] = '';
             $data['approvedby'] = '';
             $data['customerservice'] = '';
-            $data['customerid'] = $customer->getId();
-            $data['customername'] = $customer->getName();
-            $data['customeremail'] = $customer->getEmail();
+            if($customer) {
+                $data['customerid'] = $customer->getId();
+                $data['customername'] = $customer->getName();
+                $data['customeremail'] = $customer->getEmail();
+            } else {
+                $data['customerid'] = '';
+                $data['customername'] = '';
+                $data['customeremail'] = '';
+            }
             $data['copyto'] = (isset($data['emailcopy']) && $data['emailcopy'] == 1) ? 1:0;
             $this->logger->debug(print_r($data,true));
             $model->setData($data)->save();

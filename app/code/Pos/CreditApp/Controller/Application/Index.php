@@ -33,12 +33,13 @@ class Index extends \Magento\Framework\App\Action\Action
      */
     public function execute()
     {
+        /*
         if (!$this->customerSession->isLoggedIn()) {
             $this->customerSession->setBeforeAuthUrl($this->_url->getUrl('credit/application', ['_current' => true]));
             $resultRedirect = $this->resultRedirectFactory->create();
             return $resultRedirect->setPath('customer/account/login');
         }
-
+        */
         return $this->resultPageFactory->create();
     }
 }

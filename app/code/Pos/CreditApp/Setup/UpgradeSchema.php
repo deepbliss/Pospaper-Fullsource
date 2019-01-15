@@ -91,5 +91,14 @@ class UpgradeSchema implements UpgradeSchemaInterface
 
             $setup->run($sql);
         }
+
+        if (version_compare($context->getVersion(), "1.0.6", "<")) {
+            $sql = "ALTER TABLE `{$setup->getTable('pos_creditapp_creditapp')}`
+                  MODIFY `customerid` int(10) NULL,
+                  MODIFY `customername` varchar(100) NULL,
+                  MODIFY `customeremail` varchar(100) NULL;";
+
+            $setup->run($sql);
+        }
     }
 }
