@@ -5,101 +5,124 @@
  * See COPYING.txt for license details.
  */
 -->
-<page layout="3columns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<page layout="3columns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <update handle="default_head_blocks"/>
-    <body>       
-       <referenceBlock name="header.container">
-           <container name="header-new-promo" label="Header Top Promo" htmlTag="div" htmlClass="header-new-promo">
-               <container name="header-new-promo-container" label="Header Top Promo Container" htmlTag="div" htmlClass="container">
-                   <block class="Magento\Framework\View\Element\Template" name="old.site.promo" template="Magento_Theme::html/old-site.phtml"/>
-               </container>
-           </container>
-            <container name="head-top" as="head-top" label="Header Top Section" htmlTag="div" htmlClass="head-top">
-                <container name="container1" as="container1" label="Container 1 Section" htmlTag="div" htmlClass="container"/>
-            </container>           
-            <container name="head-account-link" as="head-account-link" label="Header Account Link Section" htmlTag="div" htmlClass="head-account-div">
-                <container name="container2" as="container2" label="Container 2 Section" htmlTag="div" htmlClass="container">   
-                    <block class="Pos\Custommodule\Block\Html\Login" name="login_file" template="Magento_Theme::html/login.phtml" cacheable="false"/>
+    <body>
+        <referenceBlock name="header.container">
+            <container name="header-new-promo" label="Header Top Promo" htmlTag="div" htmlClass="header-new-promo">
+                <container name="header-new-promo-container" label="Header Top Promo Container" htmlTag="div"
+                           htmlClass="container">
+                    <block class="Magento\Framework\View\Element\Template" name="old.site.promo"
+                           template="Magento_Theme::html/old-site.phtml"/>
                 </container>
             </container>
-            <container name="head-middle" as="head-middle" label="Header Middle Section" htmlTag="div" htmlClass="head-middle">
-                    <container name="container3" as="container3" label="Container 3 Section" htmlTag="div" htmlClass="container">   
-                    </container>
+            <container name="head-top" as="head-top" label="Header Top Section" htmlTag="div" htmlClass="head-top">
+                <container name="container1" as="container1" label="Container 1 Section" htmlTag="div"
+                           htmlClass="container"/>
             </container>
-       </referenceBlock>
-       <block class="Magento\Cms\Block\Block" name="head_top_section">
-         <arguments>
-            <argument name="block_id" xsi:type="string">head_top_section</argument>
-         </arguments>
-       </block>
-       <block class="Magento\Cms\Block\Block" name="head_call_section">
-         <arguments>
-            <argument name="block_id" xsi:type="string">head_call_section</argument>
-         </arguments>
-       </block>
-       <move element="head_top_section" destination="container1" />
-       <move element="logo" destination="container3" /> 
-       <move element="top.search" destination="container3" after="logo"/> 
-       <move element="head_call_section" destination="container3" after="top.search"/> 
-       <move element="minicart" destination="container3" after="head_call_section"/>
-       <referenceBlock name="report.bugs" remove="true" />
-       <referenceContainer name="header.panel.wrapper" remove="true" /> 
-       
-       <referenceBlock name="footer_links" remove="true"/>
-       
-       <referenceContainer name="footer-container">
-             <container name="newsletter-sec" as="newsletter-sec" label="Newsletter Section" htmlTag="div" htmlClass="newsletter-div">
-                    <container name="container5" as="container5" label="Container 5 Section" htmlTag="div" htmlClass="container">   
+            <container name="head-account-link" as="head-account-link" label="Header Account Link Section" htmlTag="div"
+                       htmlClass="head-account-div">
+                <container name="container2" as="container2" label="Container 2 Section" htmlTag="div"
+                           htmlClass="container">
+                    <block class="Pos\Custommodule\Block\Html\Login" name="login_file"
+                           template="Magento_Theme::html/login.phtml" cacheable="false"/>
+                </container>
+            </container>
+            <container name="head-middle" as="head-middle" label="Header Middle Section" htmlTag="div"
+                       htmlClass="head-middle">
+                <container name="container3" as="container3" label="Container 3 Section" htmlTag="div"
+                           htmlClass="container">
+                </container>
+            </container>
+        </referenceBlock>
+
+        <referenceContainer name="page.top">
+            <container name="search-tool-container" label="Search Tool Container" htmlTag="div" htmlClass="search-tool-container container" after="navigation.sections" />
+        </referenceContainer>
+
+        <move element="breadcrumbs" destination="search-tool-container" before="-"/>
+
+        <block class="Magento\Cms\Block\Block" name="head_top_section">
+            <arguments>
+                <argument name="block_id" xsi:type="string">head_top_section</argument>
+            </arguments>
+        </block>
+        <block class="Magento\Cms\Block\Block" name="head_call_section">
+            <arguments>
+                <argument name="block_id" xsi:type="string">head_call_section</argument>
+            </arguments>
+        </block>
+        <move element="head_top_section" destination="container1"/>
+        <move element="logo" destination="container3"/>
+        <move element="top.search" destination="container3" after="logo"/>
+        <move element="head_call_section" destination="container3" after="top.search"/>
+        <move element="minicart" destination="container3" after="head_call_section"/>
+        <referenceBlock name="report.bugs" remove="true"/>
+        <referenceContainer name="header.panel.wrapper" remove="true"/>
+
+        <referenceBlock name="footer_links" remove="true"/>
+
+        <referenceContainer name="footer-container">
+            <container name="newsletter-sec" as="newsletter-sec" label="Newsletter Section" htmlTag="div"
+                       htmlClass="newsletter-div">
+                <container name="container5" as="container5" label="Container 5 Section" htmlTag="div"
+                           htmlClass="container">
+                </container>
+            </container>
+            <container name="footer.main" as="footer.main" label="Footer Main" htmlTag="div" htmlClass="footer-main">
+                <container name="footer-top" as="footer-top" label="Footer Top Section" htmlTag="div"
+                           htmlClass="footer-top">
+                    <container name="container6" as="container6" label="Container 6 Section" htmlTag="div"
+                               htmlClass="container">
                     </container>
-            </container> 
-             <container name="footer.main" as="footer.main" label="Footer Main" htmlTag="div" htmlClass="footer-main">
-                    <container name="footer-top" as="footer-top" label="Footer Top Section" htmlTag="div" htmlClass="footer-top">   
-                        <container name="container6" as="container6" label="Container 6 Section" htmlTag="div" htmlClass="container">
-                        </container>
+                </container>
+                <container name="footer-btm" as="footer-btm" label="Footer Bottom Section" htmlTag="div"
+                           htmlClass="footer-bottom">
+                    <container name="container7" as="container6" label="Container 6 Section" htmlTag="div"
+                               htmlClass="container">
                     </container>
-                    <container name="footer-btm" as="footer-btm" label="Footer Bottom Section" htmlTag="div" htmlClass="footer-bottom">    
-                        <container name="container7" as="container6" label="Container 6 Section" htmlTag="div" htmlClass="container">
-                        </container>
-                    </container>
-            </container>  
-              
-       </referenceContainer> 
-       <referenceContainer name="content">   
-        <block class="Magento\Framework\View\Element\Template" name="ga" template="Magento_Theme::html/ga-footer.phtml" cacheable="false"/>
-       </referenceContainer>
-       <move element="form.subscribe" destination="container5"/>
-       <move element="ft_logo_block" destination="container6" before="-"/>
-       <move element="ft_company_info" destination="container6" after="ft_logo_block"/>
-       <move element="ft_customer_service" destination="container6" after="ft_company_info"/>
-       <move element="ft_product_categories" destination="container6" after="ft_customer_service"/>
-       <move element="ft_product_categories" destination="container6" after="ft_customer_service"/>
-       
-       <move element="ft_connect_block" destination="container7" before="-"/>
-       <move element="copyright" destination="container7" after="-"/>
-       <block class="Magento\Cms\Block\Block" name="ft_logo_block">
-         <arguments>
-            <argument name="block_id" xsi:type="string">ft_logo_block</argument>
-         </arguments>
-       </block>
-       <block class="Magento\Cms\Block\Block" name="ft_company_info">
-         <arguments>
-            <argument name="block_id" xsi:type="string">ft_company_info</argument>
-         </arguments>
-       </block>
-       <block class="Magento\Cms\Block\Block" name="ft_customer_service">
-         <arguments>
-            <argument name="block_id" xsi:type="string">ft_customer_service</argument>
-         </arguments>
-       </block>
-       <block class="Magento\Cms\Block\Block" name="ft_product_categories">
-         <arguments>
-            <argument name="block_id" xsi:type="string">ft_product_categories</argument>
-         </arguments>
-       </block>
-       <block class="Magento\Cms\Block\Block" name="ft_connect_block">
-         <arguments>
-            <argument name="block_id" xsi:type="string">ft_connect_block</argument>
-         </arguments>
-       </block>
+                </container>
+            </container>
+
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template" name="ga"
+                   template="Magento_Theme::html/ga-footer.phtml" cacheable="false"/>
+        </referenceContainer>
+        <move element="form.subscribe" destination="container5"/>
+        <move element="ft_logo_block" destination="container6" before="-"/>
+        <move element="ft_company_info" destination="container6" after="ft_logo_block"/>
+        <move element="ft_customer_service" destination="container6" after="ft_company_info"/>
+        <move element="ft_product_categories" destination="container6" after="ft_customer_service"/>
+        <move element="ft_product_categories" destination="container6" after="ft_customer_service"/>
+
+        <move element="ft_connect_block" destination="container7" before="-"/>
+        <move element="copyright" destination="container7" after="-"/>
+        <block class="Magento\Cms\Block\Block" name="ft_logo_block">
+            <arguments>
+                <argument name="block_id" xsi:type="string">ft_logo_block</argument>
+            </arguments>
+        </block>
+        <block class="Magento\Cms\Block\Block" name="ft_company_info">
+            <arguments>
+                <argument name="block_id" xsi:type="string">ft_company_info</argument>
+            </arguments>
+        </block>
+        <block class="Magento\Cms\Block\Block" name="ft_customer_service">
+            <arguments>
+                <argument name="block_id" xsi:type="string">ft_customer_service</argument>
+            </arguments>
+        </block>
+        <block class="Magento\Cms\Block\Block" name="ft_product_categories">
+            <arguments>
+                <argument name="block_id" xsi:type="string">ft_product_categories</argument>
+            </arguments>
+        </block>
+        <block class="Magento\Cms\Block\Block" name="ft_connect_block">
+            <arguments>
+                <argument name="block_id" xsi:type="string">ft_connect_block</argument>
+            </arguments>
+        </block>
     </body>
 </page>
