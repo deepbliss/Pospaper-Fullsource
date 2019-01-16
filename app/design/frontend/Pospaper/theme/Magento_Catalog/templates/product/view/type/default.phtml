@@ -10,9 +10,9 @@
 <?php /* @var $block \Magento\Catalog\Block\Product\View\AbstractView */?>
 <?php $_product = $block->getProduct() ?>
 
-<?php if ($block->displayProductStockStatus()): ?>
+<?php if ($block->displayProductStockStatus() && $_product->getAttributeText('thermal_paper_type') != 'Custom Printed Thermal'): ?>
     <?php if ($_product->isAvailable()): ?>
-      <div class="stock available">
+      <div class="stock available" data-type="<?php echo $_product->getAttributeText('thermal_paper_type') ?>">
 		    <span class="icon"><?= /* @escapeNotVerified */ __('In stock:') ?></span>
         <div class="tooltip">More Info...
     		  <span class="tooltiptext"><?php /* @escapeNotVerified */ echo $_product->getResource()->getAttribute('estimated_shipping_time')->getFrontend()->getValue($_product); ?>
@@ -28,106 +28,46 @@
     <?php endif; ?>
 <?php endif; ?>
 
-
-<!-- <div class="block block-customer-login" id="price-match-modal" style="display:none">
-<h2>Low Price Guarantee</h2>  
-<div id="iframe-container">
-<iframe src="<?php echo $block->getBaseUrl()?>/price-match/price-match.php" id="idIframe" onload="resizeIframe()" height="150"></iframe>
-<?php /* echo $this->getLayout()->createBlock("Magento\Framework\View\Element\Template")->setTemplate("Magento_Theme::html/price-match.phtml")->toHtml(); */ ?>
-</div> 
-
-<button data-fancybox-close="" class="btn btn-primary">X</button>
-</div>-->
-
-<!-- <a id="iframe" href="<?php echo $block->getBaseUrl()?>/price-match/price-match.php">Link</a> -->
-<script type="text/javascript">
-    jQuery("#price-match").fancybox({
-        'type' : 'iframe'        
-});
-</script>
-
-
 <div class="block block-matric-poup" id="matric-convert-modal" style="display:none">
-<h2>Metric Conversion</h2>
-<iframe src="<?php echo $block->getBaseUrl()?>new-conv.php"></iframe>
+    <h2>Metric Conversion</h2>
+    <iframe src="<?php echo $block->getBaseUrl()?>new-conv.php"></iframe>
 </div>
 
 <script type="text/javascript">
 require(['jquery','Magento_Ui/js/modal/modal'],
 function($, modal) {
+    var matric_options = {
+        type: 'popup',
+        responsive: true,
+        innerScroll: true,
+        modalClass: 'custom-matric-popup',
+        buttons: [{
+            text: 'Close',
+            class: '',
+            click: function() {
+                this.closeModal();
+            }
+        }],
+    };
 
+    $('#matric-convert').click(function(){
+        var matric_popup = modal(matric_options, $('#matric-convert-modal'));
+        $('#matric-convert-modal').modal('openModal');
+    });
 
-var matric_options = {
-type: 'popup',
-responsive: true,
-innerScroll: true,
-modalClass: 'custom-matric-popup',
-buttons: [{
-text: 'Close',
-class: '',
-click: function() {
-this.closeModal();
-}
-}],
-};
+    $(document).ready(function() {
+        $('.click').fancybox();
+        $('.click').click(function(){
+            $("body").addClass("no-scroll");
+        });
+        $('.fancybox-close').click(function(){
+            $("body").removeClass("no-scroll");
+        });
 
-/*jQuery('#price-match').click(function(){
-var popup = modal(options, jQuery('#price-match-modal'));
-jQuery('#price-match-modal').modal('openModal');
-});*/
+    });
 
-
-jQuery('#matric-convert').click(function(){
-var matric_popup = modal(matric_options, jQuery('#matric-convert-modal'));
-jQuery('#matric-convert-modal').modal('openModal');
-});
-
-
-}
-);
-</script>
-<script type="text/javascript">
-jQuery(document).ready(function() {    
-   jQuery('.click').fancybox(); 
-   jQuery('.click').click(function(){
-   		jQuery("body").addClass("no-scroll");
-   });
-   jQuery('.fancybox-close').click(function(){
-   		jQuery("body").removeClass("no-scroll");
-   });
-
+    $("#price-match").fancybox({
+        'type' : 'iframe'
+    });
 });
 </script>
-<!-- <script type="text/javascript">
-  function resizeIframe() {
-      var iFrameID = document.getElementById('idIframe');
-      if(iFrameID) {
-           var cont =  iFrameID.contentWindow.document.body || frame.contentDocument.body
-            // here you can make the height            
-            iFrameID.height = cont.scrollHeight + "px";
-      }   
-  }
-</script> -->
-<!-- <script>
-		(function($){
-			jQuery(window).on("load",function(){
-				
-				jQuery("#iframe-container").mCustomScrollbar({
-					axis:"yx",
-					theme:"dark-thick"
-				}).on("mouseenter",function(){ //cross-domain iframe mousewheel hack
-					jQuery(this).find("iframe").css("pointer-events","none");
-				}).on("mouseup",function(){
-					if(!$(this).find(".mCSB_scrollTools_onDrag").length) return;
-					setTimeout(function(){ jQuery("#iframe-container").trigger("mouseenter"); },1);
-				});
-				jQuery(window).on("blur",function(){
-					jQuery("#iframe-container iframe").css("pointer-events","auto");
-				}).on("focus",function(){
-					jQuery("#iframe-container").trigger("mouseenter");
-				});
-				
-			});
-		})(jQuery);
-	</script> -->
- 
