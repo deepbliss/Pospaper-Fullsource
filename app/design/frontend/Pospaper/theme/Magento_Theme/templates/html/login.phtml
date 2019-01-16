@@ -5,6 +5,7 @@
     $baseurl = '/';
 ?>  
 <ul id="desktop-links">
+    <li><a href="/credit/application/">Net 30 Terms</a></li>
     <li><a href="<?php echo $baseurl .'trackorder'; ?>">Track Your Shipment</a></li>
     <li>
         <a href="<?php echo $baseurl .'customer/account/index'; ?>"><?php echo __('My Account') ?></a>
@@ -16,6 +17,7 @@
     <?php endif; ?>
 </ul>
 <ul id="mobile-links" class="mobile-header-links">
+    <li><a href="/credit/application/">Net 30 Terms</a></li>
     <li><a href="<?php echo $baseurl .'trackorder'; ?>">Track Your Shipment</a></li>
 <?php if($customerSession->isLoggedIn()): ?>
     <li>
