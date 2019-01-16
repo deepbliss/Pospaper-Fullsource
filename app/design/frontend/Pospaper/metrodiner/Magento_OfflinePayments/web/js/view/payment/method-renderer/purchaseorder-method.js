@@ -13,7 +13,7 @@ define([
 
     var d = new Date();
     var dateFormatted = ("0"+(d.getMonth()+1)).slice(-2) + ("0" + d.getDate()).slice(-2) + d.getFullYear().toString().substr(-2);
-    var poNumber = (window.checkoutConfig.pospaper.po_number != '') ? 'Metro Diner #' + window.checkoutConfig.pospaper.po_number + ' - ' + dateFormatted : '';
+    var poNumber = (window.checkoutConfig.pospaper.po_number != '') ? window.checkoutConfig.pospaper.po_number + ' - ' + dateFormatted : '';
 
     return Component.extend({
         defaults: {
