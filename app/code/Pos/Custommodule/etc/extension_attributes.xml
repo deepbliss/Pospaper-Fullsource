@@ -10,4 +10,7 @@
     <extension_attributes for="Magento\Sales\Api\Data\OrderInterface">
         <attribute code="customer_note" type="string" />
     </extension_attributes>
+    <extension_attributes for="Magento\Sales\Api\Data\OrderItemInterface">
+        <attribute code="custom_options" type="string"/>
+    </extension_attributes>
 </config>

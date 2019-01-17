@@ -3,29 +3,37 @@
 namespace Pos\Custommodule\Plugin\Model\Sales;
 
 use Magento\Sales\Api\Data\OrderExtensionFactory;
+use Magento\Sales\Api\Data\OrderItemExtensionFactory;
 use Swissup\CheckoutFields\Model\ResourceModel\Field\Value\CollectionFactory as FieldValueCollectionFactory;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use Magento\Sales\Model\ResourceModel\Order\Collection as OrderCollection;
 use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Api\Data\OrderExtensionInterface;
 use Magento\Sales\Api\Data\OrderExtension;
+use Pos\Custommodule\Model\CustomOptionsFactory;
+use Magento\Framework\Phrase;
 use Magento\Framework\App\State;
 
 class Order
 {
-    private $orderExtensionFactory;
+    protected $orderExtensionFactory;
+    protected $orderItemExtensionFactory;
+    protected $state;
+    protected $customOptionsFactory;
     public $fieldValueCollectionFactory;
-
-    private $state;
 
     public function __construct(
         OrderExtensionFactory $orderExtensionFactory,
+        OrderItemExtensionFactory $orderItemExtensionFactory,
         FieldValueCollectionFactory $fieldValueCollectionFactory,
-        State $state
+        State $state,
+        CustomOptionsFactory $customOptionsFactory
     ) {
         $this->orderExtensionFactory = $orderExtensionFactory;
+        $this->orderItemExtensionFactory = $orderItemExtensionFactory;
         $this->fieldValueCollectionFactory = $fieldValueCollectionFactory;
         $this->state = $state;
+        $this->customOptionsFactory = $customOptionsFactory;
     }
 
     /**
@@ -63,31 +71,48 @@ class Order
         $orderExtension = $extensionAttributes
             ? $extensionAttributes
             : $this->orderExtensionFactory->create();
-        $this->setCustomerNote($resultOrder, $orderExtension);
+
+        $comments = $this->getCustomerNotes($resultOrder);
+
+        $orderItems = $resultOrder->getItems();
+        if (null !== $orderItems) {
+            foreach ($orderItems as $orderItem) {
+                $extensionAttributes = $orderItem->getExtensionAttributes();
+                if ($extensionAttributes && $extensionAttributes->getCustomOptions()) {
+                    continue;
+                }
+                $customOptions = array();
+                $productOptions = $orderItem->getProductOptions();
+                if(is_array($productOptions) && isset($productOptions['options'])) {
+                    $options = $productOptions['options'];
+                    if(is_array($options)) {
+                        foreach ($options as $option) {
+                            $customOptions[] = $option['label'].': '.$option['value'];
+                        }
+                    }
+                }
+                if(!empty($customOptions)) {
+                    $customOptions = implode(',',$customOptions);
+                    if($comments != '') {
+                        $comments .= '; ';
+                    }
+                    $comments .= $customOptions;
+                }
+            }
+        }
+
+        $this->setCustomerNote($resultOrder, $orderExtension,$comments);
         $resultOrder->setExtensionAttributes($orderExtension);
 
         return $resultOrder;
     }
 
-    /**
-     * Is points data already set
-     *
-     * @param OrderExtensionInterface $extensionAttributes
-     * @return bool
-     */
     private function isDataAlreadySet($extensionAttributes)
     {
         return $extensionAttributes && $extensionAttributes->getCustomerNote();
     }
 
-    /**
-     * Set points data
-     *
-     * @param OrderInterface $resultOrder
-     * @param OrderExtension $orderExtension
-     * @return void
-     */
-    private function setCustomerNote(OrderInterface $resultOrder, OrderExtension $orderExtension)
+    private function getCustomerNotes($resultOrder)
     {
         $text = '';
         /*
@@ -116,6 +141,11 @@ class Order
             }
         }
 
-        $orderExtension->setCustomerNote($text);
+        return $text;
+    }
+
+    private function setCustomerNote(OrderInterface $resultOrder, OrderExtension $orderExtension, $comments)
+    {
+        $orderExtension->setCustomerNote($comments);
     }
 }
