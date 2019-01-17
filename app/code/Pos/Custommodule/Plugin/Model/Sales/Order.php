@@ -137,7 +137,7 @@ class Order
 
         foreach($fields as $field) {
             if(strpos(strtolower($field->getStoreLabel()),'comment') !== false) {
-                $text = $field->getValue();
+                $text = str_replace(array("\r", "\n"), '', $field->getValue());
             }
         }
 
