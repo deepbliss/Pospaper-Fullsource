@@ -12,6 +12,9 @@
                 data-bind="attr: {'id': getCode()}, value: getCode(), checked: isChecked, click: selectPaymentMethod, visible: isRadioButtonVisible()"/>
         <label data-bind="attr: {'for': getCode()}" class="label">
             <span data-bind="text: getTitle()"></span>
+            <span class="pospaper-tooltip">
+                <span>(not required)</span>
+            </span>
         </label>
     </div>
 

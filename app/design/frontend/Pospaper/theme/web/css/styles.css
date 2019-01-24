@@ -2455,7 +2455,7 @@ body.checkout-index-index .fancybox-container{display: none !important;}
 .firecheckout .table-checkout-shipping-method tbody td {
     width: auto;
 }
-.pospaper-tooltip > .tooltip-toggle {
+.pospaper-tooltip > * {
     font-size: 12px;
     font-family: 'Open Sans',sans-serif;
     text-transform: lowercase;
