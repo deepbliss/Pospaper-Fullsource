@@ -2511,6 +2511,10 @@ body.checkout-index-index .fancybox-container{display: none !important;}
 .page-main .sidebar .page-title-wrapper .page-title {
     font-size: 20px;
 }
+.cart-summary .amazon-minicart-container {
+    text-align: left;
+    margin-bottom: 10px;
+}
 
 @media (min-width: 1024px) {
     .firecheckout:not(.page-layout-checkout) .page-title-wrapper {
