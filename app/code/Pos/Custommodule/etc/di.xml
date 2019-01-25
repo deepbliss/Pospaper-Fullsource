@@ -3,6 +3,7 @@
     <preference for="Magento\Theme\Block\Html\Topmenu" type="Pos\Custommodule\Block\Html\Topmenu" />
     <preference for="Magento\Catalog\Block\Product\View" type="Pos\Custommodule\Block\Product\View" />
     <preference for="Pos\Custommodule\Api\Data\CustomOptionsInterface" type="Pos\Custommodule\Model\CustomOptions" />
+    <preference for="Magento\Checkout\Block\Onepage\Success" type="Pos\Custommodule\Block\Checkout\Success"/>
 
     <type name="Magento\Sales\Api\OrderRepositoryInterface">
         <plugin name="get_customer_notes" type="Pos\Custommodule\Plugin\Model\Sales\Order" />
