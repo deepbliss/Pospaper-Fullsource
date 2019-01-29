@@ -86,10 +86,7 @@
             </container>
 
         </referenceContainer>
-        <referenceContainer name="content">
-            <block class="Magento\Framework\View\Element\Template" name="ga"
-                   template="Magento_Theme::html/ga-footer.phtml" cacheable="false"/>
-        </referenceContainer>
+
         <move element="form.subscribe" destination="container5"/>
         <move element="ft_logo_block" destination="container6" before="-"/>
         <move element="ft_company_info" destination="container6" after="ft_logo_block"/>
