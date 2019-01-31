@@ -120,7 +120,7 @@ jQuery(document).ready(function () {
     }
 
 
-    jQuery(".field .control input").after("<span class='bar'></span>");
+    //jQuery(".field .control input").after("<span class='bar'></span>");
     jQuery(".field .control input").focusin(function () {
         jQuery(this).next("span").css("width", "100%");
         jQuery(this).next("span").css("left", "0");
@@ -130,7 +130,7 @@ jQuery(document).ready(function () {
         jQuery(this).next("span").css("left", "50%");
     })
 
-    jQuery(".field .control textarea").after("<span class='bar'></span>");
+    //jQuery(".field .control textarea").after("<span class='bar'></span>");
     jQuery(".field .control textarea").focusin(function () {
         jQuery(this).next("span").css("width", "100%");
         jQuery(this).next("span").css("left", "0");
