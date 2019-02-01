@@ -1338,7 +1338,12 @@ body.checkout-index-index .page-title-wrapper{border: 0;clip: none;height: auto;
 body.checkout-onepage-success .print {position: absolute;right: 0;top: 5px;margin: 0;color: #fff;text-transform: uppercase;}
 body.checkout-onepage-success .print:hover{color: #ff361e;}
 .checkout-onepage-success .page-title-wrapper{position: relative;}
-
+.firecheckout .form-shipping-address input[type="checkbox"],
+.firecheckout #checkout input[type="checkbox"],
+.firecheckout .form-shipping-address input[type="radio"],
+.firecheckout #checkout input[type="radio"] {
+    z-index: 0 !important;
+}
 
 
 /*------------------------------------------------------- Email to Friend Page -------------------------------------------------*/
