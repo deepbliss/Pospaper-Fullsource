@@ -1,0 +1,22 @@
+{
+    "name": "weltpixel/m2-weltpixel-lazyload",
+    "description": "WeltPixel LazyLoad Module",
+    "require": {
+        "weltpixel/m2-weltpixel-backend": "~1.0 | master",
+        "magento/module-catalog": "102.* | 101.* | 100.*"
+    },
+    "type": "magento2-module",
+    "version": "1.8.2",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],   
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "WeltPixel\\LazyLoading\\": ""
+        }
+    }
+}
