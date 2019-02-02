@@ -11,7 +11,7 @@
                 <a href="<?= /* @escapeNotVerified */ $product->getProductUrl() ?>">
                 <?php 
 					$imageUrl = $this->getMediaUrl(). 'catalog/product' . $product->getImage();
-					echo '<img src="" data-original="'.$imageUrl.'" alt="'.$product->getName().'" class="lazy" />';
+					echo '<img src="'.$imageUrl.'" />';
                 echo "</a>";
 				echo "</div>";
                 echo "<div class='slider-produc-info'>";
