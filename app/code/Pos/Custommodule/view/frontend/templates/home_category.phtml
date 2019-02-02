@@ -20,7 +20,7 @@ foreach($categories as $category):
     $_outputhelper = $this->helper('Magento\Catalog\Helper\Output');
     $_imgHtml   = '';
     if ($_imgUrl = $categoryAgain->getImageUrl()) {
-        $_imgHtml = '<img src="' . $_imgUrl . '" />';
+        $_imgHtml = '<img src="" data-original="' . $_imgUrl . '" class="lazy"  />';
         $_imgHtml = $_outputhelper->categoryAttribute($categoryAgain, $_imgHtml, 'image');
         /* @escapeNotVerified */ 
         echo $_imgHtml;
