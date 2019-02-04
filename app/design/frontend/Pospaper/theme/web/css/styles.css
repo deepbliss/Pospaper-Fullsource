@@ -865,7 +865,17 @@ box-shadow:         0px 0px 10px 0px rgba(0, 0, 0, 0.12); margin-top: 30px;}
 .review-list .review-ratings ~ .review-content{font-size: 15px; color: #000; line-height: 25px;font-family: 'Open Sans', sans-serif; }
 #product-review-container .block-content{float: left; width: 100%;}
 
-.review-form .review-legend{font-family: 'Open Sans', sans-serif; float: left;width: 100%;margin: 0;font-size: 20px;font-weight: 700;color: #333333;line-height: 25px;}
+.review-form .review-legend{font-family: 'Open Sans', sans-serif; float: left;width: 100%;margin: 0;font-size: 20px;font-weight: 700;color: #333333;line-height: 1.35;}
+.review-form .review-legend span:first-child {
+    color: #624a9e;
+    display: block;
+}
+.review-form .review-legend span.small {
+    display: block;
+    line-height: 1.35;
+    margin-bottom: 10px;
+    font-weight: 400;
+}
 .review-field-ratings .review-field-rating .label{display: none;}
 .review-form .fieldset > .field:not(.choice) > .control{width: 70%;}
 .review-form .fieldset > .field:not(.choice) > .label{width: 30%; font-size: 16px; font-weight: 500;}
