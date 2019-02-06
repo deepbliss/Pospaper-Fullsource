@@ -94,9 +94,6 @@
 					 echo "<a class='action whishlist towishlist' href='#' data-action='add-to-wishlist' data-post='".$this->helper('Magento\Wishlist\Helper\Data')->getAddParams($product)."'>";
                             echo "<span>Whishlist</span>";
                     echo "</a>";
-                    echo "<a class='weltpixel-quickview weltpixel_quickview_button_v2' data-quickview-url='".$block->getBaseUrl()."weltpixel_quickview/catalog_product/view/id/".$product->getId()."/' href='javascript:void(0);'>";
-                            echo "<span>Quickview</span>";
-                    echo "</a>";
                     echo "<a class='action tocompare' href='#' data-post='".$this->helper('Magento\Catalog\Helper\Product\Compare')->getPostDataParams($product)."' role='button'>";
                             echo "<span>Compare</span>";
                     echo "</a>";
