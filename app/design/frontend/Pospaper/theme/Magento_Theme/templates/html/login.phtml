@@ -3,13 +3,7 @@
     $customerSession = $objectManagerlogin->get('Magento\Customer\Model\Session');
     //$baseurl = $objectManagerlogin->get('Magento\Store\Model\StoreManagerInterface')->getStore(0)->getBaseUrl();
     $baseurl = '/';
-    $promo =  $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('header_flash_promo')->toHtml();
 ?>
-<?php if($promo): ?>
-<div class="header-flash-promo">
-    <?php echo $promo ?>
-</div>
-<?php endif; ?>
 <ul id="desktop-links">
     <li><a href="/credit/application/">Net 30 Terms</a></li>
     <li><a href="<?php echo $baseurl .'trackorder'; ?>">Track Your Shipment</a></li>

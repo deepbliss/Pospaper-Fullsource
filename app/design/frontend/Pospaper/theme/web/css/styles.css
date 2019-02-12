@@ -2539,6 +2539,71 @@ body.checkout-index-index .fancybox-container{display: none !important;}
     text-align: left;
     margin-bottom: 10px;
 }
+.header-flash-promo {
+  box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.26);
+  background-color: #f2f6ca;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: left;
+  float: left;
+  width: 100%;
+  height: 56px; }
+  .header-flash-promo .heading {
+    width: 36%;
+    text-align: right;
+    padding-right: 45px;
+    font-size: 21px;
+    text-transform: uppercase;
+    font-weight: 600;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    background: url(../images/flash-promo-bg.png) top right no-repeat; }
+  .header-flash-promo .content {
+    width: 64%;
+    padding: 5px 25px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center; }
+    .header-flash-promo .content .table {
+      font-size: 14px;
+      width: 100%;
+      max-width: 700px;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between; }
+      .header-flash-promo .content .table > div {
+        padding: 4px 0;
+        width: 50%; }
+    .header-flash-promo .content strong {
+      font-weight: 700; }
+  @media screen and (max-width: 767px) {
+    .header-flash-promo {
+      display: none; } }
+
 
 @media (min-width: 1024px) {
     .firecheckout:not(.page-layout-checkout) .page-title-wrapper {

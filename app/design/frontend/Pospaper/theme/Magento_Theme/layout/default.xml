@@ -21,6 +21,13 @@
                 <container name="container1" as="container1" label="Container 1 Section" htmlTag="div"
                            htmlClass="container"/>
             </container>
+            <container name="header-flash-promo" label="Header Flash Promo" htmlTag="div" htmlClass="header-flash-promo">
+                <block class="Magento\Cms\Block\Block" name="header-flash-promo-block">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">header_flash_promo</argument>
+                    </arguments>
+                </block>
+            </container>
             <container name="head-account-link" as="head-account-link" label="Header Account Link Section" htmlTag="div"
                        htmlClass="head-account-div">
                 <container name="container2" as="container2" label="Container 2 Section" htmlTag="div"
