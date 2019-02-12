@@ -74,16 +74,24 @@
                         }
                         > .parent {
                             position: relative;
-                            > a {
+
+                            > span {
+                                display: inline-block;
+                                position: absolute;
+                                top: -1px;
+                                left: -2px;
+                                cursor: pointer;
                                 &:after {
                                     content: "+";
                                     display: inline-block;
                                     font-size: 15px;
                                     font-weight: 600;
                                     color: #606060;
-                                    position: absolute;
-                                    left: 0;
-                                    top: -1px;
+                                }
+                            }
+                            > span.minus {
+                                &:after {
+                                    content: "-";
                                 }
                             }
                         }

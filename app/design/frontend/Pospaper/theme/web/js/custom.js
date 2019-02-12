@@ -9,10 +9,10 @@ jQuery(document).ready(function () {
         jQuery(this).parent().children('ul').slideToggle('slow');
     });
 
-    jQuery(".nav-sections .level-two > .parent > a").on('click', function (e) {
+    jQuery(".nav-sections .level-two > .parent > span").on('click', function (e) {
         e.preventDefault();
         jQuery(this).toggleClass('minus');
-        jQuery(this).next('.level-three').slideToggle('slow');
+        jQuery(this).closest('.parent').find('.level-three').slideToggle('slow');
     });
 
     if (jQuery(window).innerWidth() <= 770) {
@@ -98,28 +98,6 @@ jQuery(document).ready(function () {
 
     });
 
-    if (jQuery.fn.owlCarousel) {
-        reseller_slider = jQuery('.reseller-slider');
-//Hero_Slider_crsl
-
-        reseller_slider.owlCarousel({
-            nav: false,
-            dots: false,
-            autoplay: true,
-            margin: 0,
-            lazyLoad: true,
-            loop: true,
-            items: 1,
-            animation: true,
-            touchDrag: false,
-            mouseDrag: false,
-            animateIn: 'fadeIn',
-            smartSpeed: 1000,
-            autoplayTimeout: 7000
-        });
-    }
-
-
     //jQuery(".field .control input").after("<span class='bar'></span>");
     jQuery(".field .control input").focusin(function () {
         jQuery(this).next("span").css("width", "100%");
@@ -163,6 +141,11 @@ jQuery(document).ready(function () {
     });
 
     jQuery('.page-header .mobile-header-links').appendTo('#store\\.links');
+
+    jQuery('.tooltip-wrapper').on('click','.learn-more-link,.tooltip-close',function(e) {
+        e.preventDefault();
+        jQuery(this).closest('.tooltip-wrapper').toggleClass('open');
+    });
 });
 jQuery(function () {
     jQuery('.menu').on('click', function () {
