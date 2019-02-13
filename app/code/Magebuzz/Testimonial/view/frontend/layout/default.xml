@@ -5,11 +5,6 @@
  */
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-    <head>
-        <css src="Magebuzz_Testimonial::css/owl.carousel.css"></css>
-        <css src="Magebuzz_Testimonial::css/owl.theme.css"></css>
-        <css src="Magebuzz_Testimonial::css/owl.transitions.css"></css>
-    </head>
     <body>
         <referenceBlock name="header.links">
             <block class="Magento\Framework\View\Element\Html\Link" name="testimonialus.link" after="register-link">

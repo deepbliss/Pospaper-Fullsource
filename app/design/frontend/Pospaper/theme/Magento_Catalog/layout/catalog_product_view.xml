@@ -10,14 +10,6 @@
     <body>
         <referenceBlock name="amazon.pay.button.product" remove="true" />
         <referenceBlock name="breadcrumbs" template="Magento_Theme::html/breadcrumbs.phtml"/>
-
-        <referenceContainer name="content">
-
-            <!--<block class="Magento\Catalog\Block\Product\View" name="social.share" template="product/view/wdm-social.phtml" after="view.addto.compare" /> -->
-            <block class="Magento\Framework\View\Element\Template" name="startphoto"
-                   template="Magento_Catalog::product/view/reponsive_div.phtml"/>
-
-        </referenceContainer>
         <container name="product.shop" htmlTag="div" htmlClass="product-shop"/>
         <container name="tabing.section" htmlTag="div" htmlClass="tabing-section"/>
         <container name="pro.slider.section" htmlTag="div" htmlClass="pro-slider-section"/>
@@ -37,8 +29,8 @@
               after="product.info"/>
 
         <move element="product.info.review" destination="product.info.stock.sku" after="-"/>
-        <move element="product.info.type" destination="product.info.instock" after="-"/>
-        <move element="product.price.final" destination="product.info.instock" before="-"/>
+        <move element="product.info.type" destination="product.info" after="-"/>
+        <move element="product.price.final" destination="product.info" before="-"/>
         <move element="product.info.instock" destination="product.info.price" after="product.info.stock.sku"/>
 
         <move element="recently_viewed" destination="pro.slider.section" after="catalog.product.related"/>
@@ -49,6 +41,9 @@
         <move element="product.info" destination="product.info.main" after="product.info.price"/>
         <move element="aw_fslabel_content_top" destination="product.info.media" before="-" />
 
+        <referenceContainer name="product.info.type">
+            <block class="Magento\Framework\View\Element\Template" name="product-form-low-price" template="Magento_Catalog::product/view/low-price.phtml" after="-" />
+        </referenceContainer>
 
         <container name="product.info.instock" label="Product info instock" htmlTag="div" htmlClass="product-info-instock"/>
 

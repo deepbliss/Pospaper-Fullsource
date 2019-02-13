@@ -1,79 +1,93 @@
-<?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-
-// @codingStandardsIgnoreFile
-
-?>
-
 <?php /** @var \Magento\Framework\Pricing\Render\Amount $block */ ?>
-
-
-
+<?php $amount = $block->getDisplayValue(); ?>
 <?php if ($block->getSchema()): ?>
+    <?php $product = $block->getSaleableItem() ?>
+    <?php if($product->getSubscriptionActive() == 1): ?>
+        <?php $subscriptionDiscount = $this->helper('\Pos\Subscriptions\Helper\Data')->getSubscriptionDiscount(); ?>
+        <?php $subscriptionAmount = round(($amount - ($amount * $subscriptionDiscount)/100),2); ?>
+        <div class="subscription-price-wrapper">
+            <div class="subscription-option">
+                <input type="radio" name="subscription-method[]" value="one-time" id="subscription-method-one-time" checked="checked" />
+                <div class="subscription-label">
+                    <label for="subscription-method-one-time">One-time purchase</label>
+                    <span class="price-container <?= $block->getAdjustmentCssClasses() ?>" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                        <span data-price-amount="<?= $amount ?>"
+                                data-price-type="<?= /* @escapeNotVerified */ $block->getPriceType() ?>"
+                                class="price-wrapper <?= /* @escapeNotVerified */ $block->getPriceWrapperCss() ?> pdPriceDisplay">
+                            <?= $block->formatCurrency($amount, (bool)$block->getIncludeContainer()) ?>
+                        </span>
+                        <span class="case-font"><?php echo '/'.$product->getData('unit_of_measure'); ?></span>
+                        <meta itemprop="price" content="<?= $amount ?>" />
+                        <meta itemprop="priceCurrency" content="<?= /* @escapeNotVerified */ $block->getDisplayCurrencyCode() ?>" />
+                    </span>
+                </div>
+            </div>
+            <div class="subscription-option">
+                <input type="radio" name="subscription-method[]" value="subscribe" id="subscription-method-subscribe" />
+                <div class="subscription-label">
+                    <label for="subscription-method-subscribe">Subscribe &amp; Save <span><?php echo $subscriptionDiscount ?>%</span></label>
+                    <p>on auto-deliveries</p>
+                    <p class="tooltip-wrapper">
+                        <a href="#" class="learn-more-link">Learn more</a>
+                        <span class="tooltip-content">
+                            <a href="#" class="tooltip-close"></a>
+                            <strong>Choose how often it's delivered</strong>
+                            <span>From one a month to every 6 months</span>
+                            <br>
+                            <strong>Skip or cancel any time</strong>
+                            <span>Pause or cancel your auto-deliveries at any time</span>
+                        </span>
+                    </p>
+                    <span class="price-container <?= $block->getAdjustmentCssClasses() ?>">
+                        <span <?php if ($block->getPriceId()): ?> id="<?= /* @escapeNotVerified */ $block->getPriceId() ?>"<?php endif;?>
+                            data-price-amount="<?= $subscriptionAmount ?>"
+                            data-price-type="<?= /* @escapeNotVerified */ $block->getPriceType() ?>"
+                            class="price-wrapper <?= /* @escapeNotVerified */ $block->getPriceWrapperCss() ?> pdPriceDisplay subscriptionPriceDisplay">
+                            <?= $block->formatCurrency($subscriptionAmount, (bool)$block->getIncludeContainer()) ?>
+                        </span>
+                        <span class="case-font"><?php echo '/'.$product->getData('unit_of_measure'); ?></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    <?php else: ?>
+        <span class="price-container <?= /* @escapeNotVerified */ $block->getAdjustmentCssClasses() ?>" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+        <?php if ($block->getDisplayLabel()): ?>
+            <span class="price-label"><?= /* @escapeNotVerified */ $block->getDisplayLabel() ?></span>
+        <?php endif; ?>
 
-    
-    <span class="price-container <?= /* @escapeNotVerified */ $block->getAdjustmentCssClasses() ?>"
-        <?= $block->getSchema() ? ' itemprop="offers" itemscope itemtype="http://schema.org/Offer"' : '' ?>>
-    <?php if ($block->getDisplayLabel()): ?>
-        <span class="price-label"><?= /* @escapeNotVerified */ $block->getDisplayLabel() ?></span>
+            <span <?php if ($block->getPriceId()): ?> id="<?= /* @escapeNotVerified */ $block->getPriceId() ?>"<?php endif;?>
+                <?= ($block->getPriceDisplayLabel()) ? 'data-label="' . $block->getPriceDisplayLabel() . $block->getPriceDisplayInclExclTaxes() . '"' : '' ?>
+                data-price-amount="<?= $amount ?>"
+                data-price-type="<?= /* @escapeNotVerified */ $block->getPriceType() ?>"
+                class="price-wrapper <?= /* @escapeNotVerified */ $block->getPriceWrapperCss() ?> pdPriceDisplay">
+                <?= /* @escapeNotVerified */ $block->formatCurrency($amount, (bool)$block->getIncludeContainer()) ?>
+            </span>
+
+        <?php if ($block->hasAdjustmentsHtml()): ?>
+            <?= $block->getAdjustmentsHtml() ?>
+        <?php endif; ?>
+            <span class="case-font"><?php echo '/'.$product->getData('unit_of_measure'); ?></span>
+            <meta itemprop="price" content="<?= $amount ?>" />
+            <meta itemprop="priceCurrency" content="<?= /* @escapeNotVerified */ $block->getDisplayCurrencyCode() ?>" />
+        </span>
     <?php endif; ?>
-    
-    <span <?php if ($block->getPriceId()): ?> id="<?= /* @escapeNotVerified */ $block->getPriceId() ?>"<?php endif;?>
-        <?= ($block->getPriceDisplayLabel()) ? 'data-label="' . $block->getPriceDisplayLabel() . $block->getPriceDisplayInclExclTaxes() . '"' : '' ?>
-        data-price-amount="<?= /* @escapeNotVerified */ $block->getDisplayValue() ?>"
-        data-price-type="<?= /* @escapeNotVerified */ $block->getPriceType() ?>"
-        class="price-wrapper <?= /* @escapeNotVerified */ $block->getPriceWrapperCss() ?> pdPriceDisplay">
-        <?= /* @escapeNotVerified */ $block->formatCurrency($block->getDisplayValue(), (bool)$block->getIncludeContainer()) ?>
-    </span>
-    
-
-    <?php if ($block->hasAdjustmentsHtml()): ?>
-        <?= $block->getAdjustmentsHtml() ?>
-    <?php endif; ?>
-    <?php if ($block->getSchema()): ?>
-        <meta itemprop="price" content="<?= /* @escapeNotVerified */ $block->getDisplayValue() ?>" />
-        <meta itemprop="priceCurrency" content="<?= /* @escapeNotVerified */ $block->getDisplayCurrencyCode() ?>" />
-    <?php endif; ?>
-</span>
-
-
 <?php else:?>
-    <span class="price-container <?= /* @escapeNotVerified */ $block->getAdjustmentCssClasses() ?>"
-        <?= $block->getSchema() ? ' itemprop="offers" itemscope itemtype="http://schema.org/Offer"' : '' ?>>
+    <span class="price-container <?= /* @escapeNotVerified */ $block->getAdjustmentCssClasses() ?>">
     <?php if ($block->getDisplayLabel()): ?>
         <span class="price-label"><?= /* @escapeNotVerified */ $block->getDisplayLabel() ?></span>
     <?php endif; ?>
-    <span <?php if ($block->getPriceId()): ?> id="<?= /* @escapeNotVerified */ $block->getPriceId() ?>"<?php endif;?>
-        <?= ($block->getPriceDisplayLabel()) ? 'data-label="' . $block->getPriceDisplayLabel() . $block->getPriceDisplayInclExclTaxes() . '"' : '' ?>
-        data-price-amount="<?= /* @escapeNotVerified */ $block->getDisplayValue() ?>"
-        data-price-type="<?= /* @escapeNotVerified */ $block->getPriceType() ?>"
-        class="price-wrapper <?= /* @escapeNotVerified */ $block->getPriceWrapperCss() ?>">
-        <?= /* @escapeNotVerified */ $block->formatCurrency($block->getDisplayValue(), (bool)$block->getIncludeContainer()) ?>
-    </span>
+
+        <span <?php if ($block->getPriceId()): ?> id="<?= /* @escapeNotVerified */ $block->getPriceId() ?>"<?php endif;?>
+            <?= ($block->getPriceDisplayLabel()) ? 'data-label="' . $block->getPriceDisplayLabel() . $block->getPriceDisplayInclExclTaxes() . '"' : '' ?>
+            data-price-amount="<?= $amount ?>"
+            data-price-type="<?= /* @escapeNotVerified */ $block->getPriceType() ?>"
+            class="price-wrapper <?= /* @escapeNotVerified */ $block->getPriceWrapperCss() ?>">
+            <?= /* @escapeNotVerified */ $block->formatCurrency($amount, (bool)$block->getIncludeContainer()) ?>
+        </span>
+
     <?php if ($block->hasAdjustmentsHtml()): ?>
         <?= $block->getAdjustmentsHtml() ?>
     <?php endif; ?>
-    <?php if ($block->getSchema()): ?>
-        <meta itemprop="price" content="<?= /* @escapeNotVerified */ $block->getDisplayValue() ?>" />
-        <meta itemprop="priceCurrency" content="<?= /* @escapeNotVerified */ $block->getDisplayCurrencyCode() ?>" />
-    <?php endif; ?>
-</span>
+    </span>
 <?php endif; ?>
-
-<span class="price"><span class="case-font">
-
-    <?php 
-
-    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-    $currentProduct = $objectManager->get('Magento\Framework\Registry')->registry('current_product');//get current product information
-    if($currentProduct)
-    {
-    $product = $objectManager->create('Magento\Catalog\Model\Product')->load($currentProduct->getId());
-    echo '/'.$product->getData('unit_of_measure');    
-    }
-    
-    ?>
-</span></span>

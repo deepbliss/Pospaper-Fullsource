@@ -1,98 +1,164 @@
 <?php
+
 namespace Pos\Custommodule\Block;
 
 use Magento\Framework\View\Element\Template;
-use Magento\Framework\ObjectManagerInterface;
+use Magento\Framework\Pricing\PriceCurrencyInterface;
 
-class Bestseller extends \Magento\Framework\View\Element\Template
+class Bestseller extends Template
 {
     protected $bestSellerCollection;
-    protected $mostViewedCollection;
+    protected $productCollectionFactory;
+    protected $catalogProductVisibility;
     protected $objectManager;
     protected $wishListHelper;
+    protected $cartHelper;
+    protected $imageBuilder;
     protected $_reviewFactory;
-     protected $_storeManager;
+    protected $_storeManager;
+    protected $priceCurrency;
 
     public function __construct(
         Template\Context $context,
         \Magento\Sales\Model\ResourceModel\Report\Bestsellers\CollectionFactory $bestSellerCollectionFactory,
-        ObjectManagerInterface $objectManager,
         \Magento\Review\Model\ReviewFactory $reviewFactory,
-         \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \Magento\Reports\Model\ResourceModel\Product\CollectionFactory $mostViewedCollectionFactory,
-        \Magento\Wishlist\Helper\Data $wishListHelper,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
+        \Magento\Catalog\Model\Product\Visibility $catalogProductVisibility,
+        PriceCurrencyInterface $priceCurrency,
+        \Magento\Checkout\Helper\Cart $cartHelper,
+        \Magento\Catalog\Block\Product\ImageBuilder $imageBuilder,
         array $data = []
-    ) {
+    )
+    {
         $this->bestSellerCollection = $bestSellerCollectionFactory;
-        $this->mostViewedCollection = $mostViewedCollectionFactory->create();
-        $this->wishListHelper = $wishListHelper;
-         $this->_storeManager = $storeManager;  
-         $this->_reviewFactory = $reviewFactory;
-        $this->objectManager = $objectManager;
+        $this->productCollectionFactory = $productCollectionFactory;
+        $this->catalogProductVisibility = $catalogProductVisibility;
+        $this->priceCurrency = $priceCurrency;
+        $this->cartHelper = $cartHelper;
+        $this->imageBuilder = $imageBuilder;
+        $this->_storeManager = $storeManager;
+        $this->_reviewFactory = $reviewFactory;
         parent::__construct($context, $data);
+    }
+
+    public function getProductCollection()
+    {
+        $collection = array();
+
+        switch($this->getCollectionType()) {
+            case 'bestsellers';
+                $collection = $this->getBestSellers();
+                break;
+
+            case 'featured';
+                $collection = $this->getFeaturedProducts();
+                break;
+        }
+
+        return $collection;
     }
 
     public function getBestSellers()
     {
+        $collection = array();
         $productcollection = $this->bestSellerCollection->create();
         $productcollection->setPeriod('year');
-        $productcollection->setDateRange('2018-12-01',null);
-        return $productcollection;
+        $productcollection->setDateRange('2018-01-01', null);
+
+        $productIds = array();
+        foreach($productcollection as $product) {
+            $productIds[] = $product->getData('product_id');
+        }
+
+        if(!empty($productIds)) {
+            $collection = $this->productCollectionFactory->create()
+                ->addAttributeToSelect('*')
+                ->addAttributeToFilter('status', '1')
+                ->addAttributeToFilter('entity_id', array('in' => $productIds))
+                ->setPageSize(10);
+            $collection->setVisibility($this->catalogProductVisibility->getVisibleInCatalogIds());
+        }
+
+        return $collection;
+    }
+
+    public function getFeaturedProducts()
+    {
+        $collection = $this->productCollectionFactory->create()
+            ->addAttributeToSelect('*')
+            ->addAttributeToFilter('status', '1')
+            ->addAttributeToFilter('is_featured', '1')
+            ->setPageSize(10);
+        $collection->setVisibility($this->catalogProductVisibility->getVisibleInCatalogIds());
+        return $collection;
     }
 
     public function getRatingSummary($product)
-{
-    $this->_reviewFactory->create()->getEntitySummary($product, $this->_storeManager->getStore()->getId());
-    $ratingSummary = $product->getRatingSummary()->getRatingSummary();
-    return $ratingSummary;
-}
-
-    public function getProductDetail($product_id)
     {
-        $ProductDetail = $this->objectManager->create('Magento\Catalog\Model\Product')
-            ->load($product_id);
-        return $ProductDetail;
+        $this->_reviewFactory->create()->getEntitySummary($product, $this->_storeManager->getStore()->getId());
+        $ratingSummary = $product->getRatingSummary()->getRatingSummary();
+        return $ratingSummary;
     }
 
     public function getFormatedPrice($amount)
     {
-        return $this->objectManager->create('\Magento\Framework\Pricing\PriceCurrencyInterface')->format($amount,true,2);
+        return $this->priceCurrency->format($amount, true, 2);
     }
 
-    public function getAddtocartlink($collection)
+    public function getAddToCartUrl($product, $additional = [])
     {
-        $listBlock = $this->objectManager->get('\Magento\Catalog\Block\Product\ListProduct');
-        return $listBlock->getAddToCartUrl($collection);
+        if (!$product->getTypeInstance()->isPossibleBuyFromList($product)) {
+            if (!isset($additional['_escape'])) {
+                $additional['_escape'] = true;
+            }
+            if (!isset($additional['_query'])) {
+                $additional['_query'] = [];
+            }
+            $additional['_query']['options'] = 'cart';
+
+            return $this->getProductUrl($product, $additional);
+        }
+        return $this->cartHelper->getAddUrl($product, $additional);
     }
 
-    public function getMostViewed()
+    public function getProductUrl($product, $additional = [])
     {
-        $storeId = $this->_storeManager->getStore()->getId();
-
-        $this->mostViewedCollection->addAttributeToSelect(
-            '*'
-        )->addViewsCount()->setStoreId(
-            $storeId
-        )->addStoreFilter(
-            $storeId
-        );
-
-        return $this->mostViewedCollection;
-    }
-
-	public function getMediaUrl(){
-
-            $media_dir = $this->objectManager->get('Magento\Store\Model\StoreManagerInterface')
-                ->getStore()
-                ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
-
-            return $media_dir;
+        if ($this->hasProductUrl($product)) {
+            if (!isset($additional['_escape'])) {
+                $additional['_escape'] = true;
+            }
+            return $product->getUrlModel()->getUrl($product, $additional);
         }
 
-    public function getWishlist()
-    {
-        $collection = $this->wishlistHelper->getWishlist()->getCollection();
+        return '#';
+    }
 
-        return $collection;
+    public function getProductName($str)
+    {
+        $out = strlen($str) > 104 ? substr($str, 0, 104) . "..." : $str;
+        return $out;
+    }
+
+    public function hasProductUrl($product)
+    {
+        if ($product->getVisibleInSiteVisibilities()) {
+            return true;
+        }
+        if ($product->hasUrlDataObject()) {
+            if (in_array($product->hasUrlDataObject()->getVisibility(), $product->getVisibleInSiteVisibilities())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function getImage($product, $imageId, $attributes = [])
+    {
+        return $this->imageBuilder->setProduct($product)
+            ->setImageId($imageId)
+            ->setAttributes($attributes)
+            ->create();
     }
 }

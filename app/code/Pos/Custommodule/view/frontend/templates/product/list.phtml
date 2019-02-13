@@ -1,59 +1,17 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
 use Magento\Framework\App\Action\Action;
-
-// @codingStandardsIgnoreFile
-
-?>
-<?php
-/**
- * Product list template
- *
- * @var $block \Magento\Catalog\Block\Product\ListProduct
- */
-?>
-<?php
-$_productCollection = $block->getLoadedProductCollection();
+$_productCollection = $block->getProducts();
 $_helper = $this->helper('Magento\Catalog\Helper\Output');
 ?>
-
-<?php 
-/*$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-$productCollection = $objectManager->create('Magento\Reports\Model\ResourceModel\Report\Collection\Factory'); 
-$collection = $productCollection->create('Magento\Sales\Model\ResourceModel\Report\Bestsellers\Collection'); 
-
-//$collection->setPeriod('month');
-//$collection->setPeriod('year');
-//$collection->setPeriod('day');
-$bsid = array();
-foreach ($collection as $item) {
-    $bsid[] = $item->getProductId();
-}*/
-?>
-<?php if (!$_productCollection->count()): ?>
+<?php if (!count($_productCollection)): ?>
     <div class="message info empty"><div><?= /* @escapeNotVerified */ __('We can\'t find products matching the selection.') ?></div></div>
 <?php else: ?>
-    <?= $block->getToolbarHtml() ?>
-    <?= $block->getAdditionalHtml() ?>
     <?php
-    if ($block->getMode() == 'grid') {
         $viewMode = 'grid';
         $image = 'category_page_grid';
         $showDescription = false;
         $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
-    } else {
-        $viewMode = 'list';
-        $image = 'category_page_list';
-        $showDescription = true;
-        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIEW;
-    }
-    /**
-     * Position for actions regarding image size changing in vde if needed
-     */
-    $pos = $block->getPositioned();
+        $pos = $block->getPositioned();
     ?>
     <div class="products wrapper <?= /* @escapeNotVerified */ $viewMode ?> products-<?= /* @escapeNotVerified */ $viewMode ?>">
         <ol class="products list items product-items">
@@ -74,19 +32,9 @@ foreach ($collection as $item) {
                         <?= $productImage->toHtml() ?>
                     </a>
                     </div>
-                    	<?php
-                        
-                    	if ($_product->getData('is_bestseller') == 1): ?>
-                    <div class="bestseller-img">
-                    put image here
-                    </div>
-                    	<?php endif;?>
-
-
-                    
-
-
-
+                    <?php if ($_product->getData('is_bestseller') == 1): ?>
+                    <div class="bestseller-img"></div>
+                    <?php endif;?>
                     <div class="product details product-item-details">
                         <?php
                             $_productNameStripped = $block->stripTags($_product->getName(), null, true);
@@ -95,20 +43,9 @@ foreach ($collection as $item) {
                             <a class="product-item-link"
                                href="<?= /* @escapeNotVerified */ $_product->getProductUrl() ?>">
                                 <?php /* @escapeNotVerified */ 
-                                    $str = $_helper->productAttribute($_product, $_product->getName(), 'name');
-                                   // $tmp_str = mb_substr($str,0,111,'utf-8');
-                                    
-                                  echo $out = strlen($str) > 104 ? substr($str,0,104)."..." : $str;
-                                    /*if(strlen($str) > 110)
-                                    {
-                                        echo $str."..." ;
-                                    }
-                                    else
-                                    {
-                                        echo $str;
-                                    }*/
-                                    
-                                 ?>
+                                $str = $_helper->productAttribute($_product, $_product->getName(), 'name');
+                                echo $out = strlen($str) > 104 ? substr($str,0,104)."..." : $str;
+                                ?>
                             </a>
                         </strong>
                         
@@ -163,16 +100,4 @@ foreach ($collection as $item) {
             <?php endforeach; ?>
         </ol>
     </div>
-    <?= $block->getToolbarHtml() ?>
-    <?php if (!$block->isRedirectToCartEnabled()) : ?>
-        <script type="text/x-magento-init">
-        {
-            "[data-role=tocart-form], .form.map.checkout": {
-                "catalogAddToCart": {
-                    "product_sku": "<?= /* @NoEscape */ $_product->getSku() ?>"
-                }
-            }
-        }
-        </script>
-    <?php endif; ?>
 <?php endif; ?>

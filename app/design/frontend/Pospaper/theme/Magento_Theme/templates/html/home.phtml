@@ -1,37 +1,44 @@
 <div class="middle-container">
-<div class="slider">
-    <div class="container">
-        <?php echo $this->getLayout()->createBlock("Magestore\Bannerslider\Block\SliderItem")->setSliderId(1)->toHtml(); ?>
-    </div>
-</div>
-<div class="category-section">
-
-<?php //echo $this->getLayout()->createBlock("Pos\Custommodule\Block\Searchbybrand")->setTemplate("Pos_Custommodule::searchbybrand.phtml")->toHtml(); ?>
-
-<div class="container">
-<?php echo $this->getLayout()->createBlock("Pos\Custommodule\Block\Poscategory")->setTemplate("Pos_Custommodule::home_category.phtml")->toHtml(); ?>
-</div>
-</div>
-<div class="home-tabing-div">
-    <div class="container">
-        <div id="parentHorizontalTab">
-             <ul class="resp-tabs-list hor_1">
-                <li><?php echo __("Top Selling Products"); ?></li>
-                <li><?php echo __("Featured Products"); ?></li>
-            </ul>
-            <div class="resp-tabs-container hor_1">
-                <div id="best-seller" class="tabcontent">
-                    <?php echo $this->getLayout()->createBlock("Pos\Custommodule\Block\Bestseller")->setTemplate("Pos_Custommodule::home_bestseller.phtml")->toHtml(); ?>
+    <div class="homepage-banners-container">
+        <div class="container">
+            <div class="homepage-banners">
+                <div class="main">
+                    <a href="/thermal-318-230-50rolls.html"><img src="/pub/media/banners/1.png" /></a>
                 </div>
-                <div id="featured-products" class="tabcontent">
-                    <?php echo $this->getLayout()->createBlock("Pos\Custommodule\Block\Featured")->setTemplate("Pos_Custommodule::home_featured.phtml")->toHtml(); ?>
+                <div class="secondary">
+                    <a href="/thermal-214-50-50rolls.html"><img src="/pub/media/banners/4.png" /></a>
+                    <a href="/epsonerc30.html"><img src="/pub/media/banners/5.png" /></a>
                 </div>
             </div>
         </div>
-   </div>
-</div>
-<?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('why_shop_block')->toHtml();?>
-<?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('happy_customer_section')->toHtml();?>
+    </div>
+
+    <div class="category-section">
+        <div class="container">
+        <?php echo $this->getLayout()->createBlock("Pos\Custommodule\Block\Poscategory")->setTemplate("Pos_Custommodule::home_category.phtml")->toHtml(); ?>
+        </div>
+    </div>
+
+    <div class="home-tabing-div">
+        <div class="container">
+            <div id="parentHorizontalTab">
+                 <ul class="resp-tabs-list hor_1">
+                    <li><?php echo __("Top Selling Products"); ?></li>
+                    <li><?php echo __("Featured Products"); ?></li>
+                </ul>
+                <div class="resp-tabs-container hor_1">
+                    <div id="best-seller" class="tabcontent">
+                        <?php echo $this->getChildHtml('homepage.bestsellers') ?>
+                    </div>
+                    <div id="featured-products" class="tabcontent">
+                        <?php echo $this->getChildHtml('homepage.featured') ?>
+                    </div>
+                </div>
+            </div>
+       </div>
+    </div>
+    <?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('why_shop_block')->toHtml();?>
+    <?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('happy_customer_section')->toHtml();?>
 </div>
 
 
@@ -53,58 +60,4 @@
             }
         });
     });
-</script>
-<script>
-if (jQuery.fn.owlCarousel) {
-var autoplay = 7000,
-smartSpeed_c = 700,
-home_product_slider = jQuery('.best-slider, .featured-slider');
-//Hero_Slider_crsl
-
-home_product_slider.owlCarousel({
-nav: true,
-dots: false,
-autoplay: true,
-margin: 0,
-lazyLoad: true,
-loop: true,
-items: 4,
-//animation: true,
-touchDrag:false,
-mouseDrag:false,
-//animateIn: 'fadeIn',
-smartSpeed: smartSpeed_c,
-autoplayTimeout: autoplay,
-responsiveClass:true,
-responsive:{
-0:{
-items:1,
-margin:0
-},
-568:{
-items:1,
-margin: 0
-},
-641:{
-items:2,
-margin: 0
-},
-771:{
-items:2,
-margin: 0
-},
-1024:{
-items:3,
-margin: 0
-},                    
-1201:{
-items:4,
-margin:0
-},
-1341:{
-items:4
-} 
-}
-});
-}         
 </script>

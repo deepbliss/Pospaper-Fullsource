@@ -23,7 +23,7 @@ $tier_pricess = array();
 
 ?>
 <?php if (count($tierPrices)) : ?>
-    <ul class="<?php /* @escapeNotVerified */ echo($block->hasListClass() ? $block->getListClass() : 'prices-tier items'); ?>">
+    <div class="<?php /* @escapeNotVerified */ echo($block->hasListClass() ? $block->getListClass() : 'prices-tier items'); ?>">
     <table class="tier-price-table-shipping" width='100%'>
     <thead><tr><th width="25%">Quantity</th><th width="25%">Price</th><th width="25%">Discount</th><th width="25%">Shipping</th></tr></thead>
     <tbody>
@@ -143,111 +143,119 @@ $tier_pricess = array();
     endforeach; ?>
     </tbody>
     </table>
-    </ul>
+    </div>
 
 
 <?php
 $str = implode (",", $price_qty_array);
 $str_price = implode (",", $tier_pricess);
 $str_price = $product->getPrice().','.$str_price;
+$subscriptionDiscount = 0;
+$subscriptionEnabled = $product->getSubscriptionActive();
+if($subscriptionEnabled) {
+    $subscriptionDiscount = $this->helper('\Pos\Subscriptions\Helper\Data')->getSubscriptionDiscount();
+}
 ?>
-<script type="text/javascript">
-//********************************************************
-//******** BEGIN QTY / PRICE DYNAMIC DISPLAY *************
-//********************************************************
-var pdQtyHasPriceBreak = true;
-var pdQtyPriceBreakUnit= [1,<?php echo $str ?>];
-var pdQtyPriceBreakCost = [<?php echo $str_price ?>];
-var pfreeship = jQuery(".free-ship-icon").attr("id");
-function formatCurrency(num, includeDollarSign) {
-    num = num.toString().replace(/\$|\,/g,'');
-    if(isNaN(num))
-    num = "0";
-    sign = (num == (num = Math.abs(num)));
-    num = Math.floor(num*100+0.50000000001);
-    cents = num%100;
-    num = Math.floor(num/100).toString();
-    if(cents<10)
-    cents = "0" + cents;
-    for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
-    num = num.substring(0,num.length-(4*i+3))+','+
-    num.substring(num.length-(4*i+3));
-    
-    var returnValue = (((sign)?'':'-') + num + '.' + cents);
-    if(includeDollarSign == true) returnValue = "$" + returnValue;  
-    return returnValue;
-}
-function pdUpdateQty(mod,setQty){
-    var qtyVal = parseInt(jQuery(".pdqtyinput").val());
-    var newQtyVal = qtyVal + mod;
-    if(newQtyVal >= 0){
-        if(newQtyVal == 0){
-            jQuery(".pdqtyinput").val(1);
-            jQuery(".pdqtyinput").attr("value",1);
-        }else{
-            jQuery(".pdqtyinput").val(newQtyVal);
-            jQuery(".pdqtyinput").attr("value",newQtyVal);
-        }
-    }
-    if(setQty > 0){
-        pdUpdatePriceDisplay(setQty);
-    }else{
-        if(newQtyVal >= 1){pdUpdatePriceDisplay(newQtyVal);}
-    }
-}
-function pdUpdatePriceDisplay(qty){
+    <script type="text/javascript">
+        require([
+            'jquery'
+        ], function($){
+            var pdQtyHasPriceBreak = true;
+            var pdQtyPriceBreakUnit= [1,<?php echo $str ?>];
+            var pdQtyPriceBreakCost = [<?php echo $str_price ?>];
+            var pfreeship = $(".free-ship-icon").attr("id");
 
-    var pdprice = jQuery(".price-wrapper.pdPriceDisplay").attr("data-price-amount");
-    
-    if(pdQtyHasPriceBreak){
-    //*** IF QTY PRICE BREAKS EXISTS CALCULATION***
-        if(qty >= pdQtyPriceBreakUnit[(pdQtyPriceBreakUnit.length - 1)]){
-            pdprice = pdQtyPriceBreakCost[(pdQtyPriceBreakUnit.length - 1)];
-        }else{
-            for (i = 0; i < pdQtyPriceBreakUnit.length; i++) { 
-                var compareVal;
-                if((i + 1) == pdQtyPriceBreakUnit.length){compareVal = 0;}else{compareVal = 1;}
-                
-                if(qty < pdQtyPriceBreakUnit[i + compareVal]){
-                    pdprice = pdQtyPriceBreakCost[i];
-                    break;
-                }else{
-                    continue;   
+            function formatCurrency(num, includeDollarSign) {
+                num = num.toString().replace(/\$|\,/g,'');
+                if(isNaN(num))
+                    num = "0";
+                sign = (num == (num = Math.abs(num)));
+                num = Math.floor(num*100+0.50000000001);
+                cents = num%100;
+                num = Math.floor(num/100).toString();
+                if(cents<10)
+                    cents = "0" + cents;
+                for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+                    num = num.substring(0,num.length-(4*i+3))+','+
+                        num.substring(num.length-(4*i+3));
+
+                var returnValue = (((sign)?'':'-') + num + '.' + cents);
+                if(includeDollarSign == true) returnValue = "$" + returnValue;
+                return returnValue;
+            }
+
+            function pdUpdateQty(mod,setQty){
+                var qtyVal = parseInt($(".pdqtyinput").val());
+                var newQtyVal = qtyVal + mod;
+                if(newQtyVal >= 0){
+                    if(newQtyVal == 0){
+                        $(".pdqtyinput").val(1);
+                        $(".pdqtyinput").attr("value",1);
+                    }else{
+                        $(".pdqtyinput").val(newQtyVal);
+                        $(".pdqtyinput").attr("value",newQtyVal);
+                    }
                 }
-            }   
-        }
-    }
-    var total = (pdprice - 0) * qty;
-    var final_total = total / qty;
-    total = formatCurrency(final_total,true);
+                if(setQty > 0){
+                    pdUpdatePriceDisplay(setQty);
+                }else{
+                    if(newQtyVal >= 1){pdUpdatePriceDisplay(newQtyVal);}
+                }
+            }
 
-    jQuery(".price-wrapper.pdPriceDisplay").html('<span class="price">'+total+'</span>');
-        
-}
-//**** SET QTY ELEMENT EVENT TRIGGERS *****
-function pdSetQtyEventTriggers(){
-//alert('pdSetQtyEventTriggers');
- jQuery(".pdqtyminus").click(function(e) {
-   pdUpdateQty(-1);
-    e.preventDefault();
- });
- jQuery(".pdqtyplus").click(function(e) {
-   pdUpdateQty(1);
-    e.preventDefault();
- });
- jQuery(".pdqtyinput").keyup(function(e) {
-   pdUpdateQty(0,jQuery(this).val());
-    e.preventDefault();
- });
-}
-//********************************************************
-//********* END QTY / PRICE DYNAMIC DISPLAY **************
-//********************************************************
-pdSetQtyEventTriggers();
-</script>
+            function pdUpdatePriceDisplay(qty){
 
+                var pdprice = $(".price-wrapper.pdPriceDisplay:not(.subscriptionPriceDisplay)").attr("data-price-amount");
 
+                if(pdQtyHasPriceBreak){
+                    if(qty >= pdQtyPriceBreakUnit[(pdQtyPriceBreakUnit.length - 1)]){
+                        pdprice = pdQtyPriceBreakCost[(pdQtyPriceBreakUnit.length - 1)];
+                    }else{
+                        for (i = 0; i < pdQtyPriceBreakUnit.length; i++) {
+                            var compareVal;
+                            if((i + 1) == pdQtyPriceBreakUnit.length){compareVal = 0;}else{compareVal = 1;}
 
+                            if(qty < pdQtyPriceBreakUnit[i + compareVal]){
+                                pdprice = pdQtyPriceBreakCost[i];
+                                break;
+                            }else{
+                                continue;
+                            }
+                        }
+                    }
+                }
+                var total = (pdprice - 0) * qty;
+                var final_total = total / qty;
+                total = formatCurrency(final_total,true);
+
+                $(".price-wrapper.pdPriceDisplay:not(.subscriptionPriceDisplay)").html('<span class="price">'+total+'</span>');
+
+                <?php if($subscriptionEnabled): ?>
+                    var subscriptionTotal = formatCurrency(final_total - (final_total * <?php echo $subscriptionDiscount ?>)/100, true);
+                    $(".price-wrapper.subscriptionPriceDisplay").html('<span class="price">'+subscriptionTotal+'</span>');
+                <?php endif; ?>
+            }
+
+            function pdSetQtyEventTriggers(){
+
+                $(".pdqtyminus").click(function(e) {
+                    pdUpdateQty(-1);
+                    e.preventDefault();
+                });
+                $(".pdqtyplus").click(function(e) {
+                    pdUpdateQty(1);
+                    e.preventDefault();
+                });
+                $(".pdqtyinput").keyup(function(e) {
+                    pdUpdateQty(0,$(this).val());
+                    e.preventDefault();
+                });
+            }
+
+            pdSetQtyEventTriggers();
+        });
+
+    </script>
     <?php if ($msrpShowOnGesture):?>
         <script type="text/x-magento-init">
             {

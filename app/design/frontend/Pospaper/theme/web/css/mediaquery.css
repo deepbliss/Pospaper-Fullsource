@@ -95,8 +95,8 @@
     .columns .products-list .product-item .product-item-details{padding-left: 20px;}
     .columns .products-list .product-item .product-item-name a{font-size: 14px; line-height: 23px;}
     
-    .page-layout-1column .columns .product.media {width: 469px;}
-    .page-layout-1column .columns .product-info-main {width: 511px;}
+    .page-layout-1column .columns .product.media {width: 450px;}
+    .page-layout-1column .columns .product-info-main {width: 530px;}
     .product-shop .product-info-main .box-tocart .actions, .product-shop .product-options-bottom .box-tocart .actions {margin-right: 15px;}
     .product-shop .product-info-main .box-tocart .action.tocart{width: 227px;}
     .product-shop{margin-top: 13px;}
@@ -211,7 +211,6 @@
 
    /*------------------------- start 11/14/18 --------------------------------*/
 	.columns .product-shop .product-info-main .box-tocart .action.tocart {width: 190px;}
-	.catalog-product-view .amazon-button-container {right: -208px;}
 	.product-add-form .metric-div ul li.price {padding-left: 33px;	background-size: 25px 25px;}
 	.product-add-form .metric-div ul li a {font-size: 13px;}
 	.product-add-form .metric-div ul li a span {font-size: 10px;}
@@ -576,7 +575,6 @@
 	 /*------------------------- start 11/14/18 --------------------------------*/
 	.columns .product-shop .product-info-main .box-tocart .action.tocart {width: 259px;}
 	.detail-shipping-section .metric-div .social {border-right: 0;padding-right: 0;margin-right: 0;width: 100%;}
-	.catalog-product-view .amazon-button-container { right: -109px; bottom: 12px; width:190px;}
    /*------------------------- end 11/14/18 --------------------------------*/
 }
 @media screen and (min-width: 771px) and (max-width: 1023px){
@@ -1254,7 +1252,6 @@
   
   /*------------------------- start 11/14/18 --------------------------------*/
 	.columns .product-shop .product-info-main .box-tocart .action.tocart {width: 200px;}
-	.catalog-product-view .amazon-button-container {right: -180px;}
    /*------------------------- end 11/14/18 --------------------------------*/
 
 }
@@ -1466,16 +1463,10 @@
   position: relative;
   left: auto;
   top: auto;
-  margin-bottom: 0;
+      width: 150px;
 }
 .catalog-product-view .amazon-button-container {
-  bottom: 0;
-  right: 0;
-  position: absolute;
-  float: none;
-  width: 182px;
-  display: inline-block;
-  margin: 0;
+    width: 180px;
 }
 
   #popup-modal #contactfrm .fieldset > .field:not(.choice) > .label, #popup-modal #contactfrm .fieldset > .field > .label {width: 100%;}
@@ -1500,7 +1491,7 @@
   
 
   /*------------------------- start 11/14/18 --------------------------------*/
-	.columns .product-shop .product-info-main .box-tocart .action.tocart {width: 100%;}
+	.columns .product-shop .product-info-main .box-tocart .action.tocart {width: 100%;font-size: 14px;}
 	.product-add-form .metric-div ul li.price {border-right: 0;margin-right: 0;border-bottom: 0;margin-bottom: 0;}
 	.product-add-form .detail-shipping-div {margin: 3px 0;position: absolute;right: 0;}
 	.detail-shipping-section .metric-div .social {border-right: 0;padding-right: 0;margin-right: 0;width: 100%;border-bottom: 1px solid #dbdbdb;margin-bottom: 15px;}
@@ -1682,9 +1673,7 @@ margin-left: 0;top: 100%;padding: 10px 15px;font-size: 12px;line-height: 21px;le
 
 .block.recently ol li .pro-price,.block.related ol li .pro-price,.block.recently ol li .pro-price .price-label,.block.related ol li .pro-price .price-label,.block.recently ol li .pro-price .price,.block.related ol li .pro-price .price{font-size: 15px;}
 
-.product-shop .product-info-main .box-tocart .actions .paypal-logo{width: 117px;}
 .product-shop .product-info-main .box-tocart .actions .paypal-logo input{width: 100%;}
-.catalog-product-view .amazon-button-container {   width: 138px;}
 .catalog-product-view .amazon-button-container__cell {   min-width: 30px;}
 .catalog-product-view .product-social-links .amazon-button-container{bottom: -49px;width: 172px;}
 #popup-modal #contactfrm .fieldset > .field > .control > input[type="text"]#security_code {width: 140px;}
@@ -1700,6 +1689,5 @@ margin-left: 0;top: 100%;padding: 10px 15px;font-size: 12px;line-height: 21px;le
 	.product-add-form .metric-div ul li a {font-size: 14px;}
 	.product-add-form .metric-div ul li a span {font-size: 11px;}
 	.product-add-form .metric-div ul li.price {padding-left: 30px;background-size: 25px 25px;}
-	.product-add-form .box-tocart .field.qty .control .input-text{width:60px;}
-   /*------------------------- end 11/14/18 --------------------------------*/  
+   /*------------------------- end 11/14/18 --------------------------------*/
 }

@@ -7,67 +7,65 @@
 // @codingStandardsIgnoreFile
 
 ?>
-<?php /* @var $block \Magento\Catalog\Block\Product\View\AbstractView */?>
+<?php /* @var $block \Magento\Catalog\Block\Product\View\AbstractView */ ?>
 <?php $_product = $block->getProduct() ?>
-
-<?php if ($block->displayProductStockStatus() && $_product->getAttributeText('thermal_paper_type') != 'Custom Printed Thermal'): ?>
-    <?php if ($_product->isAvailable()): ?>
-      <div class="stock available" data-type="<?php echo $_product->getAttributeText('thermal_paper_type') ?>">
-		    <span class="icon"><?= /* @escapeNotVerified */ __('In stock:') ?></span>
-        <div class="tooltip">More Info...
-    		  <span class="tooltiptext"><?php /* @escapeNotVerified */ echo $_product->getResource()->getAttribute('estimated_shipping_time')->getFrontend()->getValue($_product); ?>
-          </span>
-        </div>
-      </div>
-    <?php else: ?>
-        <div class="stock unavailable">
-            <div class="tooltip">More Info...
-                <span class="tooltiptext"><?php /* @escapeNotVerified */ //echo $_product->getResource()->getAttribute('out_of_stock_label')->getFrontend()->getValue($_product);?></span>
+<div class="stock-wrapper">
+    <?php if ($block->displayProductStockStatus() && $_product->getAttributeText('thermal_paper_type') != 'Custom Printed Thermal'): ?>
+        <?php if ($_product->isAvailable()): ?>
+            <div class="stock available" data-type="<?php echo $_product->getAttributeText('thermal_paper_type') ?>">
+                <span class="icon"><?= __('In stock:') ?></span>
+                <div class="tooltip">More Info...
+                    <span class="tooltiptext"><?php echo $_product->getResource()->getAttribute('estimated_shipping_time')->getFrontend()->getValue($_product); ?></span>
+                </div>
             </div>
-        </div>
+        <?php else: ?>
+            <div class="stock unavailable">
+                <div class="tooltip">More Info...<span class="tooltiptext"></span></div>
+            </div>
+        <?php endif; ?>
     <?php endif; ?>
-<?php endif; ?>
 
-<div class="block block-matric-poup" id="matric-convert-modal" style="display:none">
-    <h2>Metric Conversion</h2>
-    <iframe src="<?php echo $block->getBaseUrl()?>new-conv.php"></iframe>
+    <div class="block block-matric-poup" id="matric-convert-modal" style="display:none">
+        <h2>Metric Conversion</h2>
+        <iframe src="<?php echo $block->getBaseUrl() ?>new-conv.php"></iframe>
+    </div>
+
+    <script type="text/javascript">
+        require(['jquery', 'Magento_Ui/js/modal/modal'],
+            function ($, modal) {
+                var matric_options = {
+                    type: 'popup',
+                    responsive: true,
+                    innerScroll: true,
+                    modalClass: 'custom-matric-popup',
+                    buttons: [{
+                        text: 'Close',
+                        class: '',
+                        click: function () {
+                            this.closeModal();
+                        }
+                    }],
+                };
+
+                $('#matric-convert').click(function () {
+                    var matric_popup = modal(matric_options, $('#matric-convert-modal'));
+                    $('#matric-convert-modal').modal('openModal');
+                });
+
+                $(document).ready(function () {
+                    $('.click').fancybox();
+                    $('.click').click(function () {
+                        $("body").addClass("no-scroll");
+                    });
+                    $('.fancybox-close').click(function () {
+                        $("body").removeClass("no-scroll");
+                    });
+
+                });
+
+                $("#price-match").fancybox({
+                    'type': 'iframe'
+                });
+            });
+    </script>
 </div>
-
-<script type="text/javascript">
-require(['jquery','Magento_Ui/js/modal/modal'],
-function($, modal) {
-    var matric_options = {
-        type: 'popup',
-        responsive: true,
-        innerScroll: true,
-        modalClass: 'custom-matric-popup',
-        buttons: [{
-            text: 'Close',
-            class: '',
-            click: function() {
-                this.closeModal();
-            }
-        }],
-    };
-
-    $('#matric-convert').click(function(){
-        var matric_popup = modal(matric_options, $('#matric-convert-modal'));
-        $('#matric-convert-modal').modal('openModal');
-    });
-
-    $(document).ready(function() {
-        $('.click').fancybox();
-        $('.click').click(function(){
-            $("body").addClass("no-scroll");
-        });
-        $('.fancybox-close').click(function(){
-            $("body").removeClass("no-scroll");
-        });
-
-    });
-
-    $("#price-match").fancybox({
-        'type' : 'iframe'
-    });
-});
-</script>
