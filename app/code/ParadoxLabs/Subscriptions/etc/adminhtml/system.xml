@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="subscriptions" translate="label" sortOrder="1000" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Adaptive Subscriptions</label>
+            <tab>catalog</tab>
+            <resource>Magento_Catalog::config_catalog</resource>
+            <group id="general" translate="label" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label><![CDATA[<strong>Adaptive Subscriptions</strong> by ParadoxLabs]]></label>
+                <field id="version" translate="label" type="label" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Version Installed</label>
+                    <backend_model>ParadoxLabs\Subscriptions\Model\Config\Version</backend_model>
+                </field>
+                <field id="active" translate="label comment" type="select" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="allow_customer_cancel" translate="label comment" type="select" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allow customers to cancel</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="allow_customer_pause" translate="label comment" type="select" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allow customers to pause</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="group_same_day" translate="label comment" type="select" sortOrder="500" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Group same-day subscriptions</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If 'Yes', will attempt to group together matching subscriptions billing the same day (having same customer, shipping, and payment details).</comment>
+                </field>
+                <field id="enable_shipping_fallback" translate="label comment" type="select" sortOrder="525" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable Shipping Fallback</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If 'Yes', subscriptions will use the cheapest available shipping method if the customer's chosen method is unavailable. 'No' will put the subscription on hold.</comment>
+                </field>
+                <field id="always_add_custom_option" translate="label comment" type="select" sortOrder="550" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Always add product option</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If 'Yes', subscription-enabled products will always have a custom option to choose the subscription interval, even if only one choice is available. 'No' will allow you to add single-option subscription simple products to configurable, grouped, and bundle products.</comment>
+                </field>
+                <field id="option_label" translate="label comment" type="text" sortOrder="600" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Product option label</label>
+                    <comment>Caution: Changing this value will not affect existing Subscription custom options.</comment>
+                </field>
+                <field id="installment_label" translate="label comment" type="text" sortOrder="600" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Installment term</label>
+                    <comment><![CDATA[Enter the term to use for billings, as in: "Every week for 52 <b>installments</b>".<br />Caution: Changing this value will not affect existing Subscription custom options.]]></comment>
+                </field>
+            </group>
+            <group id="schedule" translate="label" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Scheduling</label>
+                <field id="billing_active" translate="label comment" type="select" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable automatic scheduled billing</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[If 'No', subscriptions will not be rebilled automatically via Magento's scheduler. <b>Caution:</b> Changing from 'No' to 'Yes' will result in all outstanding subscriptions running on the next billing event.]]></comment>
+                    <config_path>subscriptions/general/billing_active</config_path>
+                </field>
+                <field id="days_of_week" translate="label comment" type="multiselect" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Schedule on days of week</label>
+                    <source_model>Magento\Config\Model\Config\Source\Locale\Weekdays</source_model>
+                    <comment>Choose days of the week installments should be scheduled on. Scheduling will choose the next available day after the expected billing date. Any changes will not affect existing scheduled installments.</comment>
+                </field>
+                <field id="days_of_month" translate="label comment" type="multiselect" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Schedule on days of month</label>
+                    <source_model>ParadoxLabs\Subscriptions\Model\Config\DaysOfMonth</source_model>
+                    <comment>Choose days of the month installments should be scheduled on. Scheduling will choose the next available day after the expected billing date. Any changes will not affect existing scheduled installments.</comment>
+                </field>
+                <field id="months" translate="label comment" type="multiselect" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Schedule on months</label>
+                    <source_model>ParadoxLabs\Subscriptions\Model\Config\Months</source_model>
+                    <comment>Choose months installments should be scheduled on. Scheduling will choose the next available day after the expected billing date. Any changes will not affect existing scheduled installments.</comment>
+                </field>
+                <field id="blackout_dates" translate="label comment" type="textarea" sortOrder="500" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Blackout Dates</label>
+                    <source_model>ParadoxLabs\Subscriptions\Model\Config\DaysOfMonth</source_model>
+                    <comment><![CDATA[Enter any specific dates installments should <b>NOT</b> be scheduled on, one per line. Scheduling will choose the next available day. Any changes will not affect existing scheduled installments, so always enter dates farther in advance than your longest subscription interval.]]></comment>
+                </field>
+            </group>
+            <group id="billing_failed" translate="label comment" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Billing Failed Email</label>
+                <comment>This will alert you (administrator) whenever a subscription fails to bill, for any reason.</comment>
+                <field id="active" translate="label comment" type="select" sortOrder="0" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="identity" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Billing Failed Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="receiver" translate="label" type="select" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Billing Failed Email Receiver</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="template" translate="label comment" type="select" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Billing Failed Template</label>
+                    <comment>Email template chosen based on theme fallback when "Default" option is selected.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="copy_to" translate="label comment" type="text" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Billing Failed Email Copy To</label>
+                    <comment>Separate by ",".</comment>
+                </field>
+                <field id="copy_method" translate="label" type="select" sortOrder="500" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Billing Failed Email Copy Method</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Method</source_model>
+                </field>
+            </group>
+            <group id="payment_failed" translate="label comment" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Payment Failed Email</label>
+                <comment>This will alert the customer when a subscription fails to bill due to invalid payment info.</comment>
+                <field id="active" translate="label comment" type="select" sortOrder="0" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="identity" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Payment Failed Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="template" translate="label comment" type="select" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Payment Failed Template</label>
+                    <comment>Email template chosen based on theme fallback when "Default" option is selected.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="copy_to" translate="label comment" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Payment Failed Email Copy To</label>
+                    <comment>Separate by ",".</comment>
+                </field>
+                <field id="copy_method" translate="label" type="select" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Payment Failed Email Copy Method</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Method</source_model>
+                </field>
+            </group>
+            <group id="billing_notice" translate="label comment" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Billing Notice Email</label>
+                <comment>This will notify the customer in advance of when their subscription is due to rebill.</comment>
+                <field id="active" translate="label comment" type="select" sortOrder="0" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="advance_period" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Days in Advance to Notify</label>
+                </field>
+                <field id="identity" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Billing Alert Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="template" translate="label comment" type="select" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Billing Alert Template</label>
+                    <comment>Email template chosen based on theme fallback when "Default" option is selected.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="copy_to" translate="label comment" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Billing Alert Email Copy To</label>
+                    <comment>Separate by ",".</comment>
+                </field>
+                <field id="copy_method" translate="label" type="select" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Billing Alert Email Copy Method</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Method</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

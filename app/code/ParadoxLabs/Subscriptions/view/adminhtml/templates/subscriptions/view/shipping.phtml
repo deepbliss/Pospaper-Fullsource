@@ -1,0 +1,141 @@
+<?php
+/** @var \ParadoxLabs\Subscriptions\Block\Adminhtml\Subscription\View\Tab\Shipping $block */
+// @codingStandardsIgnoreFile
+?>
+<fieldset class="fieldset admin__fieldset" id="subscription_fieldset_shipping" data-mage-init='{"subscriptionsShippingFields":{}}'>
+    <legend class="admin__legend legend">
+        <span><?php echo $block->escapeHtml(__('Shipping Information')); ?></span>
+    </legend><br />
+    <?php if ((bool)$block->getSubscription()->getQuote()->getIsVirtual() === true): ?>
+        <div class="admin__field field field-is_virtual no-label" data-ui-id="subscription-edit-form-fieldset-element-form-field-is-virtual">
+            <div id="subscription_is_virtual" class="control-value admin__field-value">
+                <?php echo $block->escapeHtml(__("This subscription is virtual, so there's no need to set a shipping address.")); ?>
+            </div>
+        </div>
+    <?php else: ?>
+        <?php $shippingMethods = $block->getShippingMethods(); ?>
+        <?php $shippingMethodValid = $block->isValidShippingMethod(); ?>
+        <?php if ($shippingMethodValid !== true): ?>
+            <div class="admin__field field field-shipping_method_error no-label" data-ui-id="subscription-edit-form-fieldset-element-form-field-shipping-method-error">
+                <div id="subscription_shipping_method_error" class="control-value admin__field-value message message-error">
+                    <?php echo $block->escapeHtml(__('This subscription does not have a valid shipping method assigned. Please choose a shipping method below and save to prevent interruption.')); ?>
+                </div>
+            </div>
+        <?php endif; ?>
+        <div class="admin__field region _required">
+            <label class="admin__field-label" for="shipping_method"><span><?php echo $block->escapeHtml(__('Shipping Method')) ?></span></label>
+            <div class="admin__field-control">
+                <select id="shipping_method" name="shipping[method]" title="<?php echo $block->escapeQuote(__('Shipping Method')) ?>" class="admin__control-select" data-validate='{required:true}'>
+                    <?php if ($shippingMethodValid !== true): ?>
+                        <option value="<?php echo $block->getSubscription()->getQuote()->getShippingAddress()->getOrigData('shipping_method'); ?>"><?php echo __('ASSIGNED: %1', $block->getSubscription()->getQuote()->getShippingAddress()->getOrigData('shipping_description')); ?></option>
+                    <?php endif; ?>
+                    <?php foreach ($shippingMethods as $methods): ?>
+                        <?php /** @var \Magento\Quote\Model\Quote\Address\Rate $method */ ?>
+                        <?php foreach ($methods as $method): ?>
+                            <option value="<?php echo $method->getCode(); ?>"<?php if ($method->getCode() === $block->getSubscription()->getQuote()->getShippingAddress()->getShippingMethod()): ?> selected="selected"<?php endif; ?>>
+                                <?php echo $block->escapeHtml(__('%1 - %2 (%3)', $method->getCarrierTitle(), $method->getMethodTitle(), $block->getShippingMethodPrice($method->getPrice()))); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    <?php endforeach; ?>
+                </select>
+                <div class="note admin__field-note" id="shipping_method-note"><?php echo $block->escapeHtml(__('Rate costs are estimated, and may vary over time.')); ?></div>
+            </div>
+        </div>
+        <?php $addresses = $block->getCustomer()->getAddresses(); ?>
+        <?php $subscriptionAddress = $block->getSubscription()->getQuote()->getShippingAddress(); ?>
+        <?php if (!empty($addresses)): ?>
+            <div class="admin__field region _required">
+                <label class="admin__field-label" for="shipping_address_id"><span><?php echo $block->escapeHtml(__('Shipping Address')) ?></span></label>
+                <div class="admin__field-control">
+                    <select id="shipping_address_id" name="shipping[address_id]" title="<?php echo $block->escapeQuote(__('Shipping Address')) ?>" class="admin__control-select">
+                        <option value=""><?php echo $block->escapeHtml(__('Enter below')) ?></option>
+                        <?php /** @var \Magento\Customer\Api\Data\AddressInterface $address  */ ?>
+                        <?php foreach ($addresses as $address): ?>
+                            <option value="<?php echo (int)$address->getId(); ?>"<?php if ($this->helper(\ParadoxLabs\TokenBase\Helper\Address::class)->compareAddresses($address, $subscriptionAddress)): ?> selected="selected"<?php endif; ?>><?php echo $block->escapeHtml($block->getFormattedAddress($address, 'flat')); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <div class="note admin__field-note" id="shipping_method-note"><?php echo $block->escapeHtml(__('Available shipping methods may change after saving an address change.')); ?></div>
+                </div>
+            </div>
+        <?php endif; ?>
+        <div class="admin__field toggle field-name-firstname _required">
+            <label class="admin__field-label" for="firstname"><span><?php echo $block->escapeHtml(__('First Name')) ?></span></label>
+            <div class="admin__field-control">
+                <input type="text" name="shipping[firstname]" id="firstname" title="<?php echo $block->escapeQuote(__('First Name')) ?>" value="<?php echo $block->escapeQuote($block->getAddress()->getFirstname()) ?>" class="admin__control-text <?php echo $block->escapeQuote($this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('firstname')) ?>" data-validate='{required:true}'>
+            </div>
+        </div>
+        <div class="admin__field toggle field-name-lastname _required">
+            <label class="admin__field-label" for="lastname"><span><?php echo $block->escapeHtml(__('Last Name')) ?></span></label>
+            <div class="admin__field-control">
+                <input type="text" name="shipping[lastname]" id="lastname" title="<?php echo $block->escapeQuote(__('Last Name')) ?>" value="<?php echo $block->escapeQuote($block->getAddress()->getLastname()) ?>" class="admin__control-text <?php echo $block->escapeQuote($this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('lastname')) ?>" data-validate='{required:true}'>
+            </div>
+        </div>
+        <div class="admin__field toggle company">
+            <label class="admin__field-label" for="company"><span><?php echo $block->escapeHtml(__('Company')) ?></span></label>
+            <div class="admin__field-control">
+                <input type="text" name="shipping[company]" id="company" title="<?php echo $block->escapeQuote(__('Company')) ?>" value="<?php echo $block->escapeQuote($block->getAddress()->getCompany()) ?>" class="admin__control-text <?php echo $block->escapeQuote($this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('company')) ?>">
+            </div>
+        </div>
+        <?php $phoneValidation = $this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('telephone'); ?>
+        <div class="admin__field toggle telephone<?php if (strpos($phoneValidation, 'required') !== false): ?> _required<?php endif; ?>">
+            <label class="admin__field-label" for="telephone"><span><?php echo $block->escapeHtml(__('Phone Number')) ?></span></label>
+            <div class="admin__field-control">
+                <input type="text" name="shipping[telephone]" value="<?php echo $block->escapeQuote($block->getAddress()->getTelephone()) ?>" title="<?php echo $block->escapeQuote(__('Phone Number')) ?>" class="admin__control-text <?php echo $block->escapeQuote($phoneValidation) ?>" id="telephone" data-validate='{required:true}'>
+            </div>
+        </div>
+        <?php $_streetValidationClass = $block->escapeQuote($this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('street')); ?>
+        <div class="admin__field toggle street _required">
+            <label for="street" class="admin__field-label"><span><?php echo $block->escapeHtml(__('Street')) ?></span></label>
+            <div class="admin__field-control">
+                <input type="text" name="shipping[street][]" value="<?php echo $block->escapeQuote($block->getStreetLine(1)) ?>" title="<?php echo $block->escapeQuote(__('Street Address')) ?>" id="street" class="admin__control-text <?php echo $_streetValidationClass ?>" data-validate='{required:true}' />
+                <div class="nested">
+                    <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
+                    <?php for ($_i = 1, $_n = $this->helper(\Magento\Customer\Helper\Address::class)->getStreetLines(); $_i < $_n; $_i++): ?>
+                        <?php $lineNo = ($_i+1); ?>
+                        <div class="admin__field additional">
+                            <div class="admin__field-control">
+                                <input type="text" name="shipping[street][]" value="<?php echo $block->escapeQuote($block->getStreetLine($lineNo)) ?>" title="<?php echo $block->escapeQuote(__('Street Address %1', $lineNo)) ?>" id="street_<?php echo $lineNo ?>" class="admin__control-text <?php echo $_streetValidationClass ?>">
+                            </div>
+                        </div>
+                    <?php endfor; ?>
+                </div>
+            </div>
+        </div>
+        <div class="admin__field toggle city _required">
+            <label class="admin__field-label" for="city"><span><?php echo $block->escapeHtml(__('City')) ?></span></label>
+            <div class="admin__field-control">
+                <input type="text" name="shipping[city]" value="<?php echo $block->escapeQuote($block->getAddress()->getCity()) ?>" title="<?php echo $block->escapeQuote(__('City')) ?>" class="admin__control-text <?php echo $block->escapeQuote($this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('city')) ?>" id="city" data-validate='{required:true}'>
+            </div>
+        </div>
+        <div class="admin__field toggle region _required">
+            <label class="admin__field-label" for="region-id"><span><?php echo $block->escapeHtml(__('State/Province')) ?></span></label>
+            <div class="admin__field-control">
+                <select id="region-id" name="shipping[region_id]" title="<?php echo $block->escapeQuote(__('State/Province')) ?>" class="admin__control-select validate-select" <?php echo(!$block->getConfig('general/region/display_all')) ? ' disabled="disabled"' : '';?>>
+                    <option value=""><?php echo $block->escapeHtml(__('Please select a region, state or province.')) ?></option>
+                </select>
+                <input type="text" id="region" name="shipping[region]" value="<?php echo $block->escapeQuote($block->getAddress()->getRegion() instanceof \Magento\Customer\Api\Data\RegionInterface ? $block->getAddress()->getRegion()->getRegion() : $block->getAddress()->getRegion()) ?>"  title="<?php echo $block->escapeQuote(__('State/Province')) ?>" class="admin__control-text <?php echo $block->escapeQuote($this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('region')) ?>"<?php echo(!$block->getConfig('general/region/display_all')) ? ' disabled="disabled"' : '';?>/>
+            </div>
+        </div>
+        <div class="admin__field toggle zip _required">
+            <label class="admin__field-label" for="zip"><span><?php echo $block->escapeHtml(__('Zip/Postal Code')) ?></span></label>
+            <div class="admin__field-control">
+                <input type="text" name="shipping[postcode]" value="<?php echo $block->escapeQuote($block->getAddress()->getPostcode()) ?>" title="<?php echo $block->escapeQuote(__('Zip/Postal Code')) ?>" id="zip" class="admin__control-text validate-zip-international <?php echo $block->escapeQuote($this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('postcode')) ?>">
+            </div>
+        </div>
+        <div class="admin__field toggle country _required">
+            <label class="admin__field-label" for="country"><span><?php echo $block->escapeHtml(__('Country')) ?></span></label>
+            <div class="admin__field-control">
+                <?php echo str_replace('class="', 'class="admin__control-select ', $block->getCountryHtmlSelect($block->getAddress()->getCountryId(), 'shipping[country_id]', 'country')) ?>
+            </div>
+        </div>
+        <script type="text/javascript">
+            //<![CDATA[
+            <?php /* @see Magento\Customer\Block\Adminhtml\Edit\Renderer\Region::render() */ ?>
+            require(["prototype", "mage/adminhtml/form"], function(){
+                jQuery("#region-id").attr("defaultValue", "<?php echo (int)$block->getAddress()->getRegionId() ?>");
+                new RegionUpdater("country", "region", "region-id", <?php echo $this->helper(\Magento\Directory\Helper\Data::class)->getRegionJson() ?> );
+            });
+            //]]>
+        </script>
+    <?php endif; ?>
+</fieldset>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">My Subscriptions</argument>
+            </action>
+        </referenceBlock>
+
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template" name="customer_account_dashboard_top" as="top" />
+
+            <block class="ParadoxLabs\Subscriptions\Block\Customer\Index" name="subscriptions_index" template="ParadoxLabs_Subscriptions::customer/index.phtml" cacheable="false">
+                <block class="Magento\Catalog\Block\Product\ProductList\Toolbar" name="subscriptions_index_toolbar" template="Magento_Catalog::product/list/toolbar.phtml">
+                    <block class="Magento\Theme\Block\Html\Pager" name="vendor_list_toolbar_pager"/>
+                    <action method="setSortBy">
+                        <argument name="name" xsi:type="string">description</argument>
+                    </action>
+                </block>
+                <action method="setData">
+                    <argument name="key" xsi:type="string">toolbar_block_name</argument>
+                    <argument name="value" xsi:type="string">subscriptions_index_toolbar</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

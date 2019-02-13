@@ -1,0 +1,257 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:DataObject/etc/fieldset.xsd">
+    <scope id="global">
+        <fieldset id="sales_convert_order_customer">
+            <field name="customer_id">
+                <aspect name="to_quote" />
+            </field>
+            <field name="customer_is_guest">
+                <aspect name="to_quote" />
+            </field>
+            <field name="customer_group_id">
+                <aspect name="to_quote" />
+            </field>
+            <field name="customer_dob">
+                <aspect name="to_quote" />
+            </field>
+            <field name="customer_email">
+                <aspect name="to_quote" />
+            </field>
+            <field name="customer_firstname">
+                <aspect name="to_quote" />
+            </field>
+            <field name="customer_lastname">
+                <aspect name="to_quote" />
+            </field>
+            <field name="customer_middlename">
+                <aspect name="to_quote" />
+            </field>
+            <field name="customer_prefix">
+                <aspect name="to_quote" />
+            </field>
+            <field name="customer_suffix">
+                <aspect name="to_quote" />
+            </field>
+            <field name="customer_taxvat">
+                <aspect name="to_quote" />
+            </field>
+            <field name="customer_note">
+                <aspect name="to_quote" />
+            </field>
+            <field name="customer_gender">
+                <aspect name="to_quote" />
+            </field>
+        </fieldset>
+        <fieldset id="sales_convert_customer_address">
+            <field name="id">
+                <aspect name="to_quote_address" targetField="customer_address_id" />
+            </field>
+            <field name="customer_id">
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="prefix">
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="firstname">
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="middlename">
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="lastname">
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="suffix">
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="company">
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="street">
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="city">
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="region">
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="region_id">
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="postcode">
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="country_id">
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="telephone">
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="fax">
+                <aspect name="to_quote_address" />
+            </field>
+        </fieldset>
+        <fieldset id="sales_convert_order">
+            <field name="customer_id">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="customer_email">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="customer_group_id">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="customer_tax_class_id">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="customer_taxvat">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="customer_is_guest">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="customer_dob">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="customer_firstname">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="customer_lastname">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="customer_middlename">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="customer_prefix">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="customer_suffix">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="customer_taxvat">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="customer_gender">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="global_currency_code">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="base_currency_code">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="store_currency_code">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="order_currency_code">
+                <aspect name="to_subscription_quote" targetField="quote_currency_code" />
+            </field>
+            <field name="store_to_base_rate">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="store_to_order_rate">
+                <aspect name="to_subscription_quote" targetField="store_to_quote_rate" />
+            </field>
+            <field name="base_to_global_rate">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="base_to_order_rate">
+                <aspect name="to_subscription_quote" targetField="base_to_quote_rate" />
+            </field>
+            <field name="grand_total">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="base_grand_total">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="remote_ip">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="store_id">
+                <aspect name="to_subscription_quote" />
+            </field>
+        </fieldset>
+        <fieldset id="sales_convert_quote">
+            <field name="customer_id">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="customer_email">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="customer_group_id">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="customer_tax_class_id">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="customer_taxvat">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="customer_is_guest">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="customer_dob">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="customer_firstname">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="customer_lastname">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="customer_middlename">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="customer_prefix">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="customer_suffix">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="customer_taxvat">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="customer_gender">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="global_currency_code">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="base_currency_code">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="store_currency_code">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="quote_currency_code">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="store_to_base_rate">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="store_to_quote_rate">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="base_to_global_rate">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="base_to_quote_rate">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="grand_total">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="base_grand_total">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="remote_ip">
+                <aspect name="to_subscription_quote" />
+            </field>
+            <field name="store_id">
+                <aspect name="to_subscription_quote" />
+            </field>
+        </fieldset>
+    </scope>
+</config>

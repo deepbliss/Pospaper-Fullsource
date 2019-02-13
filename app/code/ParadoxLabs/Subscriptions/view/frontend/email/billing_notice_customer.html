@@ -1,0 +1,59 @@
+<!--@subject Subscription Notice - {{var subscription.getDescription()}} @-->
+<!--@vars {
+} @-->
+{{template config_path="design/email/header_template"}}
+<table>
+    <tr class="email-intro">
+        <td>
+            <p class="greeting">{{trans "Hi %name," name=$subscription.getQuote().getCustomerFirstname()}}</p>
+            <p>{{trans 'We hope you\'re enjoying your subscription. This is a reminder that it\'s scheduled to renew on %nextRunDate.' nextRunDate=$nextRunDate}}</p>
+            <p>{{trans 'Please contact us or <a href="%account_url">log into your account</a> to change your subscription.' account_url=$this.getUrl($store,'customer/account/',[_nosid:1]) |raw}}</p>
+            <p>
+                {{trans 'If you have questions or need help, you can email us at <a href="mailto:%store_email">%store_email</a>' store_email=$store_email |raw}}{{depend store_phone}} {{trans 'or call us at <a href="tel:%store_phone">%store_phone</a>' store_phone=$store_phone |raw}}{{/depend}}.
+                {{depend store_hours}}
+                {{trans 'Our hours are <span class="no-link">%store_hours</span>.' store_hours=$store_hours |raw}}
+                {{/depend}}
+            </p>
+        </td>
+    </tr>
+    <tr class="email-information">
+        <td>
+            <table class="message-info">
+                <tr>
+                    <td>{{trans 'Subscription'}}</td>
+                    <td>
+                        <a href="{{var viewUrl}}">
+                            # {{var subscription.getIncrementId()}} - {{var subscription.getDescription()|escape|nl2br}}
+                        </a>
+                        {{depend subscription.getLength()}}
+                        ({{var installmentNumber}} of {{var subscription.getLength()}})
+                        {{/depend}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{trans 'Subtotal'}}</td>
+                    <td>{{var subtotal}}</td>
+                </tr>
+                <tr>
+                    <td>{{trans 'Scheduled'}}</td>
+                    <td>{{var nextRunDate}}</td>
+                </tr>
+                {{depend shippingAddress}}
+                <tr>
+                    <td>{{trans 'Shipping To'}}</td>
+                    <td>{{var shippingAddress|raw}}</td>
+                </tr>
+                {{/depend}}
+                <tr>
+                    <td>{{trans 'Billing To'}}</td>
+                    <td>
+                        {{var cardLabel|raw}}<br />
+                        {{var billingAddress|raw}}
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

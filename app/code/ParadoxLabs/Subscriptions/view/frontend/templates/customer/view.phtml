@@ -1,0 +1,76 @@
+<?php /** @var \ParadoxLabs\Subscriptions\Block\Customer\View $block */ ?>
+<?php /* @codingStandardsIgnoreFile */ ?>
+
+<?php echo $block->getChildHtml('items'); ?>
+
+<div class="block block-subscription-info">
+    <div class="block-title"><strong><?php echo $block->escapeHtml(__('Details')); ?></strong></div>
+    <div class="block-content">
+        <div class="box box-address-billing">
+            <strong class="box-title">
+                <span><?php echo $block->escapeHtml(__('Bill To')); ?></span>
+            </strong>
+            <div class="box-content">
+                <?php $card = $block->getCard(); ?>
+                <strong>
+                    <span>
+                        <?php echo $block->escapeHtml($block->getCardLabel($card)); ?>
+                    </span>
+                </strong>
+                <?php if (!empty($block->getCardExpires($card))): ?>
+                    <small><?php echo $block->escapeHtml(__('(Expires %1)', date('m/Y', strtotime($block->getCardExpires($card))))); ?></small>
+                <?php endif; ?>
+                <address>
+                    <?php echo $block->getFormattedAddress($block->getSubscription()->getQuote()->getBillingAddress()->getDataModel()); ?>
+                </address>
+            </div>
+        </div>
+
+        <?php if ((bool)$block->getSubscription()->getQuote()->getIsVirtual() === false): ?>
+            <div class="box box-address-shipping">
+                <strong class="box-title">
+                    <span><?php echo $block->escapeHtml(__('Ship To')); ?></span>
+                </strong>
+                <div class="box-content">
+                    <address>
+                        <?php echo $block->getFormattedAddress($block->getSubscription()->getQuote()->getShippingAddress()->getDataModel()); ?>
+                    </address>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <div class="box box-schedule">
+            <strong class="box-title">
+                <span><?php echo $block->escapeHtml(__('Subscription')); ?></span>
+            </strong>
+            <div class="box-content">
+                <p class="description"><?php echo $block->escapeHtml($block->getSubscription()->getDescription()); ?></p>
+                <dl class="item-options">
+                    <?php $length = $block->getSubscription()->getLength(); ?>
+                    <?php $count  = $block->getSubscription()->getRunCount(); ?>
+                    <?php if ($length > 0): ?>
+                        <dt><?php echo $block->escapeHtml(__(ucfirst($block->getInstallmentLabel()))); ?></dt>
+                        <dd>
+                            <?php echo $block->escapeHtml(__('%1 of %2 completed', $count, $length)); ?>
+                            <?php if ($count < $length && $block->getSubscription()->getStatus() !== \ParadoxLabs\Subscriptions\Model\Source\Status::STATUS_CANCELED): ?>
+                                <?php echo $block->escapeHtml(__('(%1 remaining)', $length - $count)); ?>
+                            <?php endif; ?>
+                        </dd>
+                    <?php endif; ?>
+                    <dt><?php echo $block->escapeHtml(__('Runs every')); ?></dt>
+                    <dd><?php echo $block->escapeHtml($block->getSubscriptionFrequencyLabel()); ?></dd>
+                    <?php /*<dt><?php echo $block->escapeHtml(__('Started')); ?></dt>
+                    <dd><?php echo $block->escapeHtml($block->formatDate($block->getSubscription()->getCreatedAt(), \IntlDateFormatter::MEDIUM)); ?></dd> */ ?>
+                    <dt><?php echo $block->escapeHtml(__('Last run')); ?></dt>
+                    <dd><?php echo $block->escapeHtml($block->formatDate($block->getSubscription()->getLastRun(), \IntlDateFormatter::MEDIUM)); ?></dd>
+                    <?php if ($block->getSubscription()->getStatus() === \ParadoxLabs\Subscriptions\Model\Source\Status::STATUS_ACTIVE): ?>
+                        <dt><?php echo $block->escapeHtml(__('Next run')); ?></dt>
+                        <dd><?php echo $block->escapeHtml($block->formatDate($block->getSubscription()->getNextRun(), \IntlDateFormatter::MEDIUM)); ?></dd>
+                    <?php endif; ?>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php echo $this->getChildHtml('logs'); ?>

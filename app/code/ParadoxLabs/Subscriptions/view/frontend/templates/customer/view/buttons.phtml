@@ -1,0 +1,28 @@
+<?php /** @var \ParadoxLabs\Subscriptions\Block\Customer\View\Buttons $block */ ?>
+<?php /* @codingStandardsIgnoreFile */ ?>
+
+<div class="actions-toolbar subscription-actions-toolbar">
+    <div class="actions">
+        <?php if ($block->getStatusSource()->canSetStatus($block->getSubscription(), \ParadoxLabs\Subscriptions\Model\Source\Status::STATUS_CANCELED)): ?>
+            <a class="action primary edit" href="<?php echo $block->escapeUrl($block->getEditUrl()); ?>">
+                <span><?php echo $block->escapeHtml(__('Edit')); ?></span>
+            </a>
+        <?php endif; ?>
+        <?php if ($block->canPause($block->getSubscription())): ?>
+            <a class="action secondary pause" href="<?php echo $block->escapeUrl($block->getPauseUrl()); ?>">
+                <span><?php echo $block->escapeHtml(__('Pause')); ?></span>
+            </a>
+        <?php endif; ?>
+        <?php if ($block->canActivate($block->getSubscription())): ?>
+            <a class="action secondary activate" href="<?php echo $block->escapeUrl($block->getActivateUrl()); ?>">
+                <span><?php echo $block->escapeHtml(__('Reactivate')); ?></span>
+            </a>
+        <?php endif; ?>
+        <?php if ($block->canCancel($block->getSubscription())): ?>
+            <a class="action secondary cancel" href="<?php echo $block->escapeUrl($block->getCancelUrl()); ?>">
+                <span><?php echo $block->escapeHtml(__('Cancel')); ?></span>
+            </a>
+        <?php endif; ?>
+        <?php echo $block->getChildHtml(); ?>
+    </div>
+</div>

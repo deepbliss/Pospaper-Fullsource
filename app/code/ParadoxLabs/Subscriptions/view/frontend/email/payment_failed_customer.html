@@ -1,0 +1,43 @@
+<!--@subject Payment Failed - Subscription #{{var subscription.getIncrementId()}} @-->
+<!--@vars {
+} @-->
+{{template config_path="design/email/header_template"}}
+<table>
+    <tr class="email-intro">
+        <td>
+            <p class="greeting">{{trans "Hi %name," name=$subscription.getQuote().getCustomerFirstname()}}</p>
+            <p>{{trans 'We just tried running your subscription, but the payment did not go through.'}}</p>
+            <p>{{trans 'We have placed the subscription on hold. Please contact us or <a href="%account_url">log into your account</a> to update payment info and reactivate your subscription.' account_url=$this.getUrl($store,'customer/account/',[_nosid:1]) |raw}}</p>
+            <p>
+                {{trans 'If you have questions or need help, you can email us at <a href="mailto:%store_email">%store_email</a>' store_email=$store_email |raw}}{{depend store_phone}} {{trans 'or call us at <a href="tel:%store_phone">%store_phone</a>' store_phone=$store_phone |raw}}{{/depend}}.
+                {{depend store_hours}}
+                {{trans 'Our hours are <span class="no-link">%store_hours</span>.' store_hours=$store_hours |raw}}
+                {{/depend}}
+            </p>
+        </td>
+    </tr>
+    <tr class="email-information">
+        <td>
+            <table class="message-info">
+                <tr>
+                    <td>{{trans 'Subscription'}}</td>
+                    <td>
+                        <a href="{{var viewUrl}}">
+                            # {{var subscription.getIncrementId()}} - {{var subscription.getDescription()|escape|nl2br}}
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{trans 'Subtotal'}}</td>
+                    <td>{{var subtotal}}</td>
+                </tr>
+                <tr>
+                    <td>{{trans 'Error'}}</td>
+                    <td>{{var reason}}</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

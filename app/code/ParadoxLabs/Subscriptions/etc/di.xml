@@ -1,0 +1,225 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Entity type -->
+    <type name="Magento\SalesSequence\Model\EntityPool">
+        <arguments>
+            <argument name="entities" xsi:type="array">
+                <item name="subscription" xsi:type="string">subscription</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Logging -->
+    <type name="ParadoxLabs\Subscriptions\Helper\Data">
+        <arguments>
+            <argument name="tokenbaseLogger" xsi:type="object">ParadoxLabs\TokenBase\Model\Logger\LoggerVirtualType</argument>
+        </arguments>
+    </type>
+
+    <!-- Adding subscription repository -->
+    <preference for="ParadoxLabs\Subscriptions\Api\Data\SubscriptionSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="ParadoxLabs\Subscriptions\Api\Data\SubscriptionInterface" type="ParadoxLabs\Subscriptions\Model\Subscription" />
+    <preference for="ParadoxLabs\Subscriptions\Api\SubscriptionRepositoryInterface" type="ParadoxLabs\Subscriptions\Model\SubscriptionRepository" />
+
+    <!-- Adding log repository -->
+    <preference for="ParadoxLabs\Subscriptions\Api\Data\LogSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="ParadoxLabs\Subscriptions\Api\Data\LogInterface" type="ParadoxLabs\Subscriptions\Model\Log" />
+    <preference for="ParadoxLabs\Subscriptions\Api\LogRepositoryInterface" type="ParadoxLabs\Subscriptions\Model\LogRepository" />
+
+    <!-- Adding interval repository -->
+    <preference for="ParadoxLabs\Subscriptions\Api\Data\ProductIntervalSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="ParadoxLabs\Subscriptions\Api\Data\ProductIntervalInterface" type="ParadoxLabs\Subscriptions\Model\Interval" />
+    <preference for="ParadoxLabs\Subscriptions\Api\ProductIntervalRepositoryInterface" type="ParadoxLabs\Subscriptions\Model\IntervalRepository" />
+    <preference for="ParadoxLabs\Subscriptions\Api\IntervalManagerInterface" type="ParadoxLabs\Subscriptions\Model\Service\IntervalManager" />
+    <preference for="ParadoxLabs\Subscriptions\Api\CustomOptionManagerInterface" type="ParadoxLabs\Subscriptions\Model\Service\CustomOptionManager" />
+
+    <!-- Split DB support -->
+    <type name="ParadoxLabs\Subscriptions\Model\ResourceModel\Subscription">
+        <arguments>
+            <argument name="connectionName" xsi:type="string">checkout</argument>
+        </arguments>
+    </type>
+    <type name="ParadoxLabs\Subscriptions\Model\ResourceModel\Log">
+        <arguments>
+            <argument name="connectionName" xsi:type="string">checkout</argument>
+        </arguments>
+    </type>
+
+    <!-- Subscription grid -->
+    <type name="ParadoxLabs\Subscriptions\Model\ResourceModel\Subscription\UiCollection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">paradoxlabs_subscription</argument>
+            <argument name="resourceModel" xsi:type="string">ParadoxLabs\Subscriptions\Model\ResourceModel\Subscription</argument>
+        </arguments>
+    </type>
+    <type name="ParadoxLabs\Subscriptions\Model\ResourceModel\Log\UiCollection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">paradoxlabs_subscription_log</argument>
+            <argument name="resourceModel" xsi:type="string">ParadoxLabs\Subscriptions\Model\ResourceModel\Log</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="subscriptions_listing_data_source" xsi:type="string">ParadoxLabs\Subscriptions\Model\ResourceModel\Subscription\UiCollection</item>
+                <item name="subscriptions_log_data_source" xsi:type="string">ParadoxLabs\Subscriptions\Model\ResourceModel\Log\UiCollection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Proxies for dependency resolution and efficiency -->
+    <type name="ParadoxLabs\Subscriptions\Block\Adminhtml\Subscription\View\Tab\Shipping">
+        <arguments>
+            <argument name="customerSession" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+            <argument name="currentCustomer" xsi:type="object">Magento\Customer\Helper\Session\CurrentCustomer\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="ParadoxLabs\Subscriptions\Block\Customer\Index">
+        <arguments>
+            <argument name="currentCustomer" xsi:type="object">Magento\Customer\Helper\Session\CurrentCustomer\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="ParadoxLabs\Subscriptions\Controller\Subscriptions\ChangeStatus">
+        <arguments>
+            <argument name="customerSession" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+            <argument name="currentCustomer" xsi:type="object">Magento\Customer\Helper\Session\CurrentCustomer\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="ParadoxLabs\Subscriptions\Controller\Subscriptions\EditPost">
+        <arguments>
+            <argument name="customerSession" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+            <argument name="currentCustomer" xsi:type="object">Magento\Customer\Helper\Session\CurrentCustomer\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="ParadoxLabs\Subscriptions\Controller\Subscriptions\Index">
+        <arguments>
+            <argument name="customerSession" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="ParadoxLabs\Subscriptions\Controller\Subscriptions\View">
+        <arguments>
+            <argument name="customerSession" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+            <argument name="currentCustomer" xsi:type="object">Magento\Customer\Helper\Session\CurrentCustomer\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="ParadoxLabs\Subscriptions\Helper\DataLegacy">
+        <arguments>
+            <argument name="quoteManager" xsi:type="object">ParadoxLabs\Subscriptions\Model\Service\QuoteManager\Proxy</argument>
+            <argument name="itemManager" xsi:type="object">ParadoxLabs\Subscriptions\Model\Service\ItemManager\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="ParadoxLabs\Subscriptions\Model\Log">
+        <arguments>
+            <argument name="backendSession" xsi:type="object">Magento\Backend\Model\Auth\Session\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="ParadoxLabs\Subscriptions\Model\Cron\Bill">
+        <arguments>
+            <argument name="subscriptionService" xsi:type="object">ParadoxLabs\Subscriptions\Model\Service\Subscription\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="ParadoxLabs\Subscriptions\Model\Cron\Notify">
+        <arguments>
+            <argument name="emailSender" xsi:type="object">ParadoxLabs\Subscriptions\Model\Service\EmailSender\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="ParadoxLabs\Subscriptions\Model\Subscription\Context">
+        <arguments>
+            <argument name="cartRepository" xsi:type="object">Magento\Quote\Api\CartRepositoryInterface\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="ParadoxLabs\Subscriptions\Model\SubscriptionRepository">
+        <arguments>
+            <argument name="subscriptionService" xsi:type="object">ParadoxLabs\Subscriptions\Model\Service\Subscription\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="ParadoxLabs\Subscriptions\Model\Service\RelatedObjectManager">
+        <arguments>
+            <argument name="quoteRepository" xsi:type="object">Magento\Quote\Api\CartRepositoryInterface\Proxy</argument>
+            <argument name="orderRepository" xsi:type="object">Magento\Sales\Api\OrderRepositoryInterface\Proxy</argument>
+            <argument name="logRepository" xsi:type="object">ParadoxLabs\Subscriptions\Api\LogRepositoryInterface\Proxy</argument>
+            <argument name="cardRepository" xsi:type="object">ParadoxLabs\TokenBase\Api\CardRepositoryInterface\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="ParadoxLabs\Subscriptions\Model\Service\ItemManager">
+        <arguments>
+            <argument name="helper" xsi:type="object">ParadoxLabs\Subscriptions\Helper\Data\Proxy</argument>
+            <argument name="productConfig" xsi:type="object">Magento\Catalog\Helper\Product\Configuration\Proxy</argument>
+            <argument name="intervalRepository" xsi:type="object">ParadoxLabs\Subscriptions\Api\ProductIntervalRepositoryInterface\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="ParadoxLabs\Subscriptions\Model\Service\QuoteManager">
+        <arguments>
+            <argument name="itemManager" xsi:type="object">ParadoxLabs\Subscriptions\Model\Service\ItemManager\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="ParadoxLabs\Subscriptions\Model\Service\Subscription\Context">
+        <arguments>
+            <argument name="quoteManagement" xsi:type="object">Magento\Quote\Model\QuoteManagement\Proxy</argument>
+            <argument name="orderSender" xsi:type="object">Magento\Sales\Model\Order\Email\Sender\OrderSender\Proxy</argument>
+            <argument name="emailSender" xsi:type="object">ParadoxLabs\Subscriptions\Model\Service\EmailSender\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="ParadoxLabs\Subscriptions\Observer\GenerateSubscriptionsObserver\Context">
+        <arguments>
+            <argument name="customerSession" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="ParadoxLabs\Subscriptions\Plugin\Paypal\Helper\Shortcut\ValidatorInterface\Plugin">
+        <arguments>
+            <argument name="checkoutSession" xsi:type="object">Magento\Checkout\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+
+    <!-- Custom options hook -->
+    <type name="Magento\Catalog\Model\Product">
+        <plugin name="subscriptions_generate_custom_options" type="ParadoxLabs\Subscriptions\Plugin\Catalog\Model\Product\Plugin" />
+    </type>
+
+    <!-- Custom option value hook (core issue workaround) -->
+    <type name="Magento\Catalog\Model\Product\Option\Value">
+        <plugin name="subscriptions_custom_option_save_id" type="ParadoxLabs\Subscriptions\Plugin\Catalog\Model\Product\Option\Value\Plugin" />
+    </type>
+
+    <!-- Product duplication hook -->
+    <type name="Magento\Catalog\Model\Product\Copier">
+        <plugin name="subscriptions_duplicate_intervals" type="ParadoxLabs\Subscriptions\Plugin\Catalog\Model\Product\Copier\Plugin" />
+    </type>
+
+    <!-- Quote delete prevention hook -->
+    <type name="Magento\Quote\Model\Quote">
+        <plugin name="subscriptions_prevent_quote_delete" type="ParadoxLabs\Subscriptions\Plugin\Quote\Model\Quote\Plugin" />
+    </type>
+
+    <!-- Card delete prevention hook -->
+    <type name="ParadoxLabs\TokenBase\Model\Cron\Clean">
+        <plugin name="subscriptions_prevent_card_prune" type="ParadoxLabs\Subscriptions\Plugin\TokenBase\Model\Cron\Clean\Plugin" />
+    </type>
+
+    <!-- Sales Rule subscription length condition hook -->
+    <type name="Magento\SalesRule\Model\Rule\Condition\Product">
+        <plugin name="subscriptions_add_salesrule_condition" type="ParadoxLabs\Subscriptions\Plugin\SalesRule\Model\Rule\Condition\Product\Plugin" />
+    </type>
+
+    <!-- Custom commands -->
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="subscriptions_bill" xsi:type="object">ParadoxLabs\Subscriptions\Console\Command\BillCommand</item>
+                <item name="subscriptions_notify" xsi:type="object">ParadoxLabs\Subscriptions\Console\Command\NotifyCommand</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Core bug fix: stateful 'ValueInterface' is normally shared among custom options. Can't have that. -->
+    <type name="Magento\Catalog\Model\Product\Option">
+        <arguments>
+            <argument name="productOptionValue" xsi:type="object" shared="false">Magento\Catalog\Model\Product\Option\Value</argument>
+        </arguments>
+    </type>
+
+    <!-- Disabling guest/customer-order check for subscription orders to allow guest checkout. -->
+    <type name="Magento\Quote\Model\QuoteRepository\Plugin\AccessChangeQuoteControl">
+        <plugin name="subscriptions_allow_guest_checkout" type="ParadoxLabs\Subscriptions\Plugin\Quote\Model\QuoteRepository\Plugin\AccessChangeQuoteControl\Plugin" />
+    </type>
+</config>

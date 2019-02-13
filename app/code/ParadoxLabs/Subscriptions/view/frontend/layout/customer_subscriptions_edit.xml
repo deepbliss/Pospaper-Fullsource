@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="checkout_cart_item_renderers"/>
+    <update handle="checkout_shipping_price_renderer"/>
+    <head>
+        <css src="ParadoxLabs_Subscriptions::css/styles.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template" name="customer_account_dashboard_top" as="top" />
+
+            <block class="ParadoxLabs\Subscriptions\Block\Customer\Edit" name="subscriptions_edit" template="ParadoxLabs_Subscriptions::customer/edit.phtml" cacheable="false">
+                <block class="ParadoxLabs\Subscriptions\Block\Customer\Edit\Shipping" name="subscriptions_edit_shipping" template="ParadoxLabs_Subscriptions::customer/edit/shipping.phtml" />
+
+                <container name="additional" />
+            </block>
+        </referenceContainer>
+    </body>
+</page>

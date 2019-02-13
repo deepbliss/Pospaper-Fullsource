@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="subscriptions_bill" instance="ParadoxLabs\Subscriptions\Model\Cron\Bill" method="runSubscriptionsCron">
+            <schedule>0 * * * *</schedule>
+        </job>
+        <job name="subscriptions_prebill_notify" instance="ParadoxLabs\Subscriptions\Model\Cron\Notify" method="notifyUpcomingSubscriptions">
+            <schedule>0 * * * *</schedule>
+        </job>
+    </group>
+</config>

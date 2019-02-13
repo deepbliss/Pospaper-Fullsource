@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <subscriptions>
+            <general>
+                <version backend_model="ParadoxLabs\Subscriptions\Model\Config\Version" />
+                <active>1</active>
+                <billing_active>1</billing_active>
+                <allow_customer_pause>1</allow_customer_pause>
+                <allow_customer_cancel>1</allow_customer_cancel>
+                <group_same_day>1</group_same_day>
+                <always_add_custom_option>0</always_add_custom_option>
+                <option_label>Subscription</option_label>
+                <installment_label>installments</installment_label>
+                <input_type>drop_down</input_type>
+                <force_shipping_method />
+                <enable_shipping_fallback>1</enable_shipping_fallback>
+            </general>
+            <schedule>
+                <days_of_week>0,1,2,3,4,5,6</days_of_week>
+                <days_of_month>1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31</days_of_month>
+                <months>1,2,3,4,5,6,7,8,9,10,11,12</months>
+                <blackout_dates />
+            </schedule>
+            <billing_failed>
+                <active>1</active>
+                <identity>general</identity>
+                <receiver>general</receiver>
+                <template>subscriptions_billing_failed_template</template>
+            </billing_failed>
+            <payment_failed>
+                <active>1</active>
+                <identity>general</identity>
+                <template>subscriptions_payment_failed_template</template>
+            </payment_failed>
+            <billing_notice>
+                <active>0</active>
+                <advance_period>7</advance_period>
+                <identity>general</identity>
+                <template>subscriptions_billing_notice_template</template>
+            </billing_notice>
+        </subscriptions>
+    </default>
+</config>

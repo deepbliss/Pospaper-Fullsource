@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="left">
+            <block class="ParadoxLabs\Subscriptions\Block\Adminhtml\Subscription\View\Tabs" name="subscription_edit_tabs">
+                <block class="ParadoxLabs\Subscriptions\Block\Adminhtml\Subscription\View\Tab\Main" name="subscription_edit_tab_main" />
+                <block class="ParadoxLabs\Subscriptions\Block\Adminhtml\Subscription\View\Tab\Payment" name="subscription_edit_tab_payment" />
+                <block class="ParadoxLabs\Subscriptions\Block\Adminhtml\Subscription\View\Tab\Shipping" name="subscription_edit_tab_shipping" template="ParadoxLabs_Subscriptions::subscriptions/view/shipping.phtml" />
+                <block class="ParadoxLabs\Subscriptions\Block\Adminhtml\Subscription\View\Tab\History" name="subscription_edit_tab_history" />
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">main_section</argument>
+                    <argument name="block" xsi:type="string">subscription_edit_tab_main</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">payment_section</argument>
+                    <argument name="block" xsi:type="string">subscription_edit_tab_payment</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">shipping_section</argument>
+                    <argument name="block" xsi:type="string">subscription_edit_tab_shipping</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">shipping_section2</argument>
+                    <argument name="block" xsi:type="string">subscription_edit_tab_shipping2</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">subscription_history_grid</argument>
+                    <argument name="block" xsi:type="string">subscription_edit_tab_history</argument>
+                </action>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="ParadoxLabs\Subscriptions\Block\Adminhtml\Subscription\View" name="subscription_edit" />
+        </referenceContainer>
+    </body>
+</page>

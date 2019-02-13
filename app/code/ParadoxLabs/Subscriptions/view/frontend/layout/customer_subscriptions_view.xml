@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="checkout_cart_item_renderers"/>
+    <update handle="checkout_shipping_price_renderer"/>
+    <head>
+        <css src="ParadoxLabs_Subscriptions::css/styles.css"/>
+    </head>
+    <body>
+        <referenceContainer name="page.main.title">
+            <block class="ParadoxLabs\Subscriptions\Block\Customer\View\Status" name="subscriptions_view_status" template="ParadoxLabs_Subscriptions::customer/view/status.phtml"/>
+            <block class="ParadoxLabs\Subscriptions\Block\Customer\View\Buttons" name="subscriptions_view_buttons" template="ParadoxLabs_Subscriptions::customer/view/buttons.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template" name="customer_account_dashboard_top" as="top" />
+
+            <block class="ParadoxLabs\Subscriptions\Block\Customer\View" name="subscriptions_view" template="ParadoxLabs_Subscriptions::customer/view.phtml" cacheable="false">
+                <block class="ParadoxLabs\Subscriptions\Block\Customer\View\Items" name="items" template="ParadoxLabs_Subscriptions::customer/view/items.phtml">
+                    <block class="Magento\Framework\View\Element\RendererList" name="checkout.cart.item.renderers" as="renderer.list"/>
+                    <block class="Magento\Framework\View\Element\Text\ListText" name="checkout.cart.order.actions"/>
+                </block>
+                <block class="ParadoxLabs\Subscriptions\Block\Customer\View\Logs" name="logs" template="ParadoxLabs_Subscriptions::customer/view/logs.phtml" />
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <!-- Subscription -->
+    <route url="/V1/subscription/:subscriptionId" method="GET">
+        <service class="ParadoxLabs\Subscriptions\Api\SubscriptionRepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="ParadoxLabs_Subscriptions::subscriptions_manage"/>
+        </resources>
+    </route>
+    <route url="/V1/subscription/search" method="GET">
+        <service class="ParadoxLabs\Subscriptions\Api\SubscriptionRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="ParadoxLabs_Subscriptions::subscriptions_manage"/>
+        </resources>
+    </route>
+    <route url="/V1/subscription" method="POST">
+        <service class="ParadoxLabs\Subscriptions\Api\SubscriptionRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="ParadoxLabs_Subscriptions::subscriptions_manage"/>
+        </resources>
+    </route>
+    <route url="/V1/subscription/:subscriptionId" method="PUT">
+        <service class="ParadoxLabs\Subscriptions\Api\SubscriptionRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="ParadoxLabs_Subscriptions::subscriptions_manage"/>
+        </resources>
+    </route>
+    <route url="/V1/subscription/:subscriptionId/bill" method="POST">
+        <service class="ParadoxLabs\Subscriptions\Api\SubscriptionRepositoryInterface" method="billById"/>
+        <resources>
+            <resource ref="ParadoxLabs_Subscriptions::subscriptions_manage"/>
+        </resources>
+    </route>
+    <route url="/V1/subscription/:subscriptionId" method="DELETE">
+        <service class="ParadoxLabs\Subscriptions\Api\SubscriptionRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="ParadoxLabs_Subscriptions::subscriptions_manage"/>
+        </resources>
+    </route>
+    <!-- Logs -->
+    <route url="/V1/subscriptionLog/:logId" method="GET">
+        <service class="ParadoxLabs\Subscriptions\Api\LogRepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="ParadoxLabs_Subscriptions::subscriptions_manage"/>
+        </resources>
+    </route>
+    <route url="/V1/subscriptionLog/search" method="GET">
+        <service class="ParadoxLabs\Subscriptions\Api\LogRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="ParadoxLabs_Subscriptions::subscriptions_manage"/>
+        </resources>
+    </route>
+    <route url="/V1/subscriptionLog" method="POST">
+        <service class="ParadoxLabs\Subscriptions\Api\LogRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="ParadoxLabs_Subscriptions::subscriptions_manage"/>
+        </resources>
+    </route>
+    <route url="/V1/subscriptionLog/:logId" method="PUT">
+        <service class="ParadoxLabs\Subscriptions\Api\LogRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="ParadoxLabs_Subscriptions::subscriptions_manage"/>
+        </resources>
+    </route>
+    <route url="/V1/subscriptionLog/:logId" method="DELETE">
+        <service class="ParadoxLabs\Subscriptions\Api\LogRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="ParadoxLabs_Subscriptions::subscriptions_manage"/>
+        </resources>
+    </route>
+    <!-- Intervals -->
+    <!--
+        NOTE: Intervals directly relate to a product custom option value by definition. Created automatically when
+        saving a subscription-enabled product with multiple options. Exposing by API so that the data is accessible,
+        and because this may allow customization in ways we don't necessarily foresee.
+    -->
+    <route url="/V1/subscriptionInterval/:intervalId" method="GET">
+        <service class="ParadoxLabs\Subscriptions\Api\ProductIntervalRepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="ParadoxLabs_Subscriptions::subscriptions_manage"/>
+        </resources>
+    </route>
+    <route url="/V1/subscriptionInterval/search" method="GET">
+        <service class="ParadoxLabs\Subscriptions\Api\ProductIntervalRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="ParadoxLabs_Subscriptions::subscriptions_manage"/>
+        </resources>
+    </route>
+    <route url="/V1/subscriptionInterval/product/:productId" method="GET">
+        <service class="ParadoxLabs\Subscriptions\Api\ProductIntervalRepositoryInterface" method="getIntervalsByProductId"/>
+        <resources>
+            <resource ref="ParadoxLabs_Subscriptions::subscriptions_manage"/>
+        </resources>
+    </route>
+    <route url="/V1/subscriptionInterval/option/:optionId" method="GET">
+        <service class="ParadoxLabs\Subscriptions\Api\ProductIntervalRepositoryInterface" method="getIntervalsByOptionId"/>
+        <resources>
+            <resource ref="ParadoxLabs_Subscriptions::subscriptions_manage"/>
+        </resources>
+    </route>
+    <route url="/V1/subscriptionInterval" method="POST">
+        <service class="ParadoxLabs\Subscriptions\Api\ProductIntervalRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="ParadoxLabs_Subscriptions::subscriptions_manage"/>
+        </resources>
+    </route>
+    <route url="/V1/subscriptionInterval/:intervalId" method="PUT">
+        <service class="ParadoxLabs\Subscriptions\Api\ProductIntervalRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="ParadoxLabs_Subscriptions::subscriptions_manage"/>
+        </resources>
+    </route>
+    <route url="/V1/subscriptionInterval/:intervalId" method="DELETE">
+        <service class="ParadoxLabs\Subscriptions\Api\ProductIntervalRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="ParadoxLabs_Subscriptions::subscriptions_manage"/>
+        </resources>
+    </route>
+</routes>

@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">subscriptions_listing.subscriptions_listing_data_source</item>
+            <item name="deps" xsi:type="string">subscriptions_listing.subscriptions_listing_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">subscription_columns</item>
+        <item name="buttons" xsi:type="array">
+            <item name="logs" xsi:type="array">
+                <item name="name" xsi:type="string">logs</item>
+                <item name="label" xsi:type="string" translate="true">View All Logs</item>
+                <item name="class" xsi:type="string">secondary</item>
+                <item name="url" xsi:type="string">*/*/logs</item>
+            </item>
+        </item>
+    </argument>
+    <dataSource name="subscriptions_listing_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+            <argument name="name" xsi:type="string">subscriptions_listing_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">main_table.entity_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">entity_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <container name="listing_top">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="template" xsi:type="string">ui/grid/toolbar</item>
+            </item>
+        </argument>
+        <bookmark name="bookmarks">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="namespace" xsi:type="string">subscriptions_listing</item>
+                    </item>
+                </item>
+            </argument>
+        </bookmark>
+        <component name="columns_controls">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="columnsData" xsi:type="array">
+                        <item name="provider" xsi:type="string">subscriptions_listing.subscriptions_listing.subscription_columns</item>
+                    </item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/controls/columns</item>
+                    <item name="displayArea" xsi:type="string">dataGridActions</item>
+                </item>
+            </argument>
+        </component>
+        <exportButton name="export_button">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="selectProvider" xsi:type="string">subscriptions_listing.subscriptions_listing.subscription_columns.ids</item>
+                </item>
+            </argument>
+        </exportButton>
+        <filterSearch name="fulltext">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="provider" xsi:type="string">subscriptions_listing.subscriptions_listing_data_source</item>
+                    <item name="chipsProvider" xsi:type="string">subscriptions_listing.subscriptions_listing.listing_top.listing_filters_chips</item>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="provider" xsi:type="string">subscriptions_listing.subscriptions_listing.listing_top.bookmarks</item>
+                        <item name="namespace" xsi:type="string">current.search</item>
+                    </item>
+                </item>
+            </argument>
+        </filterSearch>
+        <filters name="listing_filters">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="columnsProvider" xsi:type="string">subscriptions_listing.subscriptions_listing.subscription_columns</item>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="provider" xsi:type="string">subscriptions_listing.subscriptions_listing.listing_top.bookmarks</item>
+                        <item name="namespace" xsi:type="string">current.filters</item>
+                    </item>
+                    <item name="childDefaults" xsi:type="array">
+                        <item name="provider" xsi:type="string">subscriptions_listing.subscriptions_listing.listing_top.listing_filters</item>
+                        <item name="imports" xsi:type="array">
+                            <item name="visible" xsi:type="string">subscriptions_listing.subscriptions_listing.subscription_columns.${ $.index }:visible</item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+            <filterSelect name="store_id">
+                <argument name="optionsProvider" xsi:type="configurableObject">
+                    <argument name="class" xsi:type="string">Magento\Store\Ui\Component\Listing\Column\Store\Options</argument>
+                </argument>
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="caption" xsi:type="string" translate="true">All Store Views</item>
+                        <item name="dataScope" xsi:type="string">store_id</item>
+                        <item name="label" xsi:type="string" translate="true">Purchase Point</item>
+                    </item>
+                </argument>
+            </filterSelect>
+        </filters>
+        <massaction name="listing_massaction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="selectProvider" xsi:type="string">subscriptions_listing.subscriptions_listing.subscription_columns.ids</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+            <action name="bill">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">bill</item>
+                        <item name="label" xsi:type="string" translate="true">Bill Now</item>
+                        <item name="url" xsi:type="url" path="subscriptions/index/massBill"/>
+                    </item>
+                </argument>
+            </action>
+        </massaction>
+        <paging name="listing_paging">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="provider" xsi:type="string">subscriptions_listing.subscriptions_listing.listing_top.bookmarks</item>
+                        <item name="namespace" xsi:type="string">current.paging</item>
+                    </item>
+                    <item name="selectProvider" xsi:type="string">subscriptions_listing.subscriptions_listing.subscription_columns.ids</item>
+                </item>
+            </argument>
+        </paging>
+    </container>
+    <columns name="subscription_columns">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="storageConfig" xsi:type="array">
+                    <item name="provider" xsi:type="string">subscriptions_listing.subscriptions_listing.listing_top.bookmarks</item>
+                    <item name="namespace" xsi:type="string">current</item>
+                </item>
+                <item name="childDefaults" xsi:type="array">
+                    <item name="fieldAction" xsi:type="array">
+                        <item name="provider" xsi:type="string">subscriptions_listing.subscriptions_listing.subscription_columns.actions</item>
+                        <item name="target" xsi:type="string">applyAction</item>
+                        <item name="params" xsi:type="array">
+                            <item name="0" xsi:type="string">view</item>
+                            <item name="1" xsi:type="string">${ $.$data.rowIndex }</item>
+                        </item>
+                    </item>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="provider" xsi:type="string">subscriptions_listing.subscriptions_listing.listing_top.bookmarks</item>
+                        <item name="root" xsi:type="string">columns.${ $.index }</item>
+                        <item name="namespace" xsi:type="string">current.${ $.storageConfig.root}</item>
+                    </item>
+                </item>
+            </item>
+        </argument>
+        <selectionsColumn name="ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+            </argument>
+        </selectionsColumn>
+        <column name="increment_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="align" xsi:type="string">left</item>
+                    <item name="label" xsi:type="string" translate="true">ID</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+            </argument>
+        </column>
+        <column name="description">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
+                    <item name="editor" xsi:type="array">
+                        <item name="editorType" xsi:type="string">text</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="align" xsi:type="string">left</item>
+                    <item name="label" xsi:type="string" translate="true">Description</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                </item>
+            </argument>
+        </column>
+        <column name="status">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">ParadoxLabs\Subscriptions\Model\Source\Status</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Status</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                </item>
+            </argument>
+        </column>
+        <column name="customer_firstname">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="align" xsi:type="string">left</item>
+                    <item name="label" xsi:type="string" translate="true">Firstname</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="sortOrder" xsi:type="number">50</item>
+                </item>
+            </argument>
+        </column>
+        <column name="customer_lastname">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="align" xsi:type="string">left</item>
+                    <item name="label" xsi:type="string" translate="true">Lastname</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="sortOrder" xsi:type="number">60</item>
+                </item>
+            </argument>
+        </column>
+        <column name="customer_email">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="align" xsi:type="string">left</item>
+                    <item name="label" xsi:type="string" translate="true">Email</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="number">70</item>
+                </item>
+            </argument>
+        </column>
+<!--        <column name="customer_group_id">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Customer\Model\Config\Source\Group</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="editor" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Group</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="number">100</item>
+                </item>
+            </argument>
+        </column>-->
+        <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/date</item>
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="label" xsi:type="string" translate="true">Created</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="sorting" xsi:type="string">desc</item>
+                    <item name="sortOrder" xsi:type="number">80</item>
+                </item>
+            </argument>
+        </column>
+        <column name="last_run" class="Magento\Ui\Component\Listing\Columns\Date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/date</item>
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="align" xsi:type="string">left</item>
+                    <item name="label" xsi:type="string" translate="true">Last Run</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="sortOrder" xsi:type="number">90</item>
+                </item>
+            </argument>
+        </column>
+        <column name="next_run" class="Magento\Ui\Component\Listing\Columns\Date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/date</item>
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="align" xsi:type="string">left</item>
+                    <item name="label" xsi:type="string" translate="true">Next Run</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="sortOrder" xsi:type="number">100</item>
+                </item>
+            </argument>
+        </column>
+        <column name="last_notified" class="Magento\Ui\Component\Listing\Columns\Date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/date</item>
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="align" xsi:type="string">left</item>
+                    <item name="label" xsi:type="string" translate="true">Last Notified</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="number">103</item>
+                </item>
+            </argument>
+        </column>
+        <column name="length">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="align" xsi:type="string">left</item>
+                    <item name="label" xsi:type="string" translate="true">Length</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="number">105</item>
+                </item>
+            </argument>
+        </column>
+        <column name="run_count">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="align" xsi:type="string">left</item>
+                    <item name="label" xsi:type="string" translate="true">Times Billed</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="sortOrder" xsi:type="number">107</item>
+                </item>
+            </argument>
+        </column>
+        <column name="items_count">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="align" xsi:type="string">left</item>
+                    <item name="label" xsi:type="string" translate="true">Items</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="number">110</item>
+                </item>
+            </argument>
+        </column>
+        <column name="items_qty">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="align" xsi:type="string">left</item>
+                    <item name="label" xsi:type="string" translate="true">Qty</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="number">120</item>
+                </item>
+            </argument>
+        </column>
+        <column name="store_id" class="Magento\Store\Ui\Component\Listing\Column\Store">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="sortable" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true">Purchase Point</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="number">130</item>
+                </item>
+            </argument>
+        </column>
+        <column name="subtotal" class="Magento\Sales\Ui\Component\Listing\Column\Price">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="label" xsi:type="string" translate="true">Subtotal</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="sortOrder" xsi:type="number">140</item>
+                </item>
+            </argument>
+        </column>
+        <actionsColumn name="actions" class="Magento\Sales\Ui\Component\Listing\Column\ViewAction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                    <item name="viewUrlPath" xsi:type="string">subscriptions/index/view</item>
+                    <item name="urlEntityParamName" xsi:type="string">entity_id</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="sortOrder" xsi:type="number">500</item>
+                </item>
+            </argument>
+        </actionsColumn>
+    </columns>
+</listing>

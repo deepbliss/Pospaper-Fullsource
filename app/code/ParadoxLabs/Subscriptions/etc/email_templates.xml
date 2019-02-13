@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="subscriptions_billing_failed_template" label="Subscription billing failed" file="billing_failed_admin.html" type="html" module="ParadoxLabs_Subscriptions" area="frontend" />
+    <template id="subscriptions_payment_failed_template" label="Subscription payment failed" file="payment_failed_customer.html" type="html" module="ParadoxLabs_Subscriptions" area="frontend" />
+    <template id="subscriptions_billing_notice_template" label="Subscription billing notice" file="billing_notice_customer.html" type="html" module="ParadoxLabs_Subscriptions" area="frontend" />
+</config>

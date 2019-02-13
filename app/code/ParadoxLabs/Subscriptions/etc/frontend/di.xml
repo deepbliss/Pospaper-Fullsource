@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Disabling PayPal Express from the minicart for subscriptions. -->
+    <type name="Magento\Paypal\Helper\Shortcut\ValidatorInterface">
+        <plugin name="subscriptions_prevent_express_checkout" type="ParadoxLabs\Subscriptions\Plugin\Paypal\Helper\Shortcut\ValidatorInterface\Plugin" />
+    </type>
+</config>

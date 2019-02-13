@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Catalog:etc/catalog_attributes.xsd">
+    <group name="quote_item">
+        <attribute name="subscription_active" />
+        <attribute name="subscription_allow_onetime" />
+        <attribute name="subscription_intervals" />
+        <attribute name="subscription_unit" />
+        <attribute name="subscription_length" />
+        <attribute name="subscription_price" />
+        <attribute name="subscription_init_adjustment" />
+    </group>
+</config>

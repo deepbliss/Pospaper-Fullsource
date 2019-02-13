@@ -1,0 +1,43 @@
+<!--@subject Billing Failed - Subscription #{{var subscription.getIncrementId()}} @-->
+<!--@vars {
+} @-->
+{{template config_path="design/email/header_template"}}
+<table>
+    <tr class="email-intro">
+        <td>
+            <p>
+                {{trans 'The following subscription failed to bill. It has been placed on hold.'}}
+                {{depend paymentFailure}}
+                    {{trans 'The customer has been notified to update their payment information.'}}
+                {{/depend}}
+            </p>
+        </td>
+    </tr>
+    <tr class="email-information">
+        <td>
+            <table class="message-info">
+                <tr>
+                    <td>{{trans 'Subscription'}}</td>
+                    <td># {{var subscription.getIncrementId()}} - {{var subscription.getDescription()|escape|nl2br}}</td>
+                </tr>
+                <tr>
+                    <td>{{trans 'Subtotal'}}</td>
+                    <td>{{var subtotal}}</td>
+                </tr>
+                <tr>
+                    <td>{{trans 'Customer'}}</td>
+                    <td>
+                        {{var subscription.getQuote().getCustomerFirstname()}} {{var subscription.getQuote().getCustomerLastname()}}
+                        ({{var subscription.getQuote().getCustomerEmail()}})
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{trans 'Error'}}</td>
+                    <td>{{var reason}}</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}
