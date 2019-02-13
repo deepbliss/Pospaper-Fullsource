@@ -1,0 +1,111 @@
+<?php
+$product = $block->getProduct();
+?>
+<?php if($product->getSubscriptionActive()): ?>
+    <script type="text/javascript">
+        require([
+            'jquery'
+        ], function($){
+            var PosSubscription = function() {
+                var subscription = this;
+                var container = $('.subscriptions-option');
+                var dropdown = $('.subscriptions-option select.product-custom-option');
+                var buttonSubscribe = $('#subscription-method-subscribe');
+                var buttonOneTime = $('#subscription-method-one-time');
+                var radios = $('.subscription-price-wrapper input[type="radio"]');
+                subscription.common = null;
+                subscription.oneTime = '';
+
+                this.init = function() {
+                    $('.subscriptions-option select.product-custom-option option').each(function (index,el) {
+                        if($(el).text().trim().toLowerCase().indexOf('most common') >= 0) {
+                            subscription.common = $(el).val();
+                        }
+                    });
+                    //subscription.checkRadio();
+                    subscription.events();
+                };
+
+                this.events = function () {
+                    radios.on('change',function (e) {
+                        subscription.checkRadio();
+                    });
+                    dropdown.on('change',function (e) {
+                        subscription.checkSelect();
+                    });
+                };
+
+                this.checkRadio = function () {
+                    if(buttonSubscribe.is(':checked')) {
+                        subscription.enable(false);
+                    } else {
+                        subscription.disable(false);
+                    }
+                };
+
+                this.checkSelect = function () {
+                    if(dropdown.val() == subscription.oneTime) {
+                        subscription.disable(true);
+                    } else {
+                        subscription.enable(true);
+                    }
+                };
+
+                this.enable = function (radio) {
+                    $('#product-addtocart-button').html('<span>Subscribe Now</span>');
+                    if(radio) {
+                        subscription.clear();
+                        buttonSubscribe.prop("checked", true);
+                    } else {
+                        container.show();
+                        dropdown.val(subscription.common);
+                    }
+                };
+
+                this.disable = function (radio) {
+                    $('#product-addtocart-button').html('<span>Add to Cart</span>');
+                    if(radio) {
+                        subscription.clear();
+                        buttonOneTime.prop("checked", true);
+                        container.hide();
+                    } else {
+                        dropdown.val(subscription.oneTime);
+                        container.hide();
+                    }
+                };
+
+                this.clear = function () {
+                    radios.each(function (index,el) {
+                        $(el).checked = false;
+                    })
+                };
+            }
+
+            $(document).ready(function () {
+                var pos_subscription = new PosSubscription();
+                pos_subscription.init();
+            });
+        });
+    </script>
+<?php endif; ?>
+<script type="text/javascript">
+    require([
+        'jquery','underscore'
+    ], function($,_){
+        $(window).on('resize', _.debounce(function() {
+            moveProductMainInfo();
+        }, 250));
+
+        $(document).ready(function () {
+            moveProductMainInfo();
+        });
+
+        function moveProductMainInfo(onload) {
+            if($(window).width() > 767 && !onload) {
+                $('.product-info-main').prependTo($('.product-shop'));
+            } else {
+                $('.product-info-main').insertBefore($('.detailed'));
+            }
+        }
+    });
+</script>
