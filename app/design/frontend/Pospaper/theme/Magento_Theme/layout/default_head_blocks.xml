@@ -16,16 +16,10 @@
         <css src="css/mediaquery.css"/>
         <css src="css/topmenu.css"/>
         <css src="css/animate.css"/> 
-        <!--<css src="css/jquery.mmenu.all.css"/>-->
-        <css src="css/easy-responsive-tabs.css"/>
-        <css src="css/jquery.fancybox.min.css"/>
-        <css src="css/owl.carousel.min.css"/>                
+        <css src="css/owl.carousel.min.css"/>
         <script src="requirejs/require.js"/>
         <script src="js/jquery-latest.js"/>
-        <script src="js/jquery.fancybox.min.js"/>
-        <!--<script src="js/jquery.mmenu.all.js"/>-->
         <script src="js/custom.js"/>
-        <script src="js/easyResponsiveTabs.js"/>
         <script src="js/owl.carousel.min.js"/>
         <script src="js/wow.min.js"/>
     </head>

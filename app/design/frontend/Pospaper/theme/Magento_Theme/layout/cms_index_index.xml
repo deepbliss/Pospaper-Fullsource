@@ -3,6 +3,10 @@
     <head>
         <remove src="css/owl.carousel.min.css"/>
         <remove src="js/owl.carousel.min.js"/>
+        <remove src="Swissup_Tippyjs::css/light.css"/>
+        <remove src="Swissup_Tippyjs::css/translucent.css"/>
+        <css src="css/easy-responsive-tabs.css"/>
+        <script src="js/easyResponsiveTabs.js"/>
     </head>
     <body>
         <referenceContainer name="search-tool-container" remove="true"/>
