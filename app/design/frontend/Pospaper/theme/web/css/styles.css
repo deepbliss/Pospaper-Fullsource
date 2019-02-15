@@ -7788,7 +7788,8 @@ body .columns .bar {
   font-size: 13px;
   margin: 0 auto 10px;
   white-space: normal;
-  max-width: 160px; }
+  max-width: 160px;
+  text-align: center; }
 
 .tooltip-wrapper {
   position: relative; }
