@@ -90,14 +90,14 @@ $product = $block->getProduct();
 <?php endif; ?>
 <script type="text/javascript">
     require([
-        'jquery','underscore'
+        'jquery','underscore','mage/mage'
     ], function($,_){
         $(window).on('resize', _.debounce(function() {
-            moveProductMainInfo();
+            moveProductMainInfo(false);
         }, 250));
 
         $(document).ready(function () {
-            moveProductMainInfo();
+            moveProductMainInfo(false);
         });
 
         function moveProductMainInfo(onload) {
@@ -107,5 +107,16 @@ $product = $block->getProduct();
                 $('.product-info-main').insertBefore($('.detailed'));
             }
         }
+
+        var productForm = $('#product_addtocart_form');
+        productForm.mage('validation', {
+            errorPlacement: function(error, element) {
+                if (element.is('#qty')) {
+                    error.prependTo('.box-tocart .actions');
+                } else {
+                    element.after(error);
+                }
+            },
+        });
     });
 </script>

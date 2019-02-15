@@ -9859,6 +9859,13 @@ body .columns .bar {
     display: none;
 }
 
+.product-info-main #qty-error {
+    font-size: 13px;
+    margin: 0 auto 10px;
+    white-space: normal;
+    max-width: 160px;
+}
+
 .tooltip-wrapper {
     position: relative;
     .tooltip-content {
