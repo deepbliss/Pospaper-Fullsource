@@ -2778,7 +2778,7 @@ body.page-products .block.recently .products-grid .product-item:hover {
 
 .product-shop .product-info-main .price-box .price-wrapper .price, .product-shop .product-options-bottom .price-box .price-wrapper .price {
   font-size: 30px;
-  color: #624a9e;
+  color: red;
   line-height: 32px;
   font-weight: 400; }
 .product-shop .product-info-instock {
@@ -4420,9 +4420,8 @@ body .login-container .fieldset::after {
   color: #61499d; }
 
 #opc-sidebar .opc-block-summary .title, #opc-sidebar .opc-block-summary .items-in-cart > .title strong {
-  font-size: 19px;
+  font-size: 16px;
   font-weight: 700;
-  text-transform: uppercase;
   float: left;
   width: 100%; }
 
