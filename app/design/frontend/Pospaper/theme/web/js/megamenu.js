@@ -19,6 +19,7 @@ function($){
                         this._toggleMobileMode();
                     }, this),
                     exit: $.proxy(function () {
+                        this._lazyLoad();
                         this._toggleDesktopMode();
                     }, this)
                 });
@@ -46,6 +47,9 @@ function($){
                 //this.collapseAll(event, true);
             }
             this._trigger('select', event, ui);
+        },
+        _lazyLoad: function() {
+            $('body').trigger('loadMenu');
         },
         _toggleMobileMode: function () {
             var subMenus;

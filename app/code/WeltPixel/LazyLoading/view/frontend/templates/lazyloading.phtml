@@ -3,11 +3,17 @@ $_helper = $this->helper('WeltPixel\LazyLoading\Helper\Data');
 $imageLoader = $_helper->getImageLoader();
 ?>
 <script type="text/javascript">
-    require(['jquery', 'WeltPixel_LazyLoading/js/jquery_lazyload'], function($) {
-        $("img.lazy").lazyload({
-            effect: "fadeIn",
-            effectspeed: 1000,
-            imageloader: "<?php echo $imageLoader ?>"
+    require(['jquery', 'WeltPixel_LazyLoading/js/lazy'], function($) {
+        $(".lazy").lazy({
+            attribute: 'data-original',
+            visibleOnly: true,
+        });
+
+        $('body').on('loadMenu',function(e) {
+            $('nav.navigation .lazy').lazy({
+                attribute: 'data-original',
+                visibleOnly: false,
+            });
         });
     });
 </script>
