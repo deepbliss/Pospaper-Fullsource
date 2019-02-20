@@ -215,7 +215,7 @@ class Topmenu extends \Magento\Theme\Block\Html\Topmenu
 
             $html .= '<div ' . $this->_getRenderedMenuItemAttributes($child) . $data . '>';
             if($break && $child->hasChildren()) {
-                $html .= '<span></span>';
+                $html .= '<span class="catalog-toggle"></span>';
             }
             $html .= '<a href="' . $child->getUrl() . '" ' . $outermostClassCode . ' id="category-id-'.$menuId.'"><span>' . $this->escapeHtml(
                     $child->getName()

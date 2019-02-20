@@ -67,9 +67,13 @@ function($){
 
                     var catalogLink = $(event.target).closest('div');
 
-                    if(typeof catalogLink.data('level') !== 'undefined') {
-                        console.log('level-two');
+                    if(typeof catalogLink.data('level') !== 'undefined' && $(event.target).hasClass('catalog-toggle')) {
                         event.stopPropagation();
+                        return false;
+                    }
+
+                    if(typeof catalogLink.data('level') !== 'undefined') {
+                        window.location.href = catalogLink.find('> a').attr('href');
                         return false;
                     }
 
