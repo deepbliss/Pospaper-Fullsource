@@ -9193,6 +9193,10 @@ body:not(.firecheckout) {
     display: none !important;
 }
 
+.firecheckout #maincontent .authentication-wrapper {
+    z-index: 10;
+}
+
 .checkout-index-index .opc-wrapper.am-opc-wrapper .step-content #button {
     float: left;
     margin-right: 11px;
