@@ -13,7 +13,7 @@ $messages = $block->getMessages();
 <?php if (count($messages)) : ?>
     <div class="aw_reward_points__information-bar" style="clear: both">
         <?php foreach ($messages as $message): ?>
-            <div class="message-notice notice message">
+            <div class="message-success success message">
                 <div><?php /* @noEscape */ echo $message ?></div>
             </div>
         <?php endforeach; ?>
