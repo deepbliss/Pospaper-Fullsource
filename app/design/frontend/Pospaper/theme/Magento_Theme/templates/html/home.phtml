@@ -13,9 +13,12 @@
         </div>
     </div>
 
+    <?php $homepageSeo = $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('homepage_seo')->toHtml(); ?>
+    <?php if($homepageSeo): ?>
     <div class="homepage-content">
-        <div class="container"><?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('homepage_seo')->toHtml();?></div>
+        <div class="container"><?php echo $homepageSeo; ?></div>
     </div>
+    <?php endif; ?>
 
     <div class="category-section">
         <div class="container">
