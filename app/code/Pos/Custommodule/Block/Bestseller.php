@@ -76,7 +76,7 @@ class Bestseller extends Template
                 ->addAttributeToSelect('*')
                 ->addAttributeToFilter('status', '1')
                 ->addAttributeToFilter('entity_id', array('in' => $productIds))
-                ->setPageSize(10);
+                ->setPageSize(4);
             $collection->setVisibility($this->catalogProductVisibility->getVisibleInCatalogIds());
         }
 
@@ -89,7 +89,7 @@ class Bestseller extends Template
             ->addAttributeToSelect('*')
             ->addAttributeToFilter('status', '1')
             ->addAttributeToFilter('is_featured', '1')
-            ->setPageSize(10);
+            ->setPageSize(4);
         $collection->setVisibility($this->catalogProductVisibility->getVisibleInCatalogIds());
         return $collection;
     }
