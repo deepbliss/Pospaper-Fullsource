@@ -13,6 +13,10 @@
         </div>
     </div>
 
+    <div class="homepage-content">
+        <div class="container"><?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('homepage_seo')->toHtml();?></div>
+    </div>
+
     <div class="category-section">
         <div class="container">
         <?php echo $this->getLayout()->createBlock("Pos\Custommodule\Block\Poscategory")->setTemplate("Pos_Custommodule::home_category.phtml")->toHtml(); ?>

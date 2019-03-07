@@ -10342,6 +10342,16 @@ body .columns .bar {
         margin-bottom: 20px;
     }
 }
+
+.homepage-content {
+    margin-bottom: 50px;
+    line-height: 1.35;
+    
+    @media (max-width: 767px) {
+        margin-bottom: 20px;
+    }
+}
+
 .homepage-banners {
     margin-bottom: 20px;
     a {
