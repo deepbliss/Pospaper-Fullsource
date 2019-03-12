@@ -2726,10 +2726,11 @@ body.page-products .block.recently .products-grid .product-item:hover {
   float: left;
   margin: 0;
   font-family: 'Open Sans', sans-serif; }
-.product-info-main .stock {
+
+.product-shop .stock {
   text-align: right;
   margin-top: -5px; }
-  .product-info-main .stock.available {
+  .product-shop .stock.available {
     float: right;
     font-size: 17px;
     color: #4c4c4c;
@@ -2740,7 +2741,7 @@ body.page-products .block.recently .products-grid .product-item:hover {
     padding-top: 11px;
     margin-bottom: 0;
     margin-left: 0; }
-  .product-info-main .stock.unavailable {
+  .product-shop .stock.unavailable {
     color: #8fcc05;
     font-weight: 600;
     font-size: 21px;
@@ -2753,7 +2754,7 @@ body.page-products .block.recently .products-grid .product-item:hover {
     padding-top: 0px;
     margin-bottom: 0;
     margin-left: 0; }
-  .product-info-main .stock.available .icon {
+  .product-shop .stock.available .icon {
     background: url(../images/instock-icn.png) no-repeat left center;
     color: #8fcc05;
     font-weight: 600;
@@ -2762,8 +2763,43 @@ body.page-products .block.recently .products-grid .product-item:hover {
     padding-left: 30px;
     vertical-align: middle;
     display: inline-block; }
-  .product-info-main .stock.available .ship-text {
+  .product-shop .stock.available .ship-text {
     text-decoration: underline; }
+.product-shop .product-media-stock {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  float: left;
+  clear: both;
+  width: 100%; }
+  .product-shop .product-media-stock > div {
+    width: 50%; }
+  .product-shop .product-media-stock .metric-div {
+    border: none; }
+    .product-shop .product-media-stock .metric-div ul {
+      padding: 0;
+      text-align: center; }
+      .product-shop .product-media-stock .metric-div ul li.price {
+        margin: 0;
+        border: none;
+        padding-right: 0; }
+  .product-shop .product-media-stock .stock.available {
+    margin: 0;
+    float: none;
+    padding: 0;
+    text-align: center; }
+@media screen and (max-width: 767px) {
+  .product-shop .product-media-stock {
+    display: block; }
+    .product-shop .product-media-stock > div {
+      width: 100%;
+      display: block;
+      float: none; }
+    .product-shop .product-media-stock .stock.available, .product-shop .product-media-stock .metric-div ul {
+      text-align: left; } }
 
 .stock-wra {
   display: block;
@@ -2786,7 +2822,7 @@ body.page-products .block.recently .products-grid .product-item:hover {
 
 .prices-tier table {
   width: 100%;
-  border: 1px solid #dbdbdb; }
+  border: 1px solid #624a9e; }
   .prices-tier table tr th {
     background: #f9f8f8;
     border-bottom: 1px solid #dbdbdb;
@@ -3204,6 +3240,10 @@ body.page-products .block.recently .products-grid .product-item:hover {
     word-break: keep-all; }
     .product.media .product.data.items > .item.content ul li.manu-bold > strong {
       font-weight: 700; }
+
+.product.media div.aw_fslabel_label {
+  padding: 5px 15px !important;
+  font-size: 15px !important; }
 
 #product-review-container {
   float: left;
@@ -6915,41 +6955,43 @@ body .columns .contact-container .cnt-right .actions-toolbar .primary {
 .product-info-main .stock {
   position: relative; }
 
-.tooltip .tooltiptext::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 30%;
-  margin-right: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent transparent black black;
-  margin-top: -10px;
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-bottom: 5px solid black; }
-.tooltip:hover .tooltiptext {
-  visibility: visible; }
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 200px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  position: absolute;
-  z-index: 1;
-  bottom: auto;
-  right: 0;
-  margin-left: -60px;
-  top: 100%;
-  padding: 15px 20px;
-  font-size: 14px;
-  line-height: 23px;
-  font-weight: 400; }
+.tooltip {
+  position: relative; }
+  .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 30%;
+    margin-right: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black black;
+    margin-top: -10px;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid black; }
+  .tooltip:hover .tooltiptext {
+    visibility: visible; }
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: auto;
+    right: 0;
+    margin-left: -60px;
+    top: 100%;
+    padding: 15px 20px;
+    font-size: 14px;
+    line-height: 23px;
+    font-weight: 400; }
 
 #price-match1-modal h2, #matric-convert-modal h2 {
   font-weight: 600;
@@ -7855,8 +7897,11 @@ body .columns .bar {
 .subscription-price-wrapper {
   text-align: left;
   font-size: 14px !important;
-  padding-right: 30px;
-  margin-bottom: 120px; }
+  padding-right: 30px; }
+  .subscription-price-wrapper:after {
+    display: table;
+    content: '';
+    clear: both; }
   .subscription-price-wrapper .subscription-option {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -7925,8 +7970,9 @@ body .columns .bar {
           max-width: none;
           float: none; }
   .subscription-product .product-options-bottom .product-options-wrapper {
-    float: none;
-    margin: 20px 0; }
+    float: left;
+    margin: -10px 0 0;
+    min-width: 190px; }
     .subscription-product .product-options-bottom .product-options-wrapper .field label {
       width: 100%;
       display: block;
@@ -7934,6 +7980,8 @@ body .columns .bar {
       font-size: 14px;
       margin: 0 0 4px;
       text-align: left; }
+      .subscription-product .product-options-bottom .product-options-wrapper .field label span {
+        color: #333; }
     .subscription-product .product-options-bottom .product-options-wrapper .field .control {
       width: 100%; }
     .subscription-product .product-options-bottom .product-options-wrapper select.product-custom-option {
@@ -7959,7 +8007,6 @@ body .columns .bar {
 @media screen and (max-width: 567px) {
   .subscription-product .product-options-bottom .product-options-wrapper {
     clear: both;
-    padding-top: 20px;
     margin-bottom: 0; }
     .subscription-product .product-options-bottom .product-options-wrapper:after {
       content: '';

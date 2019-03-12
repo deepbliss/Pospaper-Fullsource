@@ -33,7 +33,6 @@
               after="product.info"/>
 
         <move element="product.info.review" destination="product.info.stock.sku" after="-"/>
-        <move element="product.info.type" destination="product.info" after="-"/>
         <move element="product.price.final" destination="product.info" before="-"/>
         <move element="product.info.instock" destination="product.info.price" after="product.info.stock.sku"/>
 
@@ -69,6 +68,7 @@
 
         <referenceContainer name="product.info.media">
             <block class="Magento\Catalog\Block\Product\View" name="free.shipping.media.icon" template="Magento_Catalog::product/view/free_shipping.phtml" before="-" />
+            <container name="product.info.media.stock" label="Product Info Media Stock" htmlTag="div" htmlClass="product-media-stock" before="product.info.media.image"/>
         </referenceContainer>
 
         <referenceContainer name="product.info.price">
@@ -105,6 +105,6 @@
 
 
         <move element="deliveryinfo.tab" destination="product.info.details" before="reviews.tab"/>
-
+        <move element="product.info.type" destination="product.info.media.stock" before="-"/>
     </body>
 </page>

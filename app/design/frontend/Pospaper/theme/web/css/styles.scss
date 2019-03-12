@@ -3411,6 +3411,9 @@ body.page-products .block.recently .products-grid .product-item:hover {
         margin: 0;
         font-family: 'Open Sans', sans-serif;
     }
+}
+
+.product-shop {
     .stock {
         text-align: right;
         margin-top: -5px;
@@ -3456,6 +3459,60 @@ body.page-products .block.recently .products-grid .product-item:hover {
             }
         }
     }
+
+    .product-media-stock {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        float: left;
+        clear: both;
+        width: 100%;
+
+        > div {
+            width: 50%;
+        }
+
+        .metric-div {
+            border: none;
+
+            ul {
+                padding: 0;
+                text-align: center;
+
+                li.price {
+                    margin: 0;
+                    border: none;
+                    padding-right: 0;
+                }
+            }
+        }
+
+        .stock.available {
+            margin: 0;
+            float: none;
+            padding: 0;
+            text-align: center;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        .product-media-stock {
+            display: block;
+
+            > div {
+                width: 100%;
+                display: block;
+                float: none;
+            }
+
+            .stock.available, .metric-div ul {
+                text-align: left;
+            }
+        }
+    }
 }
 
 .stock-wra {
@@ -3489,7 +3546,7 @@ body.page-products .block.recently .products-grid .product-item:hover {
 
 .prices-tier table {
     width: 100%;
-    border: 1px solid #dbdbdb;
+    border: 1px solid #624a9e;
     tr {
         th {
             background: #f9f8f8;
@@ -4031,6 +4088,13 @@ body.page-products .block.recently .products-grid .product-item:hover {
             word-break: keep-all;
         }
         word-break: keep-all;
+    }
+}
+
+.product.media {
+    div.aw_fslabel_label {
+        padding: 5px 15px !important;
+        font-size: 15px !important;
     }
 }
 
@@ -8729,6 +8793,7 @@ body .columns .contact-container .cnt-right {
 }
 
 .tooltip {
+    position: relative;
     .tooltiptext::after {
         content: "";
         position: absolute;
@@ -9955,7 +10020,12 @@ body .columns .bar {
     text-align: left;
     font-size: 14px !important;
     padding-right: 30px;
-    margin-bottom: 120px;
+
+    &:after {
+        display: table;
+        content: '';
+        clear: both;
+    }
 
     .subscription-option {
         display: -webkit-box;
@@ -10055,8 +10125,9 @@ body .columns .bar {
         }
 
         .product-options-wrapper {
-            float: none;
-            margin: 20px 0;
+            float: left;
+            margin: -10px 0 0;
+            min-width: 190px;
 
             .field {
                 label {
@@ -10066,6 +10137,10 @@ body .columns .bar {
                     font-size: 14px;
                     margin: 0 0 4px;
                     text-align: left;
+
+                    span {
+                        color: #333;
+                    }
                 }
 
                 .control {
@@ -10112,7 +10187,6 @@ body .columns .bar {
         .product-options-bottom {
             .product-options-wrapper {
                 clear: both;
-                padding-top: 20px;
                 margin-bottom: 0;
 
                 &:after {
@@ -10346,7 +10420,7 @@ body .columns .bar {
 .homepage-content {
     margin-bottom: 50px;
     line-height: 1.35;
-    
+
     @media (max-width: 767px) {
         margin-bottom: 20px;
     }

@@ -24,6 +24,7 @@ $product = $block->getProduct();
                     });
                     //subscription.checkRadio();
                     subscription.events();
+                    subscription.moveOptions();
                 };
 
                 this.events = function () {
@@ -79,6 +80,10 @@ $product = $block->getProduct();
                         $(el).checked = false;
                     })
                 };
+
+                this.moveOptions = function () {
+                    $('#product-options-wrapper').appendTo($('.subscription-price-wrapper'));
+                }
             }
 
             $(document).ready(function () {
