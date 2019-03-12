@@ -85,6 +85,9 @@ $tier_pricess = array();
                             'zone' => \Magento\Framework\Pricing\Render::ZONE_ITEM_OPTION
                         ]
                     );
+                    if($unit_of_measure != '') {
+                        $priceAmountBlock .= '/'.$unit_of_measure;
+                    }
                 ?>
                
                 <?php /* @escapeNotVerified */ 
