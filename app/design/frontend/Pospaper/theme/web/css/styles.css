@@ -2617,7 +2617,7 @@ body.page-products .block.recently .products-grid .product-item:hover {
   margin: 0;
   position: relative; }
 .page-layout-1column .columns .product-info-main {
-  width: 551px;
+  width: 570px;
   float: right;
   position: relative; }
 
@@ -7972,7 +7972,7 @@ body .columns .bar {
   .subscription-product .product-options-bottom .product-options-wrapper {
     float: left;
     margin: -10px 0 0;
-    min-width: 190px; }
+    min-width: 205px; }
     .subscription-product .product-options-bottom .product-options-wrapper .field label {
       width: 100%;
       display: block;
