@@ -12,6 +12,9 @@
         <script src="js/jquery.fancybox.min.js"/>
     </head>
     <body>
+        <referenceContainer name="content">
+            <block class="Magento\Catalog\Block\Product\View\Description" name="product.short.description" template="Magento_Catalog::product/view/short_description.phtml" before="-"/>
+        </referenceContainer>
         <referenceBlock name="amazon.pay.button.product" remove="true" />
         <referenceBlock name="breadcrumbs" template="Magento_Theme::html/breadcrumbs.phtml"/>
         <container name="product.shop" htmlTag="div" htmlClass="product-shop"/>
@@ -20,7 +23,7 @@
         <container name="shipping.section" htmlTag="div" htmlClass="detail-shipping-section"/>
 
         <move element="page.main.title" destination="product.info.main" before="-"/>
-        <move element="product.shop" destination="content" before="-"/>
+        <move element="product.shop" destination="content" after="product.short.description"/>
         <move element="tabing.section" destination="content" after="product.shop"/>
         <move element="product.info.details" destination="product.info.media" after="-"/>
         <move element="shipping.section" destination="product.info.main" after="-"/>
@@ -55,7 +58,6 @@
                 <argument name="block_id" xsi:type="string">det_shipping_block</argument>
             </arguments>
         </block>
-
 
         <referenceContainer name="content.aside">
             <block class="Magento\Reports\Block\Product\Widget\Viewed" after="-" name="recently_viewed"
@@ -102,7 +104,6 @@
                 <argument translate="true" name="title" xsi:type="string">Shipping Info</argument>
             </arguments>
         </block>
-
 
         <move element="deliveryinfo.tab" destination="product.info.details" before="reviews.tab"/>
         <move element="product.info.type" destination="product.info.media.stock" before="-"/>

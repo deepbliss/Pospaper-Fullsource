@@ -103,5 +103,47 @@ class UpgradeData implements UpgradeDataInterface
                 'is_filterable_in_grid' => false,
             ]);
         }
+
+        if (version_compare($context->getVersion(), '2.0.5', '<')) {
+            $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
+            $eavSetup->addAttribute(\Magento\Catalog\Model\Category::ENTITY, 'short_description', [
+                'type' => 'text',
+                'label' => 'Short Description',
+                'input' => 'textarea',
+                'required' => false,
+                'sort_order' => 1999,
+                'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_STORE,
+                'group' => 'Content',
+                'is_used_in_grid' => false,
+                'is_visible_in_grid' => false,
+                'is_filterable_in_grid' => false,
+            ]);
+        }
+
+        if (version_compare($context->getVersion(), '2.0.6', '<')) {
+            $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
+            $eavSetup->updateAttribute(
+                \Magento\Catalog\Model\Category::ENTITY,
+                'short_description',
+                'wysiwyg_enabled',
+                true
+            );
+            $eavSetup->updateAttribute(
+                \Magento\Catalog\Model\Category::ENTITY,
+                'short_description',
+                'is_html_allowed_on_front',
+                true
+            );
+        }
+
+        if (version_compare($context->getVersion(), '2.0.7', '<')) {
+            $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
+            $eavSetup->updateAttribute(
+                \Magento\Catalog\Model\Category::ENTITY,
+                'short_description',
+                'is_wysiwyg_enabled',
+                true
+            );
+        }
     }
 }

@@ -9050,6 +9050,17 @@ div.aw_fslabel_label {
             }
         }
     }
+
+    .short-description {
+        text-align: left;
+        font-size: 14px;
+        line-height: 1.35;
+        margin-bottom: 10px;
+
+        p {
+            line-height: 1.35;
+        }
+    }
 }
 
 .amazon-button-container .field-tooltip .field-tooltip-content {
@@ -10682,6 +10693,15 @@ body .columns .bar {
 .customer-account-login .fieldset.login .info-note {
     float: left;
     width: 100%;
+}
+
+.catalog-category-view {
+    .short_description {
+        font-size: 15px;
+        color: #333333;
+        line-height: 1.35;
+        margin-bottom: 25px;
+    }
 }
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {

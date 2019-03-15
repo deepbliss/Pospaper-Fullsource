@@ -1,0 +1,4 @@
+<?php $category = $block->getCurrentCategory() ?>
+<?php if($category && $shortDescription = $category->getShortDescription()): ?>
+<div class="short_description"><?php echo $shortDescription ?></div>
+<?php endif; ?>

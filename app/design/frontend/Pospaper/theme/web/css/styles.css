@@ -7164,6 +7164,13 @@ div.aw_fslabel_label {
   margin: 0; }
 .catalog-product-view .product-add-form .amazon-button-container .amazon-addtoCart {
   position: static; }
+.catalog-product-view .short-description {
+  text-align: left;
+  font-size: 14px;
+  line-height: 1.35;
+  margin-bottom: 10px; }
+  .catalog-product-view .short-description p {
+    line-height: 1.35; }
 
 .amazon-button-container .field-tooltip .field-tooltip-content {
   left: auto;
@@ -8361,6 +8368,12 @@ body .columns .bar {
 .customer-account-login .fieldset.login .info-note {
   float: left;
   width: 100%; }
+
+.catalog-category-view .short_description {
+  font-size: 15px;
+  color: #333333;
+  line-height: 1.35;
+  margin-bottom: 25px; }
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
   .catalog-product-view .amazon-button-container .field-tooltip {

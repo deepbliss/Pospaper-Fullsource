@@ -1,0 +1,6 @@
+<?php $product = $block->getProduct(); ?>
+<?php if($product and $shortDescription = $product->getShortDescription()): ?>
+<div class="short-description">
+<?= /* @escapeNotVerified */ $this->helper('Magento\Catalog\Helper\Output')->productAttribute($product, $product->getShortDescription(), 'short_description') ?>
+</div>
+<?php endif; ?>
