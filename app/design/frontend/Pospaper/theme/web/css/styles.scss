@@ -4091,13 +4091,6 @@ body.page-products .block.recently .products-grid .product-item:hover {
     }
 }
 
-.product.media {
-    div.aw_fslabel_label {
-        padding: 5px 15px !important;
-        font-size: 15px !important;
-    }
-}
-
 #product-review-container {
     float: left;
     width: 100%;
@@ -8930,6 +8923,8 @@ div.aw_fslabel_label {
     float: left;
     width: 100%;
     margin-bottom: 10px;
+    padding: 5px 15px !important;
+    font-size: 15px !important;
 }
 
 .checkout-index-index div.aw_fslabel_label {
