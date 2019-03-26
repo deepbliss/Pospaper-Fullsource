@@ -1,0 +1,12 @@
+<div class="middle-container">
+    <div class="slider">
+        <div class="container">
+            <?php echo $this->getLayout()->createBlock("Magestore\Bannerslider\Block\SliderItem")->setSliderId(3)->toHtml(); ?>
+        </div>
+    </div>
+    <div class="container homepage-products-grid">
+    <?php echo $this->getChildHtml('product.list'); ?>
+    </div>
+    <?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('why_shop_block')->toHtml();?>
+    <?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('happy_customer_section')->toHtml();?>
+</div>

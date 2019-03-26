@@ -1,0 +1,36 @@
+<?php
+    $objectManagerlogin = \Magento\Framework\App\ObjectManager::getInstance();
+    $customerSession = $objectManagerlogin->get('Magento\Customer\Model\Session');
+    //$baseurl = $objectManagerlogin->get('Magento\Store\Model\StoreManagerInterface')->getStore(0)->getBaseUrl();
+    $baseurl = '/';
+?>  
+<ul id="desktop-links" class="desktop-header-links">
+    <li><a href="<?php echo $baseurl .'trackorder'; ?>">Track Your Shipment</a></li>
+    <li>
+        <a href="<?php echo $baseurl .'customer/account/index'; ?>"><?php echo __('My Account') ?></a>
+    </li>
+    <?php if($customerSession->isLoggedIn()): ?>
+        <li>
+            <a href="<?php echo $baseurl .'customer/account/logout'; ?>"><?php echo __('Sign Out') ?></a>
+        </li>
+    <?php endif; ?>
+</ul>
+<ul id="mobile-links" class="mobile-header-links">
+    <li><a href="<?php echo $baseurl .'trackorder'; ?>">Track Your Shipment</a></li>
+<?php if($customerSession->isLoggedIn()): ?>
+    <li>
+        <a href="<?php echo $baseurl .'customer/account/index'; ?>"><?php echo __('My Account') ?></a>
+    </li>
+    <li>
+        <a href="<?php echo $baseurl .'customer/account/logout'; ?>"><?php echo __('Sign Out') ?></a>
+    </li>
+<?php else: ?>
+    <li>
+        <a href="<?php echo $baseurl .'customer/account/login'; ?>"><?php echo __('Sign In') ?></a>
+    </li>
+    <li>
+        <a href="<?php echo $baseurl .'customer/account/create'; ?>"><?php echo __('Register') ?></a>
+    </li>
+<?php endif; ?>
+</ul>
+

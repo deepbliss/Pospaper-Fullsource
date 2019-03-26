@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="3columns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <attribute name="class" value="crayondepot"/>
+        <referenceContainer name="header-new-promo" remove="true"/>
+        <move element="login_file" destination="container3" after="logo"/>
+
+        <referenceContainer name="container3">
+            <container name="head-middle-container" label="Middle Container" htmlTag="div" htmlClass="head-middle-container" after="-" />
+            <block class="Magento\Framework\View\Element\Template" name="low-price" template="Magento_Catalog::product/view/low-price.phtml" after="logo" />
+        </referenceContainer>
+
+        <move element="logo" destination="container3" before="-"/>
+        <move element="top.search" destination="head-middle-container" before="-"/>
+        <move element="head_call_section" destination="head-middle-container" after="top.search"/>
+        <move element="minicart" destination="head-middle-container" after="head_call_section"/>
+    </body>
+</page>

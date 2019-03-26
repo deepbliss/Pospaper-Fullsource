@@ -43,6 +43,9 @@ class ProductList extends \Magento\Framework\View\Element\Template
             ->addStoreFilter();
         if($skus != '') {
             $skus = explode(',',$skus);
+            if($this->getForceSku()) {
+                $collection->addAttributeToFilter('sku', array('in' => $skus));
+            }
         }
 
         $collection->setVisibility($this->catalogProductVisibility->getVisibleInCatalogIds());
