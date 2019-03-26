@@ -14,7 +14,21 @@
 ?>
 <?php $_helper = $this->helper('Magento\Catalog\Helper\Output'); ?>
 <?php $_product = $block->getProduct(); ?>
-<div class="product-add-form<?php echo ($_product->getHasOptions()) ? ' product-with-options':'' ?><?php echo ($_product->getSubscriptionActive()) ? ' subscription-product':'' ?>">
+<?php
+$hasSubscriptions = '';
+$hasOptionsClass = '';
+if($_product->getSubscriptionActive()) {
+    if($this->helper('\Pos\Subscriptions\Helper\Data')->isActive()) {
+        $hasOptionsClass = ' product-with-options';
+        $hasSubscriptions = ' subscription-product';
+    } else {
+        $hasOptionsClass = ' hide-subscription-options';
+    }
+} elseif($_product->getHasOptions()) {
+    $hasOptionsClass = ' product-with-options';
+}
+?>
+<div class="product-add-form<?php echo $hasOptionsClass ?><?php echo $hasSubscriptions ?>">
     <?= $block->getChildHtml('product.price.final') ?>
     <?= $block->getChildHtml('product.info.type') ?>
     <div class="product-form-wrapper">

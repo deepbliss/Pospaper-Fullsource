@@ -489,6 +489,12 @@ body .columns .bar {
         float: none;
     }
 
+    .hide-subscription-options {
+        .product-options-wrapper {
+            display: none !important;
+        }
+    }
+
     @media screen and (min-width: 768px) {
         .product-add-form:not(.product-with-options) {
             margin: 0;
@@ -536,10 +542,17 @@ body .columns .bar {
             float: none;
             margin-bottom: 20px;
 
+            &:after {
+                content: '';
+                display: table;
+                clear: both;
+            }
+
             > .fieldset {
                 display: -webkit-box;
                 display: -ms-flexbox;
                 display: flex;
+                float: left;
             }
         }
         .product-shop .product-info-main .box-tocart .actions .paypal-logo {

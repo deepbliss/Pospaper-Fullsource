@@ -12,7 +12,7 @@
                     <label>Version Installed</label>
                     <backend_model>ParadoxLabs\Subscriptions\Model\Config\Version</backend_model>
                 </field>
-                <field id="active" translate="label comment" type="select" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="active" translate="label comment" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enable</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>

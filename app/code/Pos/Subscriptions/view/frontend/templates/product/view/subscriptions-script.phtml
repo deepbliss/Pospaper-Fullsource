@@ -1,7 +1,7 @@
 <?php
 $product = $block->getProduct();
 ?>
-<?php if($product->getSubscriptionActive()): ?>
+<?php if($product->getSubscriptionActive() && $this->helper('\Pos\Subscriptions\Helper\Data')->isActive()): ?>
     <script type="text/javascript">
         require([
             'jquery'

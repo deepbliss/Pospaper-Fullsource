@@ -317,6 +317,8 @@ body .columns .bar {
     color: #4c4c4c; }
 .crayondepot .product-shop .stock.available {
   float: none; }
+.crayondepot .hide-subscription-options .product-options-wrapper {
+  display: none !important; }
 @media screen and (min-width: 768px) {
   .crayondepot .product-add-form:not(.product-with-options) {
     margin: 0; }
@@ -351,10 +353,15 @@ body .columns .bar {
     display: block;
     float: none;
     margin-bottom: 20px; }
+    .crayondepot .product-info-main .box-tocart:after, .crayondepot .product-options-bottom .box-tocart:after {
+      content: '';
+      display: table;
+      clear: both; }
     .crayondepot .product-info-main .box-tocart > .fieldset, .crayondepot .product-options-bottom .box-tocart > .fieldset {
       display: -webkit-box;
       display: -ms-flexbox;
-      display: flex; }
+      display: flex;
+      float: left; }
   .crayondepot .product-shop .product-info-main .box-tocart .actions .paypal-logo {
     padding: 5px 0 0;
     clear: both;

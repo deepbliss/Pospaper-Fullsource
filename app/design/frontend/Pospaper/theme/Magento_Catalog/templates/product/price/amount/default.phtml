@@ -1,9 +1,10 @@
 <?php /** @var \Magento\Framework\Pricing\Render\Amount $block */ ?>
 <?php $amount = $block->getDisplayValue(); ?>
+<?php $helper = $this->helper('\Pos\Subscriptions\Helper\Data'); ?>
 <?php if ($block->getSchema()): ?>
     <?php $product = $block->getSaleableItem() ?>
-    <?php if($product->getSubscriptionActive() == 1): ?>
-        <?php $subscriptionDiscount = $this->helper('\Pos\Subscriptions\Helper\Data')->getSubscriptionDiscount(); ?>
+    <?php if($product->getSubscriptionActive() == 1 && $helper->isActive()): ?>
+        <?php $subscriptionDiscount = $helper->getSubscriptionDiscount(); ?>
         <?php $subscriptionAmount = round(($amount - ($amount * $subscriptionDiscount)/100),2); ?>
         <div class="subscription-price-wrapper">
             <div class="subscription-option">

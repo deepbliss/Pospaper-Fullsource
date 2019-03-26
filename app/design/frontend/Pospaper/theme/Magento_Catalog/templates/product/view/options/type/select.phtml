@@ -14,7 +14,7 @@ $_option = $block->getOption();
 $subscriptionsLabel = $this->helper('ParadoxLabs\Subscriptions\Helper\Data')->getSubscriptionLabel();
 $class = ($_option->getIsRequire()) ? ' required' : '';
 ?>
-<div class="field<?= /* @escapeNotVerified */ $class ?><?php echo ($_option->getTitle() === $subscriptionsLabel) ? ' subscriptions-option':'' ?>">
+<div class="field<?= /* @escapeNotVerified */ $class ?><?php echo ($_option->getTitle() === $subscriptionsLabel) ? ' subscriptions-option':'' ?>" <?php echo (!$this->helper('\Pos\Subscriptions\Helper\Data')->isActive()) ? 'style="display:none !important;"':'' ?>>
     <label class="label" for="select_<?= /* @escapeNotVerified */ $_option->getId() ?>">
         <span><?= $block->escapeHtml($_option->getTitle()) ?></span>
     </label>

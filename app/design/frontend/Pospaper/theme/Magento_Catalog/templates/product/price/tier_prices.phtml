@@ -154,7 +154,7 @@ $str = implode (",", $price_qty_array);
 $str_price = implode (",", $tier_pricess);
 $str_price = $product->getPrice().','.$str_price;
 $subscriptionDiscount = 0;
-$subscriptionEnabled = $product->getSubscriptionActive();
+$subscriptionEnabled = ($product->getSubscriptionActive() && $this->helper('\Pos\Subscriptions\Helper\Data')->isActive());
 if($subscriptionEnabled) {
     $subscriptionDiscount = $this->helper('\Pos\Subscriptions\Helper\Data')->getSubscriptionDiscount();
 }
