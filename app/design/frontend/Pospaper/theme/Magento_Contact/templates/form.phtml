@@ -76,39 +76,6 @@
     </div>
 </form>
 
-<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback3&render=explicit" async defer></script> 
-<script type="text/javascript">
-
-var html_element_id3;
-var onloadCallback3 = function() {
-
-html_element_id3 = grecaptcha.render('g-recaptchas3', {
-'sitekey' : '6Ley1WoUAAAAAN64f2xJAJabPKLYqeQNrYZ4NrAB'
-});
-};
-
-jQuery('#contact-form').on('submit', function(e) {
-  
-   var captcha_response3 = grecaptcha.getResponse(html_element_id3); 
-   //alert(captcha_response3.length);
-   if(captcha_response3.length == 0)
-   {
-     
-    jQuery(".g-captcha3").html('This is a required field.');
-
-       // Captcha is not Passed
-       return false;
-   }
-   else
-   {
-     jQuery(".g-captcha3").html('');
-       // Captcha is not Passed
-       return true;
-   }  
-});
-</script> 
-
-
 <style type="text/css">
     
     #comment-error.mage-error{display: inline-block !important;}
