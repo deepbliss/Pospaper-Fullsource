@@ -78,7 +78,7 @@ class Mail implements CreditAppMailInterface
                 )
                 ->setTemplateVars($variables)
                 ->setFrom($this->contactsConfig->emailSender())
-                ->addTo('pospaper@yahoo.com')
+                ->addTo('manderson@pospaper.com')
                 //->addTo('info@designcoil.com')
                 ->setReplyTo($replyTo, $replyToName)
                 ->getTransport();
