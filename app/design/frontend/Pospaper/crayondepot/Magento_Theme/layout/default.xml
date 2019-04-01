@@ -14,7 +14,7 @@
 
         <referenceContainer name="container3">
             <container name="head-middle-container" label="Middle Container" htmlTag="div" htmlClass="head-middle-container" after="-" />
-            <block class="Magento\Framework\View\Element\Template" name="low-price" template="Magento_Catalog::product/view/low-price.phtml" after="logo" />
+            <block class="Magento\Framework\View\Element\Template" name="low-price" template="Magento_Theme::html/low-price.phtml" after="logo" />
         </referenceContainer>
 
         <move element="logo" destination="container3" before="-"/>
