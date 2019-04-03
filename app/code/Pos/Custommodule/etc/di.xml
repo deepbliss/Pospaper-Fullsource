@@ -24,4 +24,8 @@
             </argument>
         </arguments>
     </type>
+
+    <type name="Magento\CatalogUrlRewrite\Model\CategoryUrlPathGenerator">
+        <plugin name="pos_category_url_path_generator" type="Pos\Custommodule\Plugin\Model\CategoryUrlPathGenerator" sortOrder="15"/>
+    </type>
 </config>
