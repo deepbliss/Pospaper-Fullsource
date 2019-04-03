@@ -44,8 +44,8 @@ define([
             _this = this;
             $button = this.element;
             this._verifyAmazonConfig();
-            window.setTimeout( _this._renderAmazonButton, 1000 );
-
+            //window.setTimeout( _this._renderAmazonButton, 1000 );
+            _this._renderAmazonButton();
         },
 
         /**
