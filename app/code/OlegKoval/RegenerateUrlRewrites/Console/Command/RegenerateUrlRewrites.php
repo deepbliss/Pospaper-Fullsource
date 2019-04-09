@@ -181,6 +181,7 @@ class RegenerateUrlRewrites extends Command
                     }
                 } catch (\Exception $e) {
                     // debugging
+                    $output->writeln("Error, Category ID: {$category->getId()}");
                     $output->writeln($e->getMessage());
                 }
             }
