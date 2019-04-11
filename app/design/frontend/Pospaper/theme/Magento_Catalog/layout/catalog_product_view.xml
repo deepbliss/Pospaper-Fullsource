@@ -69,7 +69,6 @@
         </referenceContainer>
 
         <referenceContainer name="product.info.media">
-            <block class="Magento\Catalog\Block\Product\View" name="free.shipping.media.icon" template="Magento_Catalog::product/view/free_shipping.phtml" before="-" />
             <container name="product.info.media.stock" label="Product Info Media Stock" htmlTag="div" htmlClass="product-media-stock" before="product.info.media.image"/>
         </referenceContainer>
 

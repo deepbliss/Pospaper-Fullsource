@@ -9467,26 +9467,10 @@ body.checkout-index-index .fancybox-container {
 }
 
 .product-info-price .free-shipping-icon {
+    background: url(../images/free-shipping-icon-small.png) center left no-repeat;
+    height: 85px;
+    background-size: contain;
     display: block;
-    &:before {
-        content: '';
-        background: url(../images/free-shipping-check-mark.jpg) center left no-repeat;
-        display: inline-block;
-        width: 24px;
-        height: 24px;
-        background-size: contain;
-        vertical-align: middle;
-        line-height: 24px;
-        margin-right: 5px;
-    }
-    color: #e1222a;
-    span {
-        line-height: 21px;
-        vertical-align: middle;
-        font-size: 18px;
-        text-transform: uppercase;
-        font-weight: 500;
-    }
 }
 
 .edit-cart-link {
