@@ -7569,6 +7569,16 @@ body.checkout-index-index .fancybox-container {
           left: 0;
           top: 1px; }
 
+.medical-prescription-pads .product-options-bottom:after {
+  content: '';
+  display: table;
+  clear: both; }
+.medical-prescription-pads .product-qty-increments {
+  clear: both;
+  margin: 20px 0; }
+.medical-prescription-pads .prices-tier {
+  margin-bottom: 20px; }
+
 @media all and (min-width: 640px) {
   .onepage-index-index .opc-wrapper.am-opc-wrapper .amcheckout-delivery-date .field {
     display: block;
@@ -8265,6 +8275,18 @@ body .columns .bar {
   .product-with-options .product-options-wrapper .field .control {
     width: 76%; }
 
+  .medical-prescription-pads {
+    margin: 0; }
+    .medical-prescription-pads .product-options-wrapper .field {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex; }
+      .medical-prescription-pads .product-options-wrapper .field label {
+        width: 40%;
+        text-align: left; }
+      .medical-prescription-pads .product-options-wrapper .field .control {
+        width: 60%; }
+
   .product-add-form .box-tocart {
     float: right; }
   .product-add-form > .stock-wrapper {
@@ -8387,6 +8409,9 @@ body .columns .bar {
     .product-add-form > .detail-shipping-div {
       position: absolute !important;
       left: 0 !important;
-      bottom: 15px !important; } }
+      bottom: 15px !important; }
+
+  .medical-prescription-pads {
+    padding-bottom: 0; } }
 
 /*# sourceMappingURL=styles.css.map */

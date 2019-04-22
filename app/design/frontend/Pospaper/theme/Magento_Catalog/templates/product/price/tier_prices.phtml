@@ -20,7 +20,10 @@ $product = $block->getSaleableItem();
 $j = 0;
 $price_qty_array = array();
 $tier_pricess = array();
-
+$prescriptionPads = false;
+if($product->getProductLine() == 'Medical Prescription Pads') {
+    $prescriptionPads = true;
+}
 ?>
 <?php if (count($tierPrices)) : ?>
     <div class="<?php /* @escapeNotVerified */ echo($block->hasListClass() ? $block->getListClass() : 'prices-tier items'); ?>">
@@ -107,7 +110,11 @@ $tier_pricess = array();
                             }
                         if(count($tierPrices) > $j)
                         {
-                            $tmp = $price['price_qty'].' - '.($tierPrices[$j]['price_qty'] - 1);
+                            if($prescriptionPads) {
+                                $tmp = $price['price_qty'];
+                            } else {
+                                $tmp = $price['price_qty'].' - '.($tierPrices[$j]['price_qty'] - 1);
+                            }
                             echo ($block->getShowDetailedPrice() !== false)
                             ? __(
         '<tr><td align="left" valigh="center" width="25%">%1</td><td align="left" valigh="center" width="25%">%2</td><td align="left" valigh="center" width="25%">Save<span class="percent tier-%3">&nbsp;%4</span>%</td><td align="left" valigh="center" width="25%">%5</td></tr>',

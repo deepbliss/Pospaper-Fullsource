@@ -27,6 +27,9 @@ if($_product->getSubscriptionActive()) {
 } elseif($_product->getHasOptions()) {
     $hasOptionsClass = ' product-with-options';
 }
+if($_product->getProductLine() == 'Medical Prescription Pads') {
+    $hasOptionsClass .= ' medical-prescription-pads';
+}
 ?>
 <div class="product-add-form<?php echo $hasOptionsClass ?><?php echo $hasSubscriptions ?>">
     <?= $block->getChildHtml('product.price.final') ?>
@@ -73,6 +76,18 @@ if($_product->getSubscriptionActive()) {
         $(document).ready(function () {
             if($('.product-add-form').hasClass('product-with-options') && $('.product-options-bottom').length == 1) {
                 $('.product-with-options > .price-box').prependTo('.product-options-bottom');
+            }
+
+            if($('.product-add-form').hasClass('medical-prescription-pads')) {
+                if($('#product-options-wrapper').length == 1) {
+                    $('#product-options-wrapper').appendTo('#product_addtocart_form');
+                }
+                if($('.product-qty-increments').length > 0) {
+                    $('.product-qty-increments').insertAfter('.product-options-bottom');
+                }
+                if($('.prices-tier').length > 0) {
+                    $('.prices-tier').insertBefore('#product-options-wrapper');
+                }
             }
 
             /*
