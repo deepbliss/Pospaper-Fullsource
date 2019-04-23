@@ -1,17 +1,14 @@
 <div class="middle-container">
+    <?php $homepageBanners = $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('homepage_banners')->toHtml(); ?>
+    <?php if($homepageBanners): ?>
     <div class="homepage-banners-container">
         <div class="container">
             <div class="homepage-banners">
-                <div class="main">
-                    <a href="/3-1-8-x-230-thermal-paper-50-rolls.html"><img src="/pub/media/banners/1-1.png" /></a>
-                </div>
-                <div class="secondary">
-                    <a href="/2-1-4-x-50-thermal-paper-50-rolls.html"><img src="/pub/media/banners/4-1.png" /></a>
-                    <a href="/epson-erc-30-34-38-printer-ribbons-black-red.html"><img src="/pub/media/banners/5-1.png" /></a>
-                </div>
+                <?php echo $homepageBanners; ?>
             </div>
         </div>
     </div>
+    <?php endif; ?>
 
     <?php $homepageSeo = $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('homepage_seo')->toHtml(); ?>
     <?php if($homepageSeo): ?>
