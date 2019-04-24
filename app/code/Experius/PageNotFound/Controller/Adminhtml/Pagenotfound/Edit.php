@@ -1,27 +1,9 @@
 <?php
 
-
 namespace Experius\PageNotFound\Controller\Adminhtml\Pagenotfound;
 
 class Edit extends \Experius\PageNotFound\Controller\Adminhtml\Pagenotfound
 {
-
-    protected $resultPageFactory;
-
-    /**
-     * @param \Magento\Backend\App\Action\Context $context
-     * @param \Magento\Framework\Registry $coreRegistry
-     * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
-     */
-    public function __construct(
-        \Magento\Backend\App\Action\Context $context,
-        \Magento\Framework\Registry $coreRegistry,
-        \Magento\Framework\View\Result\PageFactory $resultPageFactory
-    ) {
-        $this->resultPageFactory = $resultPageFactory;
-        parent::__construct($context, $coreRegistry);
-    }
-
     /**
      * Edit action
      *
