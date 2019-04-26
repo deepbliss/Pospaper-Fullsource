@@ -141,7 +141,7 @@ class RegenerateUrlRewrites extends Command
         if (count($storesList) > 0 && !$saveOldUrls) {
             $this->removeAllUrlRewrites($storesList);
         }
-        
+
         // set area code if needed
         try {
             $areaCode = $this->_appState->getAreaCode();
@@ -153,7 +153,6 @@ class RegenerateUrlRewrites extends Command
         foreach ($storesList as $storeId => $storeCode) {
             $output->writeln('');
             $output->writeln("[Store ID: {$storeId}, Store View code: {$storeCode}]:");
-            $step = 0;
 
             // get categories collection
             $categories = $this->_categoryCollectionFactory->create()
@@ -173,16 +172,12 @@ class RegenerateUrlRewrites extends Command
                     }
                     $category->save();
 
-                    $step++;
-                    $output->write('.');
-                    if ($step > 19) {
-                        $output->writeln('');
-                        $step = 0;
-                    }
+                    $output->writeLn('Processed category ID: '.$category->getId());
                 } catch (\Exception $e) {
                     // debugging
                     $output->writeln("Error, Category ID: {$category->getId()}");
-                    $output->writeln($e->getMessage());
+                    //$output->writeln($e->getMessage());
+                    $output->writeln($e->getTraceAsString());
                 }
             }
         }
