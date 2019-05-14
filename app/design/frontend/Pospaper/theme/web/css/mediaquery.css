@@ -594,7 +594,7 @@
     #price-match-modal{height: 200px;}
 }
 @media screen and (max-width: 770px) { 
-    .container, body .navigation, body .breadcrumbs, body .page-header .header.panel, body .header.content, body .footer.content, body .page-wrapper > .widget, body .page-wrapper > .page-bottom, body .block.category.event, body .top-container, body .page-main{max-width: 620px;}    
+    .container, body .navigation, body .breadcrumbs, body .page-header .header.panel, body .header.content, body .footer.content, body .page-wrapper > .widget, body .page-wrapper > .page-bottom, body .block.category.event, body .top-container, body .page-main{max-width: 620px; margin-left: auto; margin-right: auto;}
     .head-top {display: none;}
     .head-middle .minicart-wrapper .action.showcart .text{display: none;}
     .category-section ul li {width: 305px;}
