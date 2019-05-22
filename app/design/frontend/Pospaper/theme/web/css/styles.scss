@@ -280,7 +280,9 @@ input[type=checkbox] {
 .ie10 .page-wrapper, .ie11 .page-wrapper {
     height: auto !important;
 }
-
+.clear {
+    clear: both;
+}
 /*----------------------------------------------------------------- Width of container -----------------------------------------------*/
 
 .container {
