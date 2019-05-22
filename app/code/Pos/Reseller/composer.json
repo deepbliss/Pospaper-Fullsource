@@ -1,0 +1,15 @@
+{
+    "name": "pos/module-reseller",
+    "description": "",
+    "type": "magento2-module",
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Pos\\Reseller\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    }
+}

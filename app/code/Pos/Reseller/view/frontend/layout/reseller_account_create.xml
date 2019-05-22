@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+		<title>Create New Reseller Account</title>
+	</head>
+	<body>
+		<referenceContainer name="content">
+			<block class="Pos\Reseller\Block\Account\Create" name="customer_form_register" template="Pos_Reseller::account/create.phtml">
+				<arguments>
+					<argument name="attribute_data" xsi:type="object">Magento\Customer\Block\DataProviders\AddressAttributeData</argument>
+				</arguments>
+			</block>
+		</referenceContainer>
+	</body>
+</page>
