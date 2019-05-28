@@ -1,0 +1,110 @@
+<!--@subject {{trans "New Reseller Account Registration"}} @-->
+<!--@vars {
+"var data.billingemail":"Sender Email",
+"var data.fullname":"Sender Name",
+"var data.billingphoneno":"Sender Telephone"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<table class="message-details">
+    <tr>
+        <td colspan="2"><b>{{trans "--------------------- Personal Information ---------------------"}}</b></td>
+    </tr>
+    <tr>
+        <td><b>{{trans "First Name"}}</b></td>
+        <td>{{var data.firstname}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Last Name"}}</b></td>
+        <td>{{var data.lastname}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Email"}}</b></td>
+        <td>{{var data.email}}</td>
+    </tr>
+    <tr>
+        <td colspan="2"><b>{{trans "--------------------- Shipping Information ---------------------"}}</b></td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Company"}}</b></td>
+        <td>{{var data.shipping_company}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Phone Number"}}</b></td>
+        <td>{{var data.shipping_telephone}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Fax"}}</b></td>
+        <td>{{var data.shipping_fax}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Street Address"}}</b></td>
+        <td>{{var data.shipping_street}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "City"}}</b></td>
+        <td>{{var data.shipping_city}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "State"}}</b></td>
+        <td>{{var data.shipping_region}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Zip"}}</b></td>
+        <td>{{var data.shipping_postcode}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Country"}}</b></td>
+        <td>{{var data.shipping_country}}</td>
+    </tr>
+    <tr>
+        <td colspan="2"><b>{{trans "--------------------- Billing Information ---------------------"}}</b></td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Company"}}</b></td>
+        <td>{{var data.billing_company}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Phone Number"}}</b></td>
+        <td>{{var data.billing_telephone}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Fax"}}</b></td>
+        <td>{{var data.billing_fax}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Street Address"}}</b></td>
+        <td>{{var data.billing_street}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "City"}}</b></td>
+        <td>{{var data.billing_city}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "State"}}</b></td>
+        <td>{{var data.billing_region}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Zip"}}</b></td>
+        <td>{{var data.billing_postcode}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Country"}}</b></td>
+        <td>{{var data.billing_country}}</td>
+    </tr>
+    <tr>
+        <td colspan="2"><b>{{trans "--------------------- Additional Information ---------------------"}}</b></td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Reseller Tax Id"}}</b></td>
+        <td>{{var data.reseller_tax_id}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Comment"}}</b></td>
+        <td>{{var data.reseller_comment}}</td>
+    </tr>
+</table>
+
+
+{{template config_path="design/email/footer_template"}}

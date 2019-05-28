@@ -9,6 +9,7 @@ use Magento\Framework\App\Action\Context;
 use Magento\Customer\Model\Session;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\ObjectManager;
+use Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Customer\Api\AccountManagementInterface;
@@ -27,6 +28,7 @@ use Magento\Framework\Exception\StateException;
 use Magento\Framework\Exception\InputException;
 use Magento\Framework\Data\Form\FormKey\Validator;
 use Magento\Directory\Model\RegionFactory;
+use Pos\Reseller\Model\ResellerMailInterface;
 
 class CreatePost extends \Magento\Customer\Controller\AbstractAccount
 {
@@ -49,6 +51,7 @@ class CreatePost extends \Magento\Customer\Controller\AbstractAccount
     private $cookieMetadataFactory;
     private $cookieMetadataManager;
     private $formKeyValidator;
+    private $mail;
 
     public function __construct(
         Context $context,
@@ -70,6 +73,7 @@ class CreatePost extends \Magento\Customer\Controller\AbstractAccount
         CustomerExtractor $customerExtractor,
         DataObjectHelper $dataObjectHelper,
         AccountRedirect $accountRedirect,
+        ResellerMailInterface $mail,
         Validator $formKeyValidator = null
     ) {
         $this->session = $customerSession;
@@ -90,6 +94,7 @@ class CreatePost extends \Magento\Customer\Controller\AbstractAccount
         $this->urlModel = $urlFactory->create();
         $this->dataObjectHelper = $dataObjectHelper;
         $this->accountRedirect = $accountRedirect;
+        $this->mail = $mail;
         $this->formKeyValidator = $formKeyValidator ?: ObjectManager::getInstance()->get(Validator::class);
         parent::__construct($context);
     }
@@ -146,6 +151,7 @@ class CreatePost extends \Magento\Customer\Controller\AbstractAccount
                         $addressData[$attributeCode] = $value;
                 }
             }
+            $addressData['street'] = array(trim($this->getRequest()->getParam($prefix.'street_1').' '.$this->getRequest()->getParam($prefix.'street_2')));
             $addressData['firstname'] = $this->getRequest()->getParam('firstname');
             $addressData['lastname'] = $this->getRequest()->getParam('lastname');
             if(!$regionDataObject->getRegion() && $regionDataObject->getRegionId()) {
@@ -249,7 +255,36 @@ class CreatePost extends \Magento\Customer\Controller\AbstractAccount
                 $metadata->setPath('/');
                 $this->getCookieManager()->deleteCookie('mage-cache-sessid', $metadata);
             }
-
+            $data = array(
+                'firstname' => $customer->getFirstname(),
+                'lastname' => $customer->getLastname(),
+                'fullname' => $customer->getFirstname().' '.$customer->getLastname(),
+                'email' => $customer->getEmail(),
+                'reseller_tax_id' => $this->getRequest()->getParam('reseller_tax_id'),
+                'reseller_comment' => $this->getRequest()->getParam('reseller_comment'),
+            );
+            foreach ($addresses as $address) {
+                if($address->isDefaultShipping()) {
+                    $data['shipping_company'] = $address->getCompany();
+                    $data['shipping_telephone'] = $address->getTelephone();
+                    $data['shipping_fax'] = $address->getFax();
+                    $data['shipping_street'] = trim(implode(" ",$address->getStreet()));
+                    $data['shipping_city'] = $address->getCity();
+                    $data['shipping_region'] = $address->getRegion()->getRegion();
+                    $data['shipping_postcode'] = $address->getPostcode();
+                    $data['shipping_country'] = $address->getCountryId();
+                } else {
+                    $data['billing_company'] = $address->getCompany();
+                    $data['billing_telephone'] = $address->getTelephone();
+                    $data['billing_fax'] = $address->getFax();
+                    $data['billing_street'] = trim(implode(" ",$address->getStreet()));
+                    $data['billing_city'] = $address->getCity();
+                    $data['billing_region'] = $address->getRegion()->getRegion();
+                    $data['billing_postcode'] = $address->getPostcode();
+                    $data['billing_country'] = $address->getCountryId();
+                }
+            }
+            $this->sendEmail($data);
             return $resultRedirect;
         } catch (StateException $e) {
             $url = $this->urlModel->getUrl('customer/account/forgotpassword');
@@ -321,5 +356,13 @@ class CreatePost extends \Magento\Customer\Controller\AbstractAccount
             $message = __('Thank you for registering with %1.', $this->storeManager->getStore()->getFrontendName());
         }
         return $message;
+    }
+
+    private function sendEmail($post)
+    {
+        $this->mail->send(
+            $post['email'],
+            ['data' => new DataObject($post)]
+        );
     }
 }

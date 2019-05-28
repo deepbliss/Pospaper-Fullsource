@@ -83,13 +83,13 @@
 
         <div class="field street required">
             <div class="control">
-                <input type="text" name="shipping_street[]" value="<?= $block->escapeHtmlAttr($block->getFormData()->getStreet(0)) ?>" placeholder="<?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('street') ?> *" id="shipping_street_1" class="input-text <?= $block->escapeHtmlAttr($_streetValidationClass) ?>">
+                <input type="text" name="shipping_street_1" value="<?= $block->escapeHtmlAttr($block->getFormData()->getStreet(0)) ?>" placeholder="<?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('street') ?> *" id="shipping_street_1" class="input-text <?= $block->escapeHtmlAttr($_streetValidationClass) ?>">
                 <div class="nested">
                     <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
                     <?php for ($_i = 2, $_n = 2; $_i <= $_n; $_i++): ?>
                         <div class="field additional">
                             <div class="control">
-                                <input type="text" name="shipping_street[]" value="<?= $block->escapeHtml($block->getFormData()->getStreetLine($_i - 1)) ?>" placeholder="<?= $block->escapeHtmlAttr(__('Street Address %1', $_i)) ?>" id="shipping_street_<?= /* @noEscape */ $_i ?>" class="input-text <?= $block->escapeHtmlAttr($_streetValidationClass) ?>">
+                                <input type="text" name="shipping_street_<?= /* @noEscape */ $_i ?>" value="<?= $block->escapeHtml($block->getFormData()->getStreetLine($_i - 1)) ?>" placeholder="<?= $block->escapeHtmlAttr(__('Street Address %1', $_i)) ?>" id="shipping_street_<?= /* @noEscape */ $_i ?>" class="input-text <?= $block->escapeHtmlAttr($_streetValidationClass) ?>">
                             </div>
                         </div>
                     <?php endfor; ?>
@@ -148,13 +148,13 @@
 
         <div class="field street required">
             <div class="control">
-                <input type="text" name="billing_street[]" value="<?= $block->escapeHtmlAttr($block->getFormData()->getStreet(0)) ?>" placeholder="<?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('street') ?> *" id="billing_street_1" class="input-text <?= $block->escapeHtmlAttr($_streetValidationClass) ?>">
+                <input type="text" name="billing_street_1" value="<?= $block->escapeHtmlAttr($block->getFormData()->getStreet(0)) ?>" placeholder="<?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('street') ?> *" id="billing_street_1" class="input-text <?= $block->escapeHtmlAttr($_streetValidationClass) ?>">
                 <div class="nested">
                     <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
                     <?php for ($_i = 2, $_n = 2; $_i <= $_n; $_i++): ?>
                         <div class="field additional">
                             <div class="control">
-                                <input type="text" name="billing_street[]" value="<?= $block->escapeHtml($block->getFormData()->getStreetLine($_i - 1)) ?>" placeholder="<?= $block->escapeHtmlAttr(__('Street Address %1', $_i)) ?>" id="billing_street_<?= /* @noEscape */ $_i ?>" class="input-text <?= $block->escapeHtmlAttr($_streetValidationClass) ?>">
+                                <input type="text" name="billing_street_<?php echo $_i ?>" value="<?= $block->escapeHtml($block->getFormData()->getStreetLine($_i - 1)) ?>" placeholder="<?= $block->escapeHtmlAttr(__('Street Address %1', $_i)) ?>" id="billing_street_<?= /* @noEscape */ $_i ?>" class="input-text <?= $block->escapeHtmlAttr($_streetValidationClass) ?>">
                             </div>
                         </div>
                     <?php endfor; ?>
