@@ -7690,6 +7690,12 @@ body.checkout-index-index .fancybox-container {
     margin: 0 auto 0 0  !important; }
 .firecheckout .opc-sidebar .opc-block-summary {
   float: none; }
+.firecheckout .checkout-payment-method .checkout-billing-address .actions-toolbar > .primary .action.action-update {
+  background: #5ad17d;
+  border-color: #5ad17d;
+  height: 50px;
+  padding: 0 40px;
+  border-radius: 4px; }
 .firecheckout #checkout .fieldset div.swissup-checkout-fields__title {
   margin-top: 30px;
   float: left; }
