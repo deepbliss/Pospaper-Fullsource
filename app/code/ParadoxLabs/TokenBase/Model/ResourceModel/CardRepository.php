@@ -19,8 +19,8 @@ use Magento\Framework\Api\DataObjectHelper;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\SortOrder;
 use Magento\Framework\Exception\CouldNotDeleteException;
+use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Framework\Exception\PaymentException;
 use Magento\Framework\Reflection\DataObjectProcessor;
 
 /**
@@ -95,16 +95,20 @@ class CardRepository implements CardRepositoryInterface
      *
      * @param \ParadoxLabs\TokenBase\Api\Data\CardInterface $card
      * @return \ParadoxLabs\TokenBase\Api\Data\CardInterface
-     * @throws PaymentException
+     * @throws CouldNotSaveException
      */
     public function save(\ParadoxLabs\TokenBase\Api\Data\CardInterface $card)
     {
-        if (get_class($card) === \ParadoxLabs\TokenBase\Model\Card::class) {
-            /** @var \ParadoxLabs\TokenBase\Model\Card $card */
-            $card = $card->getTypeInstance();
-        }
+        try {
+            if (get_class($card) === \ParadoxLabs\TokenBase\Model\Card::class) {
+                /** @var \ParadoxLabs\TokenBase\Model\Card $card */
+                $card = $card->getTypeInstance();
+            }
 
-        $this->resource->save($card);
+            $this->resource->save($card);
+        } catch (\Exception $exception) {
+            throw new CouldNotSaveException(__($exception->getMessage()));
+        }
 
         return $card;
     }
@@ -166,7 +170,7 @@ class CardRepository implements CardRepositoryInterface
         $this->resource->load($card, $cardHash, 'hash');
 
         if (!$card->getId()) {
-            throw new NoSuchEntityException(__('Card with hash "%1" does not exist.', $cardHash));
+            throw new NoSuchEntityException(__('Card with id "%1" does not exist.', $cardHash));
         }
 
         return $card;

@@ -91,7 +91,14 @@ class Data extends \Magento\Payment\Helper\Data
     /**
      * @var array
      */
-    protected $cardTypeTranslationMap;
+    protected $cardTypeTranslationMap = [
+        'AE'    => 'American Express',
+        'DI'    => 'Discover',
+        'DC'    => 'Diners Club',
+        'JCB'   => 'JCB',
+        'MC'    => 'MasterCard',
+        'VI'    => 'Visa',
+    ];
 
     /**
      * @var array
@@ -508,7 +515,7 @@ class Data extends \Magento\Payment\Helper\Data
     {
         // The REST API has to be considered part of the frontend, as standard checkout uses it.
         if ($this->appState->getAreaCode() == \Magento\Framework\App\Area::AREA_FRONTEND
-            || $this->appState->getAreaCode() == \Magento\Framework\App\Area::AREA_WEBAPI_REST) {
+            || $this->appState->getAreaCode() == 'webapi_rest') {
             return true;
         }
 
@@ -541,10 +548,6 @@ class Data extends \Magento\Payment\Helper\Data
      */
     public function translateCardType($type)
     {
-        if ($this->cardTypeTranslationMap === null) {
-            $this->cardTypeTranslationMap = $this->_paymentConfig->getCcTypes();
-        }
-
         if (isset($this->cardTypeTranslationMap[ $type ])) {
             return __($this->cardTypeTranslationMap[ $type ]);
         }

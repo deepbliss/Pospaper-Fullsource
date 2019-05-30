@@ -207,7 +207,7 @@ class Gateway extends \ParadoxLabs\TokenBase\Model\AbstractGateway
     {
         parent::clearParameters();
 
-        if (isset($this->defaults['login'], $this->defaults['password'])) {
+        if (isset($this->defaults['login']) && isset($this->defaults['password'])) {
             $this->setParameter('loginId', $this->defaults['login']);
             $this->setParameter('transactionKey', $this->defaults['password']);
         }
@@ -244,7 +244,7 @@ class Gateway extends \ParadoxLabs\TokenBase\Model\AbstractGateway
         $httpClient = $this->httpClientFactory->create();
 
         $clientConfig = [
-            'adapter'     => \Zend_Http_Client_Adapter_Curl::class,
+            'adapter'     => '\Zend_Http_Client_Adapter_Curl',
             'timeout'     => 900,
             'curloptions' => [
                 CURLOPT_CAINFO         => $this->moduleDir->getDir('ParadoxLabs_Authnetcim') . '/authorizenet-cert.pem',
@@ -600,7 +600,7 @@ class Gateway extends \ParadoxLabs\TokenBase\Model\AbstractGateway
                 sprintf("Transaction not found. Attempting to recapture.\n%s", json_encode($response->getData()))
             );
 
-            $this->setParameter('transId', null)
+            $this->clearParameters()
                  ->setHaveAuthorized(false)
                  ->setCard($this->getData('card'));
 
@@ -1480,10 +1480,8 @@ class Gateway extends \ParadoxLabs\TokenBase\Model\AbstractGateway
         $data = [
             'response_code'            => (int)$this->helper->getArrayValue($response, 'responseCode'),
             'response_subcode'         => '',
-            'response_reason_code'     => (int)$this->helper->getArrayValue($response, 'errors/error/errorCode')
-                ?: (int)$this->helper->getArrayValue($response, 'messages/message/code'),
-            'response_reason_text'     => $this->helper->getArrayValue($response, 'errors/error/errorText')
-                ?: $this->helper->getArrayValue($response, 'messages/message/description'),
+            'response_reason_code'     => (int)$this->helper->getArrayValue($response, 'errors/error/errorCode'),
+            'response_reason_text'     => $this->helper->getArrayValue($response, 'errors/error/errorText'),
             'approval_code'            => $this->helper->getArrayValue($response, 'authCode'),
             'auth_code'                => $this->helper->getArrayValue($response, 'authCode'),
             'avs_result_code'          => $this->helper->getArrayValue($response, 'avsResultCode'),
@@ -1492,7 +1490,7 @@ class Gateway extends \ParadoxLabs\TokenBase\Model\AbstractGateway
             'invoice_number'           => $this->getParameter('invoiceNumber'),
             'description'              => $this->getParameter('description'),
             'amount'                   => $this->getParameter('amount'),
-            'method'                   => $this->helper->getArrayValue($response, 'accountType') === 'eCheck'
+            'method'                   => $this->helper->getArrayValue($response, 'accountType') == 'eCheck'
                 ? 'ECHECK'
                 : 'CC',
             'transaction_type'         => $this->txnTypeMap[ $this->getParameter('transactionType') ],

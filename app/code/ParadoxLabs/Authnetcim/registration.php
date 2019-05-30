@@ -11,14 +11,8 @@
  * @license     http://store.paradoxlabs.com/license.html
  */
 
-$dir = __DIR__;
-$ds  = DIRECTORY_SEPARATOR;
-if (isset($file) && strpos($file, $ds . 'vendor' . $ds . 'composer' . $ds . '..') === false) {
-    $dir = dirname($file);
-}
-
 \Magento\Framework\Component\ComponentRegistrar::register(
     \Magento\Framework\Component\ComponentRegistrar::MODULE,
     'ParadoxLabs_Authnetcim',
-    $dir
+    __DIR__
 );

@@ -1,22 +1,7 @@
-/**
- * Paradox Labs, Inc.
- * http://www.paradoxlabs.com
- * 717-431-3330
- *
- * Need help? Open a ticket in our support system:
- *  http://support.paradoxlabs.com
- *
- * @category    ParadoxLabs
- * @package     TokenBase
- * @author      Ryan Hoerr <support@paradoxlabs.com>
- * @license     http://store.paradoxlabs.com/license.html
- */
-
 /*jshint jquery:true*/
 define([
-    "jquery",
-    'Magento_Payment/js/model/credit-card-validation/credit-card-number-validator'
-], function($, cardNumberValidator) {
+    "jquery"
+], function($) {
     "use strict";
 
     /**
@@ -26,9 +11,7 @@ define([
     $.widget('mage.tokenbaseCardFormatter', {
         options: {
             ccInputSelector: '[autocomplete="cc-number"]',
-            separator: ' ',
-            ccTypeSelector: '',
-            ccTypeContainer: ''
+            separator: '-'
         },
 
         _create: function() {
@@ -37,10 +20,6 @@ define([
             if (ccInput.length > 0) {
                 ccInput.bind('keydown', this.handleKeydown.bind(this))
                        .bind('input paste', this.formatCc.bind(this));
-            }
-
-            if (this.options.ccTypeSelector !== '' && this.options.ccTypeContainer !== '') {
-                ccInput.bind('input change keyup paste', this.detectCcType.bind(this));
             }
         },
 
@@ -122,33 +101,6 @@ define([
             }
 
             return i && i % 4 === 0;
-        },
-
-        /**
-         * Detect CC type as number is entered, and update active type.
-         */
-        detectCcType: function() {
-            this.updateCcType(null);
-
-            var cc_no = this.element.find(this.options.ccInputSelector).val().replace(/\D/g,'');
-            var result = cardNumberValidator(cc_no);
-
-            if ((result.isPotentiallyValid || result.isValid) && result.card !== null) {
-                this.updateCcType(result.card.type);
-            }
-        },
-
-        /**
-         * Update active CC type to the selected value.
-         *
-         * @param string creditCardType
-         */
-        updateCcType: function (creditCardType) {
-            this.element.find(this.options.ccTypeSelector).val(creditCardType).trigger('change');
-
-            var typeContainer = $(this.element).find(this.options.ccTypeContainer);
-            typeContainer.find('._active').removeClass('_active');
-            typeContainer.find('[data-type=' + creditCardType + ']').addClass('_active');
         }
     });
 

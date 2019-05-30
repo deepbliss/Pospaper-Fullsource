@@ -140,6 +140,7 @@ class ConfigProvider extends CcGenericConfigProvider
                     'storedCards'             => $storedCardOptions,
                     'selectedCard'            => $selected,
                     'isCcDetectionEnabled'    => true,
+                    'availableCardTypes'      => $this->getCcAvailableTypes(static::CODE),
                     'logoImage'               => $this->getLogoImage(),
                     'requireCcv'              => $this->requireCcv(),
                     'apiLoginId'              => $this->getApiLoginId(),
