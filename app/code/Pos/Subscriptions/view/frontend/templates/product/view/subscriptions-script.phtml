@@ -112,16 +112,5 @@ $product = $block->getProduct();
                 $('.product-info-main').insertBefore($('.detailed'));
             }
         }
-
-        var productForm = $('#product_addtocart_form');
-        productForm.mage('validation', {
-            errorPlacement: function(error, element) {
-                if (element.is('#qty')) {
-                    error.prependTo('.box-tocart .actions');
-                } else {
-                    element.after(error);
-                }
-            },
-        });
     });
 </script>
