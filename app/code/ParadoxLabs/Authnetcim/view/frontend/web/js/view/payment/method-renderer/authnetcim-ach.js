@@ -1,3 +1,17 @@
+/**
+ * Paradox Labs, Inc.
+ * http://www.paradoxlabs.com
+ * 717-431-3330
+ *
+ * Need help? Open a ticket in our support system:
+ *  http://support.paradoxlabs.com
+ *
+ * @category    ParadoxLabs
+ * @package     Authnetcim
+ * @author      Ryan Hoerr <support@paradoxlabs.com>
+ * @license     http://store.paradoxlabs.com/license.html
+ */
+
 define(
     [
         'ko',
@@ -15,13 +29,11 @@ define(
                 logoImage: config ? config.logoImage : false,
                 achImage: config ? config.achImage : false
             },
+
             initVars: function() {
                 this.canSaveCard     = config ? config.canSaveCard : false;
                 this.forceSaveCard   = config ? config.forceSaveCard : false;
                 this.defaultSaveCard = config ? config.defaultSaveCard : false;
-            },
-            getCode: function () {
-                return 'authnetcim_ach';
             }
         });
     }
