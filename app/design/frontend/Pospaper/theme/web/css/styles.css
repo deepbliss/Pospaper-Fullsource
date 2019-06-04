@@ -4343,7 +4343,7 @@ body .login-container .fieldset::after {
   margin-bottom: 0;
   margin-right: 0;
   width: auto;
-  font-size: 16px;
+  font-size: 24px;
   color: #fff !important;
   text-transform: uppercase;
   font-weight: 700 !important;
@@ -4351,8 +4351,8 @@ body .login-container .fieldset::after {
   background: #8fcc05 !important;
   border-radius: 0;
   border: 0;
-  padding: 5px 17px;
-  line-height: 31px;
+  padding: 15px 60px;
+  line-height: 1;
   display: inline-block;
   vertical-align: top; }
 
@@ -4513,17 +4513,14 @@ body .opc-block-shipping-information .shipping-information-title .action-edit {
 .checkout-container .table-checkout-shipping-method {
   min-width: 100%; }
 .checkout-container .checkout-payment-method .payment-method-content > .actions-toolbar > .primary .action.primary {
-  height: 40px;
   width: auto;
-  background: #4d485b;
   padding: 0;
   text-transform: uppercase;
-  font-size: 16px;
-  border-color: #4d485b;
+  font-size: 24px;
   font-weight: 600;
   border-radius: 0;
-  line-height: 37px;
-  padding: 0 10px;
+  line-height: 1;
+  padding: 15px 60px;
   margin-right: 0;
   color: #fff;
   box-shadow: none; }
