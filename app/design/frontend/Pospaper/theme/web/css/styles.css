@@ -7275,7 +7275,7 @@ body .field-error {
 body .opc-wrapper .fieldset > .field.required > label::after, body .opc-wrapper .fieldset > .field._required > label::after {
   position: relative;
   top: 1px;
-  right: 10px; }
+  right: 6px; }
 
 .opc-wrapper > .field.required > label > span, .opc-wrapper > .field._required > label > span {
   position: relative;
@@ -7292,17 +7292,19 @@ body .opc-wrapper .fieldset > .field.required > label::after, body .opc-wrapper 
 body:not(.firecheckout) .checkout-container .opc-wrapper .fieldset > .field > label, body:not(.firecheckout) .checkout-container .opc-wrapper .fieldset > .field:not(.choice) > .label {
   position: relative;
   font-size: 13px;
-  width: 30%; }
+  width: 100%;
+  float: none; }
 body:not(.firecheckout) .iwd_pospaper_main_wrapper .opc-wrapper .fieldset > .field > label, body:not(.firecheckout) .iwd_pospaper_main_wrapper .opc-wrapper .fieldset > .field:not(.choice) > .label {
   position: relative;
   font-size: 13px;
-  width: 30%; }
+  width: 100%;
+  float: none; }
 body:not(.firecheckout) .checkout-container .opc-wrapper .fieldset > .field > .control, body:not(.firecheckout) .checkout-container .opc-wrapper .fieldset > .field:not(.choice) > .control {
-  width: 70%;
-  float: left; }
+  width: 100%;
+  float: none; }
 body:not(.firecheckout) .iwd_pospaper_main_wrapper .opc-wrapper .fieldset > .field > .control, body:not(.firecheckout) .iwd_pospaper_main_wrapper .opc-wrapper .fieldset > .field:not(.choice) > .control {
-  width: 70%;
-  float: left; }
+  width: 100%;
+  float: none; }
 
 .firecheckout #authnetcim-form-cc .field.type label {
   display: none !important; }
