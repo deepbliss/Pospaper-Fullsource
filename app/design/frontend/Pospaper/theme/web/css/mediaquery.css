@@ -1485,7 +1485,6 @@
 
   .checkout-onepage-success .account .column.main .block.block-order-details-view .block-content:not(.widget) .box {width: 100%;margin-bottom: 10px;clear: none;float: left;min-height: inherit;}
 
-  .confirm._show .modal-footer .action-accept{width: 100%;}
   .confirm._show .modal-content div{line-height: 23px;text-align: center;}
   .modal-popup.confirm._show .modal-title {text-align: center;}
 

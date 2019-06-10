@@ -6943,6 +6943,12 @@ body .columns .contact-container .cnt-right .actions-toolbar .primary {
 .modal-popup.custom-block-customer-login .modal-inner-wrap {
   width: 680px; }
 
+.modal-popup.confirm .modal-inner-wrap {
+  max-width: 90%; }
+  .modal-popup.confirm .modal-inner-wrap .modal-content {
+    padding-left: 1rem;
+    padding-right: 1rem; }
+
 .tooltip {
   display: inline-block; }
 

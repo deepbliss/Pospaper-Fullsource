@@ -8773,6 +8773,17 @@ body .columns .contact-container .cnt-right {
     width: 680px;
 }
 
+.modal-popup.confirm {
+    .modal-inner-wrap {
+        max-width: 90%;
+
+        .modal-content {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+    }
+}
+
 .tooltip {
     display: inline-block;
 }
