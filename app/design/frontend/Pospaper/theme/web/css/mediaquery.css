@@ -695,8 +695,16 @@
     .cart-discount .block.discount .actions-toolbar .action{line-height: 26px;}
     .cart-container .cart-summary .block.discount .fieldset .actions-toolbar .action {line-height: 24px;}
     .cart-container .form-cart .actions.main .action.update{margin: 0;}
-    .checkout-cart-index .page-main,.customer-account-login .page-main,.customer-account-forgotpassword .page-main,.customer-account-create .page-main,.checkout-index-index .page-main,.sendfriend-product-send .page-main,.cms-no-route .page-main,.multishipping-checkout-login .page-main,.multishipping-checkout-register .page-main,.multiple-shipping-div #maincontent,.testimonial-index-new .page-main,body.multishipping-checkout-success .page-main,.checkout-onepage-success .page-main{padding: 0 0 12px 0;}
-    
+    .checkout-cart-index .page-main,.customer-account-login .page-main,.customer-account-forgotpassword .page-main,.customer-account-create .page-main,.sendfriend-product-send .page-main,.cms-no-route .page-main,.multishipping-checkout-login .page-main,.multishipping-checkout-register .page-main,.multiple-shipping-div #maincontent,.testimonial-index-new .page-main,body.multishipping-checkout-success .page-main,.checkout-onepage-success .page-main{padding: 0 0 12px 0;}
+
+    .checkout-index-index .page-main,
+    .checkout-index-index .page-header .header.content {
+        max-width: 100%;
+        width: 100%;
+        padding-left: 20px;
+        padding-right: 20px;
+        box-sizing: border-box;
+    }
     
     
     /*-------------------------------------- Login PAge -------------------------------*/
@@ -788,7 +796,7 @@
    #mcs-tracking-info .column.whole .item-table table tr td .pro-image img {max-width: 75px;}
    #mcs-tracking-info .column.whole .item-table table tr td .pro-item-detail{line-height: 20px;}
 
-   .checkout-index-index .authentication-wrapper{top: 14px;}
+   .checkout-index-index .authentication-wrapper{top: 14px; right: 20px}
   .catalog-product-view .product-social-links .amazon-button-container{right: 80px;bottom: -129px;left: auto;}
 
   .checkout-container .form-discount > .actions-toolbar > .primary button.action.action-apply,.checkout-container .form-discount > .actions-toolbar > .primary button.action.action-cancel{height: 35px;}

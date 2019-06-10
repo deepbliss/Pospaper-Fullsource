@@ -2,4 +2,11 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="ParadoxLabs\Subscriptions\Api\CustomOptionManagerInterface" type="Pos\Subscriptions\Model\Service\CustomOptionManager" />
     <preference for="ParadoxLabs\Subscriptions\Model\Service\ItemManager" type="Pos\Subscriptions\Model\Service\ItemManager" />
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="update_products" xsi:type="object">Pos\Subscriptions\Command\UpdateProducts</item>
+            </argument>
+        </arguments>
+    </type>
 </config>
