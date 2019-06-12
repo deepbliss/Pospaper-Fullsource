@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Adroll_Pixel::adroll" title="Adroll" translate="title" module="Adroll_Pixel" parent="Magento_Backend::content" sortOrder="50" dependsOnModule="Adroll_Pixel" resource="Adroll_Pixel::menu"/>
+        <add id="Adroll_Pixel::adroll_advertisables" title="Advertiser Profiles" translate="title" module="Adroll_Pixel" parent="Adroll_Pixel::adroll" sortOrder="10" dependsOnModule="Adroll_Pixel" action="adroll/advertisables" resource="Adroll_Pixel::menu"/>
+    </menu>
+</config>

@@ -1,0 +1,73 @@
+<?php
+$existentGroup = $this->getExistentGroup();
+$finalizeUrl = $this->getFinalizeUrl();
+$advertisableName = $this->getQueryParamValue('name');
+$advertisableEid = $this->getQueryParamValue('advertisable');
+$pixelEid = $this->getQueryParamValue('pixel');
+?>
+
+<form method="post" action="<?php echo $finalizeUrl; ?>">
+    <div class="entry-edit">
+        <div class="fieldset">
+            <p>
+                <?php echo sprintf(
+                    __('Please select the store you want to integrate with AdRoll profile <strong>%s</strong>'),
+                    $advertisableName
+                ); ?>
+            </p>
+            <?php if ($existentGroup !== null): ?>
+                <p>
+                <div class="notification-global notification-global-warning">
+                    <?php echo sprintf(
+                        __('<strong>Warning:</strong> The advertiser profile <strong>%1$s</strong> is already integrated with the store <strong>%2$s</strong>, if you choose to integrate another store with the advertiser profile, the pixel is going to be removed from <strong>%3$s</strong>.'),
+                        $advertisableName,
+                        $existentGroup->getName(),
+                        $existentGroup->getName()
+                    ); ?>
+                </div>
+                </p>
+            <?php endif; ?>
+            <input type="hidden" name="form_key" value="<?php echo $this->getFormKey(); ?>" />
+            <input type="hidden" name="advertisable_name" value="<?php echo $advertisableName; ?>" />
+            <input type="hidden" name="advertisable" value="<?php echo $advertisableEid; ?>" />
+            <input type="hidden" name="pixel" value="<?php echo $pixelEid; ?>" />
+            <select name="store_group_id" title="<?php echo __('Select the store'); ?>">
+                <?php foreach ($this->getWebsites() as $website): ?>
+                    <optgroup label="<?php echo $website->getName(); ?>">
+                        <?php foreach ($website->getGroups() as $group): ?>
+                            <option value="<?php echo $group->getId(); ?>">
+                                <?php echo $group->getName(); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </optgroup>
+                <?php endforeach; ?>
+            </select>
+        </div>
+    </div>
+
+    <br/>
+
+    <div class="content-header">
+        <p class="form-buttons">
+            <button type="button" onclick="window.location.href = 'https://app.adroll.com/activate/getting-started?skip_resume=true'">
+                <?php echo __('Back'); ?>
+            </button>
+            <button type="submit" class="scalable save">
+                <span>
+                    <span>
+                        <span>
+                            <?php echo __('Continue'); ?>
+                        </span>
+                    </span>
+                </span>
+            </button>
+        </p>
+    </div>
+
+    <p style="font-size: 9.5px;">* <?php echo __('In order to track your potential customers across devices and browsers, this integration will send email addresses collected on your site to AdRoll for data and email services. AdRoll may persistently store and use hashed versions of these email addresses and combine these with email hashes from other customers to improve our services.'); ?></p>
+</form>
+
+<script type="text/javascript">
+    window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
+    heap.load("3388232388");
+</script>

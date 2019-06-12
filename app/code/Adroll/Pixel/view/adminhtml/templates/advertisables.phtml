@@ -1,0 +1,75 @@
+<?php
+$adrollBaseUrl = $this->getAdrollBaseUrl();
+$counter = 0;
+?>
+
+<h3>
+    <?php echo sprintf(
+        __('This is the list of all your stores along with the installed AdRoll Pixel. You can <a href="%1$s">create a new account</a> if you do not have one already.'),
+        $adrollBaseUrl . '/activate/register/?experiment=magento&utm_source=magento_marketplace'
+    ); ?>
+</h3>
+
+<h3>
+    <?php echo sprintf(
+        __('You can also <a href="%1$s">create new AdRoll advertiser profiles</a> or <a href="%2$s">connect an existing advertiser profile to your Magento store</a>.'),
+        $adrollBaseUrl . '/dashboard/account/profiles',
+        $adrollBaseUrl . '/ecommerce/magento2'
+    ); ?>
+</h3>
+
+<div class="admin__data-grid-wrap">
+    <table class="data-grid">
+        <thead>
+        <tr class="headings">
+            <th class="data-grid-th"><?php echo __('Store'); ?></th>
+            <th class="data-grid-th"><?php echo __('Advertiser profile'); ?></th>
+            <th class="data-grid-th">Actions</th>
+        </tr>
+        </thead>
+        <?php foreach ($this->getWebsites() as $website): ?>
+            <?php foreach ($website->getGroups() as $group): ?>
+                <tr class="<?php echo $counter++ % 2 == 0 ? "data-row" : "data-row _odd-row" ?>">
+                    <td><?php echo $group->getName(); ?></td>
+                    <td>
+                        <?php
+                            $advertisableEid = $this->getAdvertisableEid($group->getId());
+                            $advertisableName = $this->getAdvertisableName($group->getId());
+                        ?>
+
+                        <?php if ($advertisableEid): ?>
+                            <a href="<?php echo $adrollBaseUrl . '/dashboard?advertisable=' . $advertisableEid ?>">
+                                <?php echo $advertisableName ?: __('Unknown name'); ?>
+                            </a>
+                        <?php else: ?>
+                            <?php echo __('No AdRoll pixel configured'); ?>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php if ($advertisableEid): ?>
+                            <button type="button" onclick="adrollPixelRemovePixel(<?php echo $group->getId() . ', \'' . $group->getName() . '\'' ?>);">
+                                <?php echo __('Remove AdRoll pixel'); ?>
+                            </button>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        <?php endforeach; ?>
+    </table>
+</div>
+<script>
+    function adrollPixelRemovePixel(groupId, groupName) {
+        if (window.confirm('<?php echo __('Are you sure you want to remove the AdRoll pixel from the store "%s"?' ); ?>'.replace('%s', groupName))) {
+            new jQuery.ajax('<?php echo $this->getUninstallPixelActionUrl(); ?>', {
+                data: {store_group_id: groupId},
+                method: 'post',
+                success: function(data, textStatus, jqXHR) {
+                    window.location.reload();
+                }.bind(this)
+            });
+        }
+    }
+    (function () {
+        document.querySelector('.content-header .form-buttons').hide();
+    })();
+</script>

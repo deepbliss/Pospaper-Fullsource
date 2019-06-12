@@ -1,0 +1,37 @@
+{
+  "name": "adroll123123124/pixel",
+  "description": "Adroll Pixel for Magento 2.x",
+  "require": {
+    "php": "~5.5.0|~5.6.0|~7.0.0|~7.1.0|~7.2.0"
+  },
+  "keywords": [
+    "Adroll",
+    "Adroll Pixel",
+    "Adroll Retargeting",
+    "Magento",
+    "Magento Adroll",
+    "Magento 2",
+    "Magento 2 Adroll",
+    "Retargeting"
+  ],
+  "type": "magento2-module",
+  "version": "1.0.8",
+  "license": [
+    "MIT"
+  ],
+  "authors": [
+    {
+      "name": "Adroll",
+      "homepage": "https://www.adroll.com",
+      "email": "ecomm-dev@adroll.com"
+    }
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Adroll\\Pixel\\": ""
+    }
+  }
+}

@@ -1,0 +1,79 @@
+<script data-adroll="magento-adroll-pixel" type="text/javascript">
+    <?php if ($this->isConfigured()): ?>
+
+    <?php
+    foreach($this->getGlobalVars() as $name => $value) {
+        echo "$name = " . json_encode($value) . ";\n";
+    }
+    ?>
+
+    (function(w,d,e,o,a){
+        w.__adroll_loaded=true;
+        w.adroll=w.adroll||[];
+        w.adroll.f=['setProperties','identify','track'];
+        var roundtripUrl="https://s.adroll.com/j/" + adroll_adv_id + "/roundtrip.js";
+        for(a=0;a<w.adroll.f.length;a++){
+            w.adroll[w.adroll.f[a]]=w.adroll[w.adroll.f[a]]||(function(n){return function(){w.adroll.push([n,arguments])}})(w.adroll.f[a])};e=d.createElement('script');o=d.getElementsByTagName('script')[0];e.async=1;e.src=roundtripUrl;o.parentNode.insertBefore(e, o);})(window,document);
+
+    <?php
+    $customerEmail = $this->getCustomerEmail();
+    if ($customerEmail) {
+        $payload = json_encode(array('email' => md5($customerEmail)));
+        echo "adroll.identify($payload);\n";
+    }
+
+    $properties = json_encode($this->getPixelProperties());
+    echo "console.log('Adroll setProperties: ', $properties);\n";
+    echo "adroll.setProperties($properties);\n";
+
+    foreach($this->getEvents() as $event) {
+        $name = $event['name'];
+        $payload = $event['payload'];
+
+        if ($payload) {
+            $payload = json_encode($payload);
+            echo "console.log('AdRoll track event: $name', $payload);\n";
+            echo "adroll.track('$name', $payload);\n";
+        } else {
+            echo "console.log('AdRoll track event: $name');\n";
+            echo "adroll.track('$name');\n";
+        }
+    }
+    ?>
+
+    require(['jquery', 'underscore', 'jquery/jquery-storageapi'], function($, _) {
+        $(document).on('ajaxComplete', function (event, xhr, settings) {
+            if (settings.url.match(/customer\/section\/load/i) && xhr.responseJSON && xhr.responseJSON.cart) {
+                if (typeof window.localStorage !== "undefined") {
+                    var addedItems = [];
+                    var newCart = xhr.responseJSON.cart;
+                    var oldCartItems = JSON.parse(window.localStorage.getItem('adroll-old-cart-items') || '[]');
+
+                    $.each(newCart.items, function(){
+                        var new_item_id = this.item_id;
+                        var isInOldCartItems = $.grep(oldCartItems, function(item){return item.item_id == new_item_id}).length > 0;
+                        if (!isInOldCartItems) {
+                            addedItems.push(this);
+                        }
+                    });
+
+                    if (addedItems.length > 0) {
+                        console.log('AdRoll track event: pageView', {"segment_name": "magento_added_product_to_cart"});
+                        adroll.track("pageView", {"segment_name": "magento_added_product_to_cart"});
+
+                        var payload = {'products': []};
+                        $.each(addedItems, function() {payload['products'].push(this.adroll_product_payload);});
+                        console.log('AdRoll track event: addToCart', payload);
+                        adroll.track('addToCart', payload);
+                    }
+                    window.localStorage.setItem('adroll-old-cart-items', JSON.stringify(newCart.items));
+                }
+            } else if (settings.url.match(/shipping-information/i) && xhr.responseJSON && xhr.responseJSON.payment_methods) {
+                console.log('AdRoll track event: pageView', {"segment_name": "magento_order_reviewed"});
+                adroll.track("pageView", {"segment_name": "magento_order_reviewed"});
+            }
+        });
+    });
+
+    <?php endif; ?>
+</script>
