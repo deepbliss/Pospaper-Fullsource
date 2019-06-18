@@ -5671,7 +5671,7 @@ body .login-container .fieldset::after {
     .title, .items-in-cart > .title strong {
         font-size: 16px;
         font-weight: 700;
-        float: left;
+        margin-top: 10px;
         width: 100%;
     }
 }
@@ -9751,22 +9751,44 @@ body.checkout-index-index .fancybox-container {
 }
 
 .firecheckout {
+    .column.main {
+        max-width: 100%;
+    }
     #checkout {
         .step-title, .opc-block-summary > .title {
             font-size: 22px !important;
+        }
+
+        .discount-code > [role="tab"] .action-toggle,
+        .reward-points > [role="tab"] .action-toggle {
+            font-size: 16px !important;
+            padding: 10px 0 !important;
+            color: #333333 !important;
+            font-weight: 600 !important;
+
+            &:after {
+                border-color: #333 !important;
+            }
+        }
+        .reward-points > [role="tab"] {
+            border-top: none !important;
+        }
+        .discount-code [role="tabpanel"],
+        .discount-code [data-role="content"],
+        .reward-points [role="tabpanel"],
+        .reward-points [data-role="content"] {
+            margin: 5px 0 !important;
+            padding: 5px 0 !important;
         }
     }
     .checkout-payment-method .ccard {
         max-width: none !important;
     }
-    .page-wrapper {
-        padding: 0 15px;
-    }
     &.firecheckout-layout-empty .page-main, &.firecheckout-layout-minimal .page-main {
         padding-top: 0  !important;
     }
     &:not(.page-layout-checkout) .page-title-wrapper {
-        margin: -55px 0 20px  !important;
+        margin: -40px 0 20px  !important;
         h1 {
             margin: 0 auto 0 0  !important;
         }
@@ -9802,6 +9824,14 @@ body.checkout-index-index .fancybox-container {
     }
     .table-checkout-shipping-method tbody td {
         width: auto;
+    }
+    .billing-address-same-as-shipping-block,
+    .checkout-payment-method .billing-address-same-as-shipping-block,
+    .checkout-payment-method .payment-method .fieldset .billing-address-same-as-shipping-block {
+        margin: 10px 0 !important;
+    }
+    .items-in-cart.block {
+        clear: both;
     }
 }
 

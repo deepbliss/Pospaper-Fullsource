@@ -4461,7 +4461,7 @@ body .login-container .fieldset::after {
 #opc-sidebar .opc-block-summary .title, #opc-sidebar .opc-block-summary .items-in-cart > .title strong {
   font-size: 16px;
   font-weight: 700;
-  float: left;
+  margin-top: 10px;
   width: 100%; }
 
 .checkout-container .shipping-information-title span {
@@ -7679,16 +7679,33 @@ body.checkout-index-index .fancybox-container {
   padding: 12px;
   background: #eaeaea; }
 
+.firecheckout .column.main {
+  max-width: 100%; }
 .firecheckout #checkout .step-title, .firecheckout #checkout .opc-block-summary > .title {
   font-size: 22px !important; }
+.firecheckout #checkout .discount-code > [role="tab"] .action-toggle,
+.firecheckout #checkout .reward-points > [role="tab"] .action-toggle {
+  font-size: 16px !important;
+  padding: 10px 0 !important;
+  color: #333333 !important;
+  font-weight: 600 !important; }
+  .firecheckout #checkout .discount-code > [role="tab"] .action-toggle:after,
+  .firecheckout #checkout .reward-points > [role="tab"] .action-toggle:after {
+    border-color: #333 !important; }
+.firecheckout #checkout .reward-points > [role="tab"] {
+  border-top: none !important; }
+.firecheckout #checkout .discount-code [role="tabpanel"],
+.firecheckout #checkout .discount-code [data-role="content"],
+.firecheckout #checkout .reward-points [role="tabpanel"],
+.firecheckout #checkout .reward-points [data-role="content"] {
+  margin: 5px 0 !important;
+  padding: 5px 0 !important; }
 .firecheckout .checkout-payment-method .ccard {
   max-width: none !important; }
-.firecheckout .page-wrapper {
-  padding: 0 15px; }
 .firecheckout.firecheckout-layout-empty .page-main, .firecheckout.firecheckout-layout-minimal .page-main {
   padding-top: 0  !important; }
 .firecheckout:not(.page-layout-checkout) .page-title-wrapper {
-  margin: -55px 0 20px  !important; }
+  margin: -40px 0 20px  !important; }
   .firecheckout:not(.page-layout-checkout) .page-title-wrapper h1 {
     margin: 0 auto 0 0  !important; }
 .firecheckout .opc-sidebar .opc-block-summary {
@@ -7717,6 +7734,12 @@ body.checkout-index-index .fancybox-container {
       white-space: nowrap; }
 .firecheckout .table-checkout-shipping-method tbody td {
   width: auto; }
+.firecheckout .billing-address-same-as-shipping-block,
+.firecheckout .checkout-payment-method .billing-address-same-as-shipping-block,
+.firecheckout .checkout-payment-method .payment-method .fieldset .billing-address-same-as-shipping-block {
+  margin: 10px 0 !important; }
+.firecheckout .items-in-cart.block {
+  clear: both; }
 
 .pospaper-tooltip > * {
   font-size: 12px;
