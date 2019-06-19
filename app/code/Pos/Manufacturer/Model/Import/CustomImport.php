@@ -1,6 +1,8 @@
 <?php
 namespace Pos\Manufacturer\Model\Import;
  
+use Magento\Framework\App\ObjectManager;
+use Magento\Framework\Serialize\Serializer\Json;
 use Pos\Manufacturer\Model\Import\CustomImport\RowValidatorInterface as ValidatorInterface;
 use Magento\ImportExport\Model\Import\ErrorProcessing\ProcessingErrorAggregatorInterface;
  
@@ -58,6 +60,8 @@ class CustomImport extends \Magento\ImportExport\Model\Import\Entity\AbstractEnt
     protected $_connection;
      
     protected $_resource;
+
+    private $serializer;
      
     /**
      * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
@@ -78,6 +82,71 @@ class CustomImport extends \Magento\ImportExport\Model\Import\Entity\AbstractEnt
         $this->_resource = $resource;
         $this->_connection = $resource->getConnection(\Magento\Framework\App\ResourceConnection::DEFAULT_CONNECTION);
         $this->errorAggregator = $errorAggregator;
+    }
+
+    protected function _saveValidatedBunches()
+    {
+        $source = $this->_getSource();
+        $currentDataSize = 0;
+        $bunchRows = [];
+        $startNewBunch = false;
+        $nextRowBackup = [];
+        $maxDataSize = $this->_resourceHelper->getMaxDataSize();
+        $bunchSize = $this->_importExportData->getBunchSize();
+
+        $source->rewind();
+        $this->_dataSourceModel->cleanBunches();
+
+        while ($source->valid() || $bunchRows) {
+            if ($startNewBunch || !$source->valid()) {
+                $this->_dataSourceModel->saveBunch($this->getEntityTypeCode(), $this->getBehavior(), $bunchRows);
+
+                $bunchRows = $nextRowBackup;
+                $currentDataSize = strlen($this->getSerializer()->serialize($bunchRows));
+                $startNewBunch = false;
+                $nextRowBackup = [];
+            }
+            if ($source->valid()) {
+                try {
+                    $rowData = $source->current();
+                } catch (\InvalidArgumentException $e) {
+                    $this->addRowError($e->getMessage(), $this->_processedRowsCount);
+                    $this->_processedRowsCount++;
+                    $source->next();
+                    continue;
+                }
+
+                $this->_processedRowsCount++;
+
+                if ($this->validateRow($rowData, $source->key())) {
+                    // add row to bunch for save
+                    $rowData = $this->_prepareRowForDb($rowData);
+                    $rowSize = strlen($this->jsonHelper->jsonEncode($rowData));
+
+                    $isBunchSizeExceeded = $bunchSize > 0 && count($bunchRows) >= $bunchSize;
+
+                    if ($currentDataSize + $rowSize >= $maxDataSize || $isBunchSizeExceeded) {
+                        $startNewBunch = true;
+                        $nextRowBackup = [$source->key() => $rowData];
+                    } else {
+                        $bunchRows[$source->key()] = $rowData;
+                        $currentDataSize += $rowSize;
+                    }
+                }
+                $source->next();
+            }
+        }
+        $this->_processedEntitiesCount = $this->_processedRowsCount;
+
+        return $this;
+    }
+
+    private function getSerializer()
+    {
+        if (null === $this->serializer) {
+            $this->serializer = ObjectManager::getInstance()->get(Json::class);
+        }
+        return $this->serializer;
     }
  
     public function getValidColumnNames() {
@@ -109,7 +178,7 @@ class CustomImport extends \Magento\ImportExport\Model\Import\Entity\AbstractEnt
         $this->_validatedRows[$rowNum] = true;
  
         if (!isset($rowData[self::ID]) || empty($rowData[self::ID])) {
-            $this->addRowError(ValidatorInterface::ERROR_MESSAGE_IS_EMPTY, $rowNum);
+            $this->addRowError(ValidatorInterface::ERROR_ID_IS_EMPTY, $rowNum);
             return false;
         }
         return !$this->getErrorAggregator()->isRowInvalid($rowNum);
