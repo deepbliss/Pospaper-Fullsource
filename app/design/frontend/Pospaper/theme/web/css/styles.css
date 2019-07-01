@@ -4652,6 +4652,9 @@ body .opc-block-shipping-information .shipping-information-title .action-edit {
   max-width: 100%; }
 .checkout-container .opc-block-summary .mark .value {
   margin-top: 5px; }
+.checkout-container .opc-wrapper .fieldset .swissup-checkout-fields__title {
+  clear: both;
+  padding-top: 30px; }
 
 .checkout-success {
   text-align: left; }
@@ -4732,6 +4735,10 @@ body.checkout-index-index .page-title-wrapper {
   float: left;
   width: 100%;
   margin-top: 15px; }
+.checkout-payment-method .discount-code .payment-option-content {
+  padding: 0; }
+.checkout-payment-method .discount-code .payment-option-inner {
+  margin: 0; }
 
 .opc-wrapper .form-discount {
   max-width: 100%; }

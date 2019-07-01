@@ -5919,6 +5919,14 @@ body .opc-block-shipping-information .shipping-information-title .action-edit {
     .opc-block-summary .mark .value {
         margin-top: 5px;
     }
+    .opc-wrapper {
+        .fieldset {
+            .swissup-checkout-fields__title {
+                clear: both;
+                padding-top: 30px;
+            }
+        }
+    }
 }
 
 .checkout-success {
@@ -6018,6 +6026,14 @@ body.checkout-index-index .page-title-wrapper {
         float: left;
         width: 100%;
         margin-top: 15px;
+    }
+    .discount-code {
+        .payment-option-content {
+            padding: 0;
+        }
+        .payment-option-inner {
+            margin: 0;
+        }
     }
 }
 
