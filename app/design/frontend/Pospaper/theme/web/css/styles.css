@@ -2851,7 +2851,6 @@ body.page-products .block.recently .products-grid .product-item:hover {
   .prices-tier table td .weee .price, .prices-tier table tr td {
     color: #4c4c4c;
     font-size: 13px;
-    font-weight: 400;
     line-height: 24px;
     text-align: left;
     padding: 0;
