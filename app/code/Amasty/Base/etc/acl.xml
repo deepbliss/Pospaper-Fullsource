@@ -2,7 +2,7 @@
 <!--
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Base
  */
 -->
@@ -11,6 +11,10 @@
     <acl>
         <resources>
             <resource id="Magento_Backend::admin">
+                <resource id="MenuAmasty_Base::menu" title="Amasty Extensions" translate="title" sortOrder="79">
+                    <resource id="Amasty_Base::marketplace" title="Amasty Marketplace" translate="title" sortOrder="1"/>
+                </resource>
+
                 <resource id="Magento_Backend::stores">
                     <resource id="Magento_Backend::stores_settings">
                         <resource id="Magento_Config::config">

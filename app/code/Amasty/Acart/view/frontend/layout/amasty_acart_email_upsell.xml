@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_Acart
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="Email Up-Sell Items List" design_abstraction="custom">
+    <body>
+        <block class="Amasty\Acart\Block\Email\Items" name="amasty.acart.items" cacheable="false">
+            <block class="Amasty\Acart\Block\Email\Items\Upsell" name="amasty.acart.items.data" as="amasty.acart.items.data" cacheable="false"/>
+        </block>
+    </body>
+</page>

@@ -2,37 +2,47 @@
 <!--
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Base
  */
 -->
 
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <type name="Magento\AdminNotification\Block\Grid\Renderer\Actions">
-        <plugin name="Amasty_Base::show-unsubscribe-link"
-                type="Amasty\Base\Plugin\AdminNotification\Block\Grid\Renderer\Actions"/>
-
+        <plugin name="Amasty_Base::show-unsubscribe-link" type="Amasty\Base\Plugin\AdminNotification\Block\Grid\Renderer\Actions"/>
     </type>
 
     <type name="Magento\AdminNotification\Block\Grid\Renderer\Notice">
-        <plugin name="Amasty_Base::add-amasty-class"
-                type="Amasty\Base\Plugin\AdminNotification\Block\Grid\Renderer\Notice"/>
+        <plugin name="Amasty_Base::add-amasty-class" type="Amasty\Base\Plugin\AdminNotification\Block\Grid\Renderer\Notice"/>
     </type>
 
     <type name="Magento\AdminNotification\Block\ToolbarEntry">
-        <plugin name="Amasty_Base::add-amasty-class-logo"
-                type="Amasty\Base\Plugin\AdminNotification\Block\ToolbarEntry"/>
+        <plugin name="Amasty_Base::add-amasty-class-logo" type="Amasty\Base\Plugin\AdminNotification\Block\ToolbarEntry"/>
     </type>
 
+    <type name="Magento\ImportExport\Controller\Adminhtml\Import\Download">
+        <arguments>
+            <argument name="componentRegistrar" xsi:type="object">Amasty\Base\Component\ComponentRegistrar</argument>
+        </arguments>
+    </type>
 
     <type name="Magento\Config\Block\System\Config\Form\Field">
-        <plugin name="Amasty_Base::replace-image-path"
-                type="Amasty\Base\Plugin\Config\Block\System\Config\Form\Field"/>
+        <plugin name="Amasty_Base::replace-image-path" type="Amasty\Base\Plugin\Config\Block\System\Config\Form\Field"/>
     </type>
 
     <type name="Magento\Backend\Block\Widget\Form\Element\Dependence">
-        <plugin name="Amasty_Base::fix-dependence"
-                type="Amasty\Base\Plugin\Adminhtml\Block\Widget\Form\Element\Dependence" />
+        <plugin name="Amasty_Base::fix-dependence" type="Amasty\Base\Plugin\Adminhtml\Block\Widget\Form\Element\Dependence"/>
+    </type>
+
+    <type name="Magento\Backend\Block\Menu">
+        <plugin name="Amasty_Base:menu" type="Amasty\Base\Plugin\Backend\Block\Menu"/>
+    </type>
+
+    <type name="Magento\Backend\Model\Menu\Item">
+        <plugin name="Amasty_Base:correct-market-url" type="Amasty\Base\Plugin\Backend\Model\Menu\Item"/>
+    </type>
+
+    <type name="Magento\Backend\Model\Menu\Builder">
+        <plugin name="Amasty_Base::menu_builder" type="Amasty\Base\Plugin\Backend\Model\Menu\Builder"/>
     </type>
 </config>

@@ -1,23 +1,23 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Base
  */
 
 
 namespace Amasty\Base\Block;
 
+use Magento\Framework\App\ProductMetadataInterface;
 use Magento\Framework\App\State;
 use Magento\Framework\Data\Form\Element\AbstractElement;
 
+/**
+ * Class Info
+ * @package Amasty\Base\Block
+ */
 class Info extends \Magento\Config\Block\System\Config\Form\Fieldset
 {
-    /**
-     * @var \Magento\Framework\View\LayoutFactory
-     */
-    private $_layoutFactory;
-    
     /**
      * @var \Magento\Cron\Model\ResourceModel\Schedule\CollectionFactory
      */
@@ -34,7 +34,7 @@ class Info extends \Magento\Config\Block\System\Config\Form\Fieldset
     private $resourceConnection;
 
     /**
-     * @var \Magento\Framework\App\ProductMetadataInterface
+     * @var ProductMetadataInterface
      */
     private $productMetadata;
 
@@ -44,35 +44,23 @@ class Info extends \Magento\Config\Block\System\Config\Form\Fieldset
     private $reader;
 
     /**
-     * Info constructor.
-     *
-     * @param \Magento\Backend\Block\Context                               $context
-     * @param \Magento\Backend\Model\Auth\Session                          $authSession
-     * @param \Magento\Framework\View\Helper\Js                            $jsHelper
-     * @param \Magento\Framework\View\LayoutFactory                        $layoutFactory
-     * @param \Magento\Cron\Model\ResourceModel\Schedule\CollectionFactory $cronFactory
-     * @param \Magento\Framework\App\Filesystem\DirectoryList              $directoryList
-     * @param \Magento\Framework\App\DeploymentConfig\Reader               $reader
-     * @param \Magento\Framework\App\ResourceConnection                    $resourceConnection
-     * @param \Magento\Framework\App\ProductMetadataInterface              $productMetadata
-     * @param array                                                        $data
+     * @var \Magento\Config\Block\System\Config\Form\Field|null
      */
+    protected $fieldRenderer;
+
     public function __construct(
         \Magento\Backend\Block\Context $context,
         \Magento\Backend\Model\Auth\Session $authSession,
         \Magento\Framework\View\Helper\Js $jsHelper,
-        \Magento\Framework\View\LayoutFactory $layoutFactory,
         \Magento\Cron\Model\ResourceModel\Schedule\CollectionFactory $cronFactory,
         \Magento\Framework\App\Filesystem\DirectoryList $directoryList,
         \Magento\Framework\App\DeploymentConfig\Reader $reader,
         \Magento\Framework\App\ResourceConnection $resourceConnection,
-        \Magento\Framework\App\ProductMetadataInterface $productMetadata,
+        ProductMetadataInterface $productMetadata,
         array $data = []
     ) {
         parent::__construct($context, $authSession, $jsHelper, $data);
 
-        $this->_layoutFactory = $layoutFactory;
-        $this->_scopeConfig   = $context->getScopeConfig();
         $this->cronFactory = $cronFactory;
         $this->directoryList = $directoryList;
         $this->resourceConnection = $resourceConnection;
@@ -104,20 +92,20 @@ class Info extends \Magento\Config\Block\System\Config\Form\Fieldset
     /**
      * @return \Magento\Framework\View\Element\BlockInterface
      */
-    private function _getFieldRenderer()
+    private function getFieldRenderer()
     {
-        if (empty($this->_fieldRenderer)) {
-            $layout = $this->_layoutFactory->create();
-
-            $this->_fieldRenderer = $layout->createBlock(
+        if (empty($this->fieldRenderer)) {
+            $this->fieldRenderer = $this->_layout->createBlock(
                 \Magento\Config\Block\System\Config\Form\Field::class
             );
         }
 
-        return $this->_fieldRenderer;
+        return $this->fieldRenderer;
     }
 
     /**
+     * @param AbstractElement $fieldset
+     *
      * @return string
      */
     private function getMagentoMode($fieldset)
@@ -131,6 +119,8 @@ class Info extends \Magento\Config\Block\System\Config\Form\Fieldset
     }
 
     /**
+     * @param AbstractElement $fieldset
+     *
      * @return string
      */
     private function getMagentoPathInfo($fieldset)
@@ -142,27 +132,28 @@ class Info extends \Magento\Config\Block\System\Config\Form\Fieldset
     }
 
     /**
-     * @param $fieldset
+     * @param AbstractElement $fieldset
+     *
      * @return string
      */
     private function getOwnerInfo($fieldset)
     {
-        if (function_exists('posix_getpwuid') && function_exists('posix_geteuid')) {
-            $userInfo = posix_getpwuid(posix_geteuid());
-            $userInfo = isset($userInfo['name']) ? $userInfo['name'] : '';
-            return $this->fieldHtml($userInfo, $fieldset);
+        $serverUser = __('Unknown');
+        if (function_exists('get_current_user')) {
+            $serverUser = get_current_user();
         }
 
-        if (function_exists('exec')) {
-            $userInfo = exec('whoami');
-            return $this->fieldHtml($userInfo, $fieldset);
-        }
-
-        return $this->fieldHtml(get_current_user(), $fieldset);
+        return $this->getFieldHtml(
+            $fieldset,
+            'magento_user',
+            __("Server User"),
+            $serverUser
+        );
     }
 
     /**
      * @param AbstractElement $fieldset
+     *
      * @return string
      */
     private function getSystemTime($fieldset)
@@ -176,24 +167,8 @@ class Info extends \Magento\Config\Block\System\Config\Form\Fieldset
     }
 
     /**
-     * @param $userInfo
-     * @param $fieldset
-     * @return string
-     */
-    private function fieldHtml($userInfo, $fieldset)
-    {
-        $label = __("Server User");
-
-        return $this->getFieldHtml(
-            $fieldset,
-            'magento_user',
-            $label,
-            $userInfo
-        );
-    }
-
-    /**
      * @param AbstractElement $fieldset
+     *
      * @return string
      */
     private function getCronInfo($fieldset)
@@ -232,15 +207,16 @@ class Info extends \Magento\Config\Block\System\Config\Form\Fieldset
      * @param string $fieldName
      * @param string $label
      * @param string $value
+     *
      * @return string
      */
-    private function getFieldHtml($fieldset, $fieldName, $label = '', $value = '')
+    protected function getFieldHtml($fieldset, $fieldName, $label = '', $value = '')
     {
         $field = $fieldset->addField($fieldName, 'label', [
             'name'  => 'dummy',
             'label' => $label,
             'after_element_html' => $value,
-        ])->setRenderer($this->_getFieldRenderer());
+        ])->setRenderer($this->getFieldRenderer());
 
         return $field->toHtml();
     }

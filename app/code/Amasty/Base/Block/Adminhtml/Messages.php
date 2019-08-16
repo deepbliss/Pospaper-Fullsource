@@ -1,13 +1,17 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Base
  */
 
 
 namespace Amasty\Base\Block\Adminhtml;
 
+/**
+ * Class Messages
+ * @package Amasty\Base\Block\Adminhtml
+ */
 class Messages extends \Magento\Backend\Block\Template
 {
     const AMASTY_BASE_SECTION_NAME = 'amasty_base';

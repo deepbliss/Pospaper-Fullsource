@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Base
  */
 
@@ -10,22 +10,26 @@ namespace Amasty\Base\Block;
 
 use Magento\Framework\Data\Form\Element\AbstractElement;
 
+/**
+ * Class Extensions
+ * @package Amasty\Base\Block
+ */
 class Extensions extends \Magento\Config\Block\System\Config\Form\Fieldset
 {
     /**
      * @var \Magento\Framework\Module\ModuleListInterface
      */
-    protected $_moduleList;
+    private $moduleList;
 
     /**
      * @var \Magento\Framework\View\LayoutFactory
      */
-    protected $_layoutFactory;
+    private $layoutFactory;
 
     /**
      * @var \Amasty\Base\Helper\Module
      */
-    protected $_moduleHelper;
+    private $moduleHelper;
 
     public function __construct(
         \Magento\Backend\Block\Context $context,
@@ -38,23 +42,23 @@ class Extensions extends \Magento\Config\Block\System\Config\Form\Fieldset
     ) {
         parent::__construct($context, $authSession, $jsHelper, $data);
 
-        $this->_moduleList    = $moduleList;
-        $this->_layoutFactory = $layoutFactory;
-        $this->_moduleHelper  = $moduleHelper;
-        $this->_scopeConfig   = $context->getScopeConfig();
+        $this->moduleList = $moduleList;
+        $this->layoutFactory = $layoutFactory;
+        $this->moduleHelper = $moduleHelper;
     }
 
     /**
      * Render fieldset html
      *
      * @param AbstractElement $element
+     *
      * @return string
      */
     public function render(AbstractElement $element)
     {
         $html = $this->_getHeaderHtml($element);
 
-        $modules = $this->_moduleList->getNames();
+        $modules = $this->moduleList->getNames();
 
         $dispatchResult = new \Magento\Framework\DataObject($modules);
         $modules = $dispatchResult->toArray();
@@ -63,7 +67,7 @@ class Extensions extends \Magento\Config\Block\System\Config\Form\Fieldset
         foreach ($modules as $moduleName) {
             if (strstr($moduleName, 'Amasty_') === false
                 || $moduleName === 'Amasty_Base'
-                || in_array($moduleName, $this->_moduleHelper->getRestrictedModules())
+                || in_array($moduleName, $this->moduleHelper->getRestrictedModules())
             ) {
                 continue;
             }
@@ -82,9 +86,7 @@ class Extensions extends \Magento\Config\Block\System\Config\Form\Fieldset
     protected function _getFieldRenderer()
     {
         if (empty($this->_fieldRenderer)) {
-            $layout = $this->_layoutFactory->create();
-
-            $this->_fieldRenderer = $layout->createBlock(
+            $this->_fieldRenderer = $this->_layout->createBlock(
                 \Magento\Config\Block\System\Config\Form\Field::class
             );
         }
@@ -94,26 +96,29 @@ class Extensions extends \Magento\Config\Block\System\Config\Form\Fieldset
 
     /**
      * Read info about extension from composer json file
+     *
      * @param $moduleCode
+     *
      * @return mixed
      * @throws \Magento\Framework\Exception\FileSystemException
      */
     protected function _getModuleInfo($moduleCode)
     {
-        return $this->_moduleHelper->getModuleInfo($moduleCode);
+        return $this->moduleHelper->getModuleInfo($moduleCode);
     }
 
     /**
      * @param $fieldset
      * @param $moduleCode
+     *
      * @return string
      */
     protected function _getFieldHtml($fieldset, $moduleCode)
     {
         $module = $this->_getModuleInfo($moduleCode);
-        if (!is_array($module) ||
-           !array_key_exists('version', $module) ||
-           !array_key_exists('description', $module)
+        if (!is_array($module)
+            || !array_key_exists('version', $module)
+            || !array_key_exists('description', $module)
         ) {
             return '';
         }
@@ -122,31 +127,35 @@ class Extensions extends \Magento\Config\Block\System\Config\Form\Fieldset
         $moduleName = $module['description'];
         $moduleName = $this->_replaceAmastyText($moduleName);
         $status =
-             '<a target="_blank">
-                <img src="'. $this->getViewFileUrl('Amasty_Base::images/ok.gif') . '" title="' . __("Installed") . '"/>
+            '<a target="_blank">
+                <img src="' . $this->getViewFileUrl('Amasty_Base::images/ok.gif') . '" title="' . __("Installed") . '"/>
              </a>';
 
-        $allExtensions = $this->_moduleHelper->getAllExtensions();
+        $allExtensions = $this->moduleHelper->getAllExtensions();
         if ($allExtensions && isset($allExtensions[$moduleCode])) {
             $singleRecord = array_key_exists('name', $allExtensions[$moduleCode]);
             $ext = $singleRecord ? $allExtensions[$moduleCode] : end($allExtensions[$moduleCode]);
 
-            $url     = $ext['url'];
-            $name    = $ext['name'];
+            $url = $ext['url'];
+            $name = $ext['name'];
             $name = $this->_replaceAmastyText($name);
             $lastVer = $ext['version'];
 
-            $moduleName =
-                '<a href="' . $url . '" target="_blank" title="' . $name . '">'
+            if ($url) {
+                $moduleName =
+                    '<a href="' . $url . '" target="_blank" title="' . $name . '">'
                     . $name .
-                '</a>';
+                    '</a>';
+            } else {
+                $moduleName = $name;
+            }
 
             if (version_compare($currentVer, $lastVer, '<')) {
                 $status =
                     '<a href="' . $url . '" target="_blank">
                         <img src="' . $this->getViewFileUrl('Amasty_Base::images/update.gif') .
-                            '" alt="' . __("Update available") . '" title="'. __("Update available")
-                    .'"/></a>';
+                    '" alt="' . __("Update available") . '" title="' . __("Update available")
+                    . '"/></a>';
             }
         }
 
@@ -156,23 +165,28 @@ class Extensions extends \Magento\Config\Block\System\Config\Form\Fieldset
             $status =
                 '<a' . $href . ' target="_blank">
                     <img src="' . $this->getViewFileUrl('Amasty_Base::images/bad.gif') .
-                '" alt="' . __("Output disabled") . '" title="'. __("Output disabled")
-                .'"/></a>';
+                '" alt="' . __("Output disabled") . '" title="' . __("Output disabled")
+                . '"/></a>';
         }
 
         $moduleName = $status . ' ' . $moduleName;
 
-        $field = $fieldset->addField($moduleCode, 'label', [
-            'name'  => 'dummy',
-            'label' => $moduleName,
-            'value' => $currentVer,
-        ])->setRenderer($this->_getFieldRenderer());
+        $field = $fieldset->addField(
+            $moduleCode,
+            'label',
+            [
+                'name' => 'dummy',
+                'label' => $moduleName,
+                'value' => $currentVer,
+            ]
+        )->setRenderer($this->_getFieldRenderer());
 
         return $field->toHtml();
     }
 
     /**
      * @param $moduleName
+     *
      * @return mixed
      */
     protected function _replaceAmastyText($moduleName)

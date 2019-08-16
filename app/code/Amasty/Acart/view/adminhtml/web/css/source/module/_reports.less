@@ -1,0 +1,175 @@
+//
+//  Abandoned Cart Email
+//  ____________________________________________
+
+//
+//  Variables
+//  _____________________________________________
+@amacart-email-icon__background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDciIGhlaWdodD0iMzAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTM5IDEuNDE1djI1LjE3YzAgLjc2Mi0uNTQgMS40MTUtMS4yOTcgMS40MTVIMS40MDVDLjY0OCAyOCAwIDI3LjM0NyAwIDI2LjU4NVYxLjQxNUMwIC42NTMuNjQ4IDAgMS40MDUgMGgzNi4yOThDMzguNDYgMCAzOSAuNjUzIDM5IDEuNDE1ek01LjUxIDIuNzIyTDE5LjUgMTQuNTg5IDMzLjQ5IDIuNzIySDUuNTF6TTM2LjMgNC4xMzdMMjAuMzY0IDE3LjQyYy0uNTQuMzI3LTEuMTg4LjMyNy0xLjYyIDBMMi43IDQuMTM3VjI1LjE3aDMzLjU5OFY0LjEzN3oiIGZpbGw9IiNFNkY2RkYiLz48Y2lyY2xlIGN4PSIzOCIgY3k9IjIxIiByPSI5IiBmaWxsPSIjRTZGNkZGIi8+PHBhdGggZD0iTTM3IDE3bDQgNC00IDQiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48L3N2Zz4=) no-repeat 90%;
+@amacart-cart-icon__background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDIiIGhlaWdodD0iMzkiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEuODkxIDQuMDAxYy0xLjA1Ny0uMDM0LTEuMjM2IDEuNTEyLS4yIDEuNzI2bDMuMjMuNzE2LjgzIDMuOTg3LjAwMS4wMDggNC4xMDUgMTguODc4Yy4wODcuNC40MzguNjg0Ljg0My42ODRIMzRjLjk4IDAgMS0xIDAtMUgxMS41bC0uODktNC40NGgyNC41ODZhLjg2Ni44NjYgMCAwIDAgLjg0My0uNjg0bDIuOTQtMTMuNDM5YS44Ny44NyAwIDAgMC0uODQzLTEuMDZjLTEwLjI4IDAtMjAuNTYgMC0zMC44NC0uMDA1bC0uOC0zLjg0YS44NjguODY4IDAgMCAwLS42Ni0uNjczTDIgNGMtLjA1Ni0uMDEzLS4xMDkgMC0uMTA5IDB2LjAwMXptMTQuMzQ2IDI3Ljc3NmMtMS42OSAwLTMuMDc2IDEuNDA0LTMuMDc2IDMuMTExIDAgMS43MDcgMS4zODYgMy4xMTIgMy4wNzYgMy4xMTIgMS42OSAwIDMuMDc1LTEuNDA1IDMuMDc1LTMuMTEycy0xLjM4Ni0zLjExMS0zLjA3NS0zLjExMXptMTIuMzg3IDBjLTEuNjkgMC0zLjA3NiAxLjQwNC0zLjA3NiAzLjExMSAwIDEuNzA3IDEuMzg2IDMuMTEyIDMuMDc2IDMuMTEyIDEuNjkgMCAzLjA3Ni0xLjQwNSAzLjA3Ni0zLjExMnMtMS4zODYtMy4xMTEtMy4wNzYtMy4xMTF6IiBzdHJva2U9IiNFNkY2RkYiIHN0cm9rZS13aWR0aD0iMiIvPjxjaXJjbGUgY3g9IjMzIiBjeT0iOSIgcj0iOSIgZmlsbD0iI0U2RjZGRiIvPjxwYXRoIGQ9Ik0zNiAxMGwtMyAzbTAgMGwtMy0zbTMgM1Y1IiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PC9zdmc+) no-repeat 90%;
+@amacart-money-icon__background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDQiIGhlaWdodD0iNDMiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik00NCA2LjA1N0M0NCAyLjg2IDM4LjM3NS42NiAzMS41NDcuNjZjLTYuODI3IDAtMTIuNDUzIDIuMjAxLTEyLjQ1MyA1LjM5NyAwIDMuMTk1IDUuNjI2IDUuMzk2IDEyLjQ1MyA1LjM5NiA2LjgyOCAwIDEyLjQ1My0yLjIgMTIuNDUzLTUuMzk2em0tMjIuOTkgMGMwLTEuNzcyIDQuNjY4LTMuNTk4IDEwLjUzNy0zLjU5OCA1Ljg3IDAgMTAuNTM3IDEuODI2IDEwLjUzNyAzLjU5OCAwIDEuNzcxLTQuNjY3IDMuNTk3LTEwLjUzNyAzLjU5Ny01Ljg3IDAtMTAuNTM3LTEuODI2LTEwLjUzNy0zLjU5N3oiIGZpbGw9IiNFNkY2RkYiLz48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE5LjA5NCAxMS44NjhjMCAzLjE5NSA1LjYyNiA1LjM5NiAxMi40NTMgNS4zOTYgNi44MjggMCAxMi40NTMtMi4yIDEyLjQ1My01LjM5NlY2LjQ3MmgtMS45MTZ2NS4zOTZjMCAxLjc3MS00LjY2NyAzLjU5Ny0xMC41MzcgMy41OTctNS44NyAwLTEwLjUzNy0xLjgyNi0xMC41MzctMy41OTdWNi40NzJoLTEuOTE2djUuMzk2eiIgZmlsbD0iI0U2RjZGRiIvPjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMTkuMDk0IDE1LjY3N3YtNC4yMjRoMS45MTZ2NC44NWE2LjI4MyA2LjI4MyAwIDAgMC0xLjkxNi0uNjI2em0xMC45NzIgOC4xODhjLjQ4Ni4wMjcuOTguMDQgMS40ODEuMDRDMzguMzc1IDIzLjkwNiA0NCAyMS4zNjcgNDQgMTcuNjh2LTYuMjI2aC0xLjkxNnY2LjIyNmMwIDIuMDQ0LTQuNjY3IDQuMTUxLTEwLjUzNyA0LjE1MWEyMy4yNyAyMy4yNyAwIDAgMS0zLjk4Ny0uMzM3IDEwLjkgMTAuOSAwIDAgMSAyLjUwNiAyLjM3MnoiIGZpbGw9IiNFNkY2RkYiLz48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTMyLjQ2IDI4Ljg4N0MzOC44NyAyOC42ODUgNDQgMjYuMzczIDQ0IDIzLjA4M3YtNS44MTloLTEuOTE2djUuODE5YzAgMS44NDktNC4zNzMgMy43NTMtOS45NzcgMy44NzMuMTc0LjYyMi4yOTQgMS4yNjguMzU0IDEuOTN6bS0xMS40NS05LjY0di0uMDQzaC0xLjkxNnYuNDAxYTEwLjM5IDEwLjM5IDAgMCAxIDEuOTE2LS4zNTh6IiBmaWxsPSIjRTZGNkZGIi8+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zMS41NDcgMzMuODY3aC4xODhjNi43MjQgMCAxMi4yNjUtMi4wMyAxMi4yNjUtNC45OHYtNC45ODFoLTEuODg3djQuOThjMCAxLjU4My00LjMwNiAzLjIxMy05LjgyNCAzLjMxNmE4LjQ1OSA4LjQ1OSAwIDAgMS0uNzQyIDEuNjY1eiIgZmlsbD0iI0U2RjZGRiIvPjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMjUuNzM2IDM5LjA2OWMxLjc1Ni4zOTQgMy43NjQuNjEgNS44ODkuNjFDMzguNDEgMzkuNjggNDQgMzcuNDggNDQgMzQuMjgzdi01LjM5NmgtMS45MDR2NS4zOTZjMCAxLjc3MS00LjYzOCAzLjU5Ny0xMC40NzEgMy41OTctMS4xMjYgMC0yLjIwOC0uMDY4LTMuMjItLjE5YTEwLjY0OSAxMC42NDkgMCAwIDEtMi42NyAxLjM3OXpNMTMuMDY2IDI1LjU2NWwtLjE5OC4wMDFDNS44MTMgMjUuNTY2IDAgMjMuMTk2IDAgMTkuNzU1YzAtMy40NDIgNS44MTMtNS44MTIgMTIuODY4LTUuODEyIDcuMDU1IDAgMTIuODY4IDIuMzcgMTIuODY4IDUuODEyIDAgLjEzMy0uMDA5LjI2NC0uMDI2LjM5NGExMS4wNiAxMS4wNiAwIDAgMC0xLjk1NS0uMzVsLjAwMS0uMDQ0YzAtMS45MDgtNC44MjMtMy44NzQtMTAuODg4LTMuODc0LTYuMDY1IDAtMTAuODg4IDEuOTY2LTEwLjg4OCAzLjg3NCAwIDEuOTA4IDQuODIzIDMuODc0IDEwLjg4OCAzLjg3NC41MjEgMCAxLjAzNC0uMDE1IDEuNTM1LS4wNDItLjUxNy42MDYtLjk2NyAxLjI3LTEuMzM3IDEuOTc4eiIgZmlsbD0iI0U2RjZGRiIvPjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMTEuOTIxIDMxLjM3N0M1LjMwMSAzMS4xNjEgMCAyOC42ODQgMCAyNS4xNnYtNi4yMzVoMS45OHY2LjIzNWMwIDEuOTM5IDQuMzMgMy45MzQgOS45NDQgNC4xMzlhMTIuMTI0IDEyLjEyNCAwIDAgMC0uMDAzIDIuMDh6bTEzLjgxNS0xMi4wMjJ2LS40M2gtMS45OHYuMDQ2Yy42OC4wNjQgMS4zNDIuMTk0IDEuOTguMzg0eiIgZmlsbD0iI0U2RjZGRiIvPjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMTMuMjgzIDM1LjQ5OGMtLjQ0Ny4wMi0uOTAxLjAzLTEuMzYyLjAzQzUuMzg1IDM1LjUyOCAwIDMzLjQ5NyAwIDMwLjU0OHYtNC45ODJoMS44MzR2NC45ODFjMCAxLjYzNSA0LjQ2OCAzLjMyIDEwLjA4NyAzLjMyaC4xODNhOS4xMSA5LjExIDAgMCAwIDEuMTc5IDEuNjMyeiIgZmlsbD0iI0U2RjZGRiIvPjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMjIuNDE1IDQwLjM3Yy0yLjM0NiAxLjEzMy01LjgyIDEuOC05LjY2OCAxLjhDNS43NTggNDIuMTcgMCAzOS45NyAwIDM2Ljc3NHYtNS4zOTdoMS45NjF2NS4zOTdjMCAxLjc3MSA0Ljc3OCAzLjU5NyAxMC43ODYgMy41OTcgMi4yMTIgMCA0LjI1Ni0uMjQ3IDUuOTU3LS42NDggMS4xNTUuNDA0IDIuNDA1LjYzMiAzLjcxMS42NDd6IiBmaWxsPSIjRTZGNkZGIi8+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMyA0MmM2LjYyNyAwIDEyLTUuMzczIDEyLTEycy01LjM3My0xMi0xMi0xMi0xMiA1LjM3My0xMiAxMiA1LjM3MyAxMiAxMiAxMnoiIGZpbGw9IiNFNkY2RkYiLz48cGF0aCBkPSJNMTcgMjlsNSA1IDctOCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==) no-repeat 90%;
+@amacart-plate-chart__width: 480px;
+
+//
+//  Common
+//  ----------------------------------------------
+
+& when (@media-common = true) {
+    .amacart-report-container {
+        .amacart-title {
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #363636;
+        }
+
+        > .amacart-separator {
+            margin: 40px 0;
+            width: 100%;
+            border: 1px solid #e3e3e3;
+        }
+
+        > .amacart-block,
+        .amacart-plates-container,
+        .amacart-efficiency-container .amacart-chart {
+            display: inline-block;
+            margin-right: 60px;
+            vertical-align: top;
+        }
+    }
+
+    .amacart-report-error {
+        display: none;
+    }
+
+    .amacart-report-statistic {
+        & {
+            min-width: 450px;
+        }
+
+        .amacart-wrapper {
+            padding: 0 20px;
+
+            &:extend(.amacart-plate-shadow);
+        }
+    }
+
+    .amacart-reports-table {
+        & {
+            width: 100%;
+        }
+
+        .amacart-row:not(:last-child) {
+            border-bottom: 1px solid #ccc;
+        }
+
+        .amacart-value {
+            padding-left: 10px;
+            text-align: right;
+            font-weight: bold;
+        }
+
+        .amacart-name {
+            padding: 10px 0;
+        }
+    }
+
+    .amacart-efficiency-container {
+        > .amacart-title {
+            margin-bottom: 5px;
+        }
+
+        > .amacart-chart {
+            display: inline-block;
+            margin-bottom: 20px;
+            .lib-css(min-width, @amacart-plate-chart__width);
+            height: 220px;
+
+            &:extend(.amacart-plate-shadow);
+        }
+
+        > .amacart-value {
+            font-size: 50px;
+            line-height: 1;
+        }
+    }
+
+    .amacart-rate-container .amacart-chart {
+        margin-bottom: 20px;
+        .lib-css(min-width, @amacart-plate-chart__width);
+        height: 140px;
+
+        &:extend(.amacart-plate-shadow);
+    }
+
+    .amacart-revenue-container .amacart-chart {
+        display: inline-block;
+        min-width: 450px;
+        max-height: 160px;
+        vertical-align: top;
+    }
+
+    .amacart-plates-container {
+        & {
+            width: 230px;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        .amacart-value {
+            color: #363636;
+            font-size: 28px;
+        }
+
+        .amacart-label {
+            margin-right: 10px;
+        }
+
+        .amacart-plate {
+            .lib-vendor-prefix-display(flex);
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+            .lib-vendor-box-align(center);
+            padding: 11px 20px;
+
+            &:extend(.amacart-plate-shadow);
+        }
+
+        .amacart-plate.-email {
+            .lib-css(background, @amacart-email-icon__background);
+        }
+
+        .amacart-plate.-cart {
+            .lib-css(background, @amacart-cart-icon__background);
+        }
+
+        .amacart-plate.-money {
+            .lib-css(background, @amacart-money-icon__background);
+        }
+
+        .amacart-plate.-background .amacart-value {
+            margin-right: 20px;
+        }
+
+        .amacart-plate:not(:last-of-type) {
+            margin-bottom: 20px;
+        }
+    }
+
+    .amacart-plate-shadow {
+        background: #fff;
+        border-radius: 4px;
+        box-shadow: 0 4px 8px rgba(23, 135, 224, .1);
+    }
+
+    // Override magento styling - fix appearance data range
+    .amacart-actions-container {
+        .field-row:nth-child(3),
+        .field-row:nth-child(4) {
+            display: none;
+        }
+    }
+}

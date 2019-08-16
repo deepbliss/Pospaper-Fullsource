@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Base
  */
 
@@ -10,6 +10,10 @@ namespace Amasty\Base\Helper;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\Helper\AbstractHelper;
 
+/**
+ * Class Deploy
+ * @package Amasty\Base\Helper
+ */
 class Deploy extends AbstractHelper
 {
 
@@ -50,6 +54,7 @@ class Deploy extends AbstractHelper
 
     public function moveFilesFromTo($fromPath, $toPath)
     {
+        //phpcs:ignore
         $baseName = basename($fromPath);
         $files = $this->rootRead->readRecursively($fromPath);
         array_unshift($files, $fromPath);

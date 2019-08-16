@@ -2,7 +2,7 @@
 <!--
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Base
  */
 -->
@@ -16,6 +16,10 @@
             <label><![CDATA[Extensions &amp; Notifications]]></label>
             <tab>amasty</tab>
             <resource>Amasty_Base::config</resource>
+            <group id="amasty_search" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Search</label>
+                <frontend_model>Amasty\Base\Block\Search</frontend_model>
+            </group>
             <group id="notifications" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="0"
                    showInStore="0">
                 <label>Notifications</label>
@@ -32,13 +36,25 @@
                 </field>
             </group>
 
-            <group id="extensions" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0"
+            <group id="menu" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0"
+                   showInStore="0">
+                <label>Menu</label>
+                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Enable Amasty Menu Item</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <backend_model>Amasty\Base\Model\Config\Backend\Menu</backend_model>
+                </field>
+                <frontend_model>Amasty\Base\Block\MenuGroup</frontend_model>
+            </group>
+
+            <group id="extensions" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0"
                    showInStore="0">
                 <label>Installed Extensions</label>
                 <frontend_model>Amasty\Base\Block\Extensions</frontend_model>
             </group>
 
-            <group id="information" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="0"
+            <group id="information" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="0"
                    showInStore="0">
                 <label>System Information</label>
                 <frontend_model>Amasty\Base\Block\Info</frontend_model>

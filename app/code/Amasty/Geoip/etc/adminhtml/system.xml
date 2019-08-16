@@ -2,7 +2,7 @@
 <!--
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Geoip
  */
 -->
@@ -10,7 +10,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/system_file.xsd">
     <system>
-        <section id="amgeoip" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+        <section id="amgeoip" translate="label" type="text" sortOrder="70504" showInDefault="1" showInWebsite="1" showInStore="1">
             <label>Geo Ip Data</label>
             <tab>amasty</tab>
             <resource>Amasty_Geoip::amasty_geoip</resource>

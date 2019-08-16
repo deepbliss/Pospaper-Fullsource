@@ -1,0 +1,104 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_Acart
+ */
+?>
+<?php
+/** @var \Amasty\Acart\Block\Adminhtml\Reports\Statistics $block */
+$ajaxUrl = $block->getUrl('amasty_acart/reports/ajax');
+$statisticFields = $block->getStatisticFields();
+?>
+
+<div class="amacart-report-container">
+    <div class="amacart-rate-container amacart-block">
+        <p class="amacart-title">
+            <?= $block->escapeHtml(__('Cart Abandonment Rate'))?>
+        </p>
+        <div id="amacart-rate-chart" class="amacart-chart"></div>
+    </div>
+    <div class="amacart-revenue-container amacart-block">
+        <p class="amacart-title">
+            <?= $block->escapeHtml(__('Revenue'))?>
+        </p>
+        <div class="amacart-plates-container">
+            <div class="amacart-plate">
+                <span class="amacart-label">
+                    <?= $block->escapeHtml(__('Potential Revenue'))?>
+                </span>
+                <span class="amacart-value" data-amacart-js="potential-revenue">0</span>
+            </div>
+            <div class="amacart-plate">
+                <span class="amacart-label">
+                    <?= $block->escapeHtml(__('Recovered Revenue'))?>
+                </span>
+                <span class="amacart-value" data-amacart-js="recovered-revenue-plate">0</span>
+            </div>
+        </div>
+        <div id="amacart-revenue-chart" class="amacart-chart"></div>
+    </div>
+
+    <div class="amacart-separator"></div>
+
+    <div class="amacart-efficiency-container amacart-block">
+        <p class="amacart-title">
+            <?= $block->escapeHtml(__('Abandoned Cart Email Efficiency'))?>
+        </p>
+        <p class="amacart-value" data-amacart-js="efficiency">0</p>
+        <div id="amacart-efficiency-chart" class="amacart-chart"></div>
+        <div class="amacart-plates-container">
+            <div class="amacart-plate -email -background">
+                <span class="amacart-label">
+                    <?= $block->escapeHtml(__('Emails Sent'))?>
+                </span>
+                <span class="amacart-value" data-amacart-js="email-sent-plate">0</span>
+            </div>
+            <div class="amacart-plate -cart -background">
+                <span class="amacart-label">
+                    <?= $block->escapeHtml(__('Carts Restored'))?>
+                </span>
+                <span class="amacart-value" data-amacart-js="cart-restored-plate">0</span>
+            </div>
+            <div class="amacart-plate -money -background">
+                <span class="amacart-label">
+                    <?= $block->escapeHtml(__('Orders Placed'))?>
+                </span>
+                <span class="amacart-value" data-amacart-js="orders-placed-plate">0</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="amacart-report-statistic amacart-block">
+        <p class="amacart-title">
+            <?= $block->escapeHtml(__('Statistics')) ?>
+        </p>
+        <div class="amacart-wrapper">
+            <table class="amacart-reports-table">
+                <?php foreach ($statisticFields as $statisticKey => $statisticField) : ?>
+                    <tr class="amacart-row">
+                        <td class="amacart-name col-name">
+                            <?= $statisticField ?>
+                        </td>
+                        <td class="amacart-value" data-amacart-js="<?= $statisticKey ?>">0</td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+        <br>
+        <span>
+            <?= $block->escapeHtml(__('* unshipped and uninvoiced orders also count towards statistics')) ?>
+        </span>
+    </div>
+</div>
+<div class="amacart-report-error message" data-amacart-js="report-error"></div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "amasty_acart_reports": {
+             "ajaxUrl": "<?= $block->escapeUrl($ajaxUrl) ?>"
+            }
+        }
+    }
+</script>

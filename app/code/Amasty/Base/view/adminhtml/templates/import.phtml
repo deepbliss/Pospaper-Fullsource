@@ -1,0 +1,28 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_Base
+ */
+?>
+<?php
+/**
+ * @var \Amasty\Base\Block\Import $block
+ */
+?>
+<script>
+    require([
+            'jquery',
+            'Magento_Ui/js/modal/alert',
+            'prototype'
+        ], function($) {
+            //<![CDATA[
+            var entity = $('#entity');
+            entity.hide();
+            entity.closest('fieldset').find('label.label.admin__field-label').css('visibility','hidden');
+            $(entity).val('<?= $block->escapeHtml($block->getImportEntity()) ?>');
+            varienImport.handleEntityTypeSelector();
+            //]]>
+        }
+    );
+</script>

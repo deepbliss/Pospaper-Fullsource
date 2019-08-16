@@ -1,0 +1,71 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_Acart
+ */
+?>
+<?php $_helper = $this->helper('Magento\Catalog\Helper\Output'); ?>
+
+<ul style="list-style-type: none; padding-top: 10px;">
+    <?php if ($block->getQuote()): ?>
+        <?php foreach ($block->getItems() as $_item): ?>
+            <?php $_product = $block->getProduct($_item); ?>
+            <li style="border-bottom: 1px solid #F0F0F0; padding: 5px 0px;">
+
+                <?php if ($block->showImage()): ?>
+                    <?php $block->initProductImageHelper($_product, 'amasty_acart_items_list'); ?>
+                    <?php $_imageHelper = $block->getProductImageHelper(); ?>
+                    <div style="display: table-cell; vertical-align: top;">
+                        <a style="text-decoration:none !important;"
+                           href="<?= $block->getProductUrl($_product); ?>">
+                            <img src="<?= $_imageHelper->getUrl() ?>"
+                                 alt="<?= $block->escapeHtml($_imageHelper->getLabel()) ?>"
+                                 width="<?= $_imageHelper->getWidth() ?>"
+                                 height="<?= $_imageHelper->getHeight() ?>"/>
+                        </a>
+                    </div>
+                <?php endif; ?>
+
+                <div style="display: table-cell; vertical-align: top;">
+                    <div style="font-size: 1.8rem; margin: -3px 0 5px;">
+                        <a style="text-decoration:none !important;"
+                           href="<?= $block->getProductUrl($_product); ?>">
+                            <?= /** @escapeNotVerified */ $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
+                        </a>
+                    </div>
+                    <?php if ($block->showOptionList() && $_options = $block->getProductOptions($_product)): ?>
+                        <dl>
+                            <?php foreach ($_options as $_option) : ?>
+                                <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
+                                <dt style="float: left; clear: left; padding-right: 5px;"><?= $block->escapeHtml($_option['label']) ?>:
+                                </dt>
+                                <dd style="float: left;">
+                                    <?php if (isset($_formatedOptionValue['full_view'])): ?>
+                                        <?= /** @escapeNotVerified */ $_formatedOptionValue['full_view'] ?>
+                                    <?php else: ?>
+                                        <?= /** @escapeNotVerified */ $_formatedOptionValue['value'] ?>
+                                    <?php endif; ?>
+                                </dd>
+                            <?php endforeach; ?>
+                        </dl>
+                    <?php endif; ?>
+                    <div style="clear: left;">
+                        <?php if ($block->showDescription()) : ?>
+                            <?= /** @escapeNotVerified */ $_helper->productAttribute($_product, $_product->getDescription(), 'description') ?>
+                        <?php endif; ?>
+                    </div>
+                    <div>
+                        <?php if ($block->showPrice()) : ?>
+                            <span style="padding-right: 5px; font-weight: 700; margin-bottom: 5px; margin-top: 0;"><?= __("Price") ?>: </span>
+                            <span style="font-size: 1.8rem; color: #666666;">
+                            <?= $block->getPrice($_product); ?>
+                        </span>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+            </li>
+        <?php endforeach; ?>
+    <?php endif; ?>
+</ul>

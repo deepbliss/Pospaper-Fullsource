@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Base
  */
 
@@ -13,6 +13,10 @@ use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Filesystem\Io\File;
 use Magento\Framework\View\Asset\Repository;
 
+/**
+ * Class CssChecker
+ * @package Amasty\Base\Helper
+ */
 class CssChecker extends AbstractHelper
 {
     const CSS_EXIST_PATH = 'css/styles-m.css';

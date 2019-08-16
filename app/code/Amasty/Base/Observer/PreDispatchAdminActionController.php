@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Base
  */
 
@@ -10,6 +10,10 @@ namespace Amasty\Base\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
 
+/**
+ * Class PreDispatchAdminActionController
+ * @package Amasty\Base\Observer
+ */
 class PreDispatchAdminActionController implements ObserverInterface
 {
     /**

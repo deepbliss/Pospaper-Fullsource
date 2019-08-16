@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Base
  */
 
@@ -11,6 +11,10 @@ namespace Amasty\Base\Controller\Adminhtml\Notification;
 use Amasty\Base\Model\Feed;
 use Magento\Backend\App\Action;
 
+/**
+ * Class Frequency
+ * @package Amasty\Base\Controller\Adminhtml\Notification
+ */
 class Frequency extends \Magento\Backend\App\Action
 {
     /**
@@ -81,7 +85,7 @@ class Frequency extends \Magento\Backend\App\Action
         );
     }
 
-    private function decreaseFrequency()
+    protected function decreaseFrequency()
     {
         $currentValue = $this->getCurrentValue();
         $allValues = $this->frequency->toOptionArray();
@@ -105,7 +109,7 @@ class Frequency extends \Magento\Backend\App\Action
         );
     }
 
-    private function increaseFrequency()
+    protected function increaseFrequency()
     {
         $currentValue = $this->getCurrentValue();
         $allValues = $this->frequency->toOptionArray();
@@ -128,7 +132,7 @@ class Frequency extends \Magento\Backend\App\Action
         );
     }
 
-    private function changeFrequency($value)
+    protected function changeFrequency($value)
     {
         $this->configWriter->save(Feed::XML_FREQUENCY_PATH, $value);
         $this->reinitableConfig->reinit();
@@ -136,7 +140,7 @@ class Frequency extends \Magento\Backend\App\Action
         return $this;
     }
 
-    private function getCurrentValue()
+    protected function getCurrentValue()
     {
         return $this->config->getValue(Feed::XML_FREQUENCY_PATH);
     }

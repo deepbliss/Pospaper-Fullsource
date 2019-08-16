@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Base
  */
 
@@ -10,17 +10,23 @@ namespace Amasty\Base\Helper;
 
 use Magento\Framework\App\Helper\AbstractHelper;
 
+/**
+ * Class Utils
+ * @package Amasty\Base\Helper
+ */
 class Utils extends AbstractHelper
 {
     public function _exit($code = 0)
     {
-        $exit = create_function('$a', 'exit($a);');
-        $exit($code);
+        /** @codingStandardsIgnoreStart */
+        exit($code);
+        /** @codingStandardsIgnoreEnd */
     }
 
     public function _echo($a)
     {
-        $echo = create_function('$a', 'echo $a;');
-        $echo($a);
+        /** @codingStandardsIgnoreStart */
+        echo $a;
+        /** @codingStandardsIgnoreEnd */
     }
 }

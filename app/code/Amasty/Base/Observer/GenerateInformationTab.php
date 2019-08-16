@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Base
  */
 
@@ -11,9 +11,14 @@ namespace Amasty\Base\Observer;
 use Amasty\Base\Helper\Module;
 use Magento\Framework\Event\ObserverInterface;
 
+/**
+ * Class GenerateInformationTab
+ * @package Amasty\Base\Observer
+ */
 class GenerateInformationTab implements ObserverInterface
 {
     const SEO_PARAMS = '?utm_source=extension&utm_medium=backend&utm_campaign=';
+
     const MAGENTO_VERSION = '_m2';
 
     /**
@@ -48,14 +53,21 @@ class GenerateInformationTab implements ObserverInterface
      */
     private $assetRepo;
 
+    /**
+     * @var \Magento\Config\Model\Config\Structure
+     */
+    private $configStructure;
+
     public function __construct(
         Module $moduleHelper,
         \Magento\Framework\Module\Manager $moduleManager,
-        \Magento\Framework\View\Asset\Repository $assetRepo
+        \Magento\Framework\View\Asset\Repository $assetRepo,
+        \Magento\Config\Model\Config\Structure $configStructure
     ) {
         $this->moduleHelper = $moduleHelper;
         $this->moduleManager = $moduleManager;
         $this->assetRepo = $assetRepo;
+        $this->configStructure = $configStructure;
     }
 
     /**
@@ -89,7 +101,7 @@ class GenerateInformationTab implements ObserverInterface
     /**
      * @return string
      */
-    private function getLogoHtml()
+    protected function getLogoHtml()
     {
         $src = $this->assetRepo->getUrl("Amasty_Base::images/amasty_logo.svg");
         $href = 'https://amasty.com' . $this->getSeoparams() . 'amasty_logo_' . $this->getModuleCode();
@@ -119,7 +131,7 @@ class GenerateInformationTab implements ObserverInterface
                 if (isset($message['type']) && isset($message['text'])) {
                     $html .= '<div class="amasty-additional-content"><span class="message ' . $message['type'] . '">'
                         . $message['text']
-                        .'</span></div>';
+                        . '</span></div>';
                 }
             }
         }
@@ -163,13 +175,19 @@ class GenerateInformationTab implements ObserverInterface
         return $html;
     }
 
-    private function getCurrentVersion()
+    /**
+     * @return string|null
+     */
+    protected function getCurrentVersion()
     {
         $data = $this->moduleHelper->getModuleInfo($this->getModuleCode());
 
         return isset($data['version']) ? $data['version'] : null;
     }
 
+    /**
+     * @return string
+     */
     private function getModuleCode()
     {
         if (!$this->moduleCode) {
@@ -189,7 +207,7 @@ class GenerateInformationTab implements ObserverInterface
     /**
      * @return string
      */
-    private function getChangeLogLink()
+    protected function getChangeLogLink()
     {
         return $this->getModuleLink()
             . $this->getSeoparams() . 'changelog_' . $this->getModuleCode() . '#changelog';
@@ -204,7 +222,7 @@ class GenerateInformationTab implements ObserverInterface
             . __(
                 'Need help with the settings?'
                 . '  Please  consult the <a target="_blank" href="%1">user guide</a>'
-                .' to configure the extension properly.',
+                . ' to configure the extension properly.',
                 $this->getUserGuideLink()
             )
             . '</span></div>';
@@ -212,13 +230,16 @@ class GenerateInformationTab implements ObserverInterface
         return $html;
     }
 
+    /**
+     * @return string
+     */
     private function getUserGuideLink()
     {
         $link = $this->getBlock()->getUserGuide();
         if ($link) {
             $seoLink = $this->getSeoparams();
             if (strpos($link, '?') !== false) {
-                $seoLink =str_replace('?', '&', $seoLink);
+                $seoLink = str_replace('?', '&', $seoLink);
             }
 
             $link .= $seoLink . 'userguide_' . $this->getModuleCode();
@@ -236,10 +257,11 @@ class GenerateInformationTab implements ObserverInterface
     }
 
     /**
-     * @param $currentVer
+     * @param string $currentVer
+     *
      * @return bool
      */
-    private function isLastVersion($currentVer)
+    protected function isLastVersion($currentVer)
     {
         $result = true;
 
@@ -254,13 +276,57 @@ class GenerateInformationTab implements ObserverInterface
         return $result;
     }
 
-    private function getModuleName()
+    /**
+     * @return string
+     */
+    protected function getModuleName()
     {
-        $result = __('Extension');
-        $module = $this->getFeedModuleData();
-        if ($module && isset($module['name'])) {
-            $result = $module['name'];
-            $result = str_replace(' for Magento 2', '', $result);
+        $result = '';
+
+        $configTabs = $this->configStructure->getTabs();
+        if ($name = $this->findResourceName($configTabs)) {
+            $result = $name;
+        }
+
+        if (!$result) {
+            $module = $this->getFeedModuleData();
+            $result = __('Extension');
+            if ($module && isset($module['name'])) {
+                $result = $module['name'];
+                $result = str_replace(' for Magento 2', '', $result);
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param $config
+     *
+     * @return string
+     */
+    protected function findResourceName($config)
+    {
+        $result = '';
+        $currentNode = null;
+        foreach ($config as $node) {
+            if ($node->getId() == 'amasty') {
+                $currentNode = $node;
+                break;
+            }
+        }
+
+        if ($currentNode) {
+            foreach ($currentNode->getChildren() as $item) {
+                $data = $item->getData('resource');
+                if (isset($data['label'])
+                    && isset($data['resource'])
+                    && strpos($data['resource'], $this->getModuleCode() . '::') !== false
+                ) {
+                    $result = $data['label'];
+                    break;
+                }
+            }
         }
 
         return $result;
@@ -288,6 +354,7 @@ class GenerateInformationTab implements ObserverInterface
 
     /**
      * @param $currentVer
+     *
      * @return string
      */
     private function getModuleLink()
@@ -332,7 +399,8 @@ class GenerateInformationTab implements ObserverInterface
             if ($this->moduleManager->isEnabled($moduleName)) {
                 $messages[] = __(
                     'Incompatibility with the %1. '
-                    . 'To avoid the conflicts we strongly recommend turning off the 3rd party mod via the following command: "%2"',
+                    . 'To avoid the conflicts we strongly recommend turning off '
+                    . 'the 3rd party mod via the following command: "%2"',
                     $moduleName,
                     'magento module:disable ' . $moduleName
                 );

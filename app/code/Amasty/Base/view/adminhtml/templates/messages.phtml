@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Base
  */
 ?>
@@ -13,7 +13,7 @@ $messages = $block->getMessages();
     <?php foreach ($messages as $message) : ?>
         <div class="messages ambase-unsubscribe">
             <div class="message message-success success">
-                <div data-ui-id="messages-message-success"><?= $message;?></div>
+                <div data-ui-id="messages-message-success"><?= /* @noEscape */ $message;?></div>
             </div>
         </div>
     <?php endforeach; ?>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_Acart
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.main.actions">
+            <container htmlClass="amacart-actions-container" htmlTag="div">
+                <block class="Amasty\Acart\Block\Adminhtml\Reports\Filters" />
+            </container>
+        </referenceContainer>
+        <referenceContainer name="page.main.container">
+            <block class="Amasty\Acart\Block\Adminhtml\Reports\Statistics" template="Amasty_Acart::reports/statistics.phtml"  />
+        </referenceContainer>
+    </body>
+</page>

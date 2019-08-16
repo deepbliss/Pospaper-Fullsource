@@ -1,7 +1,7 @@
 .config-nav-block.amasty-tab strong:before {
-    background: url(../images/logo.png) no-repeat;
+    background: url(../images/logo.svg) no-repeat;
     width: 16px;
-    height: 19px;
+    height: 16px;
     content: '';
     display: inline-block;
     margin-right: 12px;
@@ -10,7 +10,7 @@
 
 .admin__menu [data-ui-id^="menu-amasty-"] .submenu-group-title span:before,
 .admin__menu [data-ui-id^="menu-magento-"] [data-ui-id^="menu-magento-"] [data-ui-id^="menu-amasty-"] span:before {
-    background: url(../images/logo-menu.png) no-repeat;
+    background: url(../images/logo-menu.svg) no-repeat;
     width: 16px;
     height: 19px;
     content: '';
@@ -31,7 +31,7 @@
 }
 
 .ambase-grid-message.amasty-grid-logo {
-    background: url(../images/logo_table.png) no-repeat;
+    background: url(../images/logo_table.svg) no-repeat;
 }
 
 .admin__action-dropdown-menu .notifications-entry:not(.notifications-entry-last) {
@@ -40,6 +40,69 @@
 }
 
 .admin__action-dropdown-menu .notifications-entry[data-ambase-logo="1"] {
-    background: url(../images/logo_popup.png) no-repeat 5px 7px;
+    background: url(../images/logo_popup.svg) no-repeat 5px 7px;
 }
 
+/* main amasty menu start*/
+#menu-menuamasty-base-menu .submenu .level-0 > a:before,
+#menu-menuamasty-base-menu .level-0:first-child > a:after {
+    content: '';
+    display: none;
+}
+
+#menu-menuamasty-base-menu .submenu .level-0 > a {
+    display: block;
+    width: 99%;
+    min-height: 0;
+    margin: .7rem 0;
+    padding: 1.25rem 1rem 1.25rem 2rem;
+    font-weight: 600;
+    font-size: 1.6rem;
+    text-align: left;
+    color: #a79d95;
+    text-transform: none;
+}
+
+#menu-menuamasty-base-menu .submenu .level-0 > a:hover {
+    background-color: #524d49;
+}
+
+#menu-menuamasty-base-menu .submenu .column .parent {
+    margin-bottom: 0;
+}
+
+#menu-menuamasty-base-menu .submenu .parent {
+    margin-bottom: 0.5rem;
+}
+
+#menu-menuamasty-base-menu .item-container .submenu {
+    transform: none;
+    opacity: 0;
+    transition-property: opacity;
+}
+
+#menu-menuamasty-base-menu .item-container._show .submenu {
+    opacity: 1;
+}
+
+#menu-menuamasty-base-menu > a:before {
+    content: '';
+    background:  url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjYiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNiAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTI2IDBIMTguNzUzNlYxLjQ5MzM5QzE3LjAzNyAwLjU0MTk1NSAxNS4wNjA2IDAgMTIuOTU2NSAwQzYuMzYyMzIgMCAxIDUuMzgxODIgMSAxMkMxIDE4LjYxODIgNi4zNjIzMiAyNCAxMi45NTY1IDI0QzE1LjA1ODcgMjQgMTcuMDM1NyAyMy40NTMxIDE4Ljc1MzYgMjIuNDkzNVYyNEgyNlYwWk03LjM0MDU4IDEyQzcuMzQwNTggMTUuMTI3MyA5Ljg3NjgxIDE3LjYzNjQgMTIuOTU2NSAxNy42MzY0QzE2LjA3MjUgMTcuNjM2NCAxOC41NzI1IDE1LjEyNzMgMTguNTcyNSAxMkMxOC41NzI1IDguODcyNzMgMTYuMDcyNSA2LjM2MzY0IDEyLjk1NjUgNi4zNjM2NEM5Ljg3NjgxIDYuMzYzNjQgNy4zNDA1OCA4Ljg3MjczIDcuMzQwNTggMTJaIiBmaWxsPSIjQUFBNTlGIi8+PHBhdGggZD0iTTcgMTdIMFYyNEg3VjE3WiIgZmlsbD0iIzU3NTc1NyIvPjwvc3ZnPg==) no-repeat center;
+    background-size: contain;
+}
+
+#menu-menuamasty-base-menu > a:hover:before,
+#menu-menuamasty-base-menu._show > a:before {
+    background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjYiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNiAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTI2IDBIMTguNzUzNlYxLjQ5MzM5QzE3LjAzNyAwLjU0MTk1NSAxNS4wNjA2IDAgMTIuOTU2NSAwQzYuMzYyMzIgMCAxIDUuMzgxODIgMSAxMkMxIDE4LjYxODIgNi4zNjIzMiAyNCAxMi45NTY1IDI0QzE1LjA1ODcgMjQgMTcuMDM1NyAyMy40NTMxIDE4Ljc1MzYgMjIuNDkzNVYyNEgyNlYwWk03LjM0MDU4IDEyQzcuMzQwNTggMTUuMTI3MyA5Ljg3NjgxIDE3LjYzNjQgMTIuOTU2NSAxNy42MzY0QzE2LjA3MjUgMTcuNjM2NCAxOC41NzI1IDE1LjEyNzMgMTguNTcyNSAxMkMxOC41NzI1IDguODcyNzMgMTYuMDcyNSA2LjM2MzY0IDEyLjk1NjUgNi4zNjM2NEM5Ljg3NjgxIDYuMzYzNjQgNy4zNDA1OCA4Ljg3MjczIDcuMzQwNTggMTJaIiBmaWxsPSIjRkNGQ0ZDIi8+PHBhdGggZD0iTTcgMTdIMFYyNEg3VjE3WiIgZmlsbD0iIzU3NTc1NyIvPjwvc3ZnPg==) no-repeat center;
+    background-size: contain;
+}
+
+.admin__menu .level-0 > .submenu .submenu {
+    min-height: 100%;
+    width: 300px;
+}
+
+.admin__menu .submenu .submenu .submenu-title {
+    height: 60px;
+}
+/* main amasty menu end*/

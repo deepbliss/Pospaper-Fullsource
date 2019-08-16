@@ -1,0 +1,74 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_Acart
+ */
+?>
+<?php $_helper = $this->helper('Magento\Catalog\Helper\Output'); ?>
+<?php if ($block->getQuote()): ?>
+    <table cellspacing="0" cellpadding="0" border="0" style="width: 100%;">
+        <tr>
+            <?php $i = 0;
+            foreach ($block->getItems() as $_item):
+            $i++ ?>
+            <?php $_product = $block->getProduct($_item); ?>
+
+            <td width="32%" style="padding: 10px;">
+                <div style="font-size: 1.8rem; margin: -3px 0 5px;">
+                    <a style="text-decoration:none !important;" href="<?= $block->getProductUrl($_product); ?>">
+                        <?= /** @escapeNotVerified */ $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
+                    </a>
+                </div>
+                <?php if ($block->showImage()): ?>
+                    <?php $block->initProductImageHelper($_product, 'amasty_acart_items_table'); ?>
+                    <?php $_imageHelper = $block->getProductImageHelper(); ?>
+                    <div style="vertical-align: top; width: 100%; text-align: center;">
+                        <a style="text-decoration:none !important;"
+                           href="<?= $block->getProductUrl($_product); ?>">
+                            <img src="<?= $_imageHelper->getUrl() ?>"
+                                 alt="<?= $block->escapeHtml($_imageHelper->getLabel()) ?>"
+                                 width="<?= $_imageHelper->getWidth() ?>"
+                                 height="<?= $_imageHelper->getHeight() ?>"/>
+                        </a>
+                    </div>
+                <?php endif; ?>
+                <?php if ($block->showOptionList() && $_options = $block->getProductOptions($_product)): ?>
+                    <dl>
+                        <?php foreach ($_options as $_option) : ?>
+                            <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
+                            <dt style="float: left; clear: left; padding-right: 5px;"><?= $block->escapeHtml($_option['label']) ?>:
+                            </dt>
+                            <dd style="float: left;">
+                                <?php if (isset($_formatedOptionValue['full_view'])): ?>
+                                    <?= /** @escapeNotVerified */ $_formatedOptionValue['full_view'] ?>
+                                <?php else: ?>
+                                    <?= /** @escapeNotVerified */ $_formatedOptionValue['value'] ?>
+                                <?php endif; ?>
+                            </dd>
+                        <?php endforeach; ?>
+                    </dl>
+                <?php endif; ?>
+                <div style="clear: left;">
+                    <?php if ($block->showDescription()) : ?>
+                        <?= /** @escapeNotVerified */ $_helper->productAttribute($_product, $_product->getDescription(), 'description') ?>
+                    <?php endif; ?>
+                </div>
+                <div>
+                    <?php if ($block->showPrice()) : ?>
+                        <span style="padding-right: 5px; font-weight: 700; margin-bottom: 5px; margin-top: 0;"><?= __("Price") ?>: </span>
+                        <span style="font-size: 1.8rem; color: #666666;">
+                        <?= $block->getPrice($_product); ?>
+                    </span>
+                    <?php endif; ?>
+                </div>
+            </td>
+
+            <?php if ($i % 3 == 0): ?>
+        </tr>
+        <tr>
+            <?php endif; ?>
+            <?php endforeach; ?>
+        </tr>
+    </table>
+<?php endif; ?>

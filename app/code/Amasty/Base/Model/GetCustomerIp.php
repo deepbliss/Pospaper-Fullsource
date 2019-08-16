@@ -1,13 +1,17 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Base
  */
 
 
 namespace Amasty\Base\Model;
 
+/**
+ * Class GetCustomerIp
+ * @package Amasty\Base\Model
+ */
 class GetCustomerIp
 {
     /**

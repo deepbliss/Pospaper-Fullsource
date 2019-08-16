@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_Acart
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::marketing">
+                    <resource id="Amasty_Acart::acart" title="Amasty: Abandoned Cart Email" sortOrder="30" >
+                        <resource id="Amasty_Acart::acart_rule" title="Campaigns" sortOrder="10" />
+                        <resource id="Amasty_Acart::acart_queue" title="Emails Queue" sortOrder="20" />
+                        <resource id="Amasty_Acart::acart_history" title="History" sortOrder="30" />
+                        <resource id="Amasty_Acart::acart_blacklist" title="Blacklist" sortOrder="40" />
+                    </resource>
+                </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Amasty_Acart::amasty_acart" title="Amasty Abandoned Cart Email" sortOrder="161812" />
+                        </resource>
+                    </resource>
+                </resource>
+                <resource id="Magento_Reports::report">
+                    <resource id="Magento_Reports::report_marketing">
+                        <resource id="Amasty_Acart::acart_reports" sortOrder="192013" title="Amasty Abandoned Cart Reports Page" />
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

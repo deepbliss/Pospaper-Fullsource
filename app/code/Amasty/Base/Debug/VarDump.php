@@ -1,13 +1,19 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Base
  */
 
 
 namespace Amasty\Base\Debug;
 
+/**
+ * For Remote Debug
+ * Output is to front
+ * @codeCoverageIgnore
+ * @codingStandardsIgnoreFile
+ */
 class VarDump
 {
     /**
@@ -25,13 +31,13 @@ class VarDump
      */
     private static $amastyIps = [
         '213.184.226.82',
-        '87.252.238.217'
+        '87.252.238.217',
     ];
 
     /**
      * @var int
      */
-    private static $objectDepthLevel = 2;
+    private static $objectDepthLevel = 1;
 
     /**
      * @var int
@@ -173,8 +179,9 @@ class VarDump
     public static function amastyExit($code = 0)
     {
         if (self::isAllowed()) {
-            $exit = create_function('$code', 'exit($code);');
-            $exit($code);
+            /** @codingStandardsIgnoreStart */
+            exit($code);
+            /** @codingStandardsIgnoreEnd */
         }
     }
 
@@ -184,8 +191,9 @@ class VarDump
     public static function amastyEcho($string)
     {
         if (self::isAllowed()) {
-            $echo = create_function('$string', 'echo($string);');
-            $echo($string);
+            /** @codingStandardsIgnoreStart */
+            echo $string;
+            /** @codingStandardsIgnoreEnd */
         }
     }
 }

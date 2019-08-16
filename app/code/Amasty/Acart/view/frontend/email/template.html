@@ -1,0 +1,126 @@
+<!--@subject {{var store.getFrontendName()}}: Items in your shopping bag  @-->
+<!--@vars
+{"var store.getFrontendName()":"Store Name",
+"var urlmanager.unsubscribeUrl()":"Unsubscribe Url",
+"var urlmanager.mageUrl('checkout/cart/index')":"Place Order Url",
+"var urlmanager.mageUrl('checkout/index/index')":"Checkout Url",
+"var history.getSalesRuleCoupon()":"Coupon Code",
+"var history.getSalesRuleCouponExpirationDate()":"Coupon Expiration Date",
+"var formatmanager.formatTime('quote','updated_at') | raw":"Abandonment Date With Time",
+"var formatmanager.formatDate('quote','updated_at') | raw":"Abandonment Date",
+"var ruleQuote.getCustomerFirstname()":"First Name",
+"var ruleQuote.getCustomerLastname()":"Last Name",
+"var quote.getCustomerMiddlename()":"Middle Name",
+"var quote.getCustomerSuffix()":"Suffix",
+"var var formatmanager.formatPrice('quote','subtotal') | raw":"Subtotal",
+"var formatmanager.formatPrice('quote','discount') | raw":"Discount",
+"var formatmanager.formatPrice('quote','subtotal_with_discount') | raw":"Subtotal With Discount",
+"var quote.getGrandTotal()":"Grand Total",
+"var customerIsGuest":"Customer Is Guest",
+"layout area=\"frontend\" handle=\"amasty_acart_email\" rule=$rule quote=$quote history=$history ruleQuote=$ruleQuote mode=list showImage=yes showConfigurableImage=no showPrice=yes priceFormat=excludeTax showDescription=yes optionList=yes":"Quote Products",
+"layout area=\"frontend\" handle=\"amasty_acart_email_related\" rule=$rule quote=$quote history=$history ruleQuote=$ruleQuote mode=list showImage=yes showConfigurableImage=no showPrice=yes priceFormat=excludeTax showDescription=yes optionList=yes":"Related Products",
+"layout area=\"frontend\" handle=\"amasty_acart_email_crosssell\" rule=$rule quote=$quote history=$history ruleQuote=$ruleQuote mode=list showImage=yes showConfigurableImage=no showPrice=yes priceFormat=excludeTax showDescription=yes optionList=yes":"Cross-Sell Products",
+"layout area=\"frontend\" handle=\"amasty_acart_email_upsell\" rule=$rule quote=$quote history=$history ruleQuote=$ruleQuote mode=list showImage=yes showConfigurableImage=no showPrice=yes priceFormat=excludeTax showDescription=yes optionList=yes":"Up-Sell Products",
+"layout area=\"frontend\" handle=\"amasty_acart_email_wishlist\" rule=$rule quote=$quote history=$history ruleQuote=$ruleQuote mode=list showImage=yes showConfigurableImage=no showPrice=yes priceFormat=excludeTax showDescription=yes optionList=yes":"WishList Products"
+}
+@-->
+{{template config_path="design/email/header_template"}}
+<ul style="list-style-type: none; padding: 0;">
+    <li style="font-family: 'Myriad Pro', 'Verdana', Geneva;">
+        <span style="font-size: 18pt;">
+            {{if customerIsGuest}}
+                {{trans "Hello,"}}
+            {{else}}
+                {{trans "Dear %firstName %lastName,"
+                firstName=$ruleQuote.getCustomerFirstname()
+                lastName=$ruleQuote.getCustomerLastname()}}
+            {{/if}}
+        </span><br/>
+        {{trans "You have items in your shopping bag."}}
+        {{depend quote.getDiscount()}}
+        <br/>{{trans "Get them with discount!"}}
+        {{/depend}}
+    </li>
+    <li>
+        <table width="100%" style="font-size: 12pt;font-family: 'Myriad Pro', 'Verdana', Geneva;">
+            <tr>
+                <td align="left" >
+                    <img src="{{view url='Amasty_Acart/images/phone.png'}}" style="top: 4px; position: relative;" alt="" />
+                    {{var store_phone}}
+                </td>
+                <td align="center">
+                    <img src="{{view url='Amasty_Acart/images/mail.png'}}" style="top: 4px; position: relative;" alt="" />
+                    {{var store_email}}
+                </td>
+                <td align="right">
+                    <img src="{{view url='Amasty_Acart/images/arrow.png'}}" style="top: 4px; position: relative;" alt="" />
+                    <a href="mailto:{{var store_email}}">{{trans "reply to this mail"}}</a>
+                </td>
+            </tr>
+        </table>
+    </li>
+    {{depend history.getSalesRuleCoupon()}}
+    <li>
+        <div style="padding: 10px 20px 10px 20px; text-align: center;">
+            <hr style="border: 0; border-top: 1px dashed #cccccc; margin: 0;" />
+            {{trans "Save money with coupon code <span style="border: 1px solid #E0E0E0; margin-left: 10px; background-color: #f9f9f9;">%coupon</span> !" coupon=$history.getSalesRuleCoupon() | raw }}<br/>
+            {{if history.getSalesRuleCouponExpirationDate()}}
+            {{trans "Coupon expiration date: <span style="border: 1px solid #E0E0E0; margin-left: 10px; background-color: #f9f9f9;">%expiration_date</span> " expiration_date=$history.getSalesRuleCouponExpirationDate() | raw }}<br/>
+            {{/if}}
+            <hr style="border: 0; border-top: 1px dashed #cccccc; margin: 0;" />
+        </div>
+    </li>
+    {{/depend}}
+    <li>
+        {{layout
+            handle="amasty_acart_email"
+            rule=$rule
+            quote=$quote
+            history=$history
+            ruleQuote=$ruleQuote
+            mode=list
+            showImage=yes
+            showConfigurableImage=no
+            showPrice=yes
+            priceFormat=excludeTax
+            showDescription=yes
+            optionList=yes
+        }}
+    </li>
+    <li style="text-align: center">
+        <span style="font-weight: bold; font-size: 1.3em;">
+            {{trans "Subtotal"}}:
+        </span>
+        {{if quote.getDiscount()}}
+            <span style="text-decoration: line-through;">
+                {{var formatmanager.formatPrice('quote','subtotal') | raw}}
+            </span>
+            <span style="font-size: 1.8rem; color: #666666;">
+                {{var formatmanager.formatPrice('quote','subtotal_with_discount') | raw}}
+            </span>
+
+        {{else}}
+            <span style="font-size: 1.8rem; color: #666666;">
+                {{var formatmanager.formatPrice('quote','subtotal') | raw}}
+            </span>
+        {{/if}}
+    </li>
+    <li>
+        <div style="font-size: 16pt; font-weight: 600; text-align: center;">
+            <a style="text-decoration:none !important;" href="{{var urlmanager.mageUrl('checkout/cart/index')}}">
+                <div style="padding-top: 5px; width: 250px;height: 30px;background-color: #2AC711;border-radius:6px;color: #FFFFFF;margin: 0 auto;">
+                    {{trans "CHECK OUT"}}
+                </div>
+            </a>
+        </div>
+    </li>
+    <li>
+        <div style="text-align:center; font-size: 14pt; font-family: 'Myriad Pro', 'Verdana', Geneva;">
+            {{trans "Delivered by "}}{{config path="general/store_information/name"}}, {{config path="general/store_information/street_line1"}}, {{config path="general/store_information/city"}}, {{config path="general/store_information/phone"}}
+            <a href="{{var urlmanager.unsubscribeUrl()}}">
+                {{trans "Unsubscribe"}}
+            </a>
+        </div>
+    </li>
+</ul>
+{{template config_path="design/email/footer_template"}}

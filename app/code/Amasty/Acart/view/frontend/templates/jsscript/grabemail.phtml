@@ -1,0 +1,20 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_Acart
+ */
+?>
+<?php if ($block->isAvailable()) :?>
+<script>
+    require([
+        'amasty_acart_grabemail'
+    ], function (grabemail) {
+        //<![CDATA[
+        grabemail.isNeedLogEmail = <?= $block->getNeedLogEmail();?> ;
+        grabemail.run('<?php echo $block->getGrabUrl();?>');
+        window.amastyAcartGrabemail = grabemail;
+        //]]>
+    });
+</script>
+<?php endif;?>

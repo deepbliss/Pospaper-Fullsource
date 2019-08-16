@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Base
  */
 
@@ -10,6 +10,10 @@ namespace Amasty\Base\Model\Config\Backend;
 
 use Amasty\Base\Model\Source\NotificationType;
 
+/**
+ * Class Unsubscribe
+ * @package Amasty\Base\Model\Config\Backend
+ */
 class Unsubscribe extends \Magento\Framework\App\Config\Value implements
     \Magento\Framework\App\Config\Data\ProcessorInterface
 {
@@ -44,26 +48,31 @@ class Unsubscribe extends \Magento\Framework\App\Config\Value implements
     public function afterSave()
     {
         if ($this->isValueChanged()) {
-            $value = explode(',', $this->getValue());
-            if (in_array(NotificationType::UNSUBSCRIBE_ALL, $value)) {
-                $changes = [NotificationType::UNSUBSCRIBE_ALL];
-            } else {
-                $oldValue = explode(',', $this->getOldValue());
-                $changes = array_diff($oldValue, $value);
-                $changes = array_diff($changes, [NotificationType::UNSUBSCRIBE_ALL]);
-            }
-
-            if (!empty($changes)) {
-                foreach ($changes as $change) {
-                    $message = $this->generateMessage($change);
-                    $this->messageManager->addMessage($message);
-                }
-            } else {
-                $this->messageManager->clear();
-            }
+            $this->prepareMessage();
         }
 
         return parent::afterSave();
+    }
+
+    private function prepareMessage()
+    {
+        $value = explode(',', $this->getValue());
+        if (in_array(NotificationType::UNSUBSCRIBE_ALL, $value)) {
+            $changes = [NotificationType::UNSUBSCRIBE_ALL];
+        } else {
+            $oldValue = explode(',', $this->getOldValue());
+            $changes = array_diff($oldValue, $value);
+            $changes = array_diff($changes, [NotificationType::UNSUBSCRIBE_ALL]);
+        }
+
+        if (!empty($changes)) {
+            foreach ($changes as $change) {
+                $message = $this->generateMessage($change);
+                $this->messageManager->addMessage($message);
+            }
+        } else {
+            $this->messageManager->clear();
+        }
     }
 
     /**
@@ -77,7 +86,7 @@ class Unsubscribe extends \Magento\Framework\App\Config\Value implements
         return $value;
     }
 
-    private function generateMessage($change)
+    protected function generateMessage($change)
     {
         $message = '';
         $titles = $this->notificationType->toOptionArray();

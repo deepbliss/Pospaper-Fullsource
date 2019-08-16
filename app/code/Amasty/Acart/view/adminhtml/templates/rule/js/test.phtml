@@ -1,0 +1,18 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_Acart
+ */
+?>
+<?php /** @var \Amasty\Acart\Block\Adminhtml\Rule\Test $block */ ?>
+<script>
+    require([
+        'amasty_acart_test'
+    ], function (test) {
+        //<![CDATA[
+        test.init('<?php echo $block->getUrl('amasty_acart/rule/testEmail')?>', '<?php echo $block->getRule()->getId()?>', '<?php echo ('Test email(s) sent')?>');
+        window.amastyAcartTest = test;
+        //]]>
+    })
+</script>

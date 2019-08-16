@@ -1,24 +1,28 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Base
  */
 
 
 namespace Amasty\Base\Helper;
 
-use Magento\Framework\App\Helper\AbstractHelper;
 use SimpleXMLElement;
 use Zend\Http\Client\Adapter\Curl as CurlClient;
 use Zend\Http\Response as HttpResponse;
 use Zend\Uri\Http as HttpUri;
 use Magento\Framework\Json\DecoderInterface;
 
-class Module extends AbstractHelper
+/**
+ * Class Module
+ * @package Amasty\Base\Helper
+ */
+class Module
 {
     const EXTENSIONS_PATH = 'ambase_extensions';
-    const URL_EXTENSIONS  = 'http://amasty.com/feed-extensions-m2.xml';
+
+    const URL_EXTENSIONS = 'http://amasty.com/feed-extensions-m2.xml';
 
     /**
      * @var \Amasty\Base\Model\Serializer
@@ -34,6 +38,11 @@ class Module extends AbstractHelper
      * @var \Magento\Framework\App\CacheInterface
      */
     protected $cache;
+
+    /**
+     * @var array|null
+     */
+    private $modulesData = null;
 
     /**
      * @var array
@@ -58,27 +67,32 @@ class Module extends AbstractHelper
      */
     private $jsonDecoder;
 
+    /**
+     * @var \Magento\Framework\Escaper
+     */
+    private $escaper;
+
     public function __construct(
-        \Magento\Framework\App\Helper\Context $context,
         \Amasty\Base\Model\Serializer $serializer,
         \Magento\Framework\App\CacheInterface $cache,
         \Magento\Framework\Module\Dir\Reader $moduleReader,
         \Magento\Framework\Filesystem\Driver\File $filesystem,
         DecoderInterface $jsonDecoder,
-        CurlClient $curl
+        CurlClient $curl,
+        \Magento\Framework\Escaper $escaper
     ) {
-        parent::__construct($context);
-
         $this->cache = $cache;
         $this->serializer = $serializer;
         $this->curlClient = $curl;
         $this->moduleReader = $moduleReader;
         $this->filesystem = $filesystem;
         $this->jsonDecoder = $jsonDecoder;
+        $this->escaper = $escaper;
     }
 
     /**
      * Get array with info about all Amasty Magento2 Extensions
+     *
      * @return bool|mixed
      */
     public function getAllExtensions()
@@ -96,23 +110,29 @@ class Module extends AbstractHelper
     /**
      * Save extensions data to magento cache
      */
-    protected function reload()
+    public function reload()
     {
         $feedData = [];
         $feedXml = $this->getFeedData();
         if ($feedXml && $feedXml->channel && $feedXml->channel->item) {
+            $moduleInfo = $this->getModuleInfo('Amasty_Base');
+            $origin = isset($moduleInfo['extra']['origin']) ? $moduleInfo['extra']['origin'] : null;
             foreach ($feedXml->channel->item as $item) {
-                $code = (string)$item->code;
+                $code = $this->escaper->escapeHtml((string)$item->code);
 
                 if (!isset($feedData[$code])) {
                     $feedData[$code] = [];
                 }
 
-                $feedData[$code][(string)$item->title] = [
-                    'name'    => (string)$item->title,
-                    'url'     => (string)$item->link,
-                    'version' => (string)$item->version,
-                    'conflictExtensions' => (string)$item->conflictExtensions,
+                $title = $this->escaper->escapeHtml((string)$item->title);
+
+                $productPageLink = $origin == 'marketplace' ? $item->market_link : $item->link;
+                $feedData[$code][$title] = [
+                    'name'               => $title,
+                    'url'                => $this->escaper->escapeUrl((string)($productPageLink)),
+                    'version'            => $this->escaper->escapeHtml((string)$item->version),
+                    'conflictExtensions' => $this->escaper->escapeHtml((string)$item->conflictExtensions),
+                    'guide'              => $this->escaper->escapeUrl((string)$item->guide),
                 ];
             }
 
@@ -124,6 +144,7 @@ class Module extends AbstractHelper
 
     /**
      * Read data from xml file with curl
+     *
      * @return bool|SimpleXMLElement
      */
     protected function getFeedData()
@@ -134,9 +155,11 @@ class Module extends AbstractHelper
             $location = self::URL_EXTENSIONS;
             $uri = new HttpUri($location);
 
-            $curlClient->setOptions([
-                'timeout'   => 8
-            ]);
+            $curlClient->setOptions(
+                [
+                    'timeout' => 8
+                ]
+            );
 
             $curlClient->connect($uri->getHost(), $uri->getPort());
             $curlClient->write('GET', $uri, 1.0);
@@ -144,7 +167,7 @@ class Module extends AbstractHelper
 
             $curlClient->close();
 
-            $xml  = new SimpleXMLElement($data->getContent());
+            $xml = new SimpleXMLElement($data->getContent());
         } catch (\Exception $e) {
             return false;
         }
@@ -181,8 +204,10 @@ class Module extends AbstractHelper
 
     /**
      * Read info about extension from composer json file
-     * @param $moduleCode
-     * @return mixed
+     *
+     * @param string $moduleCode
+     *
+     * @return array
      * @throws \Magento\Framework\Exception\FileSystemException
      */
     public function getModuleInfo($moduleCode)
@@ -198,5 +223,29 @@ class Module extends AbstractHelper
         }
 
         return $json;
+    }
+
+    /**
+     * @param string $moduleCode
+     *
+     * @return array
+     */
+    public function getFeedModuleData($moduleCode)
+    {
+        $moduleData = [];
+        if ($this->modulesData === null || $this->modulesData === false) {
+            $this->modulesData = $this->getAllExtensions();
+        }
+
+        if ($this->modulesData && isset($this->modulesData[$moduleCode])) {
+            $module = $this->modulesData[$moduleCode];
+            if ($module && is_array($module)) {
+                $module = array_shift($module);
+            }
+
+            $moduleData = $module;
+        }
+
+        return $moduleData;
     }
 }

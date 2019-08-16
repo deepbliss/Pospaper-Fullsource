@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Base
  */
 
@@ -37,7 +37,9 @@ class Serializer
     public function serialize($value)
     {
         if ($this->serializer === null) {
+            //@codingStandardsIgnoreStart
             return serialize($value);
+            //@codingStandardsIgnoreEnd
         }
 
         return $this->serializer->serialize($value);
@@ -52,7 +54,9 @@ class Serializer
         try {
             return $this->serializer->unserialize($value);
         } catch (\InvalidArgumentException $exception) {
+            //@codingStandardsIgnoreStart
             return unserialize($value);
+            //@codingStandardsIgnoreEnd
         }
     }
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_CronScheduleList
+ */
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Amasty_CronScheduleList::css/messages.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Amasty\CronScheduleList\Block\Adminhtml\Advertising" name="amasty_cron_advertising"/>
+            <block class="Amasty\CronScheduleList\Block\Adminhtml\Notice" name="amasty_cron_notice" template="Amasty_CronScheduleList::notice.phtml" />
+            <uiComponent name="amasty_cronschedulelist_schedule_listing"/>
+        </referenceContainer>
+    </body>
+</page>

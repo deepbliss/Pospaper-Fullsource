@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Base
  */
 
@@ -10,6 +10,7 @@ namespace Amasty\Base\Model;
 
 use Amasty\Base\Model\AdminNotification\Model\ResourceModel\Inbox\Collection\ExistsFactory;
 use Amasty\Base\Model\Source\NotificationType;
+use Magento\Framework\Escaper;
 use Magento\Framework\HTTP\Adapter\Curl;
 use Magento\Framework\Notification\MessageInterface;
 use Magento\Store\Model\ScopeInterface;
@@ -17,6 +18,10 @@ use Amasty\Base\Model\AdminNotification\Model\ResourceModel\Inbox\Collection\Exp
 use Amasty\Base\Model\AdminNotification\Model\ResourceModel\Inbox\Collection\ExpiredFactory;
 use Amasty\Base\Helper\Module;
 
+/**
+ * Class Feed
+ * @package Amasty\Base\Model
+ */
 class Feed
 {
     const HOUR_MIN_SEC_VALUE = 60 * 60 * 24;
@@ -98,6 +103,16 @@ class Feed
      */
     private $moduleHelper;
 
+    /**
+     * @var Escaper
+     */
+    private $escaper;
+
+    /**
+     * @var \Zend\Uri\Uri
+     */
+    protected $baseUrlObject;
+
     public function __construct(
         \Magento\Backend\App\ConfigInterface $config,
         \Magento\Framework\App\Config\ReinitableConfigInterface $reinitableConfig,
@@ -110,7 +125,8 @@ class Feed
         \Magento\Framework\Module\ModuleListInterface $moduleList,
         ExistsFactory $inboxExistsFactory,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
-        Module $moduleHelper
+        Module $moduleHelper,
+        Escaper $escaper
     ) {
         $this->config = $config;
         $this->reinitableConfig = $reinitableConfig;
@@ -124,6 +140,7 @@ class Feed
         $this->inboxExistsFactory = $inboxExistsFactory;
         $this->storeManager = $storeManager;
         $this->moduleHelper = $moduleHelper;
+        $this->escaper = $escaper;
     }
 
     /**
@@ -154,37 +171,20 @@ class Feed
                     continue;
                 }
 
-                $priority =(int)$item->priority ?: 1;
-                if ($priority <= $maxPriority) {
-                    continue; //add only one with the highest priority
-                }
-
-                if (!$this->validateByExtension((string)$item->extension)) {
-                    continue;
-                }
-
-                if (!$this->validateByAmastyCount($item->amasty_module_qty)) {
-                    continue;
-                }
-
-                if (!$this->validateByNotInstalled((string)$item->amasty_module_not)) {
-                    continue;
-                }
-
-                if (!$this->validateByExtension((string)$item->third_party_modules, true)) {
-                    continue;
-                }
-
-                if (!$this->validateByDomainZone((string)$item->domain_zone)) {
-                    continue;
-                }
-
-                if ($this->isItemExists($item)) {
+                $priority = (int)$item->priority ? : 1;
+                if ($priority <= $maxPriority
+                    || !$this->validateByExtension((string)$item->extension)
+                    || !$this->validateByAmastyCount($item->amasty_module_qty)
+                    || !$this->validateByNotInstalled((string)$item->amasty_module_not)
+                    || !$this->validateByExtension((string)$item->third_party_modules, true)
+                    || !$this->validateByDomainZone((string)$item->domain_zone)
+                    || $this->isItemExists($item)
+                ) {
                     continue;
                 }
 
                 $date = strtotime((string)$item->pubDate);
-                $expired =(string)$item->expirationDate ? strtotime((string)$item->expirationDate) : null;
+                $expired = (string)$item->expirationDate ? strtotime((string)$item->expirationDate) : null;
                 if ($installDate <= $date
                     && (!$expired || $expired > gmdate('U'))
                 ) {
@@ -198,7 +198,8 @@ class Feed
                         'title' => $this->convertString($item->title),
                         'description' => $this->convertString($item->description),
                         'url' => $this->convertString($item->link),
-                        'is_amasty' => 1
+                        'is_amasty' => 1,
+                        'image_url' => $this->convertString($item->image)
                     ];
                 }
             }
@@ -226,6 +227,7 @@ class Feed
 
     /**
      * @param \SimpleXMLElement $item
+     *
      * @return bool
      */
     private function isItemExists(\SimpleXMLElement $item)
@@ -270,7 +272,7 @@ class Feed
         $curlObject = $this->curlFactory->create();
         $curlObject->setConfig(
             [
-                'timeout'   => 2,
+                'timeout' => 2,
                 'useragent' => $this->productMetadata->getName()
                     . '/' . $this->productMetadata->getVersion()
                     . ' (' . $this->productMetadata->getEdition() . ')'
@@ -310,11 +312,13 @@ class Feed
 
     /**
      * @param \SimpleXMLElement $data
+     *
      * @return string
      */
     private function convertString(\SimpleXMLElement $data)
     {
-        $data = htmlspecialchars((string)$data);
+        $data = $this->escaper->escapeHtml((string)$data);
+
         return $data;
     }
 
@@ -332,7 +336,7 @@ class Feed
     private function getFeedUrl()
     {
         $scheme = $this->getCurrentScheme();
-        $url = $scheme ?: 'http://';
+        $url = $scheme ? : 'http://';
 
         return $url . self::URL_NEWS;
     }
@@ -357,7 +361,7 @@ class Feed
     }
 
     /**
-     * @return int|mixed
+     * @return int
      */
     private function getFirstModuleRun()
     {
@@ -372,8 +376,9 @@ class Feed
     }
 
     /**
-     * @param $path
+     * @param string $path
      * @param int $storeId
+     *
      * @return mixed
      */
     private function getModuleConfig($path, $storeId = null)
@@ -442,6 +447,7 @@ class Feed
 
     /**
      * @param string $extensions
+     *
      * @return bool
      */
     private function validateByExtension($extensions, $allModules = false)
@@ -466,6 +472,7 @@ class Feed
 
     /**
      * @param string $extensions
+     *
      * @return bool
      */
     private function validateByNotInstalled($extensions)
@@ -496,19 +503,26 @@ class Feed
     private function validateExtensionValue($extensions)
     {
         $extensions = explode(',', $extensions);
-        $extensions = array_filter($extensions, function ($item) {
-            return strpos($item, '_1') === false;
-        });
+        $extensions = array_filter(
+            $extensions,
+            function ($item) {
+                return strpos($item, '_1') === false;
+            }
+        );
 
-        $extensions = array_map(function ($item) {
-            return str_replace('_2', '', $item);
-        }, $extensions);
+        $extensions = array_map(
+            function ($item) {
+                return str_replace('_2', '', $item);
+            },
+            $extensions
+        );
 
         return $extensions;
     }
 
     /**
-     * @param $counts
+     * @param int|string $counts
+     *
      * @return bool
      */
     private function validateByAmastyCount($counts)
@@ -547,7 +561,7 @@ class Feed
     }
 
     /**
-     * @param $zones
+     * @param string $zones
      *
      * @return bool
      */
@@ -571,15 +585,10 @@ class Feed
      */
     private function getDomainZone()
     {
-        $domain = '';
-        $url = $this->storeManager->getStore()->getBaseUrl();
-        $components = parse_url($url);
-        if (isset($components['host'])) {
-            $host = explode('.', $components['host']);
-            $domain = end($host);
-        }
+        $host = $this->getBaseUrlObject()->getHost();
+        $host = explode('.', $host);
 
-        return $domain;
+        return end($host);
     }
 
     /**
@@ -587,14 +596,25 @@ class Feed
      */
     private function getCurrentScheme()
     {
-        $scheme = '';
-        $url = $this->storeManager->getStore()->getBaseUrl();
-        $components = parse_url($url);
-        if (isset($components['scheme'])) {
-            $scheme = $components['scheme'] . '://';
+        $scheme = $this->getBaseUrlObject()->getScheme();
+        if ($scheme) {
+            return $scheme . '://';
         }
 
-        return $scheme;
+        return '';
+    }
+
+    /**
+     * @return \Zend\Uri\Uri
+     */
+    private function getBaseUrlObject()
+    {
+        if ($this->baseUrlObject === null) {
+            $url = $this->storeManager->getStore()->getBaseUrl();
+            $this->baseUrlObject = \Zend\Uri\UriFactory::factory($url);
+        }
+
+        return $this->baseUrlObject;
     }
 
     /**
@@ -613,7 +633,7 @@ class Feed
                 $dataName[$data['name']] = $module;
             }
 
-            if (isset($data['require']) and is_array($data['require'])) {
+            if (isset($data['require']) && is_array($data['require'])) {
                 foreach ($data['require'] as $requireItem => $version) {
                     if (strpos($requireItem, 'amasty') !== false) {
                         $depend[] = $requireItem;

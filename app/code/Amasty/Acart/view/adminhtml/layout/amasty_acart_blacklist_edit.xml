@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_Acart
+ */
+-->
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Amasty\Acart\Block\Adminhtml\Blacklist\Edit" name="blacklist_edit"/>
+
+        </referenceContainer>
+        <referenceContainer name="left">
+                <block class="Amasty\Acart\Block\Adminhtml\Blacklist\Edit\Tabs" name="rule_tabs">
+                    <block class="Amasty\Acart\Block\Adminhtml\Blacklist\Edit\Tab\General" name="amasty_acart_blacklist_edit_tab_general" />
+
+                    <action method="addTab">
+                        <argument name="name" xsi:type="string">amasty_acart_blacklist_edit_tab_general</argument>
+                        <argument name="block" xsi:type="string">amasty_acart_blacklist_edit_tab_general</argument>
+                    </action>
+
+                </block>
+        </referenceContainer>
+    </body>
+</page>

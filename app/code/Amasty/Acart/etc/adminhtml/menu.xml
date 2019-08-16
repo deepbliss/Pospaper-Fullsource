@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_Acart
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Amasty_Acart::acart" title="Abandoned Cart Email" module="Amasty_Acart" parent="Magento_Backend::marketing" sortOrder="100" resource="Amasty_Acart::acart"/>
+
+        <add id="Amasty_Acart::acart_rule" title="Campaigns" sortOrder="10" module="Amasty_Acart" parent="Amasty_Acart::acart" action="amasty_acart/rule/" dependsOnModule="Amasty_Acart" resource="Amasty_Acart::acart_rule"/>
+
+        <add id="Amasty_Acart::acart_queue" title="Emails Queue" sortOrder="20" module="Amasty_Acart" parent="Amasty_Acart::acart" action="amasty_acart/queue/" dependsOnModule="Amasty_Acart" resource="Amasty_Acart::acart_queue"/>
+
+        <add id="Amasty_Acart::acart_history" title="History" sortOrder="30" module="Amasty_Acart" parent="Amasty_Acart::acart" action="amasty_acart/history/" dependsOnModule="Amasty_Acart" resource="Amasty_Acart::acart_history"/>
+
+        <add id="Amasty_Acart::acart_blacklist" title="Blacklist" sortOrder="40" module="Amasty_Acart" parent="Amasty_Acart::acart" action="amasty_acart/blacklist/" dependsOnModule="Amasty_Acart" resource="Amasty_Acart::acart_blacklist"/>
+
+        <add id="Amasty_Acart::acart_reports" title="Abandoned Cart Reports" sortOrder="50" module="Amasty_Acart" parent="Magento_Reports::report_marketing" action="amasty_acart/reports/" resource="Amasty_Acart::acart_reports"/>
+    </menu>
+</config>

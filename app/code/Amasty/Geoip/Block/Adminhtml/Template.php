@@ -1,12 +1,15 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Geoip
  */
 
 namespace Amasty\Geoip\Block\Adminhtml;
 
+/**
+ * Class Template
+ */
 class Template extends \Magento\Backend\Block\Template
 {
     /**
@@ -22,7 +25,4 @@ class Template extends \Magento\Backend\Block\Template
 
         $this->geoipHelper = $geoipHelper;
     }
-
-
-
 }

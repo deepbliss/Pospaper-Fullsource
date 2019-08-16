@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_Acart
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="amasty_acart_coupons" instance="Amasty\Acart\Cron\ClearCoupons" method="execute">
+            <schedule>0 0 * * *</schedule>
+        </job>
+        <job name="amasty_acart_history" instance="Amasty\Acart\Cron\ClearHistory" method="execute">
+            <schedule>0 0 * * *</schedule>
+        </job>
+        <job name="amasty_acart_refresh" instance="Amasty\Acart\Cron\RefreshHistory" method="execute">
+            <schedule>*/5 * * * *</schedule>
+        </job>
+    </group>
+</config>

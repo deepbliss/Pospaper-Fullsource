@@ -1,0 +1,17 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_CronScheduleList
+ */
+?>
+<?php /** @var \Amasty\CronScheduleList\Block\Adminhtml\Notice $block */ ?>
+
+<div class="amasty_cron_notice">
+    <div class="message">
+        <p>
+            <?= /* @escapeNotVerified */
+            __('Last Cron Activity: ') . $block->getLastActivity(); ?>
+        </p>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_Base
+ */
+?>
+<?php
+/** @var \Amasty\Base\Block\Search $block */
+?>
+<div class="ambase-search-container">
+    <div class="ambase-title"><?= $block->escapeHtml(__('Discover the functionality to level-up your store'))?></div>
+    <div class="ambase-wrapper">
+        <input id="amasty-search-input"
+               class="ambase-input"
+               type="search"
+               onkeypress="amastySearch.submit(event)"
+               placeholder="<?= $block->escapeHtml(__('What is your challenge? e.g. Site Speed, Search...'))?>" />
+        <button class="ambase-button" type="button" onclick="amastySearch.submit(event)"><?= $block->escapeHtml(__('Search')) ?></button>
+    </div>
+</div>
+<script type="text/javascript">
+    var amastySearch = {
+        submit: function (event) {
+            if (event instanceof KeyboardEvent && event.keyCode !== 13) {
+                return false;
+            }
+            event.preventDefault();
+            var searchValue = document.getElementById('amasty-search-input').value,
+                url = 'https://amasty.com/';
+
+            if (searchValue) {
+                searchValue = encodeURIComponent(searchValue);
+                url += 'catalogsearch/result/?q=' + searchValue + '&utm_source=extension&utm_medium=extnotif&utm_campaign=searchbar';
+            }
+            window.open(url);
+
+            document.getElementById('amasty-search-input').value = '';
+
+            return false;
+        }
+    }
+</script>

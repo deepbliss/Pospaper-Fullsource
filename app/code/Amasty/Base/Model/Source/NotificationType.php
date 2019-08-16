@@ -1,13 +1,17 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Base
  */
 
 
 namespace Amasty\Base\Model\Source;
 
+/**
+ * Class NotificationType
+ * @package Amasty\Base\Model\Source
+ */
 class NotificationType implements \Magento\Framework\Option\ArrayInterface
 {
     const GENERAL = 'INFO';

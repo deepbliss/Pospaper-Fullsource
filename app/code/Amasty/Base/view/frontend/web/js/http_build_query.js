@@ -12,7 +12,8 @@ define(
          * @param {string} str
          * @returns {string}
          */
-        function encodeComponentRaw (str) {
+        function encodeComponentRaw(str)
+        {
             str = (str + '');
             return encodeURIComponent(str)
                 .replace(/!/g, '%21')
@@ -28,7 +29,8 @@ define(
          * @param {string} str
          * @returns {string}
          */
-        function encodeComponent (str) {
+        function encodeComponent(str)
+        {
             return encodeComponentRaw(str).replace(/%20/g, '+');
         }
 
@@ -41,7 +43,8 @@ define(
          * @param {function (string)} encodeFunc
          * @returns {string}
          */
-        function buildParam (key, val, argSeparator, encodeFunc) {
+        function buildParam(key, val, argSeparator, encodeFunc)
+        {
             var result = [];
             if (val === true) {
                 val = '1';
@@ -77,7 +80,8 @@ define(
          * @param {string} encType
          * @returns {string}
          */
-        function httpBuildQuery (formData, numericPrefix, argSeparator, encType) {
+        function httpBuildQuery(formData, numericPrefix, argSeparator, encType)
+        {
             var result = [],
                 encode = (encType == 'PHP_QUERY_RFC3986') ? encodeComponentRaw : encodeComponent;
             if (!argSeparator) {

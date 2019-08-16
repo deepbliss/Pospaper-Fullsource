@@ -1,13 +1,19 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Base
  */
 
 
 namespace Amasty\Base\Debug;
 
+/**
+ * For Remote Debug
+ * Output is going to file amasty_debug.log
+ * @codeCoverageIgnore
+ * @codingStandardsIgnoreFile
+ */
 class Log
 {
     /**
@@ -23,7 +29,6 @@ class Log
     public static function execute()
     {
         if (VarDump::isAllowed()) {
-            VarDump::setObjectDepthLevel(1);
             foreach (func_get_args() as $var) {
                 self::logToFile(
                     System\LogBeautifier::getInstance()->beautify(
@@ -32,6 +37,22 @@ class Log
                 );
             }
         }
+    }
+
+    /**
+     * @param int $level
+     */
+    public static function setObjectDepthLevel($level)
+    {
+        VarDump::setObjectDepthLevel((int)$level);
+    }
+
+    /**
+     * @param int $level
+     */
+    public static function setArrayDepthLevel($level)
+    {
+        VarDump::setArrayDepthLevel((int)$level);
     }
 
     /**

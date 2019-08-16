@@ -1,0 +1,169 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_Acart
+ */
+?>
+<?php /** @var \Amasty\Acart\Block\Adminhtml\Rule\Edit\Tab\Schedule\Content $block */ ?>
+<?php $_value       = $block->getElement()->getCsvField()?>
+<?php $_htmlId      = $block->getElement()->getHtmlId() ?>
+<?php $_htmlClass   = $block->getElement()->getClass() ?>
+<?php $_htmlName    = $block->getElement()->getName() ?>
+<?php $_readonly    = $block->getElement()->getReadonly() ?>
+
+<?php if ($block->quoteLifetimeNoticeIsAvailable()): ?>
+    <div class="fields-comment message">
+        <?=  __('Please, mind that your emails sending period is greater than Quote Lifetime (days). (To check it, please, go to Stores->Configuration->Sales->Checkout->Shopping Cart->Quote Lifetime). ')
+        ; ?>
+    </div>
+<?php endif; ?>
+<legend class="admin__legend legend">
+    <span><?= __('Schedule') ?></span>
+    <div class="admin__field-tooltip">
+        <a class="admin__field-tooltip-action action-help amasty-tooltip-action" target="_blank"></a>
+        <div class="admin__field-tooltip-content amasty-tooltip-content">
+            <?= __('Please make sure that your cron is properly configured. We recommend to run cron every 5 minutes. <a href="%1" target="_blank">Learn more</a>', $block->getCronUrl()); ?>
+        </div>
+    </div>
+</legend>
+<div class="field" id="attribute-<?= $block->escapeHtml($_htmlId)?>_container">
+    <div class="control">
+    <table class="admin-control-table amasty-csv-table" id="fields_table">
+        <thead>
+            <tr>
+                <th class="required"><?= __('Transactional Email')?></th>
+                <th class="required am-delivery-header"><?= __('Delivery Time')?></th>
+                <th class="required am-coupon-header"><?= __('Coupon')?></th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody id="<?= $block->escapeHtml($_htmlId) ?>_container" class="am-schedule-container"></tbody>
+        <tfoot>
+             <tr>
+                <td colspan="4" class="col-actions-add"><?= $block->getAddRecordButtonHtml(); ?></td>
+            </tr>
+        </tfoot>
+    </table>
+    </div>
+</div>
+<script>
+require([
+    'amasty_acart_schedule'
+], function (schedule) {
+    //<![CDATA[
+    var fieldRowTemplate = ''
+        + '<tr id="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_schedule" class="am-csv-row" data-am-js="coupon">'
+            + '<td class="am-delivery-template">'
+                + '<input class="am-input" id="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_schedule_id" name="<?= $block->escapeHtml($_htmlName) ?>[<%- data.index %>][schedule_id]" type="hidden"/>'
+                + '<select id="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_template_id" name="<?= $block->escapeHtml($_htmlName) ?>[<%- data.index %>][template_id]" class="select">'
+                <?php foreach ($block->getEmailTemplateCollection() as $emailTemplate): ?>
+                    + '<option value="<?= $block->escapeHtml($emailTemplate->getId()) ?>"><?= $block->escapeHtml($emailTemplate->getTemplateCode()) ?></option>'
+                <?php endforeach; ?>
+                + '</select>'
+            + '</td>'
+            + '<td class="am-delivery">'
+                + '<div class="am-delivery-row">'
+                    + '<label class="am-label" for="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_days"><?= __("Days")?></label>'
+                    + '<input class="am-input" type=text id="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_days" name="<?= $block->escapeHtml($_htmlName) ?>[<%- data.index %>][days]"/>'
+                + '</div>'
+                + '<div class="am-delivery-row">'
+                    + '<label class="am-label" for="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_hours"><?= __("Hours")?></label>'
+                    + '<select class="am-select" id="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_hours" name="<?= $block->escapeHtml($_htmlName) ?>[<%- data.index %>][hours]">'
+                    + '<?= $block->getNumberOptions(24);?>'
+                    + '</select>'
+                + '</div>'
+                + '<div class="am-delivery-row">'
+                    + '<label class="am-label" for="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_minutes"><?= __("Minutes")?></label>'
+                    + '<select class="am-select" id="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_minutes" name="<?= $block->escapeHtml($_htmlName) ?>[<%- data.index %>][minutes]">'
+                    + '<?= $block->getNumberOptions(60);?>'
+                    + '</select>'
+                + '</div>'
+            + '</td>'
+            + '<td class="am-coupon">'
+                + '<div id="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_coupon_own" data-am-js="coupon-attributes">'
+                    + '<div id="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_coupon_main" class="am-coupon-main">'
+                        + '<div class="am-value-item">'
+                            + '<label class="am-label" for="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_simple_action"><?= __("Type")?></label>'
+                            + '<select id="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_simple_action" name="<?= $block->escapeHtml($_htmlName) ?>[<%- data.index %>][simple_action]" class="select am-select" data-am-js="coupon-type">'
+                                + '<option value=""><?= __('None')?></option>'
+                                + '<option value="<?= \Magento\SalesRule\Model\Rule::BY_PERCENT_ACTION?>"><?= __('Percent of product price discount')?></option>'
+                                + '<option value="<?= \Magento\SalesRule\Model\Rule::BY_FIXED_ACTION?>"><?= __('Fixed amount discount')?></option>'
+                                + '<option value="<?= \Magento\SalesRule\Model\Rule::CART_FIXED_ACTION?>"><?= __('Fixed amount discount for whole cart')?></option>'
+                                <?php if ($block->moduleEnabled('Amasty_Promo')):?>
+                                    + '<option value="<?= \Amasty\Promo\Model\Rule::PER_PRODUCT?>"><?= __('Auto add promo items with products')?></option>'
+                                    + '<option value="<?= \Amasty\Promo\Model\Rule::WHOLE_CART?>"><?= __('Auto add promo items for the whole cart')?></option>'
+                                    + '<option value="<?= \Amasty\Promo\Model\Rule::SAME_PRODUCT?>"><?= __('Auto add the same product')?></option>'
+                                <?php endif;?>
+                            + '</select>'
+                        + '</div>'
+                        + '<div class="am-value-item">'
+                            + '<label class="am-label" for="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_discount_amount"><?= __("Discount Amount")?></label>'
+                            + '<input id="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_discount_amount" name="<?= $block->escapeHtml($_htmlName) ?>[<%- data.index %>][discount_amount]" type="text" class="validate-not-negative-number input-text" data-am-js="value"/>'
+                        + '</div>'
+                    + '</div>'
+                    + '<div id="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_coupon_extra" class="am-coupon-extra">'
+                        + '<div class="am-value-item">'
+                            + '<label class="am-label" for="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_expired_in_days"><?= __("Expired in (days)")?></label>'
+                            + '<input id="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_expired_in_days" name="<?= $block->escapeHtml($_htmlName) ?>[<%- data.index %>][expired_in_days]" type="text" class=" input-text" data-am-js="value"/>'
+                        + '</div>'
+                        + '<div class="am-value-item">'
+                            + '<label class="am-label" for="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_discount_qty"><?= __("Maximum Qty Discount is Applied To")?></label>'
+                            + '<input id="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_discount_qty" name="<?= $block->escapeHtml($_htmlName) ?>[<%- data.index %>][discount_qty]" type="text" class=" input-text" data-am-js="value"/>'
+                        + '</div>'
+                        + '<div class="am-value-item">'
+                            + '<label class="am-label" for="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_discount_step"><?= __("Discount Qty Step (Buy X)")?></label>'
+                            + '<input id="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_discount_step" name="<?= $block->escapeHtml($_htmlName) ?>[<%- data.index %>][discount_step]" type="text" class=" input-text" data-am-js="value"/>'
+                        + '</div class="am-value-item">'
+                    + '</div>'
+                    + '<div id="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_coupon_links" class="am-coupon-hide">'
+                        + '<a id="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_show_more" href="#" onclick="return amastyAcartSchedule.showMore(event, <%- data.index %>);"><?= __("Expand")?></a>'
+                        + '<a id="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_show_less" href="#" onclick="return amastyAcartSchedule.showLess(event, <%- data.index %>);"><?= __("Collapse")?></a>'
+                    + '</div>'
+                + '</div>'
+                + '<div class="am-same-box" id="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_send_same_coupon_div" data-am-js="send-same-box">'
+                    + '<input id="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_send_same_coupon" name="<?= $block->escapeHtml($_htmlName) ?>[<%- data.index %>][send_same_coupon]" type="checkbox" value="1" class="input-checkbox am-sendsame-checkbox" data-am-js="send-same" onclick="return amastyAcartSchedule.sendSameCoupon(event, <%- data.index %>);"/>'
+                    + '<label class="am-label" for="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_send_same_coupon"><?= __('Send the Same Coupon Again')?></label>'
+                + '</div>'
+                + '<div class="am-cartrule-box" id="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_use_shopping_cart_rule_div" data-am-js="usecartrule-box">'
+                    + '<input id="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_use_shopping_cart_rule" name="<?= $block->escapeHtml($_htmlName) ?>[<%- data.index %>][use_shopping_cart_rule]" type="checkbox" value="1" class="input-checkbox am-usecartrule-checkbox" data-am-js="usecartrule-checkbox" onclick="return amastyAcartSchedule.useShoppingCartRule(event, <%- data.index %>);"/>'
+                    + '<label class="am-label" for="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_use_shopping_cart_rule"><?= __('Use Shopping Cart Rule')?></label>'
+                    + '<div id="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_coupon_cart_rule" class="am-coupon-cartrule">'
+                        <?php if ($block->isShowSalesRuleSelect()): ?>
+                        + '<select id="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_sales_rule_id" name="<?= $block->escapeHtml($_htmlName) ?>[<%- data.index %>][sales_rule_id]" class="am-select">'
+                            <?php foreach ($block->getSalesRuleCollection() as $salesRule): ?>
+                                + '<option value="<?= $block->escapeHtml($salesRule->getRuleId()) ?>"><?= $block->escapeHtml($salesRule->getName());?></option>'
+                            <?php endforeach; ?>
+                        + '</select>'
+                        <?php else: ?>
+                        + '<div class="am-ruleid-wrapper"><input id="<?= $block->escapeHtml($_htmlId) ?>_<%- data.index %>_sales_rule_id" name="<?= $block->escapeHtml($_htmlName) ?>[<%- data.index %>][][sales_rule_id]" placeholder="<?= __("Rule ID")?>" type="text" class=" input-text"/><span class="am-required"></span></div>'
+                        <?php endif; ?>
+                        + '<small><?= __('Rule option `Use Auto Generation` should be turned on.')?></small>'
+                        <?php if (!$block->moduleEnabled('Amasty_Rules')):?>
+                        + "<div><small><?= __("Enrich your cart price rules list with 20 more promo actions. Run a great variety of exclusive promotions to easily attract customers' attention and increase sales. See more details ")?><a target='_blank' href='https://amasty.com/special-promotions-pro-for-magento-2.html?utm_source=extension&utm_medium=link&utm_campaign=acart-spp-m2'><?= __("here")?></small><div>"
+                        <?php endif; ?>
+                    + '</div>'
+                + '</div>'
+            + '</td>'
+            + '<td>'
+                + '<button title="<?= __('Delete'); ?>" type="button" class="action- scalable delete icon-btn delete-product-option" id="field_row_<%- data.index %>_delete_button" onclick="return amastyAcartSchedule.deleteItem(event, <%- data.index %>);">'
+                + '<span><?= __('Delete'); ?></span></button>'
+            +'</td>'
+        + '</tr>'
+        ;
+
+    schedule.init(fieldRowTemplate, '<?= $block->escapeHtml($_htmlId) ?>');
+    <?php if ($this->getScheduleCollection()->getSize() > 0 ): ?>
+        <?php foreach ($block->getScheduleCollection() as $schedule): ?>
+            schedule.addItem(<?= json_encode($schedule->getConfig())?>);
+        <?php endforeach; ?>
+    <?php else: ?>
+        schedule.addItem();
+    <?php endif;?>
+
+    schedule.initRowEvents();
+    schedule.checkUseSameCouponCheckboxVisibility();
+    window.amastyAcartSchedule = schedule;
+    //]]>
+});
+</script>

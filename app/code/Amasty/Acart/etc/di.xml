@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_Acart
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="amasty_acart_rule_grid_data_source" xsi:type="string">Amasty\Acart\Model\ResourceModel\Rule\Grid\Collection</item>
+                <item name="amasty_acart_blacklist_grid_data_source" xsi:type="string">Amasty\Acart\Model\ResourceModel\Blacklist\Grid\Collection</item>
+
+            </argument>
+        </arguments>
+    </type>
+    <type name="Amasty\Acart\Model\SalesRule">
+        <arguments>
+            <argument name="condCombineFactory" xsi:type="object">Amasty\Acart\Model\SalesRule\Condition\CombineFactory</argument>
+        </arguments>
+    </type>
+    <virtualType name="Amasty\Acart\Model\ResourceModel\Rule\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">amasty_acart_rule</argument>
+            <argument name="resourceModel" xsi:type="string">Amasty\Acart\Model\ResourceModel\Rule</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Amasty\Acart\Model\ResourceModel\Blacklist\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">amasty_acart_blacklist</argument>
+            <argument name="resourceModel" xsi:type="string">Amasty\Acart\Model\ResourceModel\Blacklist</argument>
+        </arguments>
+    </virtualType>
+</config>

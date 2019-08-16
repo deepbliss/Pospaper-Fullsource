@@ -1,19 +1,18 @@
 define([
     "jquery",
-    "jquery/ui"
+    "jquery/ui",
+    "mage/translate"
 ], function ($) {
 
     $.widget('mage.amGeoip', {
         options: {},
 
         _create: function () {
-            this.isDownloadStarted = false;
-            this.prevStartUrl = '';
-            this.prevProcessUrl = '';
-            this.prevCommitUrl = '';
+            this.downloadStep = 1;
+            this.urls = [];
             this.isDownload = false;
             if (this.options.type == 'download_n_import') {
-                $('#am-download-import').click(function(){
+                $('#am-download-import').click(function () {
                     for (var i = 0; i < this.options.importItems.length; i++) {
                         var item = this.options.importItems[i];
                         var startUrl = item.start;
@@ -25,7 +24,7 @@ define([
                 }.bind(this));
             }
             if (this.options.type == 'import') {
-                $('#am-import').click(function(){
+                $('#am-import').click(function () {
                     for (var i = 0; i < this.options.importItems.length; i++) {
                         var item = this.options.importItems[i];
                         var startUrl = item.start;
@@ -37,19 +36,19 @@ define([
             }
         },
 
-        error: function(error, processer){
+        error: function (error, processer) {
             if (processer)
                 $(processer.parentNode).remove();
 
         },
 
-        done: function(response){
-            if (response.full_import_done == 1){
+        done: function (response) {
+            if (response.full_import_done == 1) {
                 location.reload();
             }
         },
 
-        runDownloading: function(startUrl, processUrl, commitUrl, startDownloadingUrl){
+        runDownloading: function (startUrl, processUrl, commitUrl, startDownloadingUrl) {
             var _caller = this;
             var processer = $('.am_download');
             this.isDownload = true;
@@ -58,7 +57,11 @@ define([
                 'width': '30%'
             });
 
-            processer.find('span')[0].innerHTML = '0/2';
+            if ($("#row_amgeoip_download_import_download_import_button .import .bubble").length) {
+                $("#row_amgeoip_download_import_download_import_button .import .bubble")[0].innerHTML = '';
+            }
+
+            processer.find('span')[0].innerHTML = '0/3';
 
             if ($(".am_processer_container .end_downloading_completed").length) {
                 $(".am_processer_container .end_downloading_completed")[0].addClassName('end_downloading_process');
@@ -70,11 +73,11 @@ define([
             }
 
             $.ajax({
-                url     : startDownloadingUrl,
-                type    : 'POST',
+                url: startDownloadingUrl,
+                type: 'POST',
                 dataType: 'json',
                 data: {form_key: FORM_KEY}
-            }).done($.proxy(function(response) {
+            }).done($.proxy(function (response) {
 
                 if (response.status == 'finish_downloading') {
                     _caller.doneDownloading(startUrl, processUrl, commitUrl)
@@ -93,8 +96,14 @@ define([
                         $(".am_processer_container .end_downloading_process")[0].addClassName('end_downloading_completed');
                         $(".am_processer_container .end_downloading_process")[0].removeClassName('end_downloading_process');
                     }
+                    if ($("#row_amgeoip_download_import_download_import_button .import .bubble").length) {
+                        $("#row_amgeoip_download_import_download_import_button .import .bubble")[0].innerHTML = $.mage.__('GeoIp data is up-to-date.');
+                        $("#row_amgeoip_download_import_download_import_button .import .bubble")[0].setStyle({
+                            'color': 'red'
+                        });
+                    }
 
-                } else if (response.error){
+                } else if (response.error) {
                     if ($(".am_processer_container .end_downloading_process").length) {
                         $(".am_processer_container .end_downloading_process")[0].addClassName('end_downloading_not_completed');
                         $(".am_processer_container .end_downloading_process")[0].removeClassName('end_downloading_process');
@@ -116,11 +125,11 @@ define([
             }, this));
         },
 
-        doneDownloading: function(startUrl, processUrl, commitUrl){
+        doneDownloading: function (startUrl, processUrl, commitUrl) {
             var _caller = this;
             var processer = $('.am_download');
 
-            if (_caller.isDownloadStarted) {
+            if (_caller.downloadStep == 3) {
                 processer[0].setStyle({
                     'width': '100%'
                 });
@@ -131,32 +140,32 @@ define([
                     $(".am_processer_container .end_downloading_process")[0].removeClassName('end_downloading_process');
                 }
 
+                this.urls.each(function(type) {
+                    _caller.run(type[0], type[1], type[2])
+                });
                 _caller.run(startUrl, processUrl, commitUrl);
-                _caller.run(_caller.prevStartUrl, _caller.prevProcessUrl, _caller.prevCommitUrl);
             } else {
                 processer[0].setStyle({
-                    'width': '60%'
+                    'width': ((_caller.downloadStep) * 30) + '%'
                 });
 
-                processer.find('span')[0].innerHTML = '1/2';
+                processer.find('span')[0].innerHTML = _caller.downloadStep + '/3';
 
-                _caller.prevStartUrl = startUrl;
-                _caller.prevProcessUrl = processUrl;
-                _caller.prevCommitUrl = commitUrl;
+                this.urls.push([startUrl, processUrl, commitUrl]);
 
-                _caller.isDownloadStarted = true;
+                _caller.downloadStep++;
             }
         },
 
-        run: function(startUrl, processUrl, commitUrl){
+        run: function (startUrl, processUrl, commitUrl) {
             var _caller = this;
 
             $.ajax({
-                url     : startUrl,
-                type    : 'POST',
+                url: startUrl,
+                type: 'POST',
                 dataType: 'json',
                 data: {form_key: FORM_KEY, is_download: _caller.isDownload}
-            }).done($.proxy(function(response) {
+            }).done($.proxy(function (response) {
 
                 if ($(".am_processer_container .end_imported").length) {
                     $(".am_processer_container .end_imported")[0].addClassName('end_processing');
@@ -170,11 +179,11 @@ define([
 
                 var processer = $('div.am_processer');
 
-                if (response.status == 'started'){
+                if (response.status == 'started') {
 
                     _caller.process(processUrl, commitUrl, processer);
 
-                } else if (response.error){
+                } else if (response.error) {
                     if ($(".am_processer_container .end_processing").length) {
                         $(".am_processer_container .end_processing")[0].addClassName('end_not_imported');
                         $(".am_processer_container .end_processing")[0].removeClassName('end_processing');
@@ -183,7 +192,7 @@ define([
                     $(".completed_import .bubble").innerHTML = 'Error';
                     $(".completed .bubble").innerHTML = 'Error';
 
-                    $.each(processer, function(i, d) {
+                    $.each(processer, function (i, d) {
                         d.setStyle({'width': '0%'});
                     });
 
@@ -194,29 +203,29 @@ define([
             }, this));
         },
 
-        process: function(processUrl, commitUrl, processer){
+        process: function (processUrl, commitUrl, processer) {
             var _caller = this;
 
             $.ajax({
-                url     : processUrl,
-                type    : 'POST',
+                url: processUrl,
+                type: 'POST',
                 dataType: 'json',
                 data: {form_key: FORM_KEY}
-            }).done($.proxy(function(response) {
-                if (response.status == 'processing'){
+            }).done($.proxy(function (response) {
+                if (response.status == 'processing') {
 
                     if (response.type == 'block') {
                         _caller.tracePosition(response.position, processer);
                     }
 
-                    if (response.position == 100){
+                    if (response.position == 100) {
                         _caller.commit(commitUrl, processer);
                     } else {
                         _caller.process(processUrl, commitUrl, processer);
                     }
 
 
-                } else if (response.error){
+                } else if (response.error) {
                     if ($(".am_processer_container .end_processing").length) {
                         $(".am_processer_container .end_processing")[0].addClassName('end_not_imported');
                         $(".am_processer_container .end_processing")[0].removeClassName('end_processing');
@@ -225,7 +234,7 @@ define([
                     $(".completed_import .bubble").innerHTML = 'Error';
                     $(".completed .bubble").innerHTML = 'Error';
 
-                    $.each(processer, function(i, d) {
+                    $.each(processer, function (i, d) {
                         d.setStyle({'width': '0%'});
                     });
 
@@ -234,27 +243,27 @@ define([
             }));
         },
 
-        tracePosition: function(position, processer){
-            $.each(processer, function(i, d) {
+        tracePosition: function (position, processer) {
+            $.each(processer, function (i, d) {
                 d.setStyle({'width': position + '%'});
             });
-            $.each(processer, function(i, d) {
+            $.each(processer, function (i, d) {
                 $(d).find('span')[0].innerHTML = position + '%';
             });
         },
 
-        commit: function(commitUrl, processer){
+        commit: function (commitUrl, processer) {
             var _caller = this;
 
             $.ajax({
-                url     : commitUrl,
-                type    : 'POST',
+                url: commitUrl,
+                type: 'POST',
                 dataType: 'json',
                 data: {form_key: FORM_KEY}
-            }).done($.proxy(function(response) {
-                if (response.status == 'done'){
+            }).done($.proxy(function (response) {
+                if (response.status == 'done') {
                     _caller.done(response)
-                } else if (response.error){
+                } else if (response.error) {
                     _caller.error(response.error, processer);
                 }
             }));

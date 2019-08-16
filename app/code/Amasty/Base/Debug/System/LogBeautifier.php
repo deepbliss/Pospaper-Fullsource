@@ -1,13 +1,17 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Base
  */
 
 
 namespace Amasty\Base\Debug\System;
 
+/**
+ * @codeCoverageIgnore
+ * @codingStandardsIgnoreFile
+ */
 class LogBeautifier
 {
     /**
@@ -53,7 +57,7 @@ class LogBeautifier
      */
     private function arrayKey($key)
     {
-        if (strtolower(gettype($key)) === 'string') {
+        if (is_string($key)) {
             return '"' . $key . '"';
         }
 
@@ -70,21 +74,16 @@ class LogBeautifier
         switch (strtolower(gettype($var))) {
             case 'string':
                 return $var;
-                break;
             case 'boolean':
                 return $var ? 'true' : 'false';
-                break;
             case 'null':
                 return 'null';
-                break;
             case 'integer':
             case 'float':
             case 'double':
                 return $var;
-                break;
             default:
                 return 'Unknown variable type!';
-                break;
         }
     }
 
@@ -137,7 +136,7 @@ class LogBeautifier
         }
 
         $result .= str_repeat(' ', $depth * 4) . "Properties => "
-            . $this->prepareArrayVar($object->properties, $depth + 1);
+            . $this->prepareArrayVar($object->properties, $depth + 1) . "\n";
         $result .= str_repeat(' ', ($depth - 1) * 4) . '}';
 
         return $result;

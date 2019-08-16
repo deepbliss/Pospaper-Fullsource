@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_Base
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="MenuAmasty_Base::menu"
+             title="Amasty"
+             module="Amasty_Base"
+             translate="title"
+             sortOrder="69"
+             resource="MenuAmasty_Base::menu"/>
+        <add id="Amasty_Base::marketplace"
+             title="Amasty Marketplace"
+             module="Amasty_Base"
+             translate="title"
+             sortOrder="9999"
+             action="ambase/marketplace"
+             parent="MenuAmasty_Base::menu"
+             resource="Amasty_Base::marketplace"/>
+        <add id="Amasty_Base::extensions"
+             title="Modules &amp; Notifications"
+             module="Amasty_Base"
+             translate="title"
+             sortOrder="9998"
+             action="adminhtml/system_config/edit/section/amasty_base"
+             parent="MenuAmasty_Base::menu"
+             resource="Amasty_Base::config"/>
+    </menu>
+</config>

@@ -1,13 +1,18 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Geoip
  */
 
 namespace Amasty\Geoip\Controller\Adminhtml\Geoip;
 
-class Process extends \Amasty\Geoip\Controller\Adminhtml\Geoip
+use Amasty\Geoip\Controller\Adminhtml\GeoipAbstract as GeoipAbstract;
+
+/**
+ * Class Process
+ */
+class Process extends GeoipAbstract
 {
     public function execute()
     {
@@ -15,11 +20,7 @@ class Process extends \Amasty\Geoip\Controller\Adminhtml\Geoip
         try {
             $type = $this->getRequest()->getParam('type');
             $action = $this->getRequest()->getParam('action');
-            if ($action == 'import') {
-                $filePath = $this->geoipHelper->getCsvFilePath($type, $action);
-            } else {
-                $filePath = $this->geoipHelper->getFilePath($type, $action);
-            }
+            $filePath = $this->geoipHelper->getCsvFilePath($type);
             $ret = $this->importModel->doProcess($type, $filePath, $action);
             $result['type'] = $type;
             $result['status'] = 'processing';

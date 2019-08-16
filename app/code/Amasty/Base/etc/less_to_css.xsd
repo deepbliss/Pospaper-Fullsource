@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="config">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="module" type="moduleType" minOccurs="1" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>Main schema element. Extension name</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="handleType">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="cssType">
+        <xs:attribute type="xs:string" name="fileName" use="optional"/>
+        <xs:attribute type="pathType" name="path" use="optional"/>
+    </xs:complexType>
+    <xs:complexType name="moduleType">
+        <xs:sequence>
+            <xs:element type="handleType" name="handle" minOccurs="1" maxOccurs="unbounded"/>
+            <xs:element type="cssType" name="cssOptions" minOccurs="0" maxOccurs="1"/>
+            <xs:element type="configPathType" name="ifconfig" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="name" type="moduleName" use="required"/>
+        <!--<xs:attribute name="active" type="xs:boolean" use="optional"/>-->
+        <!--<xs:attribute name="force" type="xs:boolean" use="optional"/>-->
+    </xs:complexType>
+    <xs:simpleType name="moduleName">
+        <xs:annotation>
+            <xs:documentation>
+                Module name attribute can contain only [A-Za-z0-9_].
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Z]+[A-Za-z0-9]{1,}_[A-Z]+[A-Z0-9a-z]{1,}" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="pathType">
+        <xs:annotation>
+            <xs:documentation>
+                File System Path from web Folder to Folder with styles, i.e. 'css/source/mkcss'. If not specified 'css' will be used.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="([a-zA-Z0-9]{0,}/?){0,}[a-zA-Z0-9]*" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="configPathType">
+        <xs:annotation>
+            <xs:documentation>
+                System Configuration Path. i.e. 'amasty_checkout/general/enabled'
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Za-z0-9_-]{1,}/[A-Z0-9a-z_-]{1,}/[A-Z0-9a-z_-]{1,}" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

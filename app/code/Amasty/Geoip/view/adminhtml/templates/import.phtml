@@ -1,27 +1,39 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Geoip
  */
 ?>
-<button id="am-import" class="action-default scalable" <?php echo $this->getImportFilesAvailable() ? '' :'disabled="disabled"'?> data-ui-id="widget-button-0" type="button" title="<?php echo __('Import') ?>">
-    <span><?php echo __('Import') ?></span>
+<?php
+/**
+ * @var \Amasty\Geoip\Block\Adminhtml\Settings\Import $block
+ */
+?>
+<button id="am-import"
+        class="action-default scalable" <?= $block->getImportFilesAvailable() ? '' : 'disabled="disabled"' ?>
+        data-ui-id="widget-button-0" type="button" title="<?= $block->escapeHtml(__('Import')) ?>">
+    <span><?= $block->escapeHtml(__('Import')) ?></span>
 </button>
 <br/>
-<br/> var/amasty/geoip/GeoLite2-City-Blocks-IPv4.csv <div class="<?php echo $this->getBlockFileExist() ? 'amgeoip-files-available': 'amgeoip-files-unavailable' ?> "></div>
-<br/> var/amasty/geoip/GeoLite2-City-Locations-en.csv <div class="<?php echo $this->getLocationFileExist() ? 'amgeoip-files-available': 'amgeoip-files-unavailable' ?> "></div>
+<br/> var/amasty/geoip/GeoLite2-City-Blocks-IPv4.csv
+<div class="<?= $block->getBlockFileExist() ? 'amgeoip-files-available' : 'amgeoip-files-unavailable' ?> "></div>
+<br/> var/amasty/geoip/GeoLite2-City-Blocks-IPv6.csv
+<div class="<?= $block->getBlockV6FileExist() ? 'amgeoip-files-available' : 'amgeoip-files-unavailable' ?> "></div>
+<br/> var/amasty/geoip/GeoLite2-City-Locations-en.csv
+<div class="<?= $block->getLocationFileExist() ? 'amgeoip-files-available' : 'amgeoip-files-unavailable' ?> "></div>
 <br/>
 <div class="progressbar">
     <div class="am_processer_container"><span class="begin"></span>
 
         <div class="am_line">
-            <div class="am_processer" style="width: <?php echo $this->getWidth() ?>%"><span>&nbsp</span></div>
+            <div class="am_processer" style="width: <?= (int)$block->getWidth() ?>%"><span>&nbsp</span></div>
         </div>
-        <span class="<?php echo $this->getImportedClass() ?>"></span></div>
-    <span class="import"><div class="bubble"><?php echo __('Import') ?></div></span><span class="completed"><div class="bubble"><?php echo __("Completed")?></div></span>
+        <span class="<?= $block->escapeHtml($block->getImportedClass()) ?>"></span></div>
+    <span class="import"><div class="bubble"><?= $block->escapeHtml(__('Import')) ?></div></span><span class="completed"><div
+                class="bubble"><?= $block->escapeHtml(__("Completed")) ?></div></span>
 </div>
-<br/> <?php echo $this->getImportDate() ?>
+<br/> <?= $block->escapeHtml($block->getImportDate()) ?>
 <script type="text/javascript">
     require([
         'jquery',
@@ -30,7 +42,7 @@
         var imp = $('#am-import');
 
         imp.amGeoip({
-            importItems: <?php echo $this->getConfig(); ?>,
+            importItems: <?= /* @noEscape */ $block->getConfig(); ?>,
             type: 'import'
         });
 

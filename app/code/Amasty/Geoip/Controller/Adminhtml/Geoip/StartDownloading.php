@@ -1,50 +1,61 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Geoip
  */
 
 namespace Amasty\Geoip\Controller\Adminhtml\Geoip;
 
-class StartDownloading extends \Amasty\Geoip\Controller\Adminhtml\Geoip
+use Amasty\Geoip\Controller\Adminhtml\GeoipAbstract;
+
+/**
+ * Class StartDownloading
+ */
+class StartDownloading extends GeoipAbstract
 {
     public function execute()
     {
         $result = [];
         try {
-            $actionType = 'download_and_import';
             $type = $this->getRequest()->getParam('type');
             $url = $this->_getFileUrl($type);
-            $dir = $this->geoipHelper->getDirPath($actionType);
-            $newFilePath = $this->geoipHelper->getFilePath($type, $actionType);
+            $dir = $this->geoipHelper->getDirPath();
+            $newFilePath = $this->geoipHelper->getCsvFilePath($type);
             $needToUpdate = true;
+            $needToDownload = true;
 
-            if (file_exists($newFilePath)) {
+            if ($this->driverFile->isExists($newFilePath)) {
                 $hashUrl = $this->getHashUrl($type);
                 if ($hashUrl
-                    && hash_file('md5', $newFilePath) == file_get_contents($hashUrl)
-                    && $this->geoipHelper->isDone(false)
+                    && hash_file('md5', $newFilePath) == trim($this->driverFile->fileGetContents($hashUrl))
                 ) {
-                    $needToUpdate = false;
+                    $needToDownload = false;
+                    if ($this->geoipHelper->isDone(false)) {
+                        $needToUpdate = false;
+                    }
                 } else {
-                    unlink($newFilePath);
+                    $this->driverFile->deleteFile($newFilePath);
                 }
             }
 
-            if ($needToUpdate && !file_exists($dir)) {
-                mkdir($dir, 0770, true);
+            if ($needToUpdate && !$this->driverFile->isExists($dir)) {
+                $this->driverFile->createDirectory($dir, 0770);
             }
 
             if ($needToUpdate) {
-                $source = fopen($url, 'r');
-                $dest   = fopen($newFilePath, 'w');
-                stream_copy_to_stream($source, $dest);
+                if ($needToDownload) {
+                    $source = $this->driverFile->fileOpen($url, 'r');
+                    $dest   = $this->driverFile->fileOpen($newFilePath, 'w');
+                    //@codingStandardsIgnoreStart
+                    stream_copy_to_stream($source, $dest);
+                    //@codingStandardsIgnoreEnd
+                }
                 $result['status'] = 'finish_downloading';
             } else {
                 $result['status'] = 'done';
             }
-            $result['file'] = $this->geoipHelper->_geoipRequiredFiles[$type];
+            $result['file'] = $this->geoipHelper->_geoipCsvFiles[$type];
 
         } catch (\Exception $e) {
             $result['error'] = $e->getMessage();
@@ -56,10 +67,16 @@ class StartDownloading extends \Amasty\Geoip\Controller\Adminhtml\Geoip
     protected function _getFileUrl($type)
     {
         $url = '';
-        if ($type == 'block') {
-            $url = $this->geoipHelper->getUrlBlockFile();
-        } elseif ($type == 'location') {
-            $url = $this->geoipHelper->getUrlLocationFile();
+        switch ($type) {
+            case 'block':
+                $url = $this->geoipHelper->getUrlBlockFile();
+                break;
+            case 'location':
+                $url = $this->geoipHelper->getUrlLocationFile();
+                break;
+            case 'block_v6':
+                $url = $this->geoipHelper->getUrlBlockV6File();
+                break;
         }
 
         return $url;
@@ -77,6 +94,8 @@ class StartDownloading extends \Amasty\Geoip\Controller\Adminhtml\Geoip
                 return $this->geoipHelper->getHashUrlBlock();
             case 'location':
                 return $this->geoipHelper->getHashUrlLocation();
+            case 'block_v6':
+                return $this->geoipHelper->getHashUrlBlockV6();
         }
 
         return '';

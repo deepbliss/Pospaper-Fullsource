@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Base
  */
 
@@ -10,6 +10,10 @@ namespace Amasty\Base\Debug\System;
 
 use Amasty\Base\Debug\VarDump;
 
+/**
+ * @codeCoverageIgnore
+ * @codingStandardsIgnoreFile
+ */
 class Beautifier
 {
     /**
@@ -59,7 +63,7 @@ class Beautifier
     private function arrayKey($key)
     {
         if (strtolower(gettype($key)) == 'string') {
-                return sprintf(Template::$arrayKeyString, htmlspecialchars($key));
+            return sprintf(Template::$arrayKeyString, htmlspecialchars($key));
         }
 
         return sprintf(Template::$arrayKey, htmlspecialchars($key));

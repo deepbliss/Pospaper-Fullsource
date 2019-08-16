@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_Acart
+ */
+-->
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Amasty\Acart\Block\Adminhtml\Rule\Edit" name="rule_edit"/>
+
+            <block class="Amasty\Acart\Block\Adminhtml\Rule\Test" name="amasty.acart.js.test" template="Amasty_Acart::rule/js/test.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+                <block class="Amasty\Acart\Block\Adminhtml\Rule\Edit\Tabs" name="rule_tabs">
+                    <block class="Amasty\Acart\Block\Adminhtml\Rule\Edit\Tab\Store" name="amasty_acart_rule_edit_tab_store" />
+
+                    <block class="Amasty\Acart\Block\Adminhtml\Rule\Edit\Tab\Conditions" name="amasty_acart_rule_edit_tab_conditions" />
+
+                    <block class="Amasty\Acart\Block\Adminhtml\Rule\Edit\Tab\Schedule" name="amasty_acart_rule_edit_tab_schedule" />
+
+                    <block class="Amasty\Acart\Block\Adminhtml\Rule\Edit\Tab\Analytics" name="amasty_acart_rule_edit_tab_analytics" />
+
+                    <action method="addTab">
+                        <argument name="name" xsi:type="string">amasty_acart_rule_edit_tab_store</argument>
+                        <argument name="block" xsi:type="string">amasty_acart_rule_edit_tab_store</argument>
+                    </action>
+
+                    <action method="addTab">
+                        <argument name="name" xsi:type="string">amasty_acart_rule_edit_tab_conditions</argument>
+                        <argument name="block" xsi:type="string">amasty_acart_rule_edit_tab_conditions</argument>
+                    </action>
+
+                    <action method="addTab">
+                        <argument name="name" xsi:type="string">amasty_acart_rule_edit_tab_schedule</argument>
+                        <argument name="block" xsi:type="string">amasty_acart_rule_edit_tab_schedule</argument>
+                    </action>
+
+                    <action method="addTab">
+                        <argument name="name" xsi:type="string">amasty_acart_rule_edit_tab_analytics</argument>
+                        <argument name="block" xsi:type="string">amasty_acart_rule_edit_tab_analytics</argument>
+                    </action>
+                </block>
+        </referenceContainer>
+
+    </body>
+</page>

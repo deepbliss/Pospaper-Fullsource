@@ -1,0 +1,230 @@
+"Save and Continue Edit","Save and Continue Edit"
+"Blacklist Item Information","Blacklist Item Information"
+General,General
+Email,Email
+"Blacklist View","Blacklist View"
+"Current Time","Current Time"
+"No cron jobs found","No cron jobs found"
+"Learn more","Learn more"
+"Cron (Last 5)","Cron (Last 5)"
+"Queue Item Information","Queue Item Information"
+Subject,Subject
+Body,Body
+Coupon,Coupon
+"Queue View","Queue View"
+Website:,Website:
+"Date Range:","Date Range:"
+From:,From:
+To:,To:
+Refresh,Refresh
+"All Websites","All Websites"
+"Cart Abandonment Rate","Cart Abandonment Rate"
+"Emails Sent","Emails Sent"
+"Carts Restored","Carts Restored"
+"Orders Placed*","Orders Placed*"
+"Potential Revenue","Potential Revenue"
+"Recovered Revenue*","Recovered Revenue*"
+"Abandoned Cart Email Efficiency","Abandoned Cart Email Efficiency"
+"Rule Information","Rule Information"
+Analytics,Analytics
+"Google Analytics","Google Analytics"
+"Campaign Source","Campaign Source"
+"<b>Required.</b> Use <b>utm_source</b> to identify a search engine, newsletter name, or other source.<br/><i>Example:</i> utm_source=google","<b>Required.</b> Use <b>utm_source</b> to identify a search engine, newsletter name, or other source.<br/><i>Example:</i> utm_source=google"
+"Campaign Medium","Campaign Medium"
+"<b>Required.</b> Use <b>utm_medium</b> to identify a medium such as email or cost-per- click<br/><i>Example:</i> utm_medium=cpc","<b>Required.</b> Use <b>utm_medium</b> to identify a medium such as email or cost-per- click<br/><i>Example:</i> utm_medium=cpc"
+"Campaign Name","Campaign Name"
+"<b>Required.</b> Used for keyword analysis. Use <b>utm_campaign</b> to identify a specific product promotion or strategic campaign.<br/><i>Example:</i> utm_campaign=spring_sale","<b>Required.</b> Used for keyword analysis. Use <b>utm_campaign</b> to identify a specific product promotion or strategic campaign.<br/><i>Example:</i> utm_campaign=spring_sale"
+"Campaign Term","Campaign Term"
+"Used for paid search. Use <b>utm_term</b> to note the keywords for this ad.<br/><i>Example:</i> utm_term=running+shoes","Used for paid search. Use <b>utm_term</b> to note the keywords for this ad.<br/><i>Example:</i> utm_term=running+shoes"
+"Campaign Content","Campaign Content"
+"Used for A/B testing and content-targeted ads. Use <b>utm_content</b> to differentiate ads or links that point to the same URL.<br/><i>Example:</i> utm_content=logolink <i>or</i> utm_content=textlink","Used for A/B testing and content-targeted ads. Use <b>utm_content</b> to differentiate ads or links that point to the same URL.<br/><i>Example:</i> utm_content=logolink <i>or</i> utm_content=textlink"
+Conditions,Conditions
+"Conditions (don't add conditions if need all products)","Conditions (don't add conditions if need all products)"
+Name,Name
+Status,Status
+Priority,Priority
+"Cancel Condition","Cancel Condition"
+"Note! Additional to the listed actions Order Placed action will always cancel the abandoned cart email","Note! Additional to the listed actions Order Placed action will always cancel the abandoned cart email"
+Schedule,Schedule
+"Add Record","Add Record"
+"Stores & Customer Groups","Stores & Customer Groups"
+"Apply In","Apply In"
+Stores,Stores
+"Leave empty or select all to apply the campaign to any store","Leave empty or select all to apply the campaign to any store"
+"Apply For","Apply For"
+"Customer Groups","Customer Groups"
+"Leave empty or select all to apply the campaign to any group","Leave empty or select all to apply the campaign to any group"
+Test,Test
+Products,Products
+Quantity,Quantity
+Subtotal,Subtotal
+"Applied Coupon","Applied Coupon"
+Created,Created
+Updated,Updated
+"IP Address","IP Address"
+Send,Send
+"Rule View","Rule View"
+"test email","test email"
+"Before sending test messages, please fill in the %1 in the extension configuration section","Before sending test messages, please fill in the %1 in the extension configuration section"
+"import GeoIP Data","import GeoIP Data"
+"Please update Amasty Base module. Re-upload it and replace all the files.","Please update Amasty Base module. Re-upload it and replace all the files."
+Installed,Installed
+"Specify SMTP settings properly. See more details <a target='_blank' href='%1'>here</a>.","Specify SMTP settings properly. See more details <a target='_blank' href='%1'>here</a>."
+"Not Installed","Not Installed"
+Marketing,Marketing
+Blacklist,Blacklist
+"You deleted the blacklist.","You deleted the blacklist."
+"We can't delete the blacklist right now. Please review the log and try again.","We can't delete the blacklist right now. Please review the log and try again."
+"We can't find a blacklist to delete.","We can't find a blacklist to delete."
+"Something went wrong while editing the blacklist.","Something went wrong while editing the blacklist."
+"New Blacklist Email","New Blacklist Email"
+"Something went wrong while export feed data. Please review the error log.","Something went wrong while export feed data. Please review the error log."
+"The wrong blacklist is specified.","The wrong blacklist is specified."
+"You saved the blacklist item.","You saved the blacklist item."
+"Something went wrong while saving the blacklist data. Please review the error log.","Something went wrong while saving the blacklist data. Please review the error log."
+History,History
+"Error. Please see the log for more information.","Error. Please see the log for more information."
+Queue,Queue
+"You deleted the queue.","You deleted the queue."
+"We can't delete the queue right now. Please review the log and try again.","We can't delete the queue right now. Please review the log and try again."
+"We can't find a queue to delete.","We can't find a queue to delete."
+"Something went wrong while editing the queue.","Something went wrong while editing the queue."
+"Edit queue item #%1","Edit queue item #%1"
+"If there are no emails in the queue for a long time, please make sure that cron is properly configured for your Magento. Please find more information <a class=""new-page-url"" href='%1' target='_blank'>here</a>.","If there are no emails in the queue for a long time, please make sure that cron is properly configured for your Magento. Please find more information <a class=""new-page-url"" href='%1' target='_blank'>here</a>."
+"The wrong queue is specified.","The wrong queue is specified."
+"You saved the queue item.","You saved the queue item."
+"Something went wrong while saving the queue data. Please review the error log.","Something went wrong while saving the queue data. Please review the error log."
+"Something went wrong. Please try again or check your Magento log file.","Something went wrong. Please try again or check your Magento log file."
+"Abandoned Cart Reports","Abandoned Cart Reports"
+"Abandoned Cart Campaigns","Abandoned Cart Campaigns"
+"You deleted the campaign.","You deleted the campaign."
+"We can't delete the rule right now. Please review the log and try again.","We can't delete the rule right now. Please review the log and try again."
+"We can't find a rule to delete.","We can't find a rule to delete."
+"Something went wrong while editing the campaign.","Something went wrong while editing the campaign."
+"New Campaign","New Campaign"
+Campaigns,Campaigns
+"Something went wrong while delete rule. Please review the error log.","Something went wrong while delete rule. Please review the error log."
+"Shopping Cart Rule is required","Shopping Cart Rule is required"
+"The wrong campaign is specified.","The wrong campaign is specified."
+"You saved the campaign.","You saved the campaign."
+"Something went wrong while saving the campaign data. Please review the error log.","Something went wrong while saving the campaign data. Please review the error log."
+"Email didn't send.","Email didn't send."
+"You have been unsubscribed","You have been unsubscribed"
+Today,Today
+"Last 7 days","Last 7 days"
+"Last 30 days","Last 30 days"
+Overall,Overall
+Custom,Custom
+"The schedule should be completed.","The schedule should be completed."
+"Rule do not have any Schedule","Rule do not have any Schedule"
+"Number of recovered cards this month","Number of recovered cards this month"
+"General Contact","General Contact"
+"Sales Representative Contact","Sales Representative Contact"
+"Customer Support Contact","Customer Support Contact"
+"Custom Email 1 Contact","Custom Email 1 Contact"
+"Custom Email 2 Contact","Custom Email 2 Contact"
+Active,Active
+Inactive,Inactive
+"Link from Email Clicked","Link from Email Clicked"
+"Any product went out of stock","Any product went out of stock"
+"All products went out of stock","All products went out of stock"
+"Not sent","Not sent"
+Sent,Sent
+"Canceled by the admin","Canceled by the admin"
+"Customer is Not Newsletter Subscriber","Customer is Not Newsletter Subscriber"
+Edit,Edit
+Revenue,Revenue
+"Recovered Revenue","Recovered Revenue"
+"Orders Placed","Orders Placed"
+Statistics,Statistics
+"* unshipped and uninvoiced orders also count towards statistics","* unshipped and uninvoiced orders also count towards statistics"
+"Please, mind that your emails sending period is greater than Quote Lifetime (days). (To check it, please, go to Stores->Configuration->Sales->Checkout->Shopping Cart->Quote Lifetime). ","Please, mind that your emails sending period is greater than Quote Lifetime (days). (To check it, please, go to Stores->Configuration->Sales->Checkout->Shopping Cart->Quote Lifetime). "
+"Please make sure that your cron is properly configured. We recommend to run cron every 5 minutes. <a href=""%1"" target=""_blank"">Learn more</a>","Please make sure that your cron is properly configured. We recommend to run cron every 5 minutes. <a href=""%1"" target=""_blank"">Learn more</a>"
+"Transactional Email","Transactional Email"
+"Delivery Time","Delivery Time"
+Days,Days
+Hours,Hours
+Minutes,Minutes
+Type,Type
+None,None
+"Percent of product price discount","Percent of product price discount"
+"Fixed amount discount","Fixed amount discount"
+"Fixed amount discount for whole cart","Fixed amount discount for whole cart"
+"Auto add promo items with products","Auto add promo items with products"
+"Auto add promo items for the whole cart","Auto add promo items for the whole cart"
+"Auto add the same product","Auto add the same product"
+"Discount Amount","Discount Amount"
+"Expired in (days)","Expired in (days)"
+"Maximum Qty Discount is Applied To","Maximum Qty Discount is Applied To"
+"Discount Qty Step (Buy X)","Discount Qty Step (Buy X)"
+Expand,Expand
+Collapse,Collapse
+"Send the Same Coupon Again","Send the Same Coupon Again"
+"Use Shopping Cart Rule","Use Shopping Cart Rule"
+"Rule ID","Rule ID"
+"Rule option `Use Auto Generation` should be turned on.","Rule option `Use Auto Generation` should be turned on."
+"Enrich your cart price rules list with 20 more promo actions. Run a great variety of exclusive promotions to easily attract customers' attention and increase sales. See more details ","Enrich your cart price rules list with 20 more promo actions. Run a great variety of exclusive promotions to easily attract customers' attention and increase sales. See more details "
+here,here
+Delete,Delete
+Price,Price
+"Hello,","Hello,"
+"Dear %firstName %lastName,","Dear %firstName %lastName,"
+"You have items in your shopping bag.","You have items in your shopping bag."
+"Get them with discount!","Get them with discount!"
+"reply to this mail","reply to this mail"
+"Save money with coupon code <span style=""border: 1px solid #E0E0E0; margin-left: 10px; background-color: #f9f9f9;"">%coupon</span> !","Save money with coupon code <span style=""border: 1px solid #E0E0E0; margin-left: 10px; background-color: #f9f9f9;"">%coupon</span> !"
+"Coupon expiration date: <span style=""border: 1px solid #E0E0E0; margin-left: 10px; background-color: #f9f9f9;"">%expiration_date</span> ","Coupon expiration date: <span style=""border: 1px solid #E0E0E0; margin-left: 10px; background-color: #f9f9f9;"">%expiration_date</span> "
+"CHECK OUT","CHECK OUT"
+"Delivered by ","Delivered by "
+Unsubscribe,Unsubscribe
+"Abandoned Carts","Abandoned Carts"
+Orders,Orders
+"Money awaiting in abandoned carts","Money awaiting in abandoned carts"
+"Money made of recovered carts","Money made of recovered carts"
+"Sent emails","Sent emails"
+"Recovered carts","Recovered carts"
+"Actual purchases","Actual purchases"
+"Abandoned Cart Email","Abandoned Cart Email"
+Information,Information
+"The Coupon is Available Only for Particular Customer","The Coupon is Available Only for Particular Customer"
+"If the option is disabled the coupon can be used by all customers.","If the option is disabled the coupon can be used by all customers."
+"Trigger a Campaign No More Than 1 Time per Quote","Trigger a Campaign No More Than 1 Time per Quote"
+"Send Emails Only to Registered Customers","Send Emails Only to Registered Customers"
+"Automatically Remove Sent Emails from History","Automatically Remove Sent Emails from History"
+"In days.","In days."
+"Disable Guest Email Logging for EU Customers (GDPR Compliance Requirement)","Disable Guest Email Logging for EU Customers (GDPR Compliance Requirement)"
+"For use this setting you need import GEOIP Data","For use this setting you need import GEOIP Data"
+"Email Templates","Email Templates"
+"Sender Name","Sender Name"
+"Sender Email","Sender Email"
+"Send to Newsletter Subscribers Only","Send to Newsletter Subscribers Only"
+"Sends Copy of Emails to","Sends Copy of Emails to"
+"Reply to Name","Reply to Name"
+"Reply to Email","Reply to Email"
+Testing,Testing
+"Enable Safe Mode","Enable Safe Mode"
+"If enabled, emails will be sent only to the test email (not to customers).","If enabled, emails will be sent only to the test email (not to customers)."
+"Test Email","Test Email"
+Import,Import
+"Debug (for Developers Only)","Debug (for Developers Only)"
+"Enable Debug Mode","Enable Debug Mode"
+"If enabled, emails will only be sent to the authorized email domains.","If enabled, emails will only be sent to the authorized email domains."
+"Authorized Email Domains","Authorized Email Domains"
+"List of email domain names separated by commas ("",""). Don't use ""@"".","List of email domain names separated by commas ("",""). Don't use ""@""."
+"Cronjob Information","Cronjob Information"
+"SMTP Settings","SMTP Settings"
+"For more options to customize your smtp settings, consider using our <a target=""_blank"" href=""https://amasty.com/magento-smtp-email-settings.html?utm_source=extension&utm_medium=link&utm_campaign=acart-smtp-m2"">SMTP extension</a>.","For more options to customize your smtp settings, consider using our <a target=""_blank"" href=""https://amasty.com/magento-smtp-email-settings.html?utm_source=extension&utm_medium=link&utm_campaign=acart-smtp-m2"">SMTP extension</a>."
+"Add Email","Add Email"
+"Delete items","Delete items"
+"Delete selected items?","Delete selected items?"
+ID,ID
+Campaign,Campaign
+"First Name","First Name"
+"Last Name","Last Name"
+Scheduled,Scheduled
+"Cancel items","Cancel items"
+"Cancel selected items?","Cancel selected items?"
+Cancel,Cancel
+Rule,Rule
+"Create New Campaign","Create New Campaign"
+"Delete rules","Delete rules"

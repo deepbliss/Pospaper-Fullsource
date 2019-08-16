@@ -1,49 +1,68 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Geoip
  */
 
 
 namespace Amasty\Geoip\Helper;
 
-class Data extends \Magento\Framework\App\Helper\AbstractHelper
+use Magento\Framework\App\Helper\Context;
+use Magento\Framework\App\Helper\AbstractHelper;
+use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\App\Config\ConfigResource\ConfigInterface;
+use Magento\Framework\App\Cache\StateInterface;
+use Magento\Framework\Filesystem\Driver\File;
+use Magento\Framework\ObjectManagerInterface;
+use Magento\Framework\Exception\FileSystemException;
+use Magento\Config\App\Config\Type\System;
+use Magento\Framework\App\Cache\Type\Config;
+
+/**
+ * Class Data
+ */
+class Data extends AbstractHelper
 {
     const BLOCK_FILE = 'amgeoip/general/block_file_url';
+    const BLOCK_V6_FILE = 'amgeoip/general/block_v6_file_url';
     const LOCATION_FILE = 'amgeoip/general/location_file_url';
     const BLOCK_HASH = 'amgeoip/general/block_hash_url';
+    const BLOCK_V6_HASH = 'amgeoip/general/block_v6_hash_url';
     const LOCATION_HASH = 'amgeoip/general/location_hash_url';
 
-    public $_geoipRequiredFiles = [
-        'block'    => 'amasty_geoip_block.sql',
-        'location' => 'amasty_geoip_location.sql'
-    ];
-
-    protected $_geoipCsvFiles = [
-        'block'    => 'GeoLite2-City-Blocks-IPv4.csv',
+    /**
+     * @var array
+     */
+    public $_geoipCsvFiles = [
+        'block' => 'GeoLite2-City-Blocks-IPv4.csv',
+        'block_v6' => 'GeoLite2-City-Blocks-IPv6.csv',
         'location' => 'GeoLite2-City-Locations-en.csv'
     ];
 
+    /**
+     * @var array
+     */
     public $_geoipIgnoredLines = [
-        'block'    => 2,
-        'location' => 2
+        'block' => 1,
+        'block_v6' => 1,
+        'location' => 1
     ];
 
     /**
-     * @var \Magento\Framework\App\Filesystem\DirectoryList
+     * @var DirectoryList
      */
     protected $directoryList;
 
     /**
      * Resource model of config data
      *
-     * @var \Magento\Framework\App\Config\ConfigResource\ConfigInterface
+     * @var ConfigInterface
      */
     protected $_resource;
 
     /**
-     * @var \Magento\Framework\App\Cache\StateInterface $_state
+     * @var StateInterface $_state
      */
     protected $_state;
 
@@ -53,32 +72,32 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     protected $_cacheEnabled;
 
     /**
-     * @var \Magento\Framework\Filesystem\Driver\File
+     * @var File
      */
     private $fileDriver;
 
     /**
-     * @var \Magento\Framework\ObjectManagerInterface
+     * @var ObjectManagerInterface
      */
     private $objectManager;
 
     /**
      * Data constructor.
      *
-     * @param \Magento\Framework\App\Helper\Context                        $context
-     * @param \Magento\Framework\App\Filesystem\DirectoryList              $directoryList
-     * @param \Magento\Framework\App\Config\ConfigResource\ConfigInterface $_resource
-     * @param \Magento\Framework\App\Cache\StateInterface                  $state
-     * @param \Magento\Framework\Filesystem\Driver\File                    $fileDriver
-     * @param \Magento\Framework\ObjectManagerInterface                    $objectManager
+     * @param Context $context
+     * @param DirectoryList $directoryList
+     * @param ConfigInterface $_resource
+     * @param StateInterface $state
+     * @param File $fileDriver
+     * @param ObjectManagerInterface $objectManager
      */
     public function __construct(
-        \Magento\Framework\App\Helper\Context $context,
-        \Magento\Framework\App\Filesystem\DirectoryList $directoryList,
-        \Magento\Framework\App\Config\ConfigResource\ConfigInterface $_resource,
-        \Magento\Framework\App\Cache\StateInterface $state,
-        \Magento\Framework\Filesystem\Driver\File $fileDriver,
-        \Magento\Framework\ObjectManagerInterface $objectManager
+        Context $context,
+        DirectoryList $directoryList,
+        ConfigInterface $_resource,
+        StateInterface $state,
+        File $fileDriver,
+        ObjectManagerInterface $objectManager
     ) {
         parent::__construct($context);
         $this->directoryList = $directoryList;
@@ -94,6 +113,14 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     public function getUrlBlockFile()
     {
         return $this->scopeConfig->getValue(self::BLOCK_FILE);
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrlBlockV6File()
+    {
+        return $this->scopeConfig->getValue(self::BLOCK_V6_FILE);
     }
 
     /**
@@ -115,6 +142,14 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * @return string
      */
+    public function getHashUrlBlockV6()
+    {
+        return $this->scopeConfig->getValue(self::BLOCK_V6_HASH);
+    }
+
+    /**
+     * @return string
+     */
     public function getHashUrlLocation()
     {
         return $this->scopeConfig->getValue(self::LOCATION_HASH);
@@ -130,42 +165,44 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             $this->flushConfigCache();
         }
 
-        return ($this->scopeConfig->getValue('amgeoip/import/location')
-            && $this->scopeConfig->getValue('amgeoip/import/block'));
+        return $this->scopeConfig->getValue('amgeoip/import/location')
+            && $this->scopeConfig->getValue('amgeoip/import/block')
+            && $this->scopeConfig->getValue('amgeoip/import/block_v6');
     }
 
+    /**
+     *
+     */
     public function resetDone()
     {
         $this->_resource->saveConfig('amgeoip/import/block', 0, 'default', 0);
+        $this->_resource->saveConfig('amgeoip/import/block_v6', 0, 'default', 0);
         $this->_resource->saveConfig('amgeoip/import/location', 0, 'default', 0);
     }
 
-    public function getDirPath($action)
+    /**
+     * @return string
+     * @throws FileSystemException
+     */
+    public function getDirPath()
     {
         $varDir = $this->directoryList->getPath('var');
 
-        if ($action == 'download_and_import') {
-            $dir = $varDir . DIRECTORY_SEPARATOR . 'amasty' . DIRECTORY_SEPARATOR . 'geoip' . DIRECTORY_SEPARATOR
-                . 'amasty_files';
-        } else {
-            $dir = $varDir . DIRECTORY_SEPARATOR . 'amasty' . DIRECTORY_SEPARATOR . 'geoip';
-        }
+        $dir = $varDir . DIRECTORY_SEPARATOR . 'amasty' . DIRECTORY_SEPARATOR . 'geoip';
 
         return $dir;
     }
 
-    public function getCsvFilePath($type, $action)
+    /**
+     * @param $type
+     * @return string
+     * @throws FileSystemException
+     */
+    public function getCsvFilePath($type)
     {
-        $dir  = $this->getDirPath($action);
+        $dir = $this->getDirPath();
         $file = $dir . DIRECTORY_SEPARATOR . $this->_geoipCsvFiles[$type];
 
-        return $file;
-    }
-
-    public function getFilePath($type, $action)
-    {
-        $dir = $this->getDirPath($action);
-        $file = $dir . DIRECTORY_SEPARATOR . $this->_geoipRequiredFiles[$type];
         return $file;
     }
 
@@ -180,24 +217,31 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     {
         try {
             return $this->fileDriver->isExists($filePath);
-        } catch (\Magento\Framework\Exception\FileSystemException $exception) {
+        } catch (FileSystemException $exception) {
             return false;
         }
     }
 
+    /**
+     *
+     */
     public function flushConfigCache()
     {
-        if (class_exists(\Magento\Config\App\Config\Type\System::class)) {
-            $this->objectManager->get(\Magento\Config\App\Config\Type\System::class)->clean();
+        if (class_exists(System::class)) {
+            $this->objectManager->get(System::class)->clean();
         } else {
-            $this->objectManager->get(\Magento\Framework\App\Cache\Type\Config::class)
+            $this->objectManager->get(Config::class)
                 ->clean(
-                \Zend_Cache::CLEANING_MODE_MATCHING_TAG,
-                ['config_scopes']
-            );
+                    \Zend_Cache::CLEANING_MODE_MATCHING_TAG,
+                    ['config_scopes']
+                );
         }
     }
 
+    /**
+     * @param $type
+     * @return bool
+     */
     public function isCacheEnabled($type)
     {
         if (!isset($this->_cacheEnabled)) {
@@ -205,5 +249,36 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         }
 
         return $this->_cacheEnabled;
+    }
+
+    /**
+     * @param $ip
+     *
+     * @return string
+     *
+     * @throws \Exception
+     */
+    public function getLongIpV6($ip)
+    {
+        $ipN = inet_pton($ip);
+        $binary = '';
+        for ($bit = strlen($ipN) - 1; $bit >= 0; $bit--) {
+            $binary = sprintf('%08b', ord($ipN[$bit])) . $binary;
+        }
+
+        if (function_exists('gmp_init')) {
+            return gmp_strval(gmp_init($binary, 2), 10);
+        } elseif (function_exists('bcadd')) {
+            $decimal = '0';
+            $strLength = strlen($binary);
+            for ($i = 0; $i < $strLength; $i++) {
+                $decimal = bcmul($decimal, '2', 0);
+                $decimal = bcadd($decimal, $binary[$i], 0);
+            }
+
+            return $decimal;
+        } else {
+            throw new \Magento\Framework\Exception\LocalizedException(__('GMP or BCMATH extension not installed!'));
+        }
     }
 }

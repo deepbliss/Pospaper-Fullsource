@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_Acart
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <amasty_acart>
+            <general>
+                <eea_countries>AT,BE,BG,HR,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IS,IE,IT,LV,LI,LT,LU,MT,NL,NO,PL,PT,RO,SK,SI,ES,SE,GB,CH</eea_countries>
+                <customer_coupon>0</customer_coupon>
+                <send_onetime>1</send_onetime>
+                <only_customers>0</only_customers>
+                <history_clean_days>180</history_clean_days>
+                <disable_logging_for_guests>0</disable_logging_for_guests>
+            </general>
+            <email_templates>
+                <sender_name>Owner</sender_name>
+                <sender_email>owner@example.com</sender_email>
+                <emails_to_newsletter_subscribers_only>0</emails_to_newsletter_subscribers_only>
+            </email_templates>
+            <testing>
+                <safe_mode>0</safe_mode>
+                <recipient_email></recipient_email>
+            </testing>
+        </amasty_acart>
+    </default>
+</config>
