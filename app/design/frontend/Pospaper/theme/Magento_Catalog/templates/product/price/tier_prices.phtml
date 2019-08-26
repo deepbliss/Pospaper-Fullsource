@@ -21,8 +21,13 @@ $j = 0;
 $price_qty_array = array();
 $tier_pricess = array();
 $prescriptionPads = false;
+$freeShippingSkus = array('62245R');
+$freeShippingPromo = false;
 if($product->getProductLine() == 'Medical Prescription Pads') {
     $prescriptionPads = true;
+}
+if(in_array($product->getSku(),$freeShippingSkus)) {
+    $freeShippingPromo = true;
 }
 ?>
 <?php if (count($tierPrices)) : ?>
@@ -100,7 +105,7 @@ if($product->getProductLine() == 'Medical Prescription Pads') {
                           $qty_qqq = $price['price_qty'];
                           $free_ship_text = bcmul($price_qqq , $qty_qqq , 5);
                          
-                        if($free_ship_text > 50)
+                        if($free_ship_text > 50 || $freeShippingPromo)
                             {
                                 $free_shi_label = "Free Shipping";
                             }
@@ -159,7 +164,7 @@ if($product->getProductLine() == 'Medical Prescription Pads') {
 <?php
 $str = implode (",", $price_qty_array);
 $str_price = implode (",", $tier_pricess);
-$str_price = $product->getPrice().','.$str_price;
+$str_price = $product->getFinalPrice().','.$str_price;
 $subscriptionDiscount = 0;
 $subscriptionEnabled = ($product->getSubscriptionActive() && $this->helper('\Pos\Subscriptions\Helper\Data')->isActive());
 if($subscriptionEnabled) {
