@@ -105,7 +105,7 @@ if(in_array($product->getSku(),$freeShippingSkus)) {
                           $qty_qqq = $price['price_qty'];
                           $free_ship_text = bcmul($price_qqq , $qty_qqq , 5);
                          
-                        if($free_ship_text > 50 || $freeShippingPromo)
+                        if($free_ship_text >= 35 || $freeShippingPromo)
                             {
                                 $free_shi_label = "Free Shipping";
                             }
