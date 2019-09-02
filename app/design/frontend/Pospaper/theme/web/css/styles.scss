@@ -3577,7 +3577,9 @@ body.page-products .block.recently .products-grid .product-item:hover {
             padding-top: 11px;
         }
         &:last-child td {
-            padding-bottom: 12px;
+            padding-bottom: 10px;
+            background: #fff;
+            padding-top: 10px;
         }
     }
     td .weee .price, tr td {
@@ -10931,5 +10933,73 @@ body .columns .bar {
     }
     .medical-prescription-pads {
         padding-bottom: 0;
+    }
+}
+
+.volume-inquiry-popup {
+    width: 100%;
+    margin: 0 auto;
+    border: 5px solid #757575;
+    padding: 28px 28px 31px 28px;
+    display: none;
+
+    .h2 {
+        text-align: center;
+        font-size: 22px;
+        font-weight: 600;
+        color: #624a9e;
+        letter-spacing: 0.03em;
+        float: left;
+        width: 100%;
+        font-family: 'Poppins', sans-serif;
+        margin-bottom: 38px;
+    }
+
+    .actions-toolbar {
+        > .primary {
+            float: none !important;
+            display: block;
+
+
+            .action {
+                width: 100%;
+                background: #8fcc05;
+                border: 0;
+                border-radius: 0;
+                text-transform: uppercase;
+                color: #fff;
+                font-weight: 700;
+                font-size: 17px;
+                letter-spacing: 0.05em;
+                font-family: 'Poppins', sans-serif;
+                line-height: 40px;
+                float: none;
+            }
+        }
+    }
+
+    .fieldset {
+        > .field {
+            > .control {
+                width: 100% !important;
+                float: none !important;
+
+                .input-text {
+                    font-size: 14px;
+                    font-weight: 300;
+                    color: #4c4c4c;
+                    height: 36px;
+                    border: 0;
+                    border-bottom: 2px solid rgba(100, 100, 100, 0.2);
+                    position: relative;
+                    background: transparent;
+                    padding: 0;
+                }
+
+                textarea {
+                    min-height: 140px;
+                }
+            }
+        }
     }
 }

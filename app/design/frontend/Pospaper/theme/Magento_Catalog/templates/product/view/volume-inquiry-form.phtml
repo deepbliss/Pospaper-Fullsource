@@ -1,0 +1,67 @@
+<?php $product = $block->getProduct(); ?>
+<div class="volume-inquiry-popup" id="volume-inquiry-popup">
+    <form class="form" id="volume-inquiry-form" action="/custommodule/volume/inquiry" method="post" data-mage-init='{"validation":{}}'>
+        <input type="hidden" name="product_name" value="<?php echo $block->escapeQuote($product->getName()) ?>"/>
+        <input type="hidden" name="product_url" value="<?php echo $product->getProductUrl() ?>"/>
+        <fieldset class="fieldset">
+            <div class="h2">Volume Inquiry Form</div>
+            <div class="field fname required">
+                <div class="control">
+                    <input name="fname" id="fname" title="First Name" class="input-text" type="text" data-validate="{required:true}" placeholder="First Name *" aria-required="true">
+                </div>
+            </div>
+            <div class="field lname required">
+                <div class="control">
+                    <input name="lname" id="lname" title="Last Name" class="input-text" type="text" data-validate="{required:true}" placeholder="Last Name *" aria-required="true">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <input name="company" id="companyName" class="input-text" type="text" placeholder="Company"/>
+                </div>
+            </div>
+            <div class="field email required">
+                <div class="control">
+                    <input name="email" id="iquiryEmail" title="Email" class="input-text" type="email" data-validate="{required:true, 'validate-email':true}" placeholder="Email Address *" aria-required="true">
+                </div>
+            </div>
+            <div class="field comment required">
+                <div class="control">
+                    <textarea name="comment" id="comment" title="How can we help you?" class="input-text" cols="5" rows="3" data-validate="{required:true}" placeholder="How can we help you?" aria-required="true"></textarea>
+                </div>
+            </div>
+        </fieldset>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button type="submit" title="Submit" class="action submit primary">
+                    <span>Submit</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    require(['jquery','Magento_Ui/js/modal/modal'],
+        function($, modal) {
+            var options = {
+                type: 'popup',
+                responsive: true,
+                modalClass: 'custom-block-customer-login product-email',
+                innerScroll: true,
+                buttons: [{
+                    text: 'Ok',
+                    class: '',
+                    click: function() {
+                        this.closeModal();
+                    }
+                }],
+            };
+
+            $('.volume-popup-link').on('click',function(e){
+                e.preventDefault();
+                var popup = modal(options, $('#volume-inquiry-popup'));
+                $('#volume-inquiry-popup').modal('openModal');
+            });
+        }
+    );
+</script>

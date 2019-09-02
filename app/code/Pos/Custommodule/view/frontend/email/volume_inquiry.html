@@ -1,0 +1,33 @@
+<!--@subject {{trans "Volume Inquiry Form"}} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<table class="message-details">
+    <tr>
+        <td><b>{{trans "First Name"}}</b></td>
+        <td>{{var data.fname}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Last Name"}}</b></td>
+        <td>{{var data.lname}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Company"}}</b></td>
+        <td>{{var data.company}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Email"}}</b></td>
+        <td>{{var data.email}}</td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Product"}}</b></td>
+        <td><a href="{{var data.product_url}}">{{var data.product_name}}</a></td>
+    </tr>
+    <tr>
+        <td><b>{{trans "Message"}}</b></td>
+        <td>{{var data.comment}}</td>
+    </tr>
+</table>
+
+
+{{template config_path="design/email/footer_template"}}

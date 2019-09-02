@@ -2847,7 +2847,9 @@ body.page-products .block.recently .products-grid .product-item:hover {
   .prices-tier table tr:nth-child(1) td {
     padding-top: 11px; }
   .prices-tier table tr:last-child td {
-    padding-bottom: 12px; }
+    padding-bottom: 10px;
+    background: #fff;
+    padding-top: 10px; }
   .prices-tier table td .weee .price, .prices-tier table tr td {
     color: #4c4c4c;
     font-size: 13px;
@@ -8512,5 +8514,52 @@ body .columns .bar {
 
   .medical-prescription-pads {
     padding-bottom: 0; } }
+.volume-inquiry-popup {
+  width: 100%;
+  margin: 0 auto;
+  border: 5px solid #757575;
+  padding: 28px 28px 31px 28px;
+  display: none; }
+  .volume-inquiry-popup .h2 {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+    color: #624a9e;
+    letter-spacing: 0.03em;
+    float: left;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 38px; }
+  .volume-inquiry-popup .actions-toolbar > .primary {
+    float: none !important;
+    display: block; }
+    .volume-inquiry-popup .actions-toolbar > .primary .action {
+      width: 100%;
+      background: #8fcc05;
+      border: 0;
+      border-radius: 0;
+      text-transform: uppercase;
+      color: #fff;
+      font-weight: 700;
+      font-size: 17px;
+      letter-spacing: 0.05em;
+      font-family: 'Poppins', sans-serif;
+      line-height: 40px;
+      float: none; }
+  .volume-inquiry-popup .fieldset > .field > .control {
+    width: 100% !important;
+    float: none !important; }
+    .volume-inquiry-popup .fieldset > .field > .control .input-text {
+      font-size: 14px;
+      font-weight: 300;
+      color: #4c4c4c;
+      height: 36px;
+      border: 0;
+      border-bottom: 2px solid rgba(100, 100, 100, 0.2);
+      position: relative;
+      background: transparent;
+      padding: 0; }
+    .volume-inquiry-popup .fieldset > .field > .control textarea {
+      min-height: 140px; }
 
 /*# sourceMappingURL=styles.css.map */

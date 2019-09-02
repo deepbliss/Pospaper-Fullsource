@@ -106,5 +106,9 @@
 
         <move element="deliveryinfo.tab" destination="product.info.details" before="reviews.tab"/>
         <move element="product.info.type" destination="product.info.media.stock" before="-"/>
+
+        <referenceContainer name="before.body.end">
+            <block class="Magento\Catalog\Block\Product\View\Description" name="volume.inquiry.form" template="Magento_Catalog::product/view/volume-inquiry-form.phtml" />
+        </referenceContainer>
     </body>
 </page>
