@@ -1824,9 +1824,6 @@ body .toolbar-products select {
   padding: 0 17px;
   background-color: #f8f8f8; }
 
-.products.wrapper ~ .toolbar-products {
-  display: none !important; }
-
 body .products {
   margin: 0;
   float: left;

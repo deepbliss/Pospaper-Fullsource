@@ -1,7 +1,9 @@
 @media screen and (min-width: 768px) {
 .product.media .fotorama__wrap--css3 .fotorama__stage {height: 429px !important;}
 }
-
+@media screen and (min-width: 1024px) {
+    body .products-grid ol li:nth-child(3n+1), body.page-products .products-grid .product-item:nth-child(3n+1) {clear: left;}
+}
 @media screen and (min-width: 1181px) {
 .product.media .fotorama__wrap--css3 .fotorama__stage {height: 469px !important;}
 }
