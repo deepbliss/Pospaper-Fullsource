@@ -4,9 +4,11 @@ $imageLoader = $_helper->getImageLoader();
 ?>
 <script type="text/javascript">
     require(['jquery', 'WeltPixel_LazyLoading/js/lazy'], function($) {
-        $(".lazy").lazy({
-            attribute: 'data-original',
-            visibleOnly: false,
+        $(document).ready(function () {
+            $(".lazy").lazy({
+                attribute: 'data-original',
+                visibleOnly: false,
+            });
         });
 
         $('body').on('loadMenu',function(e) {
