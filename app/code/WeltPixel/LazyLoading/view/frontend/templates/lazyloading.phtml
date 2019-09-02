@@ -6,7 +6,7 @@ $imageLoader = $_helper->getImageLoader();
     require(['jquery', 'WeltPixel_LazyLoading/js/lazy'], function($) {
         $(".lazy").lazy({
             attribute: 'data-original',
-            visibleOnly: true,
+            visibleOnly: false,
         });
 
         $('body').on('loadMenu',function(e) {
