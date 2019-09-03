@@ -99,7 +99,7 @@ class Topmenu extends \Magento\Theme\Block\Html\Topmenu
                     $product_image = $this->getBaseUrl() . 'pub/media/catalog/product/No_Image_Available.jpg';
                 }
                 $url = $product->getUrlModel()->getUrl($product);
-                $topSellingProducts .= '<div class="best-row"><div class="prod-item-img"><a href="'.$url.'" class="product photo product-item-photo"><img class="lazy" src="" data-original="'.$product_image.'"  /></a></div><div class="product name product-item-name"><a class="product-item-link" href="'.$url.'">'.$product->getName().'</a></div></div>';
+                $topSellingProducts .= '<div class="best-row"><div class="prod-item-img"><a href="'.$url.'" class="product photo product-item-photo"><img class="lazy" src="'.$product_image.'"  /></a></div><div class="product name product-item-name"><a class="product-item-link" href="'.$url.'">'.$product->getName().'</a></div></div>';
             }
 
         }
@@ -312,7 +312,7 @@ class Topmenu extends \Magento\Theme\Block\Html\Topmenu
             }
             $html .= '<li ' . $this->_getRenderedMenuItemAttributes($child) . '>';
             if($image) {
-                $html .= '<a href="' . $child->getUrl() . '" class="image-link" id="image-link-id-'.$menuId.'" data-title="'.htmlspecialchars($child->getName()).'"><img class="lazy" src="" data-original="'.$image.'" alt="'.addslashes($child->getName()).'" /></a>';
+                $html .= '<a href="' . $child->getUrl() . '" class="image-link" id="image-link-id-'.$menuId.'" data-title="'.htmlspecialchars($child->getName()).'"><img class="lazy" src="'.$image.'" alt="'.addslashes($child->getName()).'" /></a>';
             }
             $html .= '<a href="' . $child->getUrl() . '" ' . $outermostClassCode . ' id="category-id-'.$menuId.'"><span>' . $this->escapeHtml(
                     $child->getName()

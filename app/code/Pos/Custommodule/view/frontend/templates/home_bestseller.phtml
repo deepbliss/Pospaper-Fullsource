@@ -5,7 +5,7 @@
     <?php $productImage = $block->getImage($product, 'review_page_product_image'); ?>
     <div class='item'>
         <div class="item-wrapper">
-            <a class="slider-pro-img" href="<?= /* @escapeNotVerified */ $product->getProductUrl() ?>"><img src="" data-original="<?php echo $productImage->getImageUrl() ?>" class="lazy" /></a>
+            <a class="slider-pro-img" href="<?= /* @escapeNotVerified */ $product->getProductUrl() ?>"><img src="<?php echo $productImage->getImageUrl() ?>" class="lazy" /></a>
             <div class='slider-produc-info'>
                 <div class='main_bestseller_name slider-pro-name'>
                     <a href="<?= /* @escapeNotVerified */ $product->getProductUrl() ?>"><?php echo $block->getProductName($product->getName()) ?></a>
