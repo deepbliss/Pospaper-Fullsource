@@ -81,9 +81,12 @@ function($){
                         window.location.href = catalogLink.find('> a').attr('href');
                         return false;
                     }
-
-                    if (!target.hasClass('level-top') || !target.has('.ui-menu').length || !target.has('.level-two-container'.length)) {
+                    if ((!target.hasClass('level-top') || !target.has('.ui-menu').length) && !target.has('.level-two-container').length) {
                         window.location.href = target.find('> a').attr('href');
+                    }
+                    if(target.has('.level-two-container').length && catalogLink.has('> a').length) {
+                        window.location.href = catalogLink.find('> a').attr('href');
+                        return false;
                     }
                 },
 
