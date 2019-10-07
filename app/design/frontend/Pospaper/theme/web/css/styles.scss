@@ -10531,6 +10531,7 @@ body .columns .bar {
     .title-1 {
         font-size: 31px;
         margin-bottom: 10px;
+        line-height: 1.35;
     }
 
     .title-2 {
@@ -10602,10 +10603,6 @@ body .columns .bar {
             -webkit-box-pack: justify;
             -ms-flex-pack: justify;
             justify-content: space-between;
-        }
-
-        .title-1, .title-2 {
-            text-align: left;
         }
     }
 

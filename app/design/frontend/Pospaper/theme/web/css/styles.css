@@ -8245,7 +8245,8 @@ body .columns .bar {
       margin: 0; }
   .homepage-banners .title-1 {
     font-size: 31px;
-    margin-bottom: 10px; }
+    margin-bottom: 10px;
+    line-height: 1.35; }
   .homepage-banners .title-2 {
     font-size: 42px;
     font-weight: 500;
@@ -8295,9 +8296,7 @@ body .columns .bar {
         flex-direction: column;
         -webkit-box-pack: justify;
         -ms-flex-pack: justify;
-        justify-content: space-between; }
-      .homepage-banners .title-1, .homepage-banners .title-2 {
-        text-align: left; } }
+        justify-content: space-between; } }
   @media (max-width: 1023px) {
     .homepage-banners .col-left {
       width: 100%; }
