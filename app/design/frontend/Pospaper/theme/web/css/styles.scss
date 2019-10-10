@@ -10997,3 +10997,13 @@ body .columns .bar {
         }
     }
 }
+.checkout-payment-method {
+    .payment-method-content {
+        .authnetcim_ach {
+            select {
+                width: auto;
+                min-width: 225px;
+            }
+        }
+    }
+}

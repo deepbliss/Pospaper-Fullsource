@@ -8559,4 +8559,8 @@ body .columns .bar {
     .volume-inquiry-popup .fieldset > .field > .control textarea {
       min-height: 140px; }
 
+.checkout-payment-method .payment-method-content .authnetcim_ach select {
+  width: auto;
+  min-width: 225px; }
+
 /*# sourceMappingURL=styles.css.map */
