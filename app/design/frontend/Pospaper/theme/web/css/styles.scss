@@ -11007,3 +11007,27 @@ body .columns .bar {
         }
     }
 }
+.review-toolbar {
+    clear: both;
+    border: none;
+    .pages {
+        padding: 20px 0 !important;
+        .items {
+            float: none !important;
+            margin: 0 !important;
+
+            li {
+                background: none !important;
+                width: auto !important;
+                border: none !important;
+                padding: 0 10px !important;
+                font-size: 1.2rem !important;
+                line-height: 2.2rem !important;
+
+                strong {
+                    line-height: 2.2rem !important;
+                }
+            }
+        }
+    }
+}
