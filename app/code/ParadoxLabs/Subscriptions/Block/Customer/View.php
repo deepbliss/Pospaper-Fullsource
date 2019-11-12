@@ -120,11 +120,15 @@ class View extends \Magento\Framework\View\Element\Template
     /**
      * Get the active card for the current subscription.
      *
-     * @return \Magento\Vault\Api\Data\PaymentTokenInterface
+     * @return \Magento\Vault\Api\Data\PaymentTokenInterface|null
      */
     public function getCard()
     {
-        return $this->vaultHelper->getQuoteCard($this->getSubscription()->getQuote());
+        try {
+            return $this->vaultHelper->getQuoteCard($this->getSubscription()->getQuote());
+        } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
+            return null;
+        }
     }
 
     /**

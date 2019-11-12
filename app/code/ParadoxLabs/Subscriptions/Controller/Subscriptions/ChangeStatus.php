@@ -145,24 +145,7 @@ class ChangeStatus extends View
         /**
          * Check whether we are allowed to make this change.
          */
-        if ($this->statusSource->canSetStatus($subscription, $newStatus) === true) {
-            /**
-             * If our new status is a valid state, check permission.
-             */
-            if ($newStatus === Status::STATUS_PAUSED) {
-                if ($this->config->allowCustomerToPause($subscription->getStoreId()) === true) {
-                    $okay = true;
-                }
-            } elseif ($newStatus === Status::STATUS_CANCELED) {
-                if ($this->config->allowCustomerToCancel($subscription->getStoreId()) === true) {
-                    $okay = true;
-                }
-            } else {
-                $okay = true;
-            }
-        }
-
-        if ($okay !== true) {
+        if ($this->statusSource->canSetStatusAsCustomer($subscription, $newStatus) !== true) {
             throw new \Magento\Framework\Exception\LocalizedException(__('Invalid status request.'));
         }
 

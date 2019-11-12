@@ -213,7 +213,11 @@ class GenerateSubscriptionsObserver implements \Magento\Framework\Event\Observer
         // If we are not in the correct scope, emulate it to ensure everything comes out correct.
         $emulate = ((int)$this->storeManager->getStore()->getStoreId() !== (int)$order->getStoreId());
         if ($emulate === true) {
-            $this->emulator->startEnvironmentEmulation($order->getStoreId());
+            $this->emulator->startEnvironmentEmulation(
+                $order->getStoreId(),
+                \Magento\Framework\App\Area::AREA_FRONTEND,
+                true
+            );
         }
 
         // Ensure customer is registered
@@ -408,6 +412,7 @@ class GenerateSubscriptionsObserver implements \Magento\Framework\Event\Observer
 
         $quote->setIsMultiShipping(false)
               ->setIsActive(false)
+              ->setIsSuperMode(true)
               ->setUpdatedAt($updatedAt->format(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT))
               ->setBillingAddress($billingAddress)
               ->setShippingAddress($shippingAddress);
@@ -453,7 +458,7 @@ class GenerateSubscriptionsObserver implements \Magento\Framework\Event\Observer
 
         $info = $this->itemManager->getInfoBuyRequest($item);
 
-        $quote->addProduct($product, $info);
+        $quote->addProduct($product, $info, \Magento\Catalog\Model\Product\Type\AbstractType::PROCESS_MODE_LITE);
 
         /** @var \Magento\Quote\Model\Quote\Item $quoteItem */
         $quoteItem = $quote->getItemsCollection()->getFirstItem();
@@ -510,8 +515,8 @@ class GenerateSubscriptionsObserver implements \Magento\Framework\Event\Observer
             $payment = $quote->getPayment();
             $method = $payment->getMethod();
 
-            if (strpos($method, '_cc_vault') === false) {
-                $payment->setMethod($method . '_cc_vault');
+            if (strpos($method, 'vault') === false) {
+                $payment->setMethod($this->vaultHelper->getVaultMethodCode($method));
             }
 
             // token_metadata was used in 2.1.0-2.1.2. In 2.1.3 the values were moved to the top level.

@@ -20,11 +20,13 @@
     <preference for="ParadoxLabs\Subscriptions\Api\Data\SubscriptionSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
     <preference for="ParadoxLabs\Subscriptions\Api\Data\SubscriptionInterface" type="ParadoxLabs\Subscriptions\Model\Subscription" />
     <preference for="ParadoxLabs\Subscriptions\Api\SubscriptionRepositoryInterface" type="ParadoxLabs\Subscriptions\Model\SubscriptionRepository" />
+    <preference for="ParadoxLabs\Subscriptions\Api\CustomerSubscriptionRepositoryInterface" type="ParadoxLabs\Subscriptions\Model\Api\CustomerSubscriptionRepository" />
 
     <!-- Adding log repository -->
     <preference for="ParadoxLabs\Subscriptions\Api\Data\LogSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
     <preference for="ParadoxLabs\Subscriptions\Api\Data\LogInterface" type="ParadoxLabs\Subscriptions\Model\Log" />
     <preference for="ParadoxLabs\Subscriptions\Api\LogRepositoryInterface" type="ParadoxLabs\Subscriptions\Model\LogRepository" />
+    <preference for="ParadoxLabs\Subscriptions\Api\CustomerLogRepositoryInterface" type="ParadoxLabs\Subscriptions\Model\Api\CustomerLogRepository" />
 
     <!-- Adding interval repository -->
     <preference for="ParadoxLabs\Subscriptions\Api\Data\ProductIntervalSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
@@ -198,7 +200,7 @@
 
     <!-- Sales Rule subscription length condition hook -->
     <type name="Magento\SalesRule\Model\Rule\Condition\Product">
-        <plugin name="subscriptions_add_salesrule_condition" type="ParadoxLabs\Subscriptions\Plugin\SalesRule\Model\Rule\Condition\Product\Plugin" />
+        <plugin name="subscriptions_add_salesrule_condition" type="ParadoxLabs\Subscriptions\Plugin\SalesRule\Model\Rule\Condition\Product\Plugin" sortOrder="100" />
     </type>
 
     <!-- Custom commands -->
@@ -207,6 +209,7 @@
             <argument name="commands" xsi:type="array">
                 <item name="subscriptions_bill" xsi:type="object">ParadoxLabs\Subscriptions\Console\Command\BillCommand</item>
                 <item name="subscriptions_notify" xsi:type="object">ParadoxLabs\Subscriptions\Console\Command\NotifyCommand</item>
+                <item name="subscriptions_upcoming" xsi:type="object">ParadoxLabs\Subscriptions\Console\Command\UpcomingCommand</item>
             </argument>
         </arguments>
     </type>

@@ -26,7 +26,7 @@ class EmailSender
     /**
      * @var \Magento\Framework\Mail\Template\TransportBuilder
      */
-    protected $transportBuilder;
+    protected $transportBuilderFactory;
 
     /**
      * @var \Magento\Framework\Translate\Inline\StateInterface
@@ -72,7 +72,7 @@ class EmailSender
      * EmailSender constructor.
      *
      * @param \ParadoxLabs\Subscriptions\Model\Config $config
-     * @param \Magento\Framework\Mail\Template\TransportBuilder $transportBuilder
+     * @param \Magento\Framework\Mail\Template\TransportBuilderFactory $transportBuilderFactory
      * @param \Magento\Framework\Translate\Inline\StateInterface $inlineTranslation
      * @param \Magento\Directory\Model\CurrencyFactory $currencyFactory
      * @param \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate
@@ -83,7 +83,7 @@ class EmailSender
      */
     public function __construct(
         \ParadoxLabs\Subscriptions\Model\Config $config,
-        \Magento\Framework\Mail\Template\TransportBuilder $transportBuilder,
+        \Magento\Framework\Mail\Template\TransportBuilderFactory $transportBuilderFactory,
         \Magento\Framework\Translate\Inline\StateInterface $inlineTranslation,
         \Magento\Directory\Model\CurrencyFactory $currencyFactory,
         \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate,
@@ -92,15 +92,15 @@ class EmailSender
         \Magento\Framework\UrlInterface $urlBuilder,
         \Magento\Framework\Event\ManagerInterface $eventManager
     ) {
-        $this->config = $config;
-        $this->transportBuilder = $transportBuilder;
-        $this->inlineTranslation = $inlineTranslation;
-        $this->currencyFactory = $currencyFactory;
-        $this->localeDate = $localeDate;
-        $this->vaultHelper = $vaultHelper;
-        $this->addressHelper = $addressHelper;
-        $this->urlBuilder = $urlBuilder;
-        $this->eventManager = $eventManager;
+        $this->config                  = $config;
+        $this->transportBuilderFactory = $transportBuilderFactory;
+        $this->inlineTranslation       = $inlineTranslation;
+        $this->currencyFactory         = $currencyFactory;
+        $this->localeDate              = $localeDate;
+        $this->vaultHelper             = $vaultHelper;
+        $this->addressHelper           = $addressHelper;
+        $this->urlBuilder              = $urlBuilder;
+        $this->eventManager            = $eventManager;
     }
 
     /**
@@ -164,7 +164,8 @@ class EmailSender
         );
 
         foreach ($sendTo as $recipient) {
-            $transport = $this->transportBuilder->setTemplateIdentifier(
+            $mailBuilder = $this->transportBuilderFactory->create();
+            $mailBuilder->setTemplateIdentifier(
                 $this->config->getBillingFailedTemplate($storeId)
             )->setTemplateOptions(
                 [
@@ -173,15 +174,22 @@ class EmailSender
                 ]
             )->setTemplateVars(
                 $templateVars->getData()
-            )->setFrom(
-                $this->config->getBillingFailedSender($storeId)
             )->addTo(
                 $recipient['email'],
                 $recipient['name']
-            )->addBcc(
-                $bcc
-            )->getTransport();
+            );
 
+            if (!empty($bcc)) {
+                $mailBuilder->addBcc($bcc);
+            }
+
+            $this->setFrom(
+                $mailBuilder,
+                $this->config->getBillingFailedSender($storeId),
+                $storeId
+            );
+
+            $transport = $mailBuilder->getTransport();
             $transport->sendMessage();
         }
 
@@ -255,7 +263,8 @@ class EmailSender
         );
 
         foreach ($sendTo as $recipient) {
-            $transport = $this->transportBuilder->setTemplateIdentifier(
+            $mailBuilder = $this->transportBuilderFactory->create();
+            $mailBuilder->setTemplateIdentifier(
                 $this->config->getPaymentFailedTemplate($storeId)
             )->setTemplateOptions(
                 [
@@ -264,15 +273,22 @@ class EmailSender
                 ]
             )->setTemplateVars(
                 $templateVars->getData()
-            )->setFrom(
-                $this->config->getPaymentFailedSender($storeId)
             )->addTo(
                 $recipient['email'],
                 $recipient['name']
-            )->addBcc(
-                $bcc
-            )->getTransport();
+            );
 
+            if (!empty($bcc)) {
+                $mailBuilder->addBcc($bcc);
+            }
+
+            $this->setFrom(
+                $mailBuilder,
+                $this->config->getPaymentFailedSender($storeId),
+                $storeId
+            );
+
+            $transport = $mailBuilder->getTransport();
             $transport->sendMessage();
         }
 
@@ -359,7 +375,8 @@ class EmailSender
         );
 
         foreach ($sendTo as $recipient) {
-            $transport = $this->transportBuilder->setTemplateIdentifier(
+            $mailBuilder = $this->transportBuilderFactory->create();
+            $mailBuilder->setTemplateIdentifier(
                 $this->config->getBillingNoticeTemplate($storeId)
             )->setTemplateOptions(
                 [
@@ -368,15 +385,22 @@ class EmailSender
                 ]
             )->setTemplateVars(
                 $templateVars->getData()
-            )->setFrom(
-                $this->config->getBillingNoticeSender($storeId)
             )->addTo(
                 $recipient['email'],
                 $recipient['name']
-            )->addBcc(
-                $bcc
-            )->getTransport();
+            );
 
+            if (!empty($bcc)) {
+                $mailBuilder->addBcc($bcc);
+            }
+
+            $this->setFrom(
+                $mailBuilder,
+                $this->config->getBillingNoticeSender($storeId),
+                $storeId
+            );
+
+            $transport = $mailBuilder->getTransport();
             $transport->sendMessage();
         }
 
@@ -402,5 +426,26 @@ class EmailSender
         }
 
         return $this->currencies[$currency]->formatTxt($subscription->getSubtotal());
+    }
+
+    /**
+     * Set email sender to the given contact, by scope when possible (dependent on Magento version).
+     *
+     * @param \Magento\Framework\Mail\Template\TransportBuilder $transportBuilder
+     * @param string|int|null $contactId
+     * @param int $storeId
+     * @return \Magento\Framework\Mail\Template\TransportBuilder
+     * @throws \Magento\Framework\Exception\MailException
+     */
+    private function setFrom(\Magento\Framework\Mail\Template\TransportBuilder $transportBuilder, $contactId, $storeId)
+    {
+        // For versions that support it (2.3.1+), set contact by proper scope. Others will get global contact only.
+        if (method_exists($transportBuilder, 'setFromByScope')) {
+            $transportBuilder->setFromByScope($contactId, $storeId);
+        } else {
+            $transportBuilder->setFrom($contactId);
+        }
+
+        return $transportBuilder;
     }
 }

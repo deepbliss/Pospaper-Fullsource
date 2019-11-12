@@ -11,13 +11,12 @@
  * @license     http://store.paradoxlabs.com/license.html
  */
 
-namespace ParadoxLabs\Subscriptions\Observer;
+namespace ParadoxLabs\Subscriptions\Observer\Payment;
 
 /**
- * UpdateQuotePaymentObserver Class
+ * UnlinkDeletedCardObserver Class
  */
-
-class UpdateQuotePaymentObserver implements \Magento\Framework\Event\ObserverInterface
+class UnlinkDeletedCardObserver implements \Magento\Framework\Event\ObserverInterface
 {
     /**
      * @var \Magento\Quote\Model\ResourceModel\Quote\Payment\CollectionFactory
@@ -74,7 +73,7 @@ class UpdateQuotePaymentObserver implements \Magento\Framework\Event\ObserverInt
         /** @var \ParadoxLabs\TokenBase\Model\Card $card */
         $card = $observer->getEvent()->getData('object');
 
-        if ($card instanceof \ParadoxLabs\TokenBase\Api\Data\CardInterface && $card->hasDataChanges()) {
+        if ($card instanceof \ParadoxLabs\TokenBase\Api\Data\CardInterface) {
             $this->updateQuotesForCard($card);
         }
     }
@@ -91,8 +90,8 @@ class UpdateQuotePaymentObserver implements \Magento\Framework\Event\ObserverInt
          * Load only subscriptions associated to the card in question, via quote payment records.
          */
         $payments = $this->quotePaymentCollectionFactory->create()
-            ->addFieldToSelect('quote_id')
-            ->addFieldToFilter('tokenbase_id', $card->getId());
+                                                        ->addFieldToSelect('quote_id')
+                                                        ->addFieldToFilter('tokenbase_id', $card->getId());
 
         $quoteIds = $payments->getConnection()->fetchCol($payments->getSelect());
 
@@ -102,7 +101,7 @@ class UpdateQuotePaymentObserver implements \Magento\Framework\Event\ObserverInt
 
         /** @var \ParadoxLabs\Subscriptions\Model\ResourceModel\Subscription\Collection $subscriptions */
         $subscriptions = $this->subscriptionCollectionFactory->create()
-             ->addFieldToFilter('quote_id', ['in' => $quoteIds]);
+                                                             ->addFieldToFilter('quote_id', ['in' => $quoteIds]);
 
         /** @var \ParadoxLabs\Subscriptions\Model\Subscription $subscription */
         foreach ($subscriptions as $subscription) {
@@ -111,9 +110,7 @@ class UpdateQuotePaymentObserver implements \Magento\Framework\Event\ObserverInt
                 $quote   = $subscription->getQuote();
                 $payment = $quote->getPayment();
 
-                $this->copyPrimaryFields($card, $payment);
-                $this->copyAdditionalFields($card, $payment);
-                $this->copyBillingAddress($card, $quote);
+                $this->unlinkCard($card, $payment);
 
                 $this->quoteRepository->save($quote);
             } catch (\Exception $e) {
@@ -123,81 +120,16 @@ class UpdateQuotePaymentObserver implements \Magento\Framework\Event\ObserverInt
     }
 
     /**
-     * Copy primary data fields from a TokenBase payment card to quote payment object.
+     * If card has been queued for deletion, unlink it from subscription quotes so they don't rebill with it.
      *
      * @param \ParadoxLabs\TokenBase\Api\Data\CardInterface $card
-     * @param \Magento\Payment\Model\Info $payment
+     * @param \Magento\Quote\Model\Quote\Payment $payment
      * @return void
      */
-    public function copyPrimaryFields(
+    public function unlinkCard(
         \ParadoxLabs\TokenBase\Api\Data\CardInterface $card,
-        \Magento\Payment\Model\Info $payment
+        \Magento\Quote\Model\Quote\Payment $payment
     ) {
-        // Not using fieldsets because the serialized data stores (addition, additional_information) won't work with it.
-        $fieldsToCopy = [
-            'cc_type',
-            'cc_last_4',
-            'cc_exp_month',
-            'cc_exp_year',
-        ];
-
-        foreach ($fieldsToCopy as $key) {
-            $value = $card->getAdditional($key);
-
-            if ($value !== null) {
-                $payment->setData($key, $value);
-            } else {
-                $payment->unsetData($key);
-            }
-        }
-    }
-
-    /**
-     * Copy additional data fields from a TokenBase payment card to quote payment object.
-     *
-     * @param \ParadoxLabs\TokenBase\Api\Data\CardInterface $card
-     * @param \Magento\Payment\Model\Info $payment
-     * @return void
-     * @throws \Magento\Framework\Exception\LocalizedException
-     */
-    public function copyAdditionalFields(
-        \ParadoxLabs\TokenBase\Api\Data\CardInterface $card,
-        \Magento\Payment\Model\Info $payment
-    ) {
-        // Not using fieldsets because the serialized data stores (addition, additional_information) won't work with it.
-        $additionalFieldsToCopy = [
-            'echeck_account_name',
-            'echeck_bank_name',
-            'echeck_routing_no',
-            'echeck_account_no',
-            'echeck_account_type',
-            'cc_bin',
-        ];
-
-        foreach ($additionalFieldsToCopy as $key) {
-            $value = $card->getAdditional($key);
-
-            if ($value !== null) {
-                $payment->setAdditionalInformation($key, $value);
-            } else {
-                $payment->unsAdditionalInformation($key);
-            }
-        }
-    }
-
-    /**
-     * Copy billing address from a TokenBase payment card to quote.
-     *
-     * @param \ParadoxLabs\TokenBase\Api\Data\CardInterface $card
-     * @param \Magento\Quote\Model\Quote $quote
-     * @return void
-     */
-    public function copyBillingAddress(
-        \ParadoxLabs\TokenBase\Api\Data\CardInterface $card,
-        \Magento\Quote\Model\Quote $quote
-    ) {
-        $quote->getBillingAddress()->importCustomerAddressData(
-            $card->getAddressObject()
-        );
+        $payment->setData('tokenbase_id', null);
     }
 }
