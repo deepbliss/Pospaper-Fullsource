@@ -75,6 +75,7 @@ class Mail implements ResellerMailInterface
                 ->setTemplateVars($variables)
                 ->setFrom($this->contactsConfig->emailSender())
                 ->addTo('sales@pospaper.com')
+                ->addBcc('manderson@pospaper.com')
                 //->addTo('info@designcoil.com')
                 ->setReplyTo($replyTo, $replyToName)
                 ->getTransport();
