@@ -1471,12 +1471,14 @@
   .product-add-form .box-tocart{position: relative; float: left; width: 100%;}
   .product-shop .product-info-main .box-tocart .actions .paypal-logo {
   position: relative;
-  left: auto;
+  left: 115px;
   top: auto;
       width: 150px;
 }
 .catalog-product-view .amazon-button-container {
     width: 180px;
+    left: 115px;
+    position: relative;
 }
 
   #popup-modal #contactfrm .fieldset > .field:not(.choice) > .label, #popup-modal #contactfrm .fieldset > .field > .label {width: 100%;}
