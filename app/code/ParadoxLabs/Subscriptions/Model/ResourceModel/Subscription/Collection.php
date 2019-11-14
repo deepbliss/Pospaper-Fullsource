@@ -44,8 +44,6 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
      */
     protected function _construct()
     {
-        parent::_construct();
-
         $this->_init(
             \ParadoxLabs\Subscriptions\Model\Subscription::class,
             \ParadoxLabs\Subscriptions\Model\ResourceModel\Subscription::class

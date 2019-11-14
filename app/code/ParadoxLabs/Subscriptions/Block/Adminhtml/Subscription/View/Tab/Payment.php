@@ -136,7 +136,7 @@ class Payment extends Generic implements TabInterface
             'note',
             [
                 'name'  => 'payment_note',
-                'label' => '',
+                'label' => __(''),
                 'text'  => __(
                     'This payment record will be used for future payments. <b>Any changes will take effect on the next '
                     . 'billing.</b><br />To modify payment options, please go to the '
@@ -167,7 +167,7 @@ class Payment extends Generic implements TabInterface
                 'note',
                 [
                     'name'  => 'payment_error',
-                    'label' => '',
+                    'label' => __(''),
                     'text'  =>  __(
                         'This subscription has no assigned payment account. Please choose a payment account '
                         . 'below and save to prevent interruption.'

@@ -10,8 +10,6 @@
                 <allow_customer_cancel>1</allow_customer_cancel>
                 <group_same_day>1</group_same_day>
                 <always_add_custom_option>0</always_add_custom_option>
-                <default_to_one_time>1</default_to_one_time>
-                <enable_public_api>0</enable_public_api>
                 <option_label>Subscription</option_label>
                 <installment_label>installments</installment_label>
                 <input_type>drop_down</input_type>
@@ -42,33 +40,5 @@
                 <template>subscriptions_billing_notice_template</template>
             </billing_notice>
         </subscriptions>
-        <checkout>
-            <payment_method_vault_map>
-                <adyen_cc>
-                    <code>adyen_cc_vault</code>
-                    <active_path>payment/adyen_cc_vault/active</active_path>
-                </adyen_cc>
-                <bluesnap_hostedfields>
-                    <code>bluesnap_vault</code>
-                    <active_path>payment/bluesnap_vault/active</active_path>
-                </bluesnap_hostedfields>
-                <braintree>
-                    <code>braintree_cc_vault</code>
-                    <active_path>payment/braintree_cc_vault/active</active_path>
-                </braintree>
-                <braintree_paypal>
-                    <code>braintree_paypal_vault</code>
-                    <active_path>payment/braintree_paypal_vault/active</active_path>
-                </braintree_paypal>
-                <cayancc>
-                    <code>cayancc_vault</code>
-                    <active_path>payment/cayancc_vault/active</active_path>
-                </cayancc>
-                <payflowpro>
-                    <code>payflowpro_cc_vault</code>
-                    <active_path>payment/payflowpro_cc_vault/active</active_path>
-                </payflowpro>
-            </payment_method_vault_map>
-        </checkout>
     </default>
 </config>

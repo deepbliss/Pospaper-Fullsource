@@ -56,22 +56,6 @@ class Status extends \Magento\Catalog\Model\Product\Attribute\Source\Status
     ];
 
     /**
-     * @var \ParadoxLabs\Subscriptions\Model\Config
-     */
-    protected $config;
-
-    /**
-     * Status constructor.
-     *
-     * @param \ParadoxLabs\Subscriptions\Model\Config $config
-     */
-    public function __construct(
-        \ParadoxLabs\Subscriptions\Model\Config $config
-    ) {
-        $this->config = $config;
-    }
-
-    /**
      * Get possible status values.
      *
      * @return \string[]
@@ -165,35 +149,6 @@ class Status extends \Magento\Catalog\Model\Product\Attribute\Source\Status
 
         if (isset(static::$allowedChangeMap[$newStatus])
             && in_array($oldStatus, static::$allowedChangeMap[$newStatus], true)) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Check whether a customer can set the given status on the subscription in its current state.
-     *
-     * @param \ParadoxLabs\Subscriptions\Api\Data\SubscriptionInterface $subscription
-     * @param string $newStatus
-     * @return bool
-     */
-    public function canSetStatusAsCustomer(
-        \ParadoxLabs\Subscriptions\Api\Data\SubscriptionInterface $subscription,
-        $newStatus
-    ) {
-        if ($this->canSetStatus($subscription, $newStatus) === true) {
-            /**
-             * If our new status is a valid state, check permission (where applicable).
-             */
-            if ($newStatus === static::STATUS_PAUSED) {
-                return $this->config->allowCustomerToPause($subscription->getStoreId());
-            }
-
-            if ($newStatus === static::STATUS_CANCELED) {
-                return $this->config->allowCustomerToCancel($subscription->getStoreId());
-            }
-
             return true;
         }
 

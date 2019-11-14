@@ -154,10 +154,6 @@ class ProductOptionIntervalSetup
     ) {
         /** @var \Magento\Catalog\Model\Product\Option $option */
 
-        if (!is_array($option->getValues())) {
-            return;
-        }
-
         foreach ($option->getValues() as $value) {
             $interval = $this->intervalFactory->create();
             $interval->setProductId($option->getProductId());

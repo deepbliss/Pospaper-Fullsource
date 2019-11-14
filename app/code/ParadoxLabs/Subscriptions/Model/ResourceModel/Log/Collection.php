@@ -45,8 +45,6 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
      */
     protected function _construct()
     {
-        parent::_construct();
-
         $this->_init(
             \ParadoxLabs\Subscriptions\Model\Log::class,
             \ParadoxLabs\Subscriptions\Model\ResourceModel\Log::class
@@ -64,25 +62,5 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
         $this->addFieldToFilter('main_table.subscription_id', $subscription->getId());
 
         return $this;
-    }
-
-    /**
-     * Join the subscription table to the current collection.
-     *
-     * @return void
-     */
-    public function joinSubscriptionTable()
-    {
-        $this->join(
-            [
-                'paradoxlabs_subscription' => $this->getTable('paradoxlabs_subscription')
-            ],
-            'paradoxlabs_subscription.entity_id=main_table.subscription_id',
-            [
-                'store_id',
-                'increment_id',
-                'customer_id',
-            ]
-        );
     }
 }

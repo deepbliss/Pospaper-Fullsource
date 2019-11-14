@@ -43,18 +43,18 @@ class UpdateQuotePaymentObserver implements \Magento\Framework\Event\ObserverInt
      * UpdateQuotePaymentObserver constructor.
      *
      * @param \Magento\Quote\Model\ResourceModel\Quote\Payment\CollectionFactory $quotePaymentCollectionFactory
-     * @param \ParadoxLabs\Subscriptions\Model\ResourceModel\Subscription\CollectionFactory $subscriptionColnFactory
+     * @param \ParadoxLabs\Subscriptions\Model\ResourceModel\Subscription\CollectionFactory $subscriptionCollectionFactory
      * @param \Magento\Quote\Api\CartRepositoryInterface $quoteRepository
      * @param \ParadoxLabs\Subscriptions\Model\Config $config
      */
     public function __construct(
         \Magento\Quote\Model\ResourceModel\Quote\Payment\CollectionFactory $quotePaymentCollectionFactory,
-        \ParadoxLabs\Subscriptions\Model\ResourceModel\Subscription\CollectionFactory $subscriptionColnFactory,
+        \ParadoxLabs\Subscriptions\Model\ResourceModel\Subscription\CollectionFactory $subscriptionCollectionFactory,
         \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
         \ParadoxLabs\Subscriptions\Model\Config $config
     ) {
         $this->quotePaymentCollectionFactory = $quotePaymentCollectionFactory;
-        $this->subscriptionCollectionFactory = $subscriptionColnFactory;
+        $this->subscriptionCollectionFactory = $subscriptionCollectionFactory;
         $this->quoteRepository = $quoteRepository;
         $this->config = $config;
     }

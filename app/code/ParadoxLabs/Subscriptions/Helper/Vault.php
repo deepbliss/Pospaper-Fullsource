@@ -56,11 +56,6 @@ class Vault extends \Magento\Framework\App\Helper\AbstractHelper
     protected $offlineCardFactory;
 
     /**
-     * @var \ParadoxLabs\Subscriptions\Model\Config
-     */
-    protected $config;
-
-    /**
      * Vault constructor
      *
      * @param Context $context
@@ -70,7 +65,6 @@ class Vault extends \Magento\Framework\App\Helper\AbstractHelper
      * @param \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder
      * @param \ParadoxLabs\Subscriptions\Model\Service\Payment $paymentService
      * @param \ParadoxLabs\Subscriptions\Model\OfflinePayment\CardFactory $offlineCardFactory
-     * @param \ParadoxLabs\Subscriptions\Model\Config $config
      */
     public function __construct(
         Context $context,
@@ -79,8 +73,7 @@ class Vault extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Vault\Api\PaymentTokenRepositoryInterface $tokenRepository,
         \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
         \ParadoxLabs\Subscriptions\Model\Service\Payment $paymentService,
-        \ParadoxLabs\Subscriptions\Model\OfflinePayment\CardFactory $offlineCardFactory,
-        \ParadoxLabs\Subscriptions\Model\Config $config
+        \ParadoxLabs\Subscriptions\Model\OfflinePayment\CardFactory $offlineCardFactory
     ) {
         parent::__construct($context);
 
@@ -90,7 +83,6 @@ class Vault extends \Magento\Framework\App\Helper\AbstractHelper
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->paymentService = $paymentService;
         $this->offlineCardFactory = $offlineCardFactory;
-        $this->config = $config;
     }
 
     /**
@@ -104,11 +96,6 @@ class Vault extends \Magento\Framework\App\Helper\AbstractHelper
         // Our methods handle this implicitly.
         if ($card instanceof \ParadoxLabs\TokenBase\Api\Data\CardInterface) {
             return $card->getLabel();
-        }
-
-        // Braintree PayPal has to be different.
-        if ($card->getType() === 'account' && strpos($card->getPaymentMethodCode(), 'paypal') !== false) {
-            return __('PayPal: %1', $this->getCardType($card));
         }
 
         // Vault cards do not.
@@ -143,8 +130,6 @@ class Vault extends \Magento\Framework\App\Helper\AbstractHelper
             $type = $details['cc_type'];
         } elseif (isset($details['type'])) {
             $type = $details['type'];
-        } elseif (isset($details['payerEmail'])) {
-            $type = $details['payerEmail'];
         }
 
         return $type;
@@ -174,8 +159,6 @@ class Vault extends \Magento\Framework\App\Helper\AbstractHelper
             $ccLast4 = $details['cc_last_4'];
         } elseif (isset($details['maskedCC'])) {
             $ccLast4 = $details['maskedCC'];
-        } elseif (isset($details['cc_last_4_digits'])) {
-            $ccLast4 = $details['cc_last_4_digits'];
         }
 
         return $ccLast4;
@@ -317,17 +300,6 @@ class Vault extends \Magento\Framework\App\Helper\AbstractHelper
         }
 
         return false;
-    }
-
-    /**
-     * Get the vault payment method code for the given non-vault method.
-     *
-     * @param string $methodCode
-     * @return string
-     */
-    public function getVaultMethodCode($methodCode)
-    {
-        return $this->config->getVaultMethodCode($methodCode);
     }
 
     /**

@@ -12,25 +12,17 @@
             </strong>
             <div class="box-content">
                 <?php $card = $block->getCard(); ?>
-                <?php if ($card instanceof \Magento\Vault\Api\Data\PaymentTokenInterface): ?>
-                    <strong>
-                        <span>
-                            <?php echo $block->escapeHtml($block->getCardLabel($card)); ?>
-                        </span>
-                    </strong>
-                    <?php if (!empty($block->getCardExpires($card))): ?>
-                        <small><?php echo $block->escapeHtml(__('(Expires %1)', date('m/Y', strtotime($block->getCardExpires($card))))); ?></small>
-                    <?php endif; ?>
-                    <address>
-                        <?php echo $block->getFormattedAddress($block->getSubscription()->getQuote()->getBillingAddress()->getDataModel()); ?>
-                    </address>
-                <?php else: ?>
-                    <strong>
-                        <span>
-                            <?php echo $block->escapeHtml(__('No info found. Please add a payment method.')); ?>
-                        </span>
-                    </strong>
+                <strong>
+                    <span>
+                        <?php echo $block->escapeHtml($block->getCardLabel($card)); ?>
+                    </span>
+                </strong>
+                <?php if (!empty($block->getCardExpires($card))): ?>
+                    <small><?php echo $block->escapeHtml(__('(Expires %1)', date('m/Y', strtotime($block->getCardExpires($card))))); ?></small>
                 <?php endif; ?>
+                <address>
+                    <?php echo $block->getFormattedAddress($block->getSubscription()->getQuote()->getBillingAddress()->getDataModel()); ?>
+                </address>
             </div>
         </div>
 

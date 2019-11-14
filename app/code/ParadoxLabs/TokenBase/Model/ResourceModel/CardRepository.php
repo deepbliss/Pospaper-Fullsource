@@ -64,21 +64,6 @@ class CardRepository implements CardRepositoryInterface
     protected $dataCardFactory;
 
     /**
-     * @var \Magento\Quote\Model\Quote\PaymentFactory
-     */
-    protected $paymentFactory;
-
-    /**
-     * @var \Magento\Quote\Api\Data\CartInterfaceFactory
-     */
-    protected $quoteFactory;
-
-    /**
-     * @var \Magento\Payment\Helper\Data
-     */
-    protected $paymentHelper;
-
-    /**
      * @param \ParadoxLabs\TokenBase\Model\ResourceModel\Card $resource
      * @param \ParadoxLabs\TokenBase\Model\CardFactory $cardFactory
      * @param Data\CardInterfaceFactory $dataCardFactory
@@ -86,9 +71,6 @@ class CardRepository implements CardRepositoryInterface
      * @param Data\CardSearchResultsInterfaceFactory $searchResultsFactory
      * @param DataObjectHelper $dataObjectHelper
      * @param DataObjectProcessor $dataObjectProcessor
-     * @param \Magento\Quote\Model\Quote\PaymentFactory $paymentFactory
-     * @param \Magento\Quote\Api\Data\CartInterfaceFactory $quoteFactory
-     * @param \Magento\Payment\Helper\Data $paymentHelper
      */
     public function __construct(
         \ParadoxLabs\TokenBase\Model\ResourceModel\Card $resource,
@@ -97,10 +79,7 @@ class CardRepository implements CardRepositoryInterface
         \ParadoxLabs\TokenBase\Model\ResourceModel\Card\CollectionFactory $cardCollectionFactory,
         Data\CardSearchResultsInterfaceFactory $searchResultsFactory,
         DataObjectHelper $dataObjectHelper,
-        DataObjectProcessor $dataObjectProcessor,
-        \Magento\Quote\Model\Quote\PaymentFactory $paymentFactory,
-        \Magento\Quote\Api\Data\CartInterfaceFactory $quoteFactory,
-        \Magento\Payment\Helper\Data $paymentHelper
+        DataObjectProcessor $dataObjectProcessor
     ) {
         $this->resource = $resource;
         $this->cardFactory = $cardFactory;
@@ -109,9 +88,6 @@ class CardRepository implements CardRepositoryInterface
         $this->dataObjectHelper = $dataObjectHelper;
         $this->dataCardFactory = $dataCardFactory;
         $this->dataObjectProcessor = $dataObjectProcessor;
-        $this->paymentFactory = $paymentFactory;
-        $this->quoteFactory = $quoteFactory;
-        $this->paymentHelper = $paymentHelper;
     }
 
     /**
@@ -148,8 +124,6 @@ class CardRepository implements CardRepositoryInterface
     ) {
         $card->setAddress($address);
         $card->setAdditional($additional);
-
-        $this->updatePaymentInfo($card);
 
         return $this->save($card);
     }
@@ -234,7 +208,7 @@ class CardRepository implements CardRepositoryInterface
             foreach ($sortOrders as $sortOrder) {
                 $collection->addOrder(
                     $sortOrder->getField(),
-                    ($sortOrder->getDirection() === SortOrder::SORT_ASC) ? 'ASC' : 'DESC'
+                    ($sortOrder->getDirection() == SortOrder::SORT_ASC) ? 'ASC' : 'DESC'
                 );
             }
         }
@@ -321,48 +295,5 @@ class CardRepository implements CardRepositoryInterface
         if ($fields) {
             $collection->addFieldToFilter($fields, $conds);
         }
-    }
-
-    /**
-     * Process payment data before save. This allows new payment data to sync to the gateway.
-     *
-     * @param \ParadoxLabs\TokenBase\Model\Card $card
-     * @return void
-     * @throws \Magento\Framework\Exception\LocalizedException
-     */
-    protected function updatePaymentInfo(
-        \ParadoxLabs\TokenBase\Model\Card $card
-    ) {
-        $paymentData            = $card->getAdditional();
-        $paymentData['method']  = $card->getMethod();
-        $paymentData['card_id'] = $card->getId() > 0 ? $card->getHash() : '';
-
-        // Skip validation and import if we're given an existing card ID and no new payment info.
-        if (!empty($card->getPaymentId())
-            && empty($paymentData['cc_number'])
-            && empty($paymentData['token'])
-            && empty($paymentData['acceptjs_value'])) {
-            return;
-        }
-
-        if (isset($paymentData['cc_number'])) {
-            $paymentData['cc_last4'] = substr($paymentData['cc_number'], -4);
-            $paymentData['cc_bin']   = substr($paymentData['cc_number'], 0, 6);
-        }
-
-        /** @var \Magento\Quote\Model\Quote $quote */
-        $quote = $this->quoteFactory->create();
-
-        /** @var \Magento\Quote\Model\Quote\Payment $payment */
-        $payment = $this->paymentFactory->create();
-        $payment->setQuote($quote);
-        $payment->getQuote()->getBillingAddress()->setCountryId($card->getAddress('country_id'));
-        $payment->importData($paymentData);
-
-        $paymentMethod = $this->paymentHelper->getMethodInstance($card->getMethod());
-        $paymentMethod->setInfoInstance($payment);
-        $paymentMethod->validate();
-
-        $card->importPaymentInfo($payment);
     }
 }

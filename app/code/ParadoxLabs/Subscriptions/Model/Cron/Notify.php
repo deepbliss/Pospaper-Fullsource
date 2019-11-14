@@ -150,9 +150,9 @@ class Notify
     {
         $threshold = $this->config->getBillingNoticeAdvance();
 
-        $start        = $this->dateProcessor->date(null, null, false)->modify('+' . ($threshold - 1) . ' days');
-        $end          = $this->dateProcessor->date(null, null, false)->modify('+' . $threshold . ' days');
-        $lastNotified = $this->dateProcessor->date(null, null, false)->modify('-1 days');
+        $start        = $this->dateProcessor->date('+' . ($threshold - 1) . ' days', null, false);
+        $end          = $this->dateProcessor->date('+' . $threshold . ' days', null, false);
+        $lastNotified = $this->dateProcessor->date('-1 days', null, false);
 
         $subscriptions = $this->collectionFactory->create();
 

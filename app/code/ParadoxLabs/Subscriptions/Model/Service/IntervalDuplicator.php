@@ -86,21 +86,18 @@ class IntervalDuplicator
      */
     public function duplicateProductIntervals(\Magento\Catalog\Api\Data\ProductInterface $newProduct)
     {
-        /** @var \Magento\Catalog\Model\Product $newProduct */
-
-        // Map product IDs
-        $oldProductId = !empty($newProduct->getData('original_link_id'))
-            ? $newProduct->getData('original_link_id')
-            : $newProduct->getData('original_id');
-        $newProductId = $newProduct->getData('row_id') ?: $newProduct->getId();
-
         // Ensure the product WAS duplicated and we have all the necessary data.
+        /** @var \Magento\Catalog\Model\Product $newProduct */
         if (!$newProduct->getData('is_duplicate')
+            || empty($newProduct->getData('original_id'))
             || (int)$newProduct->getData('subscription_active') !== 1
-            || empty($oldProductId)
             || $newProduct->getId() === null) {
             return $this;
         }
+
+        // Map product IDs
+        $oldProductId = $newProduct->getData('original_id');
+        $newProductId = $newProduct->getId();
 
         try {
             // Load original product and map options
@@ -127,18 +124,14 @@ class IntervalDuplicator
             // Load old intervals, duplicate each, update IDs, and save for the new product.
             $oldIntervals = $this->intervalRepository->getIntervalsByProductId($oldProductId);
             foreach ($oldIntervals->getItems() as $oldInterval) {
-                try {
-                    $this->duplicateInterval(
-                        $oldProductId,
-                        $newProductId,
-                        $oldInterval,
-                        $newOption,
-                        $oldOptionLabelsById,
-                        $newOptionIdsByLabel
-                    );
-                } catch (\Magento\Framework\Exception\NotFoundException $e) {
-                    $this->helper->log('subscriptions', $e->getMessage());
-                }
+                $this->duplicateInterval(
+                    $oldProductId,
+                    $newProductId,
+                    $oldInterval,
+                    $newOption,
+                    $oldOptionLabelsById,
+                    $newOptionIdsByLabel
+                );
             }
         } catch (\Exception $e) {
             $this->helper->log('subscriptions', $e->getMessage());
@@ -161,7 +154,7 @@ class IntervalDuplicator
         if ($oldOption !== null) {
             $optionCollection = $this->optionCollectionFactory->create();
             $optionCollection->addTitleToResult(StoreModel::DEFAULT_STORE_ID);
-            $optionCollection->addFieldToFilter('product_id', $newProduct->getData('row_id') ?: $newProduct->getId());
+            $optionCollection->addFieldToFilter('product_id', $newProduct->getId());
             $optionCollection->addValuesToResult(StoreModel::DEFAULT_STORE_ID);
 
             foreach ($optionCollection as $newOption) {

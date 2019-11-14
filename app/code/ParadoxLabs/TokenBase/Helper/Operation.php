@@ -69,10 +69,10 @@ class Operation extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getArrayValue($data, $path, $default = '')
     {
-        $keys = explode('/', $path);
+        $path = explode('/', $path);
         $val =& $data;
 
-        foreach ($keys as $key) {
+        foreach ($path as $key) {
             if (!isset($val[$key])) {
                 return $default;
             }

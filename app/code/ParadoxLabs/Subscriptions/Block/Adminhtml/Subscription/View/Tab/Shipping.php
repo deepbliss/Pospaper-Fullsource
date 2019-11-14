@@ -222,11 +222,7 @@ class Shipping extends \Magento\Customer\Block\Address\Edit implements TabInterf
         /** @var \Magento\Quote\Model\Quote $quote */
         $quote = $this->getSubscription()->getQuote();
 
-        $this->emulator->startEnvironmentEmulation(
-            $this->getSubscription()->getStoreId(),
-            \Magento\Framework\App\Area::AREA_FRONTEND,
-            true
-        );
+        $this->emulator->startEnvironmentEmulation($this->getSubscription()->getStoreId());
 
         $quote->collectTotals();
         $quote->getShippingAddress()->setCollectShippingRates(true)

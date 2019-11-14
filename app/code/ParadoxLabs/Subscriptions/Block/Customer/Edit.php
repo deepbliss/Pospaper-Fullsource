@@ -98,13 +98,9 @@ class Edit extends View
         }
 
         // Make sure quote card is included, even if inactive.
-        try {
-            $activeCard = $this->vaultHelper->getQuoteCard(
-                $this->getSubscription()->getQuote()
-            );
-        } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
-            $activeCard = null;
-        }
+        $activeCard = $this->vaultHelper->getQuoteCard(
+            $this->getSubscription()->getQuote()
+        );
 
         if ($activeCard instanceof \Magento\Vault\Api\Data\PaymentTokenInterface) {
             $found = false;

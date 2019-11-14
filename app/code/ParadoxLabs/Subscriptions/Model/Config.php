@@ -118,21 +118,6 @@ class Config
     }
 
     /**
-     * Check whether 'one time' option should be skipped on custom options.
-     *
-     * @param int|null $storeId
-     * @return bool
-     */
-    public function defaultToOneTime($storeId = null)
-    {
-        return $this->scopeConfig->getValue(
-            'subscriptions/general/default_to_one_time',
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
-            $storeId
-        ) ? true : false;
-    }
-
-    /**
      * Check whether to group same-day subscriptions for a customer.
      *
      * @param int|null $storeId
@@ -193,24 +178,6 @@ class Config
     {
         return (bool)$this->scopeConfig->getValue(
             'subscriptions/general/enable_shipping_fallback',
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
-            $storeId
-        );
-    }
-
-    /**
-     * Check whether the public APIs are enabled.
-     *
-     * If yes, customers will be able to manage subscriptions with the GraphQL and REST APIs.
-     * If no, any requests to those public APIs will return errors.
-     *
-     * @param int|null $storeId
-     * @return bool
-     */
-    public function isPublicApiEnabled($storeId = null)
-    {
-        return (bool)$this->scopeConfig->getValue(
-            'subscriptions/general/enable_public_api',
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
             $storeId
         );
@@ -367,34 +334,11 @@ class Config
      */
     public function vaultMethodIsActive($methodCode, $storeId = null)
     {
-        // Look for explicit map first
-        $configPath = $this->scopeConfig->getValue(
-            'checkout/payment_method_vault_map/' . $methodCode . '/active_path'
-        );
-
-        // Fall back to {methodCode}_vault convention
-        if (empty($configPath)) {
-            $configPath = 'payment/' . $methodCode . '_vault/active';
-        }
-
         return $this->scopeConfig->getValue(
-            $configPath,
+            'payment/' . $methodCode . '_cc_vault/active',
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
             $storeId
         ) ? true : false;
-    }
-
-    /**
-     * Get the vault payment method code for the given non-vault method.
-     *
-     * @param string $methodCode
-     * @return string
-     */
-    public function getVaultMethodCode($methodCode)
-    {
-        return $this->scopeConfig->getValue(
-            'checkout/payment_method_vault_map/' . $methodCode . '/code'
-        ) ?: $methodCode . '_vault';
     }
 
     /**
@@ -481,14 +425,14 @@ class Config
      */
     public function getBillingNoticeCopyEmails($storeId = null)
     {
-        return array_filter(explode(
+        return explode(
             ',',
             $this->scopeConfig->getValue(
                 'subscriptions/billing_notice/copy_to',
                 \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
                 $storeId
             )
-        ));
+        );
     }
 
     /**
@@ -559,14 +503,14 @@ class Config
      */
     public function getBillingFailedCopyEmails($storeId = null)
     {
-        return array_filter(explode(
+        return explode(
             ',',
             $this->scopeConfig->getValue(
                 'subscriptions/billing_failed/copy_to',
                 \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
                 $storeId
             )
-        ));
+        );
     }
 
     /**
@@ -665,14 +609,14 @@ class Config
      */
     public function getPaymentFailedCopyEmails($storeId = null)
     {
-        return array_filter(explode(
+        return explode(
             ',',
             $this->scopeConfig->getValue(
                 'subscriptions/payment_failed/copy_to',
                 \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
                 $storeId
             )
-        ));
+        );
     }
 
     /**

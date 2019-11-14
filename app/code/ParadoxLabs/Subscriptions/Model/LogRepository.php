@@ -144,7 +144,6 @@ class LogRepository implements LogRepositoryInterface
     {
         /** @var \ParadoxLabs\Subscriptions\Model\ResourceModel\Log\Collection $collection */
         $collection = $this->logCollectionFactory->create();
-        $collection->joinSubscriptionTable();
 
         // Add filters from root filter group to the collection
         foreach ($criteria->getFilterGroups() as $group) {

@@ -29,22 +29,12 @@
     <event name="paradoxlabs_subscription_prepare_payment_braintree">
         <observer name="subscriptions_generate_prepare_braintree" instance="ParadoxLabs\Subscriptions\Observer\Payment\BraintreeObserver" />
     </event>
-    <event name="paradoxlabs_subscription_prepare_payment_braintree_paypal">
-        <observer name="subscriptions_generate_prepare_braintree" instance="ParadoxLabs\Subscriptions\Observer\Payment\BraintreeObserver" />
-    </event>
     <event name="paradoxlabs_subscription_prepare_payment_braintree_cc_vault">
-        <observer name="subscriptions_generate_prepare_braintree" instance="ParadoxLabs\Subscriptions\Observer\Payment\BraintreeObserver" />
-    </event>
-    <event name="paradoxlabs_subscription_prepare_payment_braintree_paypal_vault">
         <observer name="subscriptions_generate_prepare_braintree" instance="ParadoxLabs\Subscriptions\Observer\Payment\BraintreeObserver" />
     </event>
 
     <event name="tokenbase_card_save_after">
         <observer name="subscriptions_update_quote_payment" instance="ParadoxLabs\Subscriptions\Observer\UpdateQuotePaymentObserver" />
-    </event>
-
-    <event name="tokenbase_card_queue_delete">
-        <observer name="subscriptions_unlink_deleted_card" instance="ParadoxLabs\Subscriptions\Observer\Payment\UnlinkDeletedCardObserver" />
     </event>
 
     <!-- Customer data sync -->

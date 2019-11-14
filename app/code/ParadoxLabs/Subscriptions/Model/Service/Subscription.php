@@ -218,7 +218,7 @@ class Subscription
                         );
                     }
 
-                    $payment->setMethod($this->vaultHelper->getVaultMethodCode($card->getPaymentMethodCode()));
+                    $payment->setMethod($card->getPaymentMethodCode() . '_cc_vault');
                     $payment->setData('tokenbase_id', null);
                 }
 
@@ -295,11 +295,7 @@ class Subscription
             if ($this->shouldSkipShippingAddressField($key) === false
                 && !is_object($value)
                 && $shippingAddress->getOrigData($key) != $value) {
-                $this->emulator->startEnvironmentEmulation(
-                    $subscription->getStoreId(),
-                    \Magento\Framework\App\Area::AREA_FRONTEND,
-                    true
-                );
+                $this->emulator->startEnvironmentEmulation($subscription->getStoreId());
 
                 $quote->collectTotals();
 
@@ -384,11 +380,7 @@ class Subscription
         $keys['store_id'] = $subscription->getStoreId();
 
         // Payment
-        try {
-            $keys['payment_account'] = $this->vaultHelper->getQuoteCard($quote)->getPublicHash();
-        } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
-            // No-op: Let missing payment info pass through to fail on generation and trigger proper error handling.
-        }
+        $keys['payment_account'] = $this->vaultHelper->getQuoteCard($quote)->getPublicHash();
 
         // Shipping
         if ((bool)$quote->getIsVirtual() === false) {
@@ -420,7 +412,7 @@ class Subscription
             ]
         );
 
-        return hash('sha256', implode('-', $transport->getData()));
+        return md5(implode('-', $transport->getData()));
     }
 
     /**
@@ -439,11 +431,7 @@ class Subscription
         /** @var \ParadoxLabs\Subscriptions\Model\Subscription $firstSubscription */
         $firstSubscription = current($subscriptions);
 
-        $this->emulator->startEnvironmentEmulation(
-            $firstSubscription->getStoreId(),
-            \Magento\Framework\App\Area::AREA_FRONTEND,
-            true
-        );
+        $this->emulator->startEnvironmentEmulation($firstSubscription->getStoreId());
 
         try {
             foreach ($subscriptions as $subscription) {

@@ -17,7 +17,7 @@
                     <?php /** @var \Magento\Vault\Api\Data\PaymentTokenInterface $card */ ?>
                     <?php $cards = $block->getCustomerCards(); ?>
                     <?php foreach ($cards as $card): ?>
-                        <option value="<?php echo $block->escapeQuote($card->getPublicHash()); ?>"<?php if ($activeCard !== null && $card->getPublicHash() === $activeCard->getPublicHash()): ?> selected="selected"<?php endif; ?> title="<?php echo $block->escapeQuote(__('Payment Account')) ?>"><?php echo $block->escapeHtml($block->getCardLabel($card)); ?></option>
+                        <option value="<?php echo $block->escapeQuote($card->getPublicHash()); ?>"<?php if ($card->getPublicHash() === $activeCard->getPublicHash()): ?> selected="selected"<?php endif; ?> title="<?php echo $block->escapeQuote(__('Payment Account')) ?>"><?php echo $block->escapeHtml($block->getCardLabel($card)); ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>

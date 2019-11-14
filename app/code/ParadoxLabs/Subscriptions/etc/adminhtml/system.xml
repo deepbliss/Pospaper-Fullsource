@@ -12,7 +12,7 @@
                     <label>Version Installed</label>
                     <backend_model>ParadoxLabs\Subscriptions\Model\Config\Version</backend_model>
                 </field>
-                <field id="active" translate="label comment" type="select" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="active" translate="label comment" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enable</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
@@ -37,25 +37,15 @@
                 <field id="always_add_custom_option" translate="label comment" type="select" sortOrder="550" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Always add product option</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment><![CDATA[If 'Yes', subscription-enabled products will always have a custom option to choose the subscription interval, even if only one choice is available. 'No' will allow you to add single-option subscription simple products to configurable, grouped, and bundle products.<br />Caution: Changing this value will not affect existing Subscription custom options.]]></comment>
-                </field>
-                <field id="default_to_one_time" translate="label comment" type="select" sortOrder="565" showInDefault="1" showInWebsite="0" showInStore="0">
-                    <label>Default products to one-time purchase</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment><![CDATA[If 'Yes', when one-time purchase is allowed, subscription products will default to it, and users will not be required to select a subscription option. Otherwise, the subscription dropdown will be required and include 'One Time' as an option.<br />Caution: Changing this value will not affect existing Subscription custom options.]]></comment>
+                    <comment>If 'Yes', subscription-enabled products will always have a custom option to choose the subscription interval, even if only one choice is available. 'No' will allow you to add single-option subscription simple products to configurable, grouped, and bundle products.</comment>
                 </field>
                 <field id="option_label" translate="label comment" type="text" sortOrder="600" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Product option label</label>
                     <comment>Caution: Changing this value will not affect existing Subscription custom options.</comment>
                 </field>
-                <field id="installment_label" translate="label comment" type="text" sortOrder="700" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="installment_label" translate="label comment" type="text" sortOrder="600" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Installment term</label>
                     <comment><![CDATA[Enter the term to use for billings, as in: "Every week for 52 <b>installments</b>".<br />Caution: Changing this value will not affect existing Subscription custom options.]]></comment>
-                </field>
-                <field id="enable_public_api" translate="label" type="select" sortOrder="800" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Enable public API</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment><![CDATA[If 'Yes', Magento's REST and GraphQL APIs will allow customer subscription management. Only enable this if you use them.]]></comment>
                 </field>
             </group>
             <group id="schedule" translate="label" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">

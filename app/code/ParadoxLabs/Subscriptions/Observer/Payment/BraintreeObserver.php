@@ -89,15 +89,8 @@ class BraintreeObserver implements \Magento\Framework\Event\ObserverInterface
      */
     protected function isQuoteBraintree(\Magento\Quote\Api\Data\CartInterface $quote)
     {
-        $braintreeMethods = [
-            'braintree',
-            'braintree_paypal',
-            'braintree_cc_vault',
-            'braintree_paypal_vault',
-        ];
-
         /** @var \Magento\Quote\Model\Quote $quote */
-        if (in_array($quote->getPayment()->getMethod(), $braintreeMethods, true) !== false) {
+        if (in_array($quote->getPayment()->getMethod(), ['braintree', 'braintree_cc_vault'], true) !== false) {
             return true;
         }
 

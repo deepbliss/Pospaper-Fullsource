@@ -13,8 +13,6 @@
 
 namespace ParadoxLabs\TokenBase\Model;
 
-use Magento\Payment\Model\InfoInterface;
-
 /**
  * Soft dependency: Supporting 2.1 Vault without breaking 2.0 compatibility.
  * The 2.1+ version implements \Magento\Vault; 2.0 does not.
@@ -40,14 +38,6 @@ class Card extends \Magento\Framework\Model\AbstractExtensibleModel implements
     \ParadoxLabs\TokenBase\Api\Data\CardInterface,
     \ParadoxLabs\TokenBase\Api\Data\TokenInterface
 {
-    const PROTECTED_ADDITIONAL_KEYS = [
-        'acceptjs_key',
-        'acceptjs_value',
-        'cc_cid',
-        'cc_number',
-        'token',
-    ];
-
     /**
      * Prefix of model events names
      *
@@ -209,7 +199,7 @@ class Card extends \Magento\Framework\Model\AbstractExtensibleModel implements
      */
     protected function _construct()
     {
-        $this->_init(\ParadoxLabs\TokenBase\Model\ResourceModel\Card::class);
+        $this->_init('ParadoxLabs\TokenBase\Model\ResourceModel\Card');
     }
 
     /**
@@ -270,7 +260,7 @@ class Card extends \Magento\Framework\Model\AbstractExtensibleModel implements
      */
     public function setCustomer(
         \Magento\Customer\Api\Data\CustomerInterface $customer,
-        InfoInterface $payment = null
+        \Magento\Payment\Model\InfoInterface $payment = null
     ) {
         if ($customer->getEmail() != '') {
             $this->setCustomerEmail($customer->getEmail());
@@ -356,9 +346,9 @@ class Card extends \Magento\Framework\Model\AbstractExtensibleModel implements
      * @param \Magento\Payment\Model\InfoInterface $payment
      * @return $this
      */
-    public function importPaymentInfo(InfoInterface $payment)
+    public function importPaymentInfo(\Magento\Payment\Model\InfoInterface $payment)
     {
-        if ($payment instanceof InfoInterface) {
+        if ($payment instanceof \Magento\Payment\Model\InfoInterface) {
             /** @var \Magento\Payment\Model\Info $payment */
             if ($payment->getAdditionalInformation('save') === 0) {
                 $this->setData('active', 0);
@@ -394,7 +384,7 @@ class Card extends \Magento\Framework\Model\AbstractExtensibleModel implements
 
             $this->setData('info_instance', $payment);
 
-            if ($this->getMethodInstance()->getInfoInstance() instanceof InfoInterface === false) {
+            if ($this->getMethodInstance()->hasData('info_instance') !== true) {
                 $this->getMethodInstance()->setInfoInstance($payment);
             }
         }
@@ -476,13 +466,6 @@ class Card extends \Magento\Framework\Model\AbstractExtensibleModel implements
     public function queueDeletion()
     {
         $this->setData('active', 0);
-
-        $this->_eventManager->dispatch(
-            $this->_eventPrefix . '_queue_delete',
-            [
-                $this->_eventObject => $this,
-            ]
-        );
 
         return $this;
     }
@@ -924,7 +907,7 @@ class Card extends \Magento\Framework\Model\AbstractExtensibleModel implements
      * @param \Magento\Payment\Model\InfoInterface $payment
      * @return $this
      */
-    public function setInfoInstance(InfoInterface $payment)
+    public function setInfoInstance(\Magento\Payment\Model\InfoInterface $payment)
     {
         return $this->setData('info_instance', $payment);
     }
@@ -966,11 +949,6 @@ class Card extends \Magento\Framework\Model\AbstractExtensibleModel implements
         parent::beforeSave();
 
         /**
-         * Clean any confidential info from additional data
-         */
-        $this->cleanAdditionalData();
-
-        /**
          * If the payment ID has changed, look for any duplicate payment records that might be stored.
          */
         if ($this->getOrigData('payment_id') != $this->getData('payment_id')) {
@@ -990,9 +968,9 @@ class Card extends \Magento\Framework\Model\AbstractExtensibleModel implements
                  * If too many duplicates exist, remove them all before we continue.
                  * This will remove any duplicates that we can't simply merge over and just save the new card.
                  */
-                if ($collection->getSize() > 1) {
+                if ( $collection->getSize() > 1 ) {
                     /** @var \ParadoxLabs\TokenBase\Model\Card $card */
-                    foreach ($collection as $card) {
+                    foreach ( $collection as $card ) {
                         $this->helper->log(
                             $this->getData('method'),
                             __('Removed duplicate card %1 with profile ID %2', $card->getId(), $card->getProfileId())
@@ -1274,22 +1252,5 @@ class Card extends \Magento\Framework\Model\AbstractExtensibleModel implements
         );
 
         return $additional;
-    }
-
-    /**
-     * On save, remove any protected keys from the card additional data.
-     *
-     * @return $this
-     */
-    protected function cleanAdditionalData()
-    {
-        $this->setAdditional(
-            array_diff_key(
-                $this->getAdditional(),
-                array_flip(static::PROTECTED_ADDITIONAL_KEYS)
-            )
-        );
-
-        return $this;
     }
 }

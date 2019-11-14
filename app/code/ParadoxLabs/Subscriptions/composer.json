@@ -18,12 +18,11 @@
         "magento/module-ui": "^100.0||^101.0",
         "magento/module-user": "^100.0||^101.0",
         "monolog/monolog": "^1.11",
-        "paradoxlabs/tokenbase":"~4.2.4",
-        "ext-json": "*"
+        "paradoxlabs/tokenbase":"~4.1.6"
     },
     "type": "magento2-module",
-    "version": "3.1.4",
-    "time": "2019-10-31",
+    "version": "3.0.5",
+    "time": "2019-01-02",
     "license": "proprietary",
     "autoload": {
         "files": [ "registration.php" ],
