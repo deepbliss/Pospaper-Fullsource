@@ -1479,6 +1479,7 @@
     width: 180px;
     left: 115px;
     position: relative;
+    margin-top: 20px;
 }
 
   #popup-modal #contactfrm .fieldset > .field:not(.choice) > .label, #popup-modal #contactfrm .fieldset > .field > .label {width: 100%;}
