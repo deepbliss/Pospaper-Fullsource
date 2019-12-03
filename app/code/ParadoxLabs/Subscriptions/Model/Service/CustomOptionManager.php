@@ -130,6 +130,8 @@ class CustomOptionManager implements \ParadoxLabs\Subscriptions\Api\CustomOption
         if ($existingOption instanceof \Magento\Catalog\Api\Data\ProductCustomOptionInterface) {
             // Update existing option in-place.
             $this->generateSubscriptionOptionValues($product, $existingOption);
+
+            $existingOption->setIsRequire((int)$this->isOptionRequired($product));
         } else {
             // Unshift our new opt to ensure the first option is not deleted. Otherwise we hit a logic problem in
             // product::beforeSave(), and product.has_options will always be false (no options save).
@@ -212,7 +214,7 @@ class CustomOptionManager implements \ParadoxLabs\Subscriptions\Api\CustomOption
         $option = $this->customOptionFactory->create();
         $option->setTitle($this->config->getSubscriptionLabel());
         $option->setType($this->config->getInputType());
-        $option->setIsRequire(1);
+        $option->setIsRequire((int)$this->isOptionRequired($product));
         $option->setSortOrder(1000);
         $option->setPrice(0);
         $option->setPriceType('fixed');
@@ -337,28 +339,9 @@ class CustomOptionManager implements \ParadoxLabs\Subscriptions\Api\CustomOption
         $intervalsData = $this->processIntervalsAttributeValue($product);
 
         /**
-         * Handle one-time special case: Interval with frequency === 0 makes 'One time' option
+         * Handle one-time option special case.
          */
-        if ((int)$product->getData('subscription_allow_onetime') === 1) {
-            array_unshift(
-                $intervalsData,
-                [
-                    'frequency_count' => 0,
-                ]
-            );
-
-            // Make sure we ONLY have one zero.
-            $haveZero = false;
-            foreach ($intervalsData as $k => $interval) {
-                if (isset($interval['frequency_count']) && (int)$interval['frequency_count'] === 0) {
-                    if ($haveZero === true) {
-                        unset($intervalsData[$k]);
-                    } else {
-                        $haveZero = true;
-                    }
-                }
-            }
-        }
+        $intervalsData = $this->processOneTimeAttributeValue($product, $intervalsData);
 
         /**
          * Build keyed map for response (easy comparisons).
@@ -554,7 +537,7 @@ class CustomOptionManager implements \ParadoxLabs\Subscriptions\Api\CustomOption
              *     }
              * ]
              */
-            $jsonDecode = json_decode($intervals);
+            $jsonDecode = json_decode($intervals, true);
             if ($jsonDecode !== null && $intervals[0] === '[') {
                 $intervals = $jsonDecode;
             } elseif (!empty($product->getData('subscription_unit'))) {
@@ -597,6 +580,49 @@ class CustomOptionManager implements \ParadoxLabs\Subscriptions\Api\CustomOption
         $product->setData('subscription_intervals', implode(',', $intervalCounts));
 
         return $intervals;
+    }
+
+    /**
+     * Handle one-time option special case (when applicable).
+     *
+     * @param \Magento\Catalog\Api\Data\ProductInterface $product
+     * @param array $intervalsData
+     * @return array
+     */
+    protected function processOneTimeAttributeValue(
+        \Magento\Catalog\Api\Data\ProductInterface $product,
+        array $intervalsData
+    ) {
+        /** @var \Magento\Catalog\Model\Product $product */
+
+        if ((int)$product->getData('subscription_allow_onetime') === 1) {
+            if ($this->config->defaultToOneTime() === false) {
+                array_unshift(
+                    $intervalsData,
+                    [
+                        'frequency_count' => 0,
+                    ]
+                );
+
+                $haveZero = false;
+            } else {
+                // If we're defaulting to one-time, we don't want any option for it.
+                $haveZero = true;
+            }
+
+            // Make sure we don't have multiple zero options.
+            foreach ($intervalsData as $k => $interval) {
+                if (isset($interval['frequency_count']) && (int)$interval['frequency_count'] === 0) {
+                    if ($haveZero === true) {
+                        unset($intervalsData[ $k ]);
+                    } else {
+                        $haveZero = true;
+                    }
+                }
+            }
+        }
+
+        return $intervalsData;
     }
 
     /**
@@ -668,5 +694,23 @@ class CustomOptionManager implements \ParadoxLabs\Subscriptions\Api\CustomOption
         }
 
         return $options;
+    }
+
+    /**
+     * Check whether the subscription custom option should be required for the given product and current config.
+     *
+     * @param \Magento\Catalog\Api\Data\ProductInterface $product
+     * @return bool
+     */
+    protected function isOptionRequired(\Magento\Catalog\Api\Data\ProductInterface $product)
+    {
+        /** @var \Magento\Catalog\Model\Product $product */
+
+        // If we're not adding a one-time option and it is allowed, the dropdown should be optional.
+        if ($this->config->defaultToOneTime() && $product->getData('subscription_allow_onetime')) {
+            return false;
+        }
+
+        return true;
     }
 }

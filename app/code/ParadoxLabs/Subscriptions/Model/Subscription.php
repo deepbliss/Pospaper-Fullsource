@@ -186,7 +186,11 @@ class Subscription extends \Magento\Framework\Model\AbstractExtensibleModel impl
             // If we are not in the correct scope, we have to emulate it to load the quote.
             $emulate = ((int)$this->storeManager->getStore()->getStoreId() !== (int)$this->getStoreId());
             if ($emulate === true) {
-                $this->emulator->startEnvironmentEmulation($this->getStoreId());
+                $this->emulator->startEnvironmentEmulation(
+                    $this->getStoreId(),
+                    \Magento\Framework\App\Area::AREA_FRONTEND,
+                    true
+                );
             }
 
             try {

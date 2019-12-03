@@ -123,6 +123,11 @@ class Data extends \Magento\Payment\Helper\Data
     protected $currentCustomerSession;
 
     /**
+     * @var array
+     */
+    protected $methods;
+
+    /**
      * Construct
      *
      * @param \Magento\Framework\App\Helper\Context $context
@@ -230,15 +235,19 @@ class Data extends \Magento\Payment\Helper\Data
      */
     public function getAllMethods()
     {
-        $methods = [];
+        if ($this->methods === null) {
+            $this->methods = [];
 
-        foreach ($this->getPaymentMethods() as $code => $data) {
-            if (isset($data['group']) && $data['group'] == 'tokenbase') {
-                $methods[] = $code;
+            foreach ($this->getPaymentMethods() as $code => $data) {
+                if (isset($data['group']) && $data['group'] == 'tokenbase') {
+                    $this->methods[] = $code;
+                }
             }
+
+            return $this->methods;
         }
 
-        return $methods;
+        return $this->methods;
     }
 
     /**
@@ -282,6 +291,19 @@ class Data extends \Magento\Payment\Helper\Data
         }
 
         return $this->storeManager->getStore()->getId();
+    }
+
+    /**
+     * Return the current store object based on available info.
+     *
+     * @return \Magento\Store\Api\Data\StoreInterface
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    public function getCurrentStore()
+    {
+        return $this->storeManager->getStore(
+            $this->getCurrentStoreId()
+        );
     }
 
     /**
@@ -468,14 +490,14 @@ class Data extends \Magento\Payment\Helper\Data
                 } elseif ($this->getCurrentCustomer()->getId() > 0) {
                     // Case where we want to show a customer's stored cards (if any)
                     $this->cards[ $method ]->addFieldToFilter('active', 1)
-                                           ->addFieldToFilter('customer_id', $this->getCurrentCustomer()->getId());
+                        ->addFieldToFilter('customer_id', $this->getCurrentCustomer()->getId());
                 } else {
                     // Guest
                     return [];
                 }
             } elseif ($this->getCurrentCustomer()->getId() > 0) {
                 $this->cards[ $method ]->addFieldToFilter('active', 1)
-                                       ->addFieldToFilter('customer_id', $this->getCurrentCustomer()->getId());
+                    ->addFieldToFilter('customer_id', $this->getCurrentCustomer()->getId());
             } else {
                 return [];
             }
@@ -507,8 +529,8 @@ class Data extends \Magento\Payment\Helper\Data
     public function getIsFrontend()
     {
         // The REST API has to be considered part of the frontend, as standard checkout uses it.
-        if ($this->appState->getAreaCode() == \Magento\Framework\App\Area::AREA_FRONTEND
-            || $this->appState->getAreaCode() == \Magento\Framework\App\Area::AREA_WEBAPI_REST) {
+        if ($this->appState->getAreaCode() === \Magento\Framework\App\Area::AREA_FRONTEND
+            || $this->appState->getAreaCode() === \Magento\Framework\App\Area::AREA_WEBAPI_REST) {
             return true;
         }
 

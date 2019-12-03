@@ -14,9 +14,9 @@
 namespace ParadoxLabs\Subscriptions\Model\Cron;
 
 /**
- * Notify Class
+ * Upcoming Class
  */
-class Notify
+class Upcoming
 {
     /**
      * @var \ParadoxLabs\Subscriptions\Model\ResourceModel\Subscription\CollectionFactory
@@ -39,11 +39,6 @@ class Notify
     protected $consoleOutputStream;
 
     /**
-     * @var \ParadoxLabs\Subscriptions\Model\Service\EmailSender
-     */
-    protected $emailSender;
-
-    /**
      * @var \ParadoxLabs\Subscriptions\Api\SubscriptionRepositoryInterface
      */
     protected $subscriptionRepository;
@@ -54,12 +49,11 @@ class Notify
     protected $config;
 
     /**
-     * Bill constructor.
+     * Upcoming constructor.
      *
      * @param \ParadoxLabs\Subscriptions\Model\ResourceModel\Subscription\CollectionFactory $collectionFactory
      * @param \ParadoxLabs\Subscriptions\Helper\Data $helper
      * @param \Magento\Framework\Stdlib\DateTime\TimezoneInterface $dateProcessor
-     * @param \ParadoxLabs\Subscriptions\Model\Service\EmailSender $emailSender *Proxy
      * @param \ParadoxLabs\Subscriptions\Api\SubscriptionRepositoryInterface $subscriptionRepository
      * @param \ParadoxLabs\Subscriptions\Model\Config $config
      */
@@ -67,140 +61,80 @@ class Notify
         \ParadoxLabs\Subscriptions\Model\ResourceModel\Subscription\CollectionFactory $collectionFactory,
         \ParadoxLabs\Subscriptions\Helper\Data $helper,
         \Magento\Framework\Stdlib\DateTime\TimezoneInterface $dateProcessor,
-        \ParadoxLabs\Subscriptions\Model\Service\EmailSender $emailSender,
         \ParadoxLabs\Subscriptions\Api\SubscriptionRepositoryInterface $subscriptionRepository,
         \ParadoxLabs\Subscriptions\Model\Config $config
     ) {
         $this->collectionFactory = $collectionFactory;
         $this->helper = $helper;
         $this->dateProcessor = $dateProcessor;
-        $this->emailSender = $emailSender;
         $this->subscriptionRepository = $subscriptionRepository;
         $this->config = $config;
     }
 
     /**
-     * Send notification emails to any upcoming subscriptions within the notify threshold.
+     * Display any upcoming subscriptions without running any billing.
      *
      * @return void
      */
-    public function notifyUpcomingSubscriptions()
+    public function displayUpcomingSubscriptions()
     {
-        if ($this->config->billingNoticesAreEnabled() !== true || $this->config->moduleIsActive() !== true) {
+        if ($this->config->moduleIsActive() !== true) {
             return;
         }
 
         $subscriptions = $this->fetchUpcomingSubscriptions();
 
         if (count($subscriptions)) {
-            $this->log(
-                __(
-                    'CRON-notify: Emailing %1 subscriptions.',
-                    count($subscriptions)
-                )
-            );
-
-            $notified = 0;
-            $failed = 0;
-
             foreach ($subscriptions as $subscription) {
-                try {
-                    $this->notifySubscription($subscription);
-
-                    $success = true;
-                } catch (\Exception $e) {
-                    $success = false;
-
-                    $this->log(
-                        __(
-                            'CRON-notify: Subscription %1 failed. Error: %2',
-                            $subscription->getIncrementId(),
-                            $e->getMessage()
-                        )
-                    );
-                }
-
-                if ($success === true) {
-                    $notified++;
-                } else {
-                    $failed++;
-                }
+                $this->display($subscription);
             }
-
-            $this->log(
-                __(
-                    'CRON-notify: Completed; %1 notified, %2 failed.',
-                    $notified,
-                    $failed
-                )
-            );
         }
     }
 
     /**
      * Load upcoming subscriptions for notification.
      *
-     * Fetch any subscriptions that will be due in threshold-1 to threshold days, which have not been notified in
-     * the last day. If run hourly or less, this should ensure notifications are sent around the same time as the
-     * subscription was originally purchased.
-     *
      * @return \ParadoxLabs\Subscriptions\Model\ResourceModel\Subscription\Collection
      */
     protected function fetchUpcomingSubscriptions()
     {
-        $threshold = $this->config->getBillingNoticeAdvance();
+        $now = $this->dateProcessor->date(null, null, false);
 
-        $start        = $this->dateProcessor->date(null, null, false)->modify('+' . ($threshold - 1) . ' days');
-        $end          = $this->dateProcessor->date(null, null, false)->modify('+' . $threshold . ' days');
-        $lastNotified = $this->dateProcessor->date(null, null, false)->modify('-1 days');
-
+        /** @var \ParadoxLabs\Subscriptions\Model\ResourceModel\Subscription\Collection $subscriptions */
         $subscriptions = $this->collectionFactory->create();
-
-        // Enabled
-        $subscriptions->addFieldToFilter(
-            'status',
-            \ParadoxLabs\Subscriptions\Model\Source\Status::STATUS_ACTIVE
-        );
-
-        // threshold-1 <= next_run <= threshold
         $subscriptions->addFieldToFilter(
             'next_run',
             [
-                'gteq' => $start->format(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT),
+                'lteq' => $now->format(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT),
             ]
         );
-        $subscriptions->addFieldToFilter(
-            'next_run',
-            [
-                'lteq' => $end->format(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT),
-            ]
-        );
-
-        // last_notified < day-1
-        $subscriptions->addFieldToFilter(
-            'last_notified',
-            [
-                'lt' => $lastNotified->format(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT),
-            ]
-        );
+        $subscriptions->setOrder('next_run', \Magento\Framework\Api\SortOrder::SORT_ASC);
 
         return $subscriptions;
     }
 
     /**
-     * Send notification to the given subscription, and mark as notified.
+     * Display a given subscription
      *
      * @param \ParadoxLabs\Subscriptions\Api\Data\SubscriptionInterface $subscription
      * @return void
      */
-    protected function notifySubscription(\ParadoxLabs\Subscriptions\Api\Data\SubscriptionInterface $subscription)
+    protected function display(\ParadoxLabs\Subscriptions\Api\Data\SubscriptionInterface $subscription)
     {
-        // Send notification email
-        $this->emailSender->sendBillingNoticeEmail($subscription);
-
-        // update notified date
-        $subscription->setLastNotified(time());
-        $this->subscriptionRepository->save($subscription);
+        $this->log(
+            __(
+                "\n<info>%1</info> [<comment>%2</comment>] for customer ID %3"
+                . "\n<comment>Last installment:</comment> %4"
+                . "\n<comment>Next scheduled:</comment>   %5"
+                . "\n<comment>Subtotal:</comment>         %6",
+                $subscription->getDescription(),
+                $subscription->getIncrementId(),
+                $subscription->getCustomerId(),
+                $subscription->getLastRun(),
+                $subscription->getNextRun(),
+                $subscription->getSubtotal()
+            )
+        );
     }
 
     /**
@@ -224,7 +158,7 @@ class Notify
      */
     protected function log($message)
     {
-        $this->helper->log('subscriptions', $message);
+        $this->helper->log('subscriptions', strip_tags($message));
 
         if ($this->consoleOutputStream !== null) {
             $this->consoleOutputStream->writeln((string)$message);

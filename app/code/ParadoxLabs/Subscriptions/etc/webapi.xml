@@ -37,6 +37,7 @@
             <resource ref="ParadoxLabs_Subscriptions::subscriptions_manage"/>
         </resources>
     </route>
+
     <!-- Logs -->
     <route url="/V1/subscriptionLog/:logId" method="GET">
         <service class="ParadoxLabs\Subscriptions\Api\LogRepositoryInterface" method="getById"/>
@@ -68,6 +69,7 @@
             <resource ref="ParadoxLabs_Subscriptions::subscriptions_manage"/>
         </resources>
     </route>
+
     <!-- Intervals -->
     <!--
         NOTE: Intervals directly relate to a product custom option value by definition. Created automatically when
@@ -115,5 +117,61 @@
         <resources>
             <resource ref="ParadoxLabs_Subscriptions::subscriptions_manage"/>
         </resources>
+    </route>
+
+    <!-- Customer subscription management -->
+    <route url="/V1/subscription/mine/:subscriptionId" method="GET">
+        <service class="ParadoxLabs\Subscriptions\Api\CustomerSubscriptionRepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/subscription/mine/search" method="GET">
+        <service class="ParadoxLabs\Subscriptions\Api\CustomerSubscriptionRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/subscription/mine" method="POST">
+        <service class="ParadoxLabs\Subscriptions\Api\CustomerSubscriptionRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/subscription/mine/:subscriptionId" method="PUT">
+        <service class="ParadoxLabs\Subscriptions\Api\CustomerSubscriptionRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/subscription/mine/:subscriptionId" method="DELETE">
+        <service class="ParadoxLabs\Subscriptions\Api\CustomerSubscriptionRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/subscriptionLog/mine/search" method="GET">
+        <service class="ParadoxLabs\Subscriptions\Api\CustomerLogRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
     </route>
 </routes>
