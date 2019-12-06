@@ -10,7 +10,6 @@
         <attribute name="class" value="myaccount-div"/>
         <referenceBlock name="customer-account-navigation-downloadable-products-link" remove="true"/>
         <referenceBlock name="customer-account-navigation-billing-agreements-link" remove="true"/>
-        <referenceBlock name="customer-account-navigation-my-credit-cards-link" remove="true"/>
         <referenceBlock name="customer-account-navigation-wish-list-link" remove="true"/>
         <referenceBlock name="customer-account-navigation-newsletter-subscriptions-link">
             <arguments>
