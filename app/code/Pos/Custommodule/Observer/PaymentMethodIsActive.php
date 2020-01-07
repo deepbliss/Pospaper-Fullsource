@@ -8,6 +8,7 @@ class PaymentMethodIsActive implements ObserverInterface
 {
     protected $_customerSession;
     protected $_groupRepository;
+    protected $_scopeConfig;
     protected $_state;
     protected $_session;
     protected $_storeManager;
@@ -15,12 +16,14 @@ class PaymentMethodIsActive implements ObserverInterface
     public function __construct(
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Customer\Model\ResourceModel\GroupRepository $groupRepository,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Framework\App\State $state,
         \Magento\Backend\Model\Auth\Session $authSession,
         \Magento\Store\Model\StoreManagerInterface $storeManager
     ) {
         $this->_customerSession = $customerSession;
         $this->_groupRepository = $groupRepository;
+        $this->_scopeConfig = $scopeConfig;
         $this->_state = $state;
         $this->_session = $authSession;
         $this->_storeManager = $storeManager;
@@ -29,7 +32,9 @@ class PaymentMethodIsActive implements ObserverInterface
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
         $enabled = false;
-        $enabledGroups = array('Approved Credit Customer','Metro Diner');
+        //$enabledGroups = array('Approved Credit Customer','Metro Diner','Gromedia');
+        $enabledGroups = $this->_scopeConfig->getValue('pospaper_purchase_orders/settings/customer_groups', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        $enabledGroups = explode(',',$enabledGroups);
         $enabledStores = array('metrodiner','redrobin');
 
         $currentStore = $this->_storeManager->getStore();

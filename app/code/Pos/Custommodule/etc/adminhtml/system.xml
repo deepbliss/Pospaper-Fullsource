@@ -17,5 +17,18 @@
                 </field>
             </group>
         </section>
+        <section id="pospaper_purchase_orders" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Purchase Orders</label>
+            <tab>pospaper</tab>
+            <resource>Pos_Custommodule::custommodule_settings</resource>
+            <group id="settings" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Settings</label>
+                <field id="customer_groups" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer Groups</label>
+                    <comment>Enter comma-separated list of Customer Groups</comment>
+                </field>
+            </group>
+        </section>
     </system>
 </config>
