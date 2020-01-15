@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
     <group id="nextopia"> 
         <job name="exporter_job" instance="Nextopia\Search\Cron\Exporter" method="execute">
-            <schedule>*/15 * * * *</schedule>
+            <schedule>0 * * * *</schedule>
         </job>
     </group>
 </config>
