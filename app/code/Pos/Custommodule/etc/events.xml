@@ -3,4 +3,7 @@
     <event name="payment_method_is_active">
         <observer name="pos_custommodule_payment_method_is_active" instance="Pos\Custommodule\Observer\PaymentMethodIsActive"/>
     </event>
+    <event name="sales_order_place_before">
+        <observer name="pos_custommodule_sales_order_place_before" instance="Pos\Custommodule\Observer\SalesOrderPlaceBefore" />
+    </event>
 </config>
