@@ -10,5 +10,10 @@
     </head>
     <body>
         <referenceContainer name="search-tool-container" remove="true"/>
+        <referenceBlock name="ft_company_info">
+            <arguments>
+                <argument name="block_id" xsi:type="string">ft_company_info_homepage</argument>
+            </arguments>
+        </referenceBlock>
     </body>
 </page>
